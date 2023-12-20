@@ -1,0 +1,1606 @@
+<html style="width:100%;height:100%" lang="en"><head><meta charset="utf-8"><link rel="shortcut icon" href="/ayande.ico"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#000000"><link rel="manifest" href="/manifest.json"><title>کاربری آینده</title><link href="/static/css/2.d1d70774.chunk.css" rel="stylesheet"><link href="/static/css/main.4f5e7c39.chunk.css" rel="stylesheet"><style data-jss="" data-meta="MuiSvgIcon">
+    .MuiSvgIcon-root {
+      fill: currentColor;
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      font-size: 1.5rem;
+      transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .MuiSvgIcon-colorPrimary {
+      color: #D6AA4C;
+    }
+    .MuiSvgIcon-colorSecondary {
+      color: #f50057;
+    }
+    .MuiSvgIcon-colorAction {
+      color: rgba(0, 0, 0, 0.54);
+    }
+    .MuiSvgIcon-colorError {
+      color: #f44336;
+    }
+    .MuiSvgIcon-colorDisabled {
+      color: rgba(0, 0, 0, 0.26);
+    }
+    .MuiSvgIcon-fontSizeInherit {
+      font-size: inherit;
+    }
+    .MuiSvgIcon-fontSizeSmall {
+      font-size: 1.25rem;
+    }
+    .MuiSvgIcon-fontSizeLarge {
+      font-size: 2.1875rem;
+    }
+    </style><style data-jss="" data-meta="MuiTypography">
+    .MuiTypography-root {
+      margin: 0;
+    }
+    .MuiTypography-body2 {
+      font-size: 0.875rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.43;
+      letter-spacing: 0.01071em;
+    }
+    .MuiTypography-body1 {
+      font-size: 1rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.00938em;
+    }
+    .MuiTypography-caption {
+      font-size: 0.75rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.66;
+      letter-spacing: 0.03333em;
+    }
+    .MuiTypography-button {
+      font-size: 0.875rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 500;
+      line-height: 1.75;
+      letter-spacing: 0.02857em;
+      text-transform: uppercase;
+    }
+    .MuiTypography-h1 {
+      font-size: 6rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 300;
+      line-height: 1.167;
+      letter-spacing: -0.01562em;
+    }
+    .MuiTypography-h2 {
+      font-size: 3.75rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.00833em;
+    }
+    .MuiTypography-h3 {
+      font-size: 3rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.167;
+      letter-spacing: 0em;
+    }
+    .MuiTypography-h4 {
+      font-size: 2.125rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.235;
+      letter-spacing: 0.00735em;
+    }
+    .MuiTypography-h5 {
+      font-size: 1.5rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.334;
+      letter-spacing: 0em;
+    }
+    .MuiTypography-h6 {
+      font-size: 1.25rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: 0.0075em;
+    }
+    .MuiTypography-subtitle1 {
+      font-size: 1rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.75;
+      letter-spacing: 0.00938em;
+    }
+    .MuiTypography-subtitle2 {
+      font-size: 0.875rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 500;
+      line-height: 1.57;
+      letter-spacing: 0.00714em;
+    }
+    .MuiTypography-overline {
+      font-size: 0.75rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 2.66;
+      letter-spacing: 0.08333em;
+      text-transform: uppercase;
+    }
+    .MuiTypography-srOnly {
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+    }
+    .MuiTypography-alignLeft {
+      text-align: right;
+    }
+    .MuiTypography-alignCenter {
+      text-align: center;
+    }
+    .MuiTypography-alignRight {
+      text-align: left;
+    }
+    .MuiTypography-alignJustify {
+      text-align: justify;
+    }
+    .MuiTypography-noWrap {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .MuiTypography-gutterBottom {
+      margin-bottom: 0.35em;
+    }
+    .MuiTypography-paragraph {
+      margin-bottom: 16px;
+    }
+    .MuiTypography-colorInherit {
+      color: inherit;
+    }
+    .MuiTypography-colorPrimary {
+      color: #D6AA4C;
+    }
+    .MuiTypography-colorSecondary {
+      color: #f50057;
+    }
+    .MuiTypography-colorTextPrimary {
+      color: rgba(0, 0, 0, 0.87);
+    }
+    .MuiTypography-colorTextSecondary {
+      color: rgba(0, 0, 0, 0.54);
+    }
+    .MuiTypography-colorError {
+      color: #f44336;
+    }
+    .MuiTypography-displayInline {
+      display: inline;
+    }
+    .MuiTypography-displayBlock {
+      display: block;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss36 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss37 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss38 {
+      background-color: #4caf50;
+    }
+    .jss39 {
+      background-color: #D6AA4C;
+    }
+    .jss40 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss41 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss42 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss42 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss43 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss44 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss45 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss46 {
+      font-size: 20px;
+    }
+    .jss47 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss48 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss49 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss50 {
+      width: 100%;
+      display: flex;
+    }
+    .jss51 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss52 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss53 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss54 {
+      height: 330px;
+    }
+    .jss55 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss56 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss57 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss58 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss59 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="MuiFormControl">
+    .MuiFormControl-root {
+      border: 0;
+      margin: 0;
+      display: inline-flex;
+      padding: 0;
+      position: relative;
+      min-width: 0;
+      flex-direction: column;
+      vertical-align: top;
+    }
+    .MuiFormControl-marginNormal {
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    .MuiFormControl-marginDense {
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+    .MuiFormControl-fullWidth {
+      width: 100%;
+    }
+    </style><style data-jss="" data-meta="MuiFormLabel">
+    .MuiFormLabel-root {
+      color: rgba(0, 0, 0, 0.54);
+      padding: 0;
+      font-size: 1rem;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.00938em;
+    }
+    .MuiFormLabel-root.Mui-focused {
+      color: #D6AA4C;
+    }
+    .MuiFormLabel-root.Mui-disabled {
+      color: rgba(0, 0, 0, 0.38);
+    }
+    .MuiFormLabel-root.Mui-error {
+      color: #f44336;
+    }
+    .MuiFormLabel-colorSecondary.Mui-focused {
+      color: #f50057;
+    }
+    .MuiFormLabel-asterisk.Mui-error {
+      color: #f44336;
+    }
+    </style><style data-jss="" data-meta="MuiInputLabel">
+    .MuiInputLabel-root {
+      display: block;
+      transform-origin: top right;
+    }
+    .MuiInputLabel-formControl {
+      top: 0;
+      right: 0;
+      position: absolute;
+      transform: translate(0, 24px) scale(1);
+    }
+    .MuiInputLabel-marginDense {
+      transform: translate(0, 21px) scale(1);
+    }
+    .MuiInputLabel-shrink {
+      transform: translate(0, 1.5px) scale(0.75);
+      transform-origin: top right;
+    }
+    .MuiInputLabel-animated {
+      transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+    }
+    .MuiInputLabel-filled {
+      z-index: 1;
+      transform: translate(-12px, 20px) scale(1);
+      pointer-events: none;
+    }
+    .MuiInputLabel-filled.MuiInputLabel-marginDense {
+      transform: translate(-12px, 17px) scale(1);
+    }
+    .MuiInputLabel-filled.MuiInputLabel-shrink {
+      transform: translate(-12px, 10px) scale(0.75);
+    }
+    .MuiInputLabel-filled.MuiInputLabel-shrink.MuiInputLabel-marginDense {
+      transform: translate(-12px, 7px) scale(0.75);
+    }
+    .MuiInputLabel-outlined {
+      z-index: 1;
+      transform: translate(-14px, 20px) scale(1);
+      pointer-events: none;
+    }
+    .MuiInputLabel-outlined.MuiInputLabel-marginDense {
+      transform: translate(-14px, 12px) scale(1);
+    }
+    .MuiInputLabel-outlined.MuiInputLabel-shrink {
+      transform: translate(-14px, -6px) scale(0.75);
+    }
+    </style><style data-jss="" data-meta="MuiInputBase">
+    @-webkit-keyframes mui-auto-fill {}
+    @-webkit-keyframes mui-auto-fill-cancel {}
+    .MuiInputBase-root {
+      color: rgba(0, 0, 0, 0.87);
+      cursor: text;
+      display: inline-flex;
+      position: relative;
+      font-size: 1rem;
+      box-sizing: border-box;
+      align-items: center;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 1.1876em;
+      letter-spacing: 0.00938em;
+    }
+    .MuiInputBase-root.Mui-disabled {
+      color: rgba(0, 0, 0, 0.38);
+      cursor: default;
+    }
+    .MuiInputBase-multiline {
+      padding: 6px 0 7px;
+    }
+    .MuiInputBase-multiline.MuiInputBase-marginDense {
+      padding-top: 3px;
+    }
+    .MuiInputBase-fullWidth {
+      width: 100%;
+    }
+    .MuiInputBase-input {
+      font: inherit;
+      color: currentColor;
+      width: 100%;
+      border: 0;
+      height: 1.1876em;
+      margin: 0;
+      display: block;
+      padding: 6px 0 7px;
+      min-width: 0;
+      background: none;
+      box-sizing: content-box;
+      animation-name: mui-auto-fill-cancel;
+      letter-spacing: inherit;
+      animation-duration: 10ms;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .MuiInputBase-input::-webkit-input-placeholder {
+      color: currentColor;
+      opacity: 0.42;
+      transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    }
+    .MuiInputBase-input::-moz-placeholder {
+      color: currentColor;
+      opacity: 0.42;
+      transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    }
+    .MuiInputBase-input:-ms-input-placeholder {
+      color: currentColor;
+      opacity: 0.42;
+      transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    }
+    .MuiInputBase-input::-ms-input-placeholder {
+      color: currentColor;
+      opacity: 0.42;
+      transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    }
+    .MuiInputBase-input:focus {
+      outline: 0;
+    }
+    .MuiInputBase-input:invalid {
+      box-shadow: none;
+    }
+    .MuiInputBase-input::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+    .MuiInputBase-input.Mui-disabled {
+      opacity: 1;
+    }
+    .MuiInputBase-input:-webkit-autofill {
+      animation-name: mui-auto-fill;
+      animation-duration: 5000s;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input::-webkit-input-placeholder {
+      opacity: 0 !important;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input::-moz-placeholder {
+      opacity: 0 !important;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input:-ms-input-placeholder {
+      opacity: 0 !important;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input::-ms-input-placeholder {
+      opacity: 0 !important;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input:focus::-webkit-input-placeholder {
+      opacity: 0.42;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input:focus::-moz-placeholder {
+      opacity: 0.42;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input:focus:-ms-input-placeholder {
+      opacity: 0.42;
+    }
+    label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input:focus::-ms-input-placeholder {
+      opacity: 0.42;
+    }
+    .MuiInputBase-inputMarginDense {
+      padding-top: 3px;
+    }
+    .MuiInputBase-inputMultiline {
+      height: auto;
+      resize: none;
+      padding: 0;
+    }
+    .MuiInputBase-inputTypeSearch {
+      -moz-appearance: textfield;
+      -webkit-appearance: textfield;
+    }
+    </style><style data-jss="" data-meta="MuiInput">
+    .MuiInput-root {
+      position: relative;
+    }
+    label + .MuiInput-formControl {
+      margin-top: 16px;
+    }
+    .MuiInput-colorSecondary.MuiInput-underline:after {
+      border-bottom-color: #f50057;
+    }
+    .MuiInput-underline:after {
+      right: 0;
+      left: 0;
+      bottom: 0;
+      content: "";
+      position: absolute;
+      transform: scaleX(0);
+      transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+      border-bottom: 2px solid #D6AA4C;
+      pointer-events: none;
+    }
+    .MuiInput-underline.Mui-focused:after {
+      transform: scaleX(1);
+    }
+    .MuiInput-underline.Mui-error:after {
+      transform: scaleX(1);
+      border-bottom-color: #f44336;
+    }
+    .MuiInput-underline:before {
+      right: 0;
+      left: 0;
+      bottom: 0;
+      content: "\00a0";
+      position: absolute;
+      transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      pointer-events: none;
+    }
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+    }
+    .MuiInput-underline.Mui-disabled:before {
+      border-bottom-style: dotted;
+    }
+    @media (hover: none) {
+      .MuiInput-underline:hover:not(.Mui-disabled):before {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      }
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss60 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss61 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss62 {
+      background-color: #4caf50;
+    }
+    .jss63 {
+      background-color: #D6AA4C;
+    }
+    .jss64 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss65 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss66 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss66 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss67 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss68 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss69 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss70 {
+      font-size: 20px;
+    }
+    .jss71 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss72 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss73 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss74 {
+      width: 100%;
+      display: flex;
+    }
+    .jss75 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss76 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss77 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss78 {
+      height: 330px;
+    }
+    .jss79 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss80 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss81 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss82 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss83 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss84 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss85 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss86 {
+      background-color: #4caf50;
+    }
+    .jss87 {
+      background-color: #D6AA4C;
+    }
+    .jss88 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss89 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss90 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss90 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss91 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss92 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss93 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss94 {
+      font-size: 20px;
+    }
+    .jss95 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss96 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss97 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss98 {
+      width: 100%;
+      display: flex;
+    }
+    .jss99 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss100 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss101 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss102 {
+      height: 330px;
+    }
+    .jss103 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss104 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss105 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss106 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss107 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss108 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss109 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss110 {
+      background-color: #4caf50;
+    }
+    .jss111 {
+      background-color: #D6AA4C;
+    }
+    .jss112 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss113 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss114 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss114 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss115 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss116 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss117 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss118 {
+      font-size: 20px;
+    }
+    .jss119 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss120 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss121 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss122 {
+      width: 100%;
+      display: flex;
+    }
+    .jss123 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss124 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss125 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss126 {
+      height: 330px;
+    }
+    .jss127 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss128 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss129 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss130 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss131 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss132 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss133 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss134 {
+      background-color: #4caf50;
+    }
+    .jss135 {
+      background-color: #D6AA4C;
+    }
+    .jss136 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss137 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss138 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss138 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss139 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss140 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss141 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss142 {
+      font-size: 20px;
+    }
+    .jss143 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss144 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss145 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss146 {
+      width: 100%;
+      display: flex;
+    }
+    .jss147 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss148 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss149 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss150 {
+      height: 330px;
+    }
+    .jss151 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss152 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss153 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss154 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss155 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss180 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss181 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss182 {
+      background-color: #4caf50;
+    }
+    .jss183 {
+      background-color: #D6AA4C;
+    }
+    .jss184 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss185 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss186 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss186 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss187 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss188 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss189 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss190 {
+      font-size: 20px;
+    }
+    .jss191 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss192 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss193 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss194 {
+      width: 100%;
+      display: flex;
+    }
+    .jss195 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss196 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss197 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss198 {
+      height: 330px;
+    }
+    .jss199 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss200 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss201 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss202 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss203 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss156 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss157 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss158 {
+      background-color: #4caf50;
+    }
+    .jss159 {
+      background-color: #D6AA4C;
+    }
+    .jss160 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss161 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss162 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss162 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss163 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss164 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss165 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss166 {
+      font-size: 20px;
+    }
+    .jss167 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss168 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss169 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss170 {
+      width: 100%;
+      display: flex;
+    }
+    .jss171 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss172 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss173 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss174 {
+      height: 330px;
+    }
+    .jss175 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss176 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss177 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss178 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss179 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss204 {
+      width: 90%;
+      margin: 0 auto;;
+      max-width: 1000px;
+    }
+    .jss205 {
+      margin-left: 8px;
+    }
+    .jss206 {
+      margin-left: 8px;
+    }
+    .jss207 {
+      display: inline-block;
+    }
+    .jss208 {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss12 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background: url("/shamse.jpg") no-repeat;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      justify-content: center;
+      background-position: center;
+    }
+    .jss13 {
+      margin: 8px;
+      position: relative;
+    }
+    .jss14 {
+      background-color: #4caf50;
+    }
+    .jss15 {
+      background-color: #D6AA4C;
+    }
+    .jss16 {
+      top: -6px;
+      right: -6px;
+      color: #4caf50;
+      z-index: 1;
+      position: absolute;
+    }
+    .jss17 {
+      top: 50%;
+      right: 50%;
+      color: #4caf50;
+      position: absolute;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    .jss18 {
+      width: auto;
+      display: block;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    @media (min-width:448px) {
+      .jss18 {
+        width: 400px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .jss19 {
+      width: 450px;
+      height: 550px;
+      padding: 16px 24px 24px;
+      margin-top: -4px;
+    }
+    .jss20 {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .jss21 {
+      height: 40px;
+      margin-right: 8px;
+    }
+    .jss22 {
+      font-size: 20px;
+    }
+    .jss23 {
+      color: #6a3624;
+      font-size: 18px;
+      margin-top: 16px;
+    }
+    .jss24 {
+      height: 40px;
+      font-size: 1.1rem;
+      margin-left: 8px;
+    }
+    .jss25 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .jss26 {
+      width: 100%;
+      display: flex;
+    }
+    .jss27 {
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .jss28 {
+      height: 80px;
+      margin: 5px;
+      margin-bottom: 20px;
+    }
+    .jss29 {
+      widht: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .jss30 {
+      height: 330px;
+    }
+    .jss31 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .jss32 {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .jss33 {
+      width: 100%;
+      height: 5px;
+      margin-top: 64px;
+      border-radius: 4px;
+    }
+    .jss34 {
+      color: #9f9f9f;
+      margin: 0 10px;
+      font-size: 10px !important;
+    }
+    .jss35 {
+      margin: 0;
+      font-size: 11px;
+    }
+    </style><style data-jss="" data-meta="makeStyles">
+    .jss1 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+    .jss2 {
+      z-index: 1201;
+      transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms, margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+      background-color: #D6AA4C;
+    }
+    .jss3 {
+      width: calc(100% - 240px);
+      transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms, margin 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+      margin-right: 240px;
+    }
+    .jss4 {
+      margin-right: 12px;
+      margin-left: 36px;
+    }
+    .jss5 {
+      display: none;
+    }
+    .jss6 {
+      width: 240px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .jss7 {
+      width: 240px;
+      transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+    }
+    .jss8 {
+      width: 57px;
+      overflow-x: hidden;
+      transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+    }
+    @media (min-width:600px) {
+      .jss8 {
+        width: 73px;
+      }
+    }
+    .jss9 {
+      display: flex;
+      padding: 0 8px;
+      min-height: 56px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    @media (min-width:0px) and (orientation: landscape) {
+      .jss9 {
+        min-height: 48px;
+      }
+    }
+    @media (min-width:600px) {
+      .jss9 {
+        min-height: 64px;
+      }
+    }
+    .jss10 {
+      padding: 24px;
+      flex-grow: 1;
+    }
+    .jss11 {
+      padding-right: 32px;
+    }
+    </style></head><img class="safum-vpn-status" id="anenfchlanlnhmjibebhkgbnelojooic-img" src="chrome-extension://anenfchlanlnhmjibebhkgbnelojooic/web_accessible_resources/status_on.png" alt="status"><body style="width:100%;height:100%" dir="rtl" data-new-gr-c-s-check-loaded="14.1110.0" data-gr-ext-installed=""><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><span class="MuiTypography-root"><div style="width: 100vw; height: 100vh;"><div><main class="uk-background-muted login_login__3Y6Mb"><section class=""><section class="uk-container uk-container-xsmall uk-flex uk-flex-column uk-flex-middle uk-flex-center@m "><figure class="logo-box uk-text-center"><img src="/static/media/Ayandeh.e7a9da97.svg" alt="لوگوی بانک آینده"></figure><div class="uk-card uk-card-default uk-card-body uk-position-relative card_card_body__DU_vY undefined"><h4 class="uk-heading-bullet uk-margin-medium card_title__pOp2-">رمزعبور و کد امنیتی را وارد کنید</h4><span><div><div class="uk-margin"><label class="uk-form-label uk-margin-small uk-display-block" for="password">رمزعبور خود را وارد کنید</label><div class="uk-form-controls uk-position-relative" aria-expanded="false"><span class="uk-form-icon uk-icon" uk-icon="icon: lock"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="lock"><rect fill="none" stroke="#000" height="10" width="13" y="8.5" x="3.5"></rect><path fill="none" stroke="#000" d="M6.5,8 L6.5,4.88 C6.5,3.01 8.07,1.5 10,1.5 C11.93,1.5 13.5,3.01 13.5,4.88 L13.5,8"></path></svg></span><input autocomplete="off" dir="ltr" id="password" class="uk-input uk-text-left" type="password" placeholder="رمز عبور" value="Amir@1362@NN "></div><div id="keyboardContainer" uk-drop="mode: null; pos: top-justify; offset: 3" class="uk-drop" style="width: 445px; left: 40px; top: -94px;"><div style="direction: ltr;"><div class="react-simple-keyboard simple-keyboard hg-theme-default hg-layout-default"><div class="hg-row"><div class="hg-button hg-standardBtn" data-skbtn="`" data-skbtnuid="default-r0b0"><span>`</span></div><div class="hg-button hg-standardBtn" data-skbtn="8" data-skbtnuid="default-r0b1"><span>8</span></div><div class="hg-button hg-standardBtn" data-skbtn="9" data-skbtnuid="default-r0b2"><span>9</span></div><div class="hg-button hg-standardBtn" data-skbtn="3" data-skbtnuid="default-r0b3"><span>3</span></div><div class="hg-button hg-standardBtn" data-skbtn="6" data-skbtnuid="default-r0b4"><span>6</span></div><div class="hg-button hg-standardBtn" data-skbtn="2" data-skbtnuid="default-r0b5"><span>2</span></div><div class="hg-button hg-standardBtn" data-skbtn="7" data-skbtnuid="default-r0b6"><span>7</span></div><div class="hg-button hg-standardBtn" data-skbtn="5" data-skbtnuid="default-r0b7"><span>5</span></div><div class="hg-button hg-standardBtn" data-skbtn="1" data-skbtnuid="default-r0b8"><span>1</span></div><div class="hg-button hg-standardBtn" data-skbtn="4" data-skbtnuid="default-r0b9"><span>4</span></div><div class="hg-button hg-standardBtn" data-skbtn="0" data-skbtnuid="default-r0b10"><span>0</span></div><div class="hg-button hg-standardBtn" data-skbtn="-" data-skbtnuid="default-r0b11"><span>-</span></div><div class="hg-button hg-standardBtn" data-skbtn="=" data-skbtnuid="default-r0b12"><span>=</span></div><div class="hg-button hg-functionBtn hg-button-bksp" data-skbtn="{bksp}" data-skbtnuid="default-r0b13"><span>backspace</span></div></div><div class="hg-row"><div class="hg-button hg-functionBtn hg-button-tab" data-skbtn="{tab}" data-skbtnuid="default-r1b0"><span>tab</span></div><div class="hg-button hg-standardBtn" data-skbtn="h" data-skbtnuid="default-r1b1"><span>h</span></div><div class="hg-button hg-standardBtn" data-skbtn="n" data-skbtnuid="default-r1b2"><span>n</span></div><div class="hg-button hg-standardBtn" data-skbtn="u" data-skbtnuid="default-r1b3"><span>u</span></div><div class="hg-button hg-standardBtn" data-skbtn="r" data-skbtnuid="default-r1b4"><span>r</span></div><div class="hg-button hg-standardBtn" data-skbtn="t" data-skbtnuid="default-r1b5"><span>t</span></div><div class="hg-button hg-standardBtn" data-skbtn="v" data-skbtnuid="default-r1b6"><span>v</span></div><div class="hg-button hg-standardBtn" data-skbtn="w" data-skbtnuid="default-r1b7"><span>w</span></div><div class="hg-button hg-standardBtn" data-skbtn="d" data-skbtnuid="default-r1b8"><span>d</span></div><div class="hg-button hg-standardBtn" data-skbtn="c" data-skbtnuid="default-r1b9"><span>c</span></div><div class="hg-button hg-standardBtn" data-skbtn="a" data-skbtnuid="default-r1b10"><span>a</span></div><div class="hg-button hg-standardBtn" data-skbtn="]" data-skbtnuid="default-r1b11"><span>]</span></div><div class="hg-button hg-standardBtn" data-skbtn="[" data-skbtnuid="default-r1b12"><span>[</span></div><div class="hg-button hg-standardBtn" data-skbtn="\" data-skbtnuid="default-r1b13"><span>\</span></div></div><div class="hg-row"><div class="hg-button hg-functionBtn hg-button-lock" data-skbtn="{lock}" data-skbtnuid="default-r2b0"><span>caps</span></div><div class="hg-button hg-standardBtn" data-skbtn="y" data-skbtnuid="default-r2b1"><span>y</span></div><div class="hg-button hg-standardBtn" data-skbtn="s" data-skbtnuid="default-r2b2"><span>s</span></div><div class="hg-button hg-standardBtn" data-skbtn="x" data-skbtnuid="default-r2b3"><span>x</span></div><div class="hg-button hg-standardBtn" data-skbtn="f" data-skbtnuid="default-r2b4"><span>f</span></div><div class="hg-button hg-standardBtn" data-skbtn="i" data-skbtnuid="default-r2b5"><span>i</span></div><div class="hg-button hg-standardBtn" data-skbtn="k" data-skbtnuid="default-r2b6"><span>k</span></div><div class="hg-button hg-standardBtn" data-skbtn="e" data-skbtnuid="default-r2b7"><span>e</span></div><div class="hg-button hg-standardBtn" data-skbtn="b" data-skbtnuid="default-r2b8"><span>b</span></div><div class="hg-button hg-standardBtn" data-skbtn="l" data-skbtnuid="default-r2b9"><span>l</span></div><div class="hg-button hg-standardBtn" data-skbtn=";" data-skbtnuid="default-r2b10"><span>;</span></div><div class="hg-button hg-standardBtn" data-skbtn="'" data-skbtnuid="default-r2b11"><span>'</span></div><div class="hg-button hg-functionBtn hg-button-enter" data-skbtn="{enter}" data-skbtnuid="default-r2b12"><span>&lt; enter</span></div></div><div class="hg-row"><div class="hg-button hg-functionBtn hg-button-shift" data-skbtn="{shift}" data-skbtnuid="default-r3b0"><span>shift</span></div><div class="hg-button hg-standardBtn" data-skbtn="q" data-skbtnuid="default-r3b1"><span>q</span></div><div class="hg-button hg-standardBtn" data-skbtn="g" data-skbtnuid="default-r3b2"><span>g</span></div><div class="hg-button hg-standardBtn" data-skbtn="z" data-skbtnuid="default-r3b3"><span>z</span></div><div class="hg-button hg-standardBtn" data-skbtn="p" data-skbtnuid="default-r3b4"><span>p</span></div><div class="hg-button hg-standardBtn" data-skbtn="m" data-skbtnuid="default-r3b5"><span>m</span></div><div class="hg-button hg-standardBtn" data-skbtn="o" data-skbtnuid="default-r3b6"><span>o</span></div><div class="hg-button hg-standardBtn" data-skbtn="j" data-skbtnuid="default-r3b7"><span>j</span></div><div class="hg-button hg-standardBtn" data-skbtn="/" data-skbtnuid="default-r3b8"><span>/</span></div><div class="hg-button hg-standardBtn" data-skbtn="." data-skbtnuid="default-r3b9"><span>.</span></div><div class="hg-button hg-standardBtn" data-skbtn="," data-skbtnuid="default-r3b10"><span>,</span></div><div class="hg-button hg-functionBtn hg-button-shift" data-skbtn="{shift}" data-skbtnuid="default-r3b11"><span>shift</span></div></div><div class="hg-row"><div class="hg-button hg-functionBtn hg-button-space" data-skbtn="{space}" data-skbtnuid="default-r4b0"><span> </span></div></div></div></div></div></div><div class="uk-margin uk-margin-small-bottom"><label class="uk-form-label uk-margin-small uk-margin-medium-top uk-display-block" for="otp">کد امنیتی را از طریق پیامک دریافت و وارد نمایید<span> <a> دریافت کد امنیتی</a></span></label><div class="uk-form-controls uk-position-relative"><span class="uk-form-icon uk-icon" uk-icon="icon: phone"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="phone"><path fill="none" stroke="#000" d="M15.5,17 C15.5,17.8 14.8,18.5 14,18.5 L7,18.5 C6.2,18.5 5.5,17.8 5.5,17 L5.5,3 C5.5,2.2 6.2,1.5 7,1.5 L14,1.5 C14.8,1.5 15.5,2.2 15.5,3 L15.5,17 L15.5,17 L15.5,17 Z"></path><circle cx="10.5" cy="16.5" r=".8"></circle></svg></span><input autocomplete="off" dir="ltr" id="otp" class="uk-input uk-text-left" type="number" placeholder="کد امنیتی پیامکی"></div></div><div class="uk-margin-medium" style="display: flex; flex-direction: row; margin-top: -40px;"><div class="MuiFormControl-root MuiFormControl-fullWidth"><label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated" data-shrink="false" for="captcha">عبارت روبرو را وارد کنید</label><div class="MuiInputBase-root MuiInput-root MuiInput-underline jss70 MuiInputBase-formControl MuiInput-formControl"><input aria-invalid="false" autocomplete="off" id="captcha" type="text" class="MuiInputBase-input MuiInput-input" value=""></div></div><div style="margin-top: 20px;"><svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0,0,150,50"><path d="M21 39 C59 45,58 27,146 47" stroke="#888" fill="none"></path><path d="M1 4 C56 17,54 14,134 26" stroke="#888" fill="none"></path><path fill="#222" d="M26.07 37.82L26.17 37.93L26.23 37.98Q26.55 38.99 27.09 41.01L27.00 40.92L26.99 40.92Q22.71 39.53 18.10 39.80L18.24 39.93L18.20 39.89Q13.56 40.08 9.56 42.06L9.61 42.12L9.56 42.06Q9.91 41.50 9.94 41.57L9.77 41.40L9.86 41.49Q13.56 37.50 17.48 33.08L17.58 33.18L17.57 33.17Q21.82 28.02 23.00 23.34L23.15 23.48L23.02 23.36Q23.51 21.64 22.23 20.46L22.27 20.49L22.38 20.60Q21.03 19.34 19.24 19.50L19.27 19.53L19.21 19.47Q18.91 19.48 18.57 19.48L18.44 19.35L18.47 19.38Q17.07 19.50 15.82 20.42L15.81 20.41L15.83 20.43Q14.47 21.74 14.70 24.40L14.76 24.46L14.64 24.34Q12.99 24.14 11.77 23.68L11.71 23.61L11.73 23.64Q11.44 22.13 11.36 20.68L11.32 20.64L11.41 20.73Q11.40 19.15 12.00 18.01L12.01 18.01L11.92 17.93Q13.77 16.62 17.12 16.62L17.03 16.53L18.90 16.65L18.80 16.54Q21.20 16.70 22.15 16.82L22.11 16.78L22.10 16.77Q26.37 17.11 26.63 19.54L26.63 19.54L26.68 19.59Q26.77 20.17 26.69 20.97L26.70 20.98L26.72 21.01Q26.62 21.59 26.47 22.28L26.45 22.26L26.39 22.20Q24.77 30.32 17.19 37.17L17.34 37.32L17.37 37.35Q18.64 37.06 20.01 37.06L20.04 37.09L20.11 37.16Q23.35 37.16 26.20 37.96ZM25.64 17.15L25.62 17.12L25.50 17.00Q24.00 16.46 22.29 16.38L22.33 16.42L18.90 16.23L18.74 16.07Q14.30 15.81 12.09 16.92L12.27 17.10L12.17 17.00Q11.15 18.42 11.15 20.47L11.14 20.46L11.05 20.37Q11.20 21.20 11.50 24.02L11.44 23.95L11.47 23.98Q11.99 24.20 13.17 24.51L13.22 24.55L13.18 25.54L13.17 25.53Q13.22 26.08 13.30 26.61L13.17 26.49L13.20 26.52Q14.45 26.62 16.92 26.85L17.03 26.95L16.92 26.85Q16.82 26.41 16.82 26.07L16.81 26.06L16.86 26.10Q16.85 24.26 18.06 22.91L18.10 22.94L18.15 23.00Q19.42 21.69 21.21 21.81L21.20 21.80L21.09 21.69Q21.91 21.79 22.67 21.94L22.72 21.99L22.73 22.00Q22.85 22.39 22.93 22.81L22.90 22.77L22.86 22.74Q22.85 23.11 22.77 23.45L22.88 23.56L22.85 23.53Q21.47 28.16 17.05 33.00L17.22 33.17L17.16 33.10Q15.06 35.38 9.62 41.43L9.46 41.28L9.55 41.37Q9.41 42.26 9.07 42.83L9.03 42.79L8.97 42.73Q10.53 41.81 12.05 41.28L12.11 41.34L12.11 41.34Q11.32 41.84 10.36 43.33L10.54 43.50L10.50 43.46Q10.38 43.80 10.27 44.14L10.22 44.09L10.16 44.03Q15.11 42.06 20.60 42.25L20.59 42.24L20.49 42.15Q26.20 42.34 30.77 44.70L30.79 44.71L29.81 42.60L29.87 42.65Q29.14 41.23 28.87 40.44L28.94 40.51L28.86 40.43Q28.16 40.03 26.95 39.62L26.96 39.63L26.91 39.58Q26.77 38.87 26.39 37.50L26.35 37.46L26.44 37.55Q24.27 37.01 21.98 36.82L21.97 36.81L21.90 36.74Q26.55 32.14 28.07 23.88L28.17 23.98L28.32 21.04L28.29 21.01Q28.20 19.21 26.98 18.52L27.00 18.54L27.01 18.59L27.10 18.68Q27.01 18.56 26.94 18.56L26.95 18.57L26.83 18.45Q26.68 17.69 25.57 17.08Z"></path><path d="M2 14 C77 28,80 42,136 42" stroke="#444" fill="none"></path><path d="M14 2 C62 18,95 27,139 46" stroke="#777" fill="none"></path><path fill="#444" d="M46.22 21.49L46.28 21.55L46.16 21.43Q44.60 20.18 42.96 19.79L43.03 19.86L43.03 19.86Q41.94 19.61 39.16 19.57L39.00 19.41L39.16 19.57Q33.96 19.51 31.90 21.52L31.83 21.46L31.82 21.44Q30.20 23.03 30.32 26.72L30.23 26.63L30.35 26.75Q30.36 30.41 30.51 31.36L30.56 31.42L30.62 31.47Q31.56 37.44 39.29 37.44L39.30 37.45L39.37 37.52Q44.06 37.53 46.15 35.13L46.22 35.20L46.12 35.10Q48.03 32.93 48.26 28.17L48.25 28.17L48.37 28.29Q48.62 23.47 46.30 21.57ZM39.26 40.42L39.39 40.54L39.37 40.53Q32.77 40.59 29.80 38.23L29.90 38.33L29.74 38.17Q27.83 36.19 27.72 31.12L27.66 31.07L27.55 30.96Q27.58 30.49 27.42 27.21L27.38 27.16L27.51 27.30Q27.21 24.52 27.25 23.46L27.43 23.64L27.43 23.64Q27.59 20.79 29.00 19.08L28.93 19.01L28.90 18.98Q31.38 16.62 36.25 16.47L36.30 16.52L36.25 16.47Q38.14 16.53 39.01 16.57L39.04 16.60L38.97 16.52Q49.06 16.76 50.82 21.10L50.81 21.10L50.77 21.06Q51.43 22.93 51.28 25.68L51.43 25.82L51.46 25.85Q51.26 27.37 51.07 30.64L51.09 30.67L51.19 30.77Q50.93 33.52 50.02 35.57L50.03 35.58L49.98 35.53Q47.91 40.24 39.27 40.43ZM51.73 40.52L51.80 40.59L51.68 40.47Q53.14 38.77 53.26 35.69L53.15 35.58L53.26 35.69Q53.31 34.64 53.27 33.04L53.13 32.90L53.22 32.99Q53.20 32.24 53.16 30.41L53.08 30.33L53.11 30.36Q53.15 23.32 51.21 20.85L51.13 20.76L51.05 20.69Q50.80 19.83 49.70 18.73L49.70 18.73L49.74 18.77Q46.29 16.11 38.82 15.96L38.97 16.11L38.97 16.11Q31.45 15.86 28.40 18.45L28.51 18.55L28.57 18.61Q26.96 20.31 26.96 23.24L26.96 23.24L27.00 23.29Q27.01 24.59 27.16 25.92L27.23 25.99L27.19 25.95Q27.20 27.03 27.24 28.47L27.16 28.40L27.22 28.45Q27.37 32.41 27.52 33.59L27.46 33.53L27.55 33.62Q27.78 36.40 29.11 38.19L29.28 38.36L29.30 38.37Q29.76 39.67 30.82 40.43L30.75 40.36L30.75 40.37Q34.02 42.71 41.78 42.90L41.83 42.95L41.68 42.80Q49.09 43.09 51.76 40.54ZM48.06 28.25L47.96 28.14L47.97 28.15Q47.79 32.73 45.88 34.82L45.96 34.90L45.84 34.78Q43.86 37.14 39.40 37.17L39.34 37.11L39.45 37.22Q34.98 37.13 32.85 35.22L32.86 35.24L32.81 35.19Q32.15 33.61 32.23 30.72L32.21 30.70L32.26 30.75Q32.25 26.03 34.27 23.86L34.37 23.95L34.43 24.01Q36.28 21.67 40.88 21.67L40.89 21.68L41.00 21.79Q45.08 21.69 47.18 23.55L47.25 23.62L47.23 23.60Q48.11 25.40 48.00 28.18Z"></path><path fill="#222" d="M64.41 27.24L64.40 27.22L64.27 27.10Q65.05 27.07 66.45 26.92L66.60 27.07L66.52 26.98Q66.48 27.63 66.48 28.28L66.61 28.41L66.48 29.54L66.53 29.58Q65.59 29.49 64.75 29.56L64.92 29.73L64.91 29.72Q64.04 29.72 63.20 29.69L63.10 29.58L63.11 29.59Q60.26 35.77 56.84 40.37L56.97 40.51L56.98 40.51Q54.28 40.98 52.99 41.59L53.00 41.60L53.13 41.73Q57.12 35.90 60.17 29.62L60.22 29.67L57.53 29.61L57.67 29.75Q57.59 28.34 57.48 27.01L57.50 27.03L57.50 27.03Q59.40 27.18 61.46 27.18L61.47 27.19L63.38 23.50L63.34 23.47Q64.43 21.66 65.65 20.06L65.49 19.91L65.63 20.04Q64.09 20.22 62.49 20.22L62.36 20.09L62.44 20.17Q56.29 20.11 52.52 17.90L52.56 17.94L51.92 16.24L51.93 16.25Q51.49 15.31 51.11 14.44L51.22 14.54L51.21 14.54Q55.46 17.07 61.17 17.30L61.23 17.36L61.21 17.34Q66.34 17.56 71.48 15.58L71.40 15.50L71.40 15.50Q71.23 15.94 70.74 16.81L70.87 16.95L70.91 16.99Q67.11 21.57 64.26 27.09ZM72.48 18.33L72.51 18.36L73.40 16.24L73.47 16.31Q72.39 16.67 70.71 17.40L70.72 17.41L71.01 17.20L70.91 17.10Q71.18 17.10 71.29 16.99L71.28 16.98L71.21 16.91Q71.63 16.26 72.35 14.92L72.28 14.85L72.27 14.84Q66.88 17.07 61.13 16.84L61.13 16.84L61.16 16.87Q55.15 16.60 50.39 13.63L50.53 13.78L50.36 13.61Q51.39 15.48 52.23 18.14L52.25 18.16L52.37 18.28Q53.40 18.86 54.20 19.16L54.19 19.15L54.30 19.26Q54.43 19.58 54.88 21.44L54.85 21.41L54.83 21.39Q58.01 22.66 63.53 22.51L63.58 22.56L63.50 22.48Q63.21 23.06 61.23 26.83L61.29 26.90L61.18 26.78Q59.09 26.75 57.11 26.56L57.21 26.66L57.27 26.72Q57.34 27.55 57.34 28.43L57.26 28.35L57.32 30.12L58.84 29.96L58.96 31.50L58.99 31.52Q54.92 38.76 52.14 42.34L52.20 42.40L52.28 42.48Q53.93 41.77 55.57 41.28L55.52 41.23L55.55 41.26Q54.80 42.11 53.43 43.82L53.34 43.73L53.38 43.77Q56.51 42.64 58.95 42.41L58.97 42.43L58.94 42.40Q61.85 38.61 64.97 31.84L65.15 32.02L68.50 32.12L68.54 32.17Q68.33 31.12 68.33 30.20L68.51 30.38L68.40 28.49L68.50 28.59Q68.06 28.41 67.50 28.45L67.52 28.47L67.53 28.48Q67.01 28.54 66.74 28.54L66.80 28.60L66.83 28.63Q66.69 28.37 66.72 28.22L66.73 28.22L66.82 28.05L66.79 28.02Q69.27 22.84 72.35 18.20Z"></path><path fill="#333" d="M76.99 19.27L76.91 19.19L76.80 19.08Q78.12 23.74 78.27 26.94L78.15 26.82L78.10 26.77Q78.69 26.91 83.07 27.02L83.08 27.03L83.12 27.07Q85.58 27.02 85.96 23.55L86.00 23.59L85.96 23.56Q86.28 21.93 85.37 21.02L85.34 20.99L85.37 21.02Q83.97 20.01 81.99 19.85L82.05 19.91L82.04 19.90Q78.71 19.58 76.85 19.12ZM78.37 28.87L78.22 28.72L78.22 28.71Q78.54 34.86 76.75 40.80L76.72 40.77L76.79 40.84Q75.53 41.14 72.94 42.17L72.91 42.14L72.82 42.05Q75.58 35.48 75.24 28.02L75.29 28.08L75.41 28.19Q74.96 20.70 71.65 14.19L71.70 14.24L71.77 14.31Q76.52 17.01 83.49 17.01L83.66 17.18L83.62 17.14Q89.22 17.10 89.48 20.64L89.55 20.71L89.50 20.65Q89.59 21.28 89.52 21.89L89.44 21.81L89.45 23.04L89.43 23.03Q88.50 26.86 86.37 28.57L86.45 28.65L86.41 28.61Q85.69 29.37 84.66 29.37L84.60 29.31L82.10 29.40L82.02 29.32Q87.68 36.62 92.21 41.19L92.11 41.09L92.09 41.06Q89.89 40.31 86.96 39.97L87.05 40.06L87.00 40.01Q83.12 35.94 78.21 28.71ZM86.97 40.47L86.97 40.48L87.18 40.38L88.51 41.72L88.50 41.70Q89.06 42.22 89.70 42.83L89.69 42.82L89.66 42.78Q93.24 43.43 96.82 45.30L96.81 45.29L96.77 45.25Q89.93 38.60 84.53 31.67L84.52 31.67L86.18 31.57L86.16 31.55Q89.33 31.64 90.66 27.11L90.64 27.09L90.55 27.00Q91.39 24.95 91.39 22.24L91.38 22.24L91.32 22.17Q91.26 19.83 89.55 19.19L89.65 19.29L89.57 19.21Q89.44 18.81 88.87 18.13L88.79 18.05L88.98 18.23Q87.17 16.66 83.52 16.58L83.58 16.64L83.52 16.58Q75.71 16.50 71.02 13.49L70.98 13.44L71.00 13.47Q74.80 20.35 75.14 28.04L75.07 27.97L75.09 27.98Q75.37 35.88 72.25 42.73L72.36 42.85L72.28 42.77Q73.63 42.28 74.42 41.98L74.35 41.91L73.31 44.13L73.41 44.24Q76.10 43.15 78.76 42.66L78.72 42.62L78.73 42.63Q80.00 37.51 80.19 32.29L80.28 32.38L80.13 32.23Q83.81 37.36 86.97 40.48ZM85.57 22.40L85.55 22.38L85.70 22.53Q85.73 22.79 85.73 23.13L85.74 23.14L85.70 23.67L85.63 23.61Q85.74 24.81 85.05 25.76L85.02 25.73L84.98 25.70Q84.26 26.35 83.35 26.54L83.51 26.70L83.47 26.66Q83.28 26.73 81.68 26.77L81.66 26.75L81.60 26.69Q81.07 26.77 80.23 26.66L80.28 26.71L80.29 26.71Q80.04 25.06 79.70 22.01L79.76 22.08L79.80 22.11Q81.08 22.18 81.77 22.18L81.91 22.32L81.88 22.29Q83.72 22.30 85.66 22.49Z"></path><path fill="#222" d="M97.97 19.11L97.97 19.10L98.10 19.23Q99.22 23.71 99.38 26.90L99.35 26.88L99.42 26.95Q99.74 26.81 104.11 26.92L104.18 26.99L104.27 27.08Q106.72 27.01 107.10 23.55L107.06 23.51L107.05 23.50Q107.38 21.89 106.47 20.98L106.43 20.94L106.42 20.93Q105.19 20.08 103.21 19.93L103.11 19.83L103.12 19.84Q99.86 19.58 97.99 19.12ZM99.40 28.75L99.47 28.83L99.50 28.86Q99.57 34.75 97.78 40.68L97.82 40.72L97.81 40.72Q96.62 41.09 94.03 42.12L93.98 42.06L93.99 42.07Q96.92 35.67 96.57 28.21L96.41 28.05L96.48 28.12Q96.15 20.74 92.83 14.23L92.84 14.24L92.86 14.25Q97.84 17.18 104.80 17.18L104.78 17.16L104.78 17.16Q110.25 16.99 110.52 20.53L110.52 20.53L110.66 20.68Q110.58 21.13 110.51 21.74L110.63 21.86L110.52 22.97L110.53 22.99Q109.62 26.83 107.49 28.54L107.61 28.67L107.54 28.60Q106.81 29.35 105.78 29.35L105.76 29.33L103.23 29.39L103.23 29.39Q108.80 36.59 113.33 41.16L113.20 41.03L113.20 41.03Q111.10 40.38 108.17 40.04L108.17 40.03L108.22 40.09Q104.41 36.09 99.50 28.85ZM108.02 40.39L107.92 40.29L108.38 40.44L109.59 41.65L109.62 41.68Q110.21 42.23 110.85 42.84L110.75 42.73L110.77 42.75Q114.41 43.46 117.99 45.33L117.87 45.21L117.91 45.24Q110.89 38.42 105.49 31.49L105.59 31.59L107.33 31.58L107.31 31.56Q110.35 31.52 111.69 26.99L111.69 26.99L111.85 27.15Q112.52 24.93 112.52 22.23L112.53 22.24L112.47 22.18Q112.35 19.78 110.64 19.13L110.78 19.27L110.70 19.19Q110.60 18.82 110.03 18.14L110.06 18.17L109.95 18.07Q108.35 16.69 104.70 16.62L104.63 16.55L104.71 16.63Q96.91 16.56 92.23 13.55L92.20 13.52L92.24 13.56Q95.95 20.35 96.29 28.04L96.17 27.92L96.25 28.01Q96.59 35.96 93.47 42.81L93.46 42.80L93.41 42.75Q94.70 42.21 95.50 41.91L95.55 41.96L94.46 44.14L94.54 44.22Q97.26 43.18 99.93 42.68L99.91 42.67L99.87 42.63Q101.13 37.49 101.32 32.27L101.33 32.28L101.37 32.33Q104.90 37.31 108.06 40.43ZM106.70 22.39L106.71 22.40L106.80 22.49Q106.75 22.67 106.75 23.01L106.86 23.12L106.76 23.59L106.89 23.72Q106.78 24.71 106.09 25.66L106.06 25.63L106.14 25.71Q105.42 26.36 104.51 26.55L104.68 26.73L104.62 26.67Q104.36 26.67 102.76 26.71L102.71 26.66L102.84 26.79Q102.15 26.71 101.31 26.59L101.45 26.73L101.33 26.61Q101.25 25.12 100.90 22.07L100.91 22.08L100.84 22.01Q102.25 22.21 102.94 22.21L102.90 22.16L102.90 22.17Q104.79 22.23 106.73 22.42Z"></path><path fill="#222" d="M120.58 40.27L120.57 40.26L120.65 40.34Q119.15 40.33 117.59 39.91L117.69 40.00L117.71 40.03Q116.39 39.01 116.24 37.38L116.23 37.36L116.32 37.46Q116.21 37.20 116.40 34.57L116.39 34.56L116.56 34.73Q117.46 34.41 119.48 34.03L119.55 34.10L119.24 34.74L119.36 34.87Q119.03 36.55 120.44 37.12L120.38 37.06L120.39 37.07Q121.27 37.50 123.37 37.50L123.31 37.44L123.33 37.46Q124.87 37.25 125.06 37.18L125.05 37.17L125.20 37.31Q125.99 37.04 126.71 36.54L126.79 36.62L126.77 36.60Q128.26 35.73 128.07 33.63L128.08 33.64L127.92 33.49Q127.75 31.07 126.02 29.51L126.14 29.63L126.05 29.54Q124.36 28.02 121.88 28.02L121.81 27.95L121.95 27.86L121.95 27.86Q122.28 27.77 123.16 27.70L123.05 27.59L123.06 27.60Q124.94 27.46 126.31 26.22L126.43 26.34L126.33 26.24Q127.81 25.11 127.96 23.25L127.91 23.20L128.02 23.30Q128.07 22.94 128.07 22.59L127.99 22.52L127.96 22.49Q127.91 20.91 126.54 20.00L126.59 20.05L126.56 20.02Q125.32 19.20 123.72 19.31L123.84 19.44L123.90 19.49Q122.61 19.35 121.39 19.76L121.36 19.73L121.23 19.60Q119.78 20.13 119.48 21.28L119.64 21.44L119.63 21.42Q119.43 22.18 119.51 22.94L119.41 22.84L119.49 22.93Q118.34 22.57 116.29 21.85L116.39 21.96L116.39 21.96Q116.03 20.15 116.07 19.31L116.19 19.43L116.25 19.49Q116.26 17.87 117.33 17.18L117.31 17.17L117.40 17.25Q118.74 16.58 120.34 16.58L120.41 16.65L120.32 16.56Q123.50 16.54 126.66 16.81L126.70 16.85L126.74 16.89Q131.81 17.31 131.51 21.08L131.45 21.03L131.38 20.96Q131.44 22.58 130.94 24.14L130.76 23.95L130.79 23.99Q129.91 27.10 127.55 28.01L127.63 28.09L127.56 28.02Q130.21 28.58 130.82 31.93L130.77 31.88L130.88 31.99Q131.13 33.16 131.21 35.17L131.18 35.15L131.21 35.17Q131.37 39.64 126.77 40.10L126.69 40.02L126.72 40.05Q126.04 40.17 120.75 40.44ZM125.96 42.68L125.85 42.57L125.90 42.63Q126.41 42.56 129.26 42.63L129.40 42.78L129.42 42.79Q131.04 42.73 132.67 42.09L132.63 42.04L132.65 42.06Q133.85 41.13 133.66 39.38L133.69 39.40L133.64 39.36Q133.57 38.07 133.27 36.32L133.33 36.38L133.35 36.41Q132.54 31.83 130.60 30.19L130.58 30.17L130.46 29.86L130.31 29.67L130.34 29.70Q132.08 28.24 132.84 23.86L132.99 24.01L132.91 23.93Q132.86 23.38 132.97 22.43L133.04 22.50L133.11 22.57Q133.17 21.79 133.09 21.11L133.10 21.12L133.10 21.11Q132.86 19.35 131.56 18.66L131.67 18.77L131.49 18.67L131.53 18.70Q131.33 17.82 130.18 17.29L130.06 17.17L130.06 17.16Q128.56 16.50 123.42 16.19L123.37 16.14L123.52 16.29Q121.70 16.08 120.10 16.08L120.23 16.20L120.25 16.22Q118.53 16.10 117.00 16.75L117.04 16.78L116.95 16.69Q115.77 17.49 115.77 19.24L115.85 19.33L115.75 19.22Q115.88 18.93 116.14 22.28L116.06 22.20L116.14 22.28Q116.43 22.34 118.07 22.95L117.94 22.82L118.09 22.97Q118.10 23.52 118.06 24.01L118.01 23.96L117.89 23.84Q118.02 24.46 118.06 25.00L117.93 24.87L117.96 24.90Q119.81 25.33 121.82 25.45L121.87 25.50L121.87 25.50Q121.74 23.42 122.84 22.59L122.82 22.56L122.83 22.57Q123.70 21.96 125.72 21.73L125.81 21.82L125.78 21.79Q126.83 21.70 127.40 21.89L127.39 21.88L127.43 21.92Q127.39 21.95 127.43 22.07L127.44 22.08L127.46 22.29L127.53 22.82L127.63 22.91Q127.64 23.12 127.60 23.27L127.67 23.33L127.49 23.16Q127.55 25.01 126.03 26.19L125.98 26.14L125.90 26.06Q125.03 27.02 123.01 27.21L122.98 27.17L123.02 27.21Q122.33 27.40 121.45 27.40L121.52 27.47L121.47 27.41Q121.59 27.84 121.74 28.52L121.66 28.44L121.72 28.51Q123.34 28.37 124.78 29.09L124.92 29.23L124.74 29.16L123.10 29.27L123.07 29.24Q123.21 29.69 123.32 30.30L123.28 30.25L123.39 30.36Q125.48 30.25 127.19 31.58L127.13 31.52L127.15 31.54Q127.35 31.88 127.65 33.52L127.70 33.57L127.76 33.63Q127.79 36.40 124.86 36.82L125.05 37.01L125.03 36.99Q122.81 37.13 122.23 37.09L122.31 37.16L122.31 37.17Q121.88 37.07 121.34 37.00L121.31 36.97L121.36 36.56L121.42 36.05L121.53 35.74L121.59 35.45L121.46 35.33Q120.48 35.37 119.68 35.56L119.80 35.68L119.69 35.57Q119.68 35.37 119.68 35.18L119.79 35.30L119.70 35.20Q119.68 34.95 119.68 34.73L119.69 34.73L119.82 34.86Q119.84 34.43 120.00 33.71L119.86 33.57L120.01 33.72Q118.00 33.80 116.13 34.15L116.18 34.20L116.26 34.28Q116.12 34.63 116.01 35.76L116.00 35.74L115.99 35.74Q116.00 36.99 116.00 37.60L115.88 37.48L116.00 37.59Q116.11 39.69 117.48 40.45L117.45 40.41L117.36 40.32Q118.87 42.64 123.60 42.45L123.58 42.43L123.62 42.48Q124.35 42.44 125.87 42.59Z"></path></svg></div><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 35px; margin-right: 5px; cursor: pointer;"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"></path></svg></div><div class="uk-margin-medium uk-text-center"><button class="uk-button uk-button-secondary uk-margin-small-left" type="button">ورود</button><button type="button" class="uk-button uk-button-default">بازگشت</button></div><hr class="uk-divider-icon"><div class="uk-text-center"><span>چنانچه رمز عبور را فراموش کرده اید،<a>کلیک</a> کنید</span></div></div></span></div></section></section></main></div></div></span></div><script>!function(c){function e(e){for(var t,r,n=e[0],o=e[1],a=e[2],u=0,i=[];u<n.length;u++)r=n[u],d[r]&&i.push(d[r][0]),d[r]=0;for(t in o)Object.prototype.hasOwnProperty.call(o,t)&&(c[t]=o[t]);for(h&&h(e);i.length;)i.shift()();return f.push.apply(f,a||[]),l()}function l(){for(var e,t=0;t<f.length;t++){for(var r=f[t],n=!0,o=1;o<r.length;o++){var a=r[o];0!==d[a]&&(n=!1)}n&&(f.splice(t--,1),e=p(p.s=r[0]))}return e}var r={},s={1:0},d={1:0},f=[];function p(e){if(r[e])return r[e].exports;var t=r[e]={i:e,l:!1,exports:{}};return c[e].call(t.exports,t,t.exports,p),t.l=!0,t.exports}p.e=function(f){var e=[];s[f]?e.push(s[f]):0!==s[f]&&{3:1,4:1,5:1}[f]&&e.push(s[f]=new Promise(function(e,n){for(var t="static/css/"+({}[f]||f)+"."+{3:"05976dc8",4:"8a74ee2a",5:"7678eac9",6:"31d6cfe0",7:"31d6cfe0"}[f]+".chunk.css",o=p.p+t,r=document.getElementsByTagName("link"),a=0;a<r.length;a++){var u=(c=r[a]).getAttribute("data-href")||c.getAttribute("href");if("stylesheet"===c.rel&&(u===t||u===o))return e()}var i=document.getElementsByTagName("style");for(a=0;a<i.length;a++){var c;if((u=(c=i[a]).getAttribute("data-href"))===t||u===o)return e()}var l=document.createElement("link");l.rel="stylesheet",l.type="text/css",l.onload=e,l.onerror=function(e){var t=e&&e.target&&e.target.src||o,r=new Error("Loading CSS chunk "+f+" failed.\n("+t+")");r.request=t,delete s[f],l.parentNode.removeChild(l),n(r)},l.href=o,document.getElementsByTagName("head")[0].appendChild(l)}).then(function(){s[f]=0}));var r=d[f];if(0!==r)if(r)e.push(r[2]);else{var t=new Promise(function(e,t){r=d[f]=[e,t]});e.push(r[2]=t);var n,a=document.createElement("script");a.charset="utf-8",a.timeout=120,p.nc&&a.setAttribute("nonce",p.nc),a.src=p.p+"static/js/"+({}[f]||f)+"."+{3:"31b055b4",4:"0c0c42dc",5:"1f3321fb",6:"92bab12c",7:"8283ff68"}[f]+".chunk.js",n=function(e){a.onerror=a.onload=null,clearTimeout(u);var t=d[f];if(0!==t){if(t){var r=e&&("load"===e.type?"missing":e.type),n=e&&e.target&&e.target.src,o=new Error("Loading chunk "+f+" failed.\n("+r+": "+n+")");o.type=r,o.request=n,t[1](o)}d[f]=void 0}};var u=setTimeout(function(){n({type:"timeout",target:a})},12e4);a.onerror=a.onload=n,document.head.appendChild(a)}return Promise.all(e)},p.m=c,p.c=r,p.d=function(e,t,r){p.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},p.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},p.t=function(t,e){if(1&e&&(t=p(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(p.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var n in t)p.d(r,n,function(e){return t[e]}.bind(null,n));return r},p.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return p.d(t,"a",t),t},p.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},p.p="/",p.oe=function(e){throw console.error(e),e};var t=window.webpackJsonp=window.webpackJsonp||[],n=t.push.bind(t);t.push=e,t=t.slice();for(var o=0;o<t.length;o++)e(t[o]);var h=n;l()}([])</script><script src="/static/js/2.668f87d4.chunk.js"></script><div id="speechify-global-notifications"></div><div id="speechify-shortcuts-prompt"></div><div id="speechify-screenshot-mode" style="position: fixed; top: 0px; right: 0px; width: 100%; min-height: 100%; z-index: 2147483640; display: none;"></div><div id="speechify-summarization-fullscreen-mode" style="position: fixed; inset: 0px; overflow: auto; background: white; z-index: 1999; display: none;"></div><script src="/static/js/main.c2bfbcee.chunk.js"></script></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+    
+    
+    

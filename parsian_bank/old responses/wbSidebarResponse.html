@@ -1,0 +1,10 @@
+<div class="spl-sidebar-panel">
+    <div class="spl-sidebar">
+        <ng-include src="'/app/templates/customMenu.html'"></ng-include>
+    </div>
+</div>
+<div id="popupMenu" class="spl-sidenav-popup spl-sidebar-panel-popup" ng-class="{true:'spl-sidenav-popup-expanded show' , false:'hide'}[$ctrl.parent.isOpenPopup]">
+    <div class="spl-sidebar spl-popup">
+        <ng-include src="'/app/templates/customMenu.html'"></ng-include>
+    </div>
+</div>

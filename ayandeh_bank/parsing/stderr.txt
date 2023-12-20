@@ -1,0 +1,60 @@
+*   Trying 67.215.13.242:8000...
+* Connected to ctr-2-1m.geosurf.io (67.215.13.242) port 8000 (#0)
+* allocate connect buffer
+* Establish HTTP proxy tunnel to old.abplus.ir:443
+* Proxy auth using Basic with user '630386+IR+630386-750244'
+> CONNECT old.abplus.ir:443 HTTP/1.1
+Host: old.abplus.ir:443
+Proxy-Authorization: Basic NjMwMzg2K0lSKzYzMDM4Ni03NTAyNDQ6ZTlmZGJiNzAx
+Proxy-Connection: Keep-Alive
+
+< HTTP/1.0 200 OK
+< 
+* Proxy replied 200 to CONNECT request
+* CONNECT phase completed
+* ALPN: offers h2
+* ALPN: offers http/1.1
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: CN=*.abplus.ir
+*  start date: Dec 28 09:07:00 2022 GMT
+*  expire date: Dec 28 09:06:59 2023 GMT
+*  subjectAltName: host "old.abplus.ir" matched cert's "*.abplus.ir"
+*  issuer: C=PL; O=Unizeto Technologies S.A.; OU=Certum Certification Authority; CN=Certum Domain Validation CA SHA2
+*  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+* Using HTTP2, server supports multiplexing
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* h2h3 [:method: GET]
+* h2h3 [:path: /]
+* h2h3 [:scheme: https]
+* h2h3 [:authority: old.abplus.ir]
+* h2h3 [accept: application/json]
+* h2h3 [content-type: application/x-www-form-urlencoded]
+* h2h3 [user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36]
+* Using Stream ID: 1 (easy handle 0x1e7fd9703c0)
+> GET / HTTP/2
+Host: old.abplus.ir
+accept: application/json
+content-type: application/x-www-form-urlencoded
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+
+* old SSL session ID is stale, removing
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+< HTTP/2 200 
+< date: Mon, 03 Jul 2023 11:24:24 GMT
+< content-type: text/html; charset=UTF-8
+< vary: Accept-Encoding
+* Added cookie PHPSESSID="isnvk1u5vvgknrjhs6smr9u2r6" for domain old.abplus.ir, path /, expire 0
+< set-cookie: PHPSESSID=isnvk1u5vvgknrjhs6smr9u2r6; path=/; secure; HttpOnly
+< expires: Mon, 03 Jul 2023 11:24:24 GMT
+< cache-control: max-age=0
+< pragma: no-cache
+< x-xss-protection: 1; mode=block
+< server: ArvanCloud
+< x-sid: 2070
+< server-timing: total;dur=186
+< x-cache: BYPASS
+< x-request-id: ba98a4a610e69e82bec5afe53426344d
+< 
+* Connection #0 to host ctr-2-1m.geosurf.io left intact

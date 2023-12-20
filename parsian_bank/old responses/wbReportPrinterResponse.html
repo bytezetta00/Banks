@@ -1,0 +1,253 @@
+<!--suppress HtmlUnknownTag -->
+<div xmlns:wb="http://www.w3.org/1999/xhtml" class="wb-report"
+     ng-class="{'rtl-direction' : $ctrl.language.isPersian(),'ltr-direction' : $ctrl.language.isEnglish()}" title="">
+    <table class="report-header">
+        <tr class="heading-logo">
+            <td colspan="2">
+                <img ng-if="$ctrl.language.isPersian()" src="../app/resources/img/loginLogo_fa.png">
+                <img ng-if="$ctrl.language.isEnglish()" src="../app/resources/img/loginLogo_en.png">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <span class="wb-text-bold" ng-if="$ctrl.showAs == 'list'">{{'GeneralTranslations.receiptLabel' | translate}}:&nbsp;</span>
+                    <span class="wb-text-bold" ng-if="$ctrl.showAs == 'grid'">{{'GeneralTranslations.reportLabel' | translate}}:&nbsp;</span>
+                    <span>{{$ctrl.title | translate}}</span>
+                </div>
+            </td>
+            <td>
+                <div ng-class="{'text-end' : $ctrl.language.isPersian(),'text-start' : $ctrl.language.isEnglish()}"><span
+                        class="wb-text-bold">{{'GeneralTranslations.reportDate' | translate}}:&nbsp;</span>
+                    <span dir="ltr" class="ltr-direction" ng-class="{'english-text': $ctrl.language.isEnglish()}">{{ $ctrl.reportDate | wbDateTime }}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="wb-report-criteria"
+         ng-class="{'wb-report-criteria-pull-right' : $ctrl.language.isPersian(),'wb-report-criteria-pull-left' : $ctrl.language.isEnglish()}"
+         ng-transclude>
+    </div>
+
+    <div class="wb-report-criteria"
+         ng-class="{'wb-report-criteria-pull-right' : $ctrl.language.isPersian(),'wb-report-criteria-pull-left' : $ctrl.language.isEnglish()}">
+
+        <table class="report-header">
+            <tr ng-repeat="rowValue in $ctrl.criteriaFields">
+                <td ng-repeat="item in rowValue.criteriaItems">
+
+                    <span><wb:label label="{{item.label | translate}}: " is-normal="true"/></span>
+
+                    <span class="wb-text-bold" ng-switch="item.type">
+                        <span ng-switch-when="STRING" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value}}</span>
+
+                        <span ng-switch-when="MONEY" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value && item.value > 0 ? (item.value | number) : ""}}</span>
+
+                        <span ng-switch-when="TRANSLATABLE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value | translate}}</span>
+
+                        <span ng-switch-when="NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value}}</span>
+
+                        <span ng-switch-when="LONG_DATE" dir="ltr"
+                              ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value | wbDateTime}}</span>
+
+                        <span ng-switch-when="DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value | wbDate}}</span>
+
+                        <span ng-switch-when="TIME" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value | date:'HH:mm:ss'}}</span>
+
+                        <span ng-switch-when="ACCOUNT_NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{item.value}}</span>
+                    </span>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="print-hidden">
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-success" onclick="window.print();"
+                        ng-class="{'pull-end' : $ctrl.language.isPersian(),'pull-start' : $ctrl.language.isEnglish()}">
+                    {{'GeneralTranslations.print' | translate}}
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="row row-content" ng-if="$ctrl.message != null">
+        <div class="col-xs-12 col-lg-12">
+            <div class="alert alert-info">
+                <i class="la la-info-circle la-2x"></i> <span>{{$ctrl.message | translate}}</span>
+            </div>
+        </div>
+    </div>
+
+    <table class="report-table-list" ng-if="$ctrl.showAs == 'list' || $ctrl.showAs == 'listWithGrid'">
+        <thead>
+        <tr>
+            <th>
+                {{'GeneralTranslations.theTitle'| translate}}
+            </th>
+            <th>
+                {{'GeneralTranslations.value'| translate}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in $ctrl.keyValues" ng-class="{'wb-report-odd-rows':$index % 2 != 0}">
+            <td class="wb-text-normal">
+                {{ item.title | translate }}
+            </td>
+            <td class="wb-text-bold">
+               <span ng-switch="item.reportItem.type">
+                <span ng-switch-when="STRING" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value}}
+                </span>
+                <span ng-switch-when="MONEY" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value && item.reportItem.value > 0 ? (item.reportItem.value | number) : ""}}
+                    {{item.reportItem.value && item.reportItem.value === "-" ? "" : ""}}
+                    {{item.reportItem.value == 0 ? "0" : ""}}
+                    {{item.reportItem.value ? ('GeneralTranslations.currencyRial' | translate) : ""}}
+                </span>
+                <span ng-switch-when="TRANSLATABLE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | translate}}
+                </span>
+                <span ng-switch-when="NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value}}
+                </span>
+                <span dir="ltr" ng-switch-when="LONG_DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | wbDateTime}}
+                </span>
+                <span ng-switch-when="DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | wbDate}}
+                </span>
+                <span ng-switch-when="TIME" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | date:'HH:mm:ss'}}
+                </span>
+                   <span ng-switch-when="ACCOUNT_NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | accountFormatter}}
+                </span>
+            </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table ng-if="($ctrl.showAs == 'grid' || $ctrl.showAs == 'listWithGrid') && ($ctrl.items && $ctrl.items != null && $ctrl.items.length != 0)">
+        <tr>
+            <td>
+                <div>
+                    <span class="wb-text-bold">{{$ctrl.gridTitle | translate}}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="report-table-grid"
+           ng-if="($ctrl.showAs == 'grid' || $ctrl.showAs == 'listWithGrid') && ($ctrl.items && $ctrl.items != null && $ctrl.items.length != 0)">
+        <thead>
+        <tr>
+            <th>
+                {{'GeneralTranslations.rowNum'| translate}}
+            </th>
+            <th ng-repeat="headerItem in $ctrl.headerItems">
+                {{headerItem | translate}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in $ctrl.items track by $index" ng-class="{'wb-report-odd-rows':$index % 2 != 0}">
+            <td><span ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{$index+1}}</span></td>
+            <td ng-repeat="item in row.rowItems track by $index">
+            <span ng-switch="item.type">
+                <span ng-switch-when="STRING" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value}}
+                </span>
+                <span ng-switch-when="MONEY" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value && item.value > 0 ? (item.value | number) : ""}}
+                    {{item.value && item.value === "-" ? "" : ""}}
+                    {{item.value == 0 ? "0" : ""}}
+                </span>
+                <span ng-switch-when="TRANSLATABLE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | translate}}
+                </span>
+                <span ng-switch-when="NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value}}
+                </span>
+                <span dir="ltr" ng-switch-when="LONG_DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | wbDateTime}}
+                </span>
+                <span ng-switch-when="DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | wbDate}}
+                </span>
+                <span ng-switch-when="TIME" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | date:'HH:mm:ss'}}
+                </span>
+                  <span ng-switch-when="ACCOUNT_NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | accountFormatter}}
+                </span>
+            </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table ng-if="($ctrl.showAs == 'grid' || $ctrl.showAs == 'listWithGrid') && ($ctrl.items && $ctrl.items != null && $ctrl.items.length != 0)">
+        <tr>
+            <td>
+                <div>
+                    <span class="wb-text-bold">{{$ctrl.gridTitle2 | translate}}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="report-table-grid"
+           ng-if="($ctrl.showAs == 'grid' || $ctrl.showAs == 'listWithGrid') && ($ctrl.items2 && $ctrl.items2 != null && $ctrl.items2.length != 0)">
+        <thead>
+        <tr>
+            <th>
+                {{'GeneralTranslations.rowNum'| translate}}
+            </th>
+            <th ng-repeat="headerItem in $ctrl.headerItems2">
+                {{headerItem | translate}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in $ctrl.items2 track by $index" ng-class="{'wb-report-odd-rows':$index % 2 != 0}">
+            <td><span ng-class="{'english-text' : $ctrl.language.isEnglish()}">{{$index+1}}</span></td>
+            <td ng-repeat="item in row.rowItems track by $index">
+            <span ng-switch="item.type">
+                <span ng-switch-when="STRING" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value}}
+                </span>
+                <span ng-switch-when="MONEY" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value && item.value > 0 ? (item.value | number) : ""}}
+                    {{item.value && item.value === "-" ? "" : ""}}
+                    {{item.value == 0 ? "0" : ""}}
+                </span>
+                <span ng-switch-when="TRANSLATABLE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | translate}}
+                </span>
+                <span ng-switch-when="NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value}}
+                </span>
+                <span dir="ltr" ng-switch-when="LONG_DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | wbDateTime}}
+                </span>
+                <span ng-switch-when="DATE" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | wbDate}}
+                </span>
+                <span ng-switch-when="TIME" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.value | date:'HH:mm:ss'}}
+                </span>
+                  <span ng-switch-when="ACCOUNT_NUMBER" ng-class="{'english-text' : $ctrl.language.isEnglish()}">
+                    {{item.reportItem.value | accountFormatter}}
+                </span>
+            </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

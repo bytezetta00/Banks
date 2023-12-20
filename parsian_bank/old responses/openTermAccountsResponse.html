@@ -1,0 +1,399 @@
+<div xmlns:spl="http://www.caspco.ir/spl" xmlns:wb="http://www.w3.org/1999/xhtml"
+     ng-controller="OpenTermAccountsController as $ctrl"
+     do-action="CTRL+ALT+A:Actions.insert()" spl-translation-prefix="" class="wb-card-list">
+
+    <div spl-application-resolver="$ctrl.applicationComponent"></div>
+
+    <spl:load-when action="OpenTermAccountsOperationsService.init" resize>
+        <wb-page-header active="well" background-color="#337ab7" color="#ffffff"
+                        title="Accounts.openTermAccounts" icon="la la-suitcase" icon-color="#255885">
+        </wb-page-header>
+
+        <wb-exception></wb-exception>
+
+        <!-- Print Section -->
+        <div class="row-content page-hint" ng-if="$ctrl.model.unusedAccountDtoList.length > 0">
+            <div class="alert alert-warning">
+                <i class="la la-warning la-one-half"></i>
+                {{'GeneralTranslations.extraDepositsWarning' | translate}}
+                <ul>
+                    <li ng-repeat="item in $ctrl.model.unusedAccountDtoList">
+                        {{'Accounts.accountType' | translate}}: {{('Accounts.TYPE_' + item.type) | translate}}
+                        {{'GeneralTranslations.number' | translate}}: {{item.count}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <wb:collapsible-panel active="well-md" class-size="sm" title="GeneralTranslations.search"
+                              default-collapsed="{{$ctrl.defaultCollapsed}}"
+                              report-model="$ctrl.model.accountList"
+                              excel-click="$ctrl.actions.getOpenTermAccountsExcelReport()"
+                              print-click="$ctrl.actions.getOpenTermAccountsPrintableReport()">
+            <div class="clearfix">
+                <form ng-submit="$ctrl.actions.getOpenTermAccounts()" spl-form-resolver="$ctrl.initForm">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div class="input-group">
+                                <span class="input-group-addon" title="">
+                                    <i class="la-one-half la la-filter"></i>
+                                </span>
+                            <select title="" class="form-control" ng-model="$ctrl.model.requestDto.accountStatus"
+                                    ng-class="{'wb-text-muted': !$ctrl.model.requestDto.accountStatus}">
+                                <option value="" disabled selected>{{'Accounts.accountStatus' | translate}}
+                                </option>
+                                <option ng-repeat="item in $ctrl.model.accountStatuses" value="{{item.value}}">
+                                    {{'Accounts.STATUS_' + item.value | translate}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <wb:input-list-selector title="" name='ownerStatus'
+                                                ng-model='$ctrl.model.requestDto.ownerStatuses'
+                                                source-items='$ctrl.model.accountOwnerStatuses'
+                                                placeholder="Accounts.accountOwnerType"
+                                                glyph="la la-pencil-square"
+                                                detail-fields="value"
+                                                translation-prefix="Accounts"
+                                                fields-to-select="value"
+                                                header-field="value"
+                                                unique-identifier="value">
+                        </wb:input-list-selector>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <wb:input title="" name="alias" type="text"
+                                  glyph="la la-bookmark la-2x"
+                                  ng-model="$ctrl.model.requestDto.alias"
+                                  placeholder="Accounts.accountAlias"/>
+                    </div>
+
+                    <div class="clearfix wb-action-panel">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-sm-offset-6 col-md-offset-8 col-lg-offset-10">
+                            <button type="submit" class="btn btn-success btn-block"
+                                    ng-click="$ctrl.actions.getOpenTermAccounts()" title="">
+                                {{'GeneralTranslations.search' |
+                                translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </wb:collapsible-panel>
+
+        <!-- Search Criteria panel -->
+        <div class="clearfix row">
+            <uib-accordion close-others="true" class="card-view-accordion-border">
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 card-view-box"
+                     ng-repeat="item in $ctrl.model.accountList"
+                     ng-class="{'wb-lg-clearfix' :$index % 3 == 0 && $ctrl.isOpen[$index-1], 'wb-md-clearfix' :$index % 2 == 0 && $ctrl.isOpen[$index-1], 'wb-card-open': $ctrl.isOpen[$index],'wb-card-expanded-open': ($ctrl.isOpen[$index] && $ctrl.isPanelRelative($index +1, $ctrl.model.accountList.length, $ctrl.pageSize + ((windowWidth - 1200) > 0 ? 0 : 1)))}"
+                     ng-show="(($index + 1) / ($ctrl.pageSize + ((windowWidth - 1200) > 0 ? 0 : 1))) <= $ctrl.currentPage && (($index + 1) / ($ctrl.pageSize + ((windowWidth - 1200) > 0 ? 0 : 1))) > ($ctrl.currentPage - 1)">
+
+                    <div class="clearfix card-list-box{{$ctrl.isOpen[$index]? ' extended-panel': ''}}"
+                         ng-class="{'disabled-panel': !$ctrl.activePanel, 'wb-card-open-list-box extended-relative-panel-position': ($ctrl.isOpen[$index] && $ctrl.isPanelRelative($index + 1, $ctrl.model.accountList.length, $ctrl.pageSize + ((windowWidth - 1200) > 0 ? 0 : 1))), 'wb-card-open-index': $ctrl.isOpen[$index], 'extended-panel-position': ($ctrl.isOpen[$index] && $index != $ctrl.model.accountList.length - 1)}">
+                        <!-- details -->
+                        <a ng-click="$ctrl.routeToStatementPage($index)"
+                           uib-tooltip="{{'Statement.statement' | translate}}" href="#/Statement">
+                            <div ng-if="item.group=='JARI_ACCOUNT'">
+                                <div class="clearfix card-view-title jari-card-view-title">
+                                    <div class="col-xs-5">
+                                        <span class="pull-start">{{'GeneralTranslations.accountNumber' | translate
+                                            }}: </span>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <span class="pull-end">{{item.accountNumber | accountFormatter}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="item.group=='PASANDAZ'">
+                                <div class="clearfix card-view-title pasandaz-card-view-title">
+                                    <div class="col-xs-5">
+                                        <span class="pull-start">{{'GeneralTranslations.accountNumber' | translate
+                                            }}: </span>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <span class="pull-end">{{item.accountNumber | accountFormatter}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="item.group=='SHORT_ACCOUNT'">
+                                <div class="clearfix card-view-title short-account-card-view-title">
+                                    <div class="col-xs-5">
+                                        <span class="pull-start">{{'GeneralTranslations.accountNumber' | translate
+                                            }}: </span>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <span class="pull-end">{{item.accountNumber | accountFormatter}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="clearfix card-view-title long-account-card-view-title">-->
+                            <!--<div class="col-xs-6">-->
+                            <!--<span class="pull-start">{{'GeneralTranslations.accountNumber' | translate }}: </span>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-6">-->
+                            <!--<span class="pull-end">{{item.accountNumber}}</span>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </a>
+
+                        <div class="container-fluid card-view-items">
+
+                            <div class="row">
+                                <!--<div class="col-xs-{{!item.iban ? '5' : '4'}}">-->
+                                <div class="col-xs-4">
+                                    <label class="wb-text-normal">{{'GeneralTranslations.shebaNumber' | translate
+                                        }}: </label>
+                                    <button ng-if="!item.iban"
+                                            class="btn btn-default wb-btn-no-border la la-eye la-one-half"
+                                            ng-click="$ctrl.actions.getIban(item)"></button>
+                                </div>
+                                <div class="col-xs-8 text-end">
+                                    <label>{{item.iban | ibanFormatter}}</label>
+                                </div>
+                            </div>
+
+                            <div ng-if="!item.showAlias" class="row">
+                                <div class="col-xs-5 text-start">
+                                    <label class="wb-text-normal">{{'Accounts.accountAlias' | translate }}: </label>
+                                    <button class="btn btn-default wb-btn-no-border la la-edit la-one-half"
+                                            ng-click="$ctrl.actions.showAlias(item)"></button>
+                                </div>
+                                <div class="col-xs-7 text-end"
+                                     uib-tooltip="{{item.accountAlias}}">
+                                    <label class="wb-text-wrap"
+                                           ng-if="!item.showAlias">{{item.accountAlias}}</label>
+                                </div>
+                            </div>
+
+                            <div ng-if="item.showAlias" class="row">
+                                <div class="col-xs-12">
+                                    <form class="form-inline" ng-submit="$ctrl.actions.changeAlias(item)">
+                                        <div class="col-xs-3 wb-padding-full-0">
+                                            <label class="wb-padding-full-0" for="alias">{{'Accounts.accountAlias'
+                                                | translate }}: </label>
+                                        </div>
+                                        <div class="col-xs-9 wb-padding-full-0">
+                                            <div class="col-xs-8 wb-padding-full-0">
+                                                <wb:input class="wb-padding-full-0" name="alias"
+                                                          type="text" ng-model="item.accountAlias"
+                                                          placeholder="{{'Accounts.accountAlias' | translate}}"/>
+                                            </div>
+                                            <div class="col-xs-4 wb-padding-full-0 text-end">
+                                                <button class="btn btn-success la la-check la-one-half wb-card-input-button"
+                                                        type="submit"
+                                                ></button>
+                                                <button class="btn btn-default la la-close la-one-half wb-card-input-button"
+                                                        ng-click="$ctrl.actions.revertAliasChange(item)"></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 text-start wb-text-wrap">
+                                    <label class="wb-text-normal">{{'Accounts.accountTypeOrStatus' | translate
+                                        }}: </label>
+                                </div>
+                                <div class="col-xs-6 text-end wb-text-wrap wb-direction-rtl">
+                                    <label>{{'Accounts.STATUS_' + item.accountStatus | translate }} / {{'Accounts.TYPE_'
+                                        + item.group | translate }} </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-4 text-start">
+                                    <label class="wb-text-normal">{{'Accounts.depositTitle' | translate }}: </label>
+                                </div>
+                                <div class="col-xs-8 text-end wb-text-wrap wb-direction-rtl"
+                                     uib-tooltip="{{item.depositTitle}}">
+                                    <label>{{item.depositTitle}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 wb-padding-full-0">
+                            <div id="wb-accordion-group" uib-accordion-group class="panel-default"
+                                 is-open="$ctrl.isOpen[$index]" ng-click="$ctrl.changePanelStatus()">
+                                <uib-accordion-heading>
+                                    <i class="center-block text-center la"
+                                       ng-class="{'la-angle-up': $ctrl.isOpen[$index], 'la-angle-down': !$ctrl.isOpen[$index]}"></i>
+                                </uib-accordion-heading>
+                                <div class="media-body card-view-accordion-items">
+                                    <div class="col-xs-6">
+                                        <label class="wb-text-normal">{{'Accounts.registerDate' | translate }}: </label>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="pull-end">{{item.inaugurationDate | wbDate}}</label>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="wb-text-normal pull-start">{{'GeneralTranslations.branchCode' |
+                                            translate }}: </label>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="pull-end">{{item.branchCode}}</label>
+                                    </div>
+                                    <div ng-if="item.owner && item.owner != null && item.owner != ''" class="col-xs-6">
+                                        <label class="wb-text-normal pull-start">{{'Accounts.accountOwnership' |
+                                            translate }}: </label>
+                                    </div>
+                                    <div ng-if="item.owner && item.owner != null && item.owner != ''" class="col-xs-6">
+                                        <label class="pull-end">
+                                            {{'Accounts.OWNER_TYPE_' + item.owner | translate }}</label>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label class="wb-text-normal pull-start">{{'Accounts.signatureRight' | translate
+                                            }}: </label>
+                                    </div>
+
+                                    <div class="col-xs-8"
+                                         uib-tooltip="{{'Accounts.SIGNATURE_' + item.signature | translate }}">
+                                        <label class="pull-end wb-text-wrap">{{'Accounts.SIGNATURE_' + item.signature |
+                                            translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix card-view-amounts-row{{ (item.balance > 999999999 || item.blockedAmount > 999999999 || item.blockedAmount > 999999999) ? ' card-view-amounts-row-xs' : ''}}">
+                            <div class="col-xs-4 card-view-amount-balance-border">
+                                <div class="card-view-middle-label card-view-amount-balance{{ item.balance > 999999999 ? ' card-view-middle-label-xs' : ''}}">
+                                    {{'Accounts.balanceInRial'
+                                    | translate }}
+                                </div>
+                                <div class="card-view-middle-amount card-view-amount-balance text-bold{{ item.balance > 999999999 ? ' card-view-middle-amount-xs' : ''}}">
+                                    {{item.balance | number}}
+                                </div>
+                            </div>
+                            <div class="col-xs-4 card-view-amount-blocked-border">
+                                <div class="card-view-middle-label card-view-amount-blocked{{item.blockedAmount > 999999999 ? ' card-view-middle-label-xs' : ''}}">
+                                    {{'Accounts.blockedBalanceInRial' | translate }}
+                                </div>
+                                <div class="card-view-middle-amount card-view-amount-blocked text-bold{{ item.blockedAmount > 999999999 ? ' card-view-middle-amount-xs' : ''}}">
+                                    {{item.blockedAmount | number}}
+                                </div>
+                            </div>
+                            <div class="col-xs-4 card-view-amount-available-border">
+                                <div class="card-view-middle-label card-view-amount-available{{item.availableBalance > 999999999 ? ' card-view-middle-label-xs' : ''}}">
+                                    {{'Accounts.availableBalanceInRial' | translate
+                                    }}
+                                </div>
+                                <div class="card-view-middle-amount card-view-amount-available text-bold{{ item.availableBalance > 999999999 ? ' card-view-middle-amount-xs' : ''}}">
+                                    {{item.availableBalance | number}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 card-view-buttons-row text-center wb-padding-full-0">
+                            <ul class="text-center card-view-buttons-ul">
+                                <li>
+                                    <button ng-click="$ctrl.routeToStatementPage($index)"
+                                            class="la la-repeat la-one-eight"
+                                            uib-tooltip="{{'Statement.statement' | translate}}"></button>
+                                </li>
+                                <li>
+                                    <button ng-click="$ctrl.routeToNormalFundTransfer($index)"
+                                            class="la la-exchange la-one-eight"
+                                            uib-tooltip="{{'GeneralTranslations.fundTransfer' | translate}}"
+                                            ng-disabled="item.accountStatus !== 'OPEN'"></button>
+                                </li>
+                                <li>
+                                    <button ng-click="$ctrl.routeToActiveChequeBooklets($index)"
+                                            class="la la-pencil-square la-one-eight"
+                                            uib-tooltip="{{'GeneralTranslations.cheque' | translate}}"
+                                            ng-disabled="item.group !== 'JARI_ACCOUNT'"></button>
+                                </li>
+                                <li>
+                                    <div class="btn-group">
+                                        <button class="la la-ellipsis-v la-one-eight dropdown-toggle"
+                                                data-toggle="dropdown"></button>
+                                        <ul class="dropdown-menu"
+                                            ng-class="{'dropdown-menu-left':$ctrl.language.isPersian() , 'dropdown-menu-right':$ctrl.language.isEnglish()}">
+                                            <li>
+                                                <button ng-click="$ctrl.routeToAchTransferRequestsReport($index)">
+                                                    {{'GeneralTranslations.achTransferRequestsReport' |
+                                                    translate}}
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button ng-click="$ctrl.routeToAutoNormalTransferReport($index)">
+                                                    {{'GeneralTranslations.autoNormalTransferReport' |
+                                                    translate}}
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button ng-click="$ctrl.routeToTransferredOtherBankChequesStatus($index)">
+                                                    {{'GeneralTranslations.transferredOtherBankChequesStatusReport'
+                                                    | translate}}
+                                                </button>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <button ng-click="$ctrl.routeToCardlessIssueVoucherService($index)">
+                                                    {{'GeneralTranslations.issueCardlessVoucherService' |
+                                                    translate}}
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button ng-click="$ctrl.routeToPaymentByReferenceCodeService($index)">
+                                                    {{'GeneralTranslations.paymentByReferenceCodeService' |
+                                                    translate}}
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button ng-click="$ctrl.routeToAccountBlockReasons($index)">
+                                                    {{'AccountBlockReasons.pageTitle' | translate}}
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button ng-click="$ctrl.routeToAverageAccountBalance($index)">
+                                                    {{'AverageAccountBalance.pageTitle' | translate}}
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </uib-accordion>
+
+            <!-- If Return list be empty below section will be appear -->
+            <div class="col-md-12 clearfix" ng-if="!($ctrl.model.accountList.length > 0)">
+                <p>{{'GeneralTranslations.emptyList' | translate}}</p>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="container-fluid">
+            <div class="row wb-pagination-border"
+                 ng-if="$ctrl.totalItems > 0 && $ctrl.model.accountList.length > ($ctrl.pageSize + ((windowWidth - 1200) > 0 ? 0 : 1))">
+                <div class="col-md-12 wb-padding-full-0 text-center">
+                    <ul uib-pagination
+                        total-items="(windowWidth - 1200) > 0 ? $ctrl.totalItems : $ctrl.model.accountList.length"
+                        ng-model="$ctrl.currentPage"
+                        max-size="($ctrl.pageSize + ((windowWidth - 1200) > 0 ? 1 : 0))" boundary-links="true"
+                        rotate="false"
+                        previous-text="{{'app.previous'|translate}}" next-text="{{'app.next'|translate}}"
+                        first-text="{{'app.first'|translate}}" last-text="{{'app.last'|translate}}" num-pages="numPages"
+                        ng-change="$ctrl.pageChanged()"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Print Section -->
+        <div id="forPrint" class="wb-hidden">
+            <wb:report-printer title="Accounts.openTermAccounts"
+                               show-as="grid"
+                               criteria-fields="$ctrl.model.printModel.criteriaFields"
+                               header-items="$ctrl.model.printModel.headers"
+                               items="$ctrl.model.printModel.rows">
+            </wb:report-printer>
+        </div>
+    </spl:load-when>
+
+</div>

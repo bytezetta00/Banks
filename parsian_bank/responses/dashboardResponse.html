@@ -1,0 +1,630 @@
+<div xmlns:spl="http://www.caspco.ir/spl" xmlns:wb="http://www.w3.org/1999/xhtml"
+     ng-controller="DashboardController as $ctrl" do-action="CTRL+ALT+A:Actions.insert()"
+     spl-translation-prefix="" class="wb-card-list">
+
+    <spl:load-when action="DashboardOperationsService.corporateUser">
+
+        <wb-exception></wb-exception>
+        <div spl-application-resolver="$ctrl.applicationComponent"></div>
+        <div class="dashboard dashboard-home" style="margin-top:110px">
+                <div class="row-main-content" style="display: flex;justify-content: center">
+                    <div class="col-xs-12 col-sm-6 col-lg-3">
+                        <div class="clearfix alert-info card-view-title" style="background-color:#4d4d4d">
+                            <div class="col-xs-12">
+                                <span class="pull-start ng-binding">{{'Dashboard.userTypes' | translate}}</span>
+                            </div>
+                        </div>
+                        <div class=" border">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <input type="radio" id="mineUser" ng-model="$ctrl.model.isRepresentativeUser"
+                                           value="false">
+                                    <label>{{'Dashboard.mineUser' | translate}}</label>
+                                    <!--                                    <span class="wb-text-bold"-->
+                                    <!--                                          style="color: darkgreen;">{{'PichakInquiryCheque.am' | translate}}</span>-->
+                                </div>
+                                <div class="col-xs-12">
+                                    <input type="radio" id="representativeUser"
+                                           ng-model="$ctrl.model.isRepresentativeUser"
+                                           value="true">
+                                    <label>{{'Dashboard.representativeUser' | translate}}</label>
+                                    <!--                                    <span class="wb-text-bold"-->
+                                    <!--                                          style="color: darkred;">{{'PichakInquiryCheque.amNot' | translate}}</span>-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div ng-if="$ctrl.model.isRepresentativeUser=='true'">
+                                        <select class="form-control" ng-model="$ctrl.model.requestDto.id">
+                                            <option value="" selected>{{'Dashboard.listOfCompany' | translate}}
+                                            </option>
+                                            <option ng-repeat="item in $ctrl.corporateList" value="{{item.id}}">
+                                                {{item.name | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-xs-12">
+                                    <button type="submit" class=" btn btn-success wb-full-size-btn"
+                                            ng-click="$ctrl.actions.selectUserPerform()">
+                                        {{'GeneralTranslations.perform' | translate}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+    </spl:load-when>
+
+    <spl:load-when action="DashboardOperationsService.resetPage">
+        <div></div>
+    </spl:load-when>
+
+    <spl:load-when action="DashboardOperationsService.agreement">
+        <wb-exception></wb-exception>
+        <div spl-application-resolver="$ctrl.applicationComponent"></div>
+        <div class="dashboard">
+            <div class="row row-content">
+                <div class="col-xs-12">
+                    <wb:page-header active="well" background-color="#337ab7" color="#ffffff"
+                                    title="Dashboard.agreement" icon="la la-suitcase"
+                                    icon-color="#255885">
+                    </wb:page-header>
+                </div>
+
+                <div class="page-hint col-xs-12">
+                    <p class="alert alert-info">
+                        <i class="la la-info-circle la-one-half"></i>
+                        {{'Dashboard.agreementHint' | translate}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row wb-margin-top-30">
+                <ng-include src="'/app/view/UserAgreement.html'"></ng-include>
+            </div>
+
+            <label>
+                <input type="checkbox" ng-model="$ctrl.agreementAccepted">
+                <span class="checkbox-label"
+                      ng-class="{'wb-text-muted': !$ctrl.agreementAccepted}"> {{'Dashboard.IAcceptAgreement' | translate}}</span>
+            </label>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-offset-4 col-md-4">
+                    <button type="button" class="btn btn-success wb-full-size-btn"
+                            ng-click="$ctrl.actions.acceptAgreement()"
+                            ng-disabled="!$ctrl.agreementAccepted">
+                        {{'GeneralTranslations.perform' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </spl:load-when>
+
+    <spl:load-when action="DashboardOperationsService.home">
+        <div class="row row-content">
+            <div class="col-xs-12">
+                <div class="alert alert-info" role="alert">
+                    {{'Dashboard.setupDashboardDesc1' | translate}}&nbsp;<strong>{{'Dashboard.setupDashboardDesc2' |
+                    translate}}</strong>&nbsp;{{'Dashboard.setupDashboardDesc3' | translate}}&nbsp;<a
+                        href="#" ng-click="$ctrl.actions.routeToPreConfigDashboard()" tooltip-placement="up"
+                        uib-tooltip="{{'GeneralTranslations.setupDashboard'|translate}}">{{'Dashboard.setupDashboardDesc4'
+                    | translate}}</a>
+                </div>
+            </div>
+        </div>
+
+        <wb-exception></wb-exception>
+
+        <div spl-application-resolver="$ctrl.applicationComponent"></div>
+
+        <div class="dashboard dashboard-home">
+            <div class="row-main-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-suitcase la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.deposits' | translate}}</h3>
+                                {{'GeneralTranslations.depositsDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-exchange la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.fundTransfer' | translate}}</h3>
+                                {{'GeneralTranslations.fundTransferDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-main-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-trophy la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.payment' | translate}}</h3>
+                                {{'GeneralTranslations.paymentDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-pencil-square la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.cheque' | translate}}</h3>
+                                {{'GeneralTranslations.chequeDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-main-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-gift la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.loans' | translate}}</h3>
+                                {{'GeneralTranslations.loansDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-credit-card la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.cards' | translate}}</h3>
+                                {{'GeneralTranslations.cardsDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-main-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-bar-chart la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.stocks' | translate}}</h3>
+                                {{'GeneralTranslations.stocksDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-folder-open la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.cartable' | translate}}</h3>
+                                {{'GeneralTranslations.cartableDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-main-content">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-users la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.contacts' | translate}}</h3>
+                                {{'GeneralTranslations.contactsDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="media">
+                            <div class="media-left media-up">
+                                <i class="la la-cogs la-3x icon-brand-color"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="media-heading">{{'GeneralTranslations.settings' | translate}}</h3>
+                                {{'GeneralTranslations.settingsDesc' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div ng-click="$ctrl.actions.routeToPreConfigDashboard()" class=" build-dashboard-container"
+                     ng-style="{'background-image': $ctrl.language.isPersian() ? 'url(\'app/resources/img/dashboard/buildDashboardBG_fa_lq.jpg\')' : 'url(\'app/resources/img/dashboard/buildDashboardBG_en_lq.jpg\')'}">
+                    <div class="text-container">
+                        <h3>{{'Dashboard.buildYourDashboardTitle' | translate}}</h3>
+                        <h5>{{'Dashboard.buildYourDashboardSubtitlePart1' | translate}}
+                            <span class="red-text">{{'Dashboard.buildYourDashboardSubtitlePart2' | translate}}</span>
+                            {{'Dashboard.buildYourDashboardSubtitlePart3' | translate}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </spl:load-when>
+
+    <spl:load-when action="DashboardOperationsService.preconfig">
+        <wb-exception></wb-exception>
+        <div spl-application-resolver="$ctrl.applicationComponent"></div>
+        <div class="dashboard">
+            <form name="dashboardInput" spl-form-resolver="$ctrl.form" vertilize-container>
+                <div class="row row-content">
+                    <div class="col-xs-12">
+                        <wb:page-header active="well" background-color="#337ab7" color="#ffffff"
+                                        title="Dashboard.dashboardTitle" icon="la la-suitcase"
+                                        icon-color="#255885">
+                        </wb:page-header>
+                    </div>
+
+                    <div class="page-hint col-xs-12">
+                        <p class="alert alert-info">
+                            <i class="la la-info-circle la-one-half"></i>
+                            {{'Dashboard.dashboardHint' | translate}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row row-content">
+
+                    <div class="col-xs-12 col-lg-4">
+                        <wb-step-item title="Dashboard.favAccount" box-color="wb-box-primary" icon="la la-briefcase">
+                            <wb:select name='accounts'
+                                       placeholder="Dashboard.favAccount"
+                                       ng-model='$ctrl.model.persistFavRequestDto.favAccount'
+                                       source-items='$ctrl.model.accountsList'
+                                       glyph="la la-bars"
+                                       filter-name="accountFormatter"
+                                       titles="$ctrl.model.debitFromTitles"
+                                       header-glyph="la la-briefcase"
+                                       header-field="$ctrl.model.headerContactField"
+                                       middle-glyph="la la-bookmark"
+                                       middle-field="$ctrl.model.middleContactField"
+                                       detail-fields="$ctrl.model.detailField"/>
+                        </wb-step-item>
+                    </div>
+
+                    <div class="col-xs-12 col-lg-4">
+                        <div class="row-content">
+                            <wb-step-item title="Dashboard.favCard" box-color="wb-box-primary" icon="la la-credit-card">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <wb:select name="favCard"
+                                                   placeholder="Dashboard.favCard"
+                                                   ng-model='$ctrl.model.persistFavRequestDto.favCard'
+                                                   source-items='$ctrl.model.cardList'
+                                                   glyph="la la-credit-card"
+                                                   titles="['CardToCardFundTransfer.personalCards']"
+                                                   filter-name="fourdigit"
+                                                   header-glyph="la la-credit-card"
+                                                   header-field="['pan']"
+                                                   detail-glyph="['la la-money','la la-user']"
+                                                   detail-fields="[['fullName']]"/>
+                                    </div>
+
+                                </div>
+                            </wb-step-item>
+                        </div>
+
+                        <div class="row-content">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-10 col-sm-offset-2">
+                                    <div class="row wb-form-btn-margin">
+                                        <div class="col-lg-6 col-md-6">
+                                            <button type="button" class="btn btn-danger pull-end wb-full-size-btn"
+                                                    ng-click="$ctrl.actions.loadDashboard()">
+                                                {{'GeneralTranslations.cancel' |
+                                                translate}}
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <button type="submit" class="btn btn-success btn-block"
+                                                    ng-click="$ctrl.actions.persistDashboardUserFavourites()" title="">
+                                                {{'GeneralTranslations.save' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </spl:load-when>
+
+    <spl:load-when action="DashboardOperationsService.show">
+        <wb-exception></wb-exception>
+        <div spl-application-resolver="$ctrl.applicationComponent"></div>
+        <div class="row-content clearfix">
+            <button class="la la-gear page-setting-icon pull-end" ng-click="$ctrl.actions.routeToConfigDashboard()"
+                    title=""></button>
+        </div>
+        <div class="dashboard">
+            <div class="row">
+                <div ng-repeat="item in $ctrl.dashboardList.sections" class="col-xs-12 wb-padding-full-0">
+                    <div ng-repeat="itemDashboard in $ctrl.dashboardList.dashboardItems[item].dashboardWidgetDtoList">
+                        <div ng-if="itemDashboard.widgetType === 'ACTION_WIDGET' && (itemDashboard.visible == true) "
+                             class="row-content-30" ng-class="itemDashboard.style">
+                            <wb:action-widget title="{{itemDashboard.title}}"
+                                              change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                              favourite-value="{{itemDashboard.favouriteValue}}"
+                                              favourite-type="{{itemDashboard.favouriteType}}"
+                                              css-class=""
+                                              mode="SHOW"
+                                              cards-list="$ctrl.model.cardList"
+                                              accounts-list="$ctrl.model.accountsList"
+                                              source-items="itemDashboard.operationList"
+                                              user-widget-id="{{itemDashboard.userWidgetId}}"
+                                              view-mode="{{itemDashboard.dashboardMode}}"
+                                              visible="{{itemDashboard.visible}}"
+                                              dashboard-controller="$ctrl">
+                            </wb:action-widget>
+                        </div>
+
+                        <div ng-if="itemDashboard.widgetType === 'LINK_BOX'" ng-class="itemDashboard.style"
+                             class="row-content">
+                            <wb:link-widget title="{{itemDashboard.title}}"
+                                            change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                            favourite-value="{{itemDashboard.favouriteValue}}"
+                                            change-widget-model="$ctrl.model.requestDto.changeWidgetModel"
+                                            favourite-type="{{itemDashboard.favouriteType}}"
+                                            sub-title="{{itemDashboard.subTitle}}"
+                                            title-operation="{{itemDashboard.titleOperation}}"
+                                            user-widget-id="{{itemDashboard.userWidgetId}}"
+                                            icon="{{itemDashboard.icon}}"
+                                            css-class=""
+                                            color="{{itemDashboard.color}}"
+                                            mode="{{$ctrl.model.mode}}"
+                                            accounts-list="$ctrl.model.accountsList"
+                                            cards-list="$ctrl.model.cardList"
+                                            view-mode="{{itemDashboard.dashboardMode}}"
+                                            dashboard-controller="$ctrl"
+                                            background-color="{{itemDashboard.color}}"
+                                            subtitle-filter="{{itemDashboard.subtitleFilters}}"
+                                            link-widget-delete-model="$ctrl.model.requestDto.deleteLinkWidget">
+                            </wb:link-widget>
+                        </div>
+                        <div ng-if="itemDashboard.widgetType === 'TODO' && (itemDashboard.visible == true)"
+                             ng-class="itemDashboard.style" class="row-content">
+                            <div class="row clearfix" style="position: relative">
+                                <wb:account-min-daily-chart title="{{itemDashboard.title}}"
+                                                            change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                                            sub-title="{{itemDashboard.subTitle}}"
+                                                            favourite-value="{{itemDashboard.favouriteValue}}"
+                                                            favourite-type="{{itemDashboard.favouriteType}}"
+                                                            mode="SHOW"
+                                                            user-widget-id="{{itemDashboard.userWidgetId}}"
+                                                            accounts-list="$ctrl.model.accountsList"
+                                                            view-mode="{{itemDashboard.dashboardMode}}"
+                                                            visible="{{itemDashboard.visible}}"
+                                                            dashboard-controller="$ctrl">
+                                </wb:account-min-daily-chart>
+                            </div>
+                        </div>
+
+                        <div ng-if="itemDashboard.widgetType === 'TRANSACTION_LINE_CHART' && (itemDashboard.visible == true)"
+                             ng-class="itemDashboard.style" class="row-content">
+
+                            <div class="row clearfix" style="position: relative">
+                                <div class="col-xs-12">
+                                    <wb-all-assets title="{{itemDashboard.title}}"
+                                                   change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                                   sub-title="{{itemDashboard.subTitle}}"
+                                                   favourite-value="{{itemDashboard.favouriteValue}}"
+                                                   favourite-type="{{itemDashboard.favouriteType}}"
+                                                   mode="SHOW"
+                                                   user-widget-id="{{itemDashboard.userWidgetId}}"
+                                                   accounts-list="$ctrl.model.accountsList"
+                                                   view-mode="{{itemDashboard.dashboardMode}}"
+                                                   visible="{{itemDashboard.visible}}"
+                                                   dashboard-controller="$ctrl">
+                                    </wb-all-assets>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </spl:load-when>
+
+    <spl:load-when action="DashboardOperationsService.config">
+        <wb-exception></wb-exception>
+        <div spl-application-resolver="$ctrl.applicationComponent"></div>
+        <div class="dashboard">
+            <div class="row">
+                <div ng-repeat="item in $ctrl.dashboardList.sections" class="col-xs-12 wb-padding-full-0">
+                    <div ng-repeat="itemDashboard in $ctrl.dashboardList.dashboardItems[item].dashboardWidgetDtoList">
+                        <div ng-if="itemDashboard.widgetType === 'ACTION_WIDGET'"
+                             class="row-content-30" ng-class="itemDashboard.style">
+                            <wb:action-widget title="{{itemDashboard.title}}"
+                                              change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                              favourite-value="{{itemDashboard.favouriteValue}}"
+                                              favourite-type="{{itemDashboard.favouriteType}}"
+                                              css-class=""
+                                              mode="EDIT"
+                                              cards-list="$ctrl.model.cardList"
+                                              accounts-list="$ctrl.model.accountsList"
+                                              source-items="itemDashboard.operationList"
+                                              user-widget-id="{{itemDashboard.userWidgetId}}"
+                                              view-mode="{{itemDashboard.dashboardMode}}"
+                                              visible="{{itemDashboard.visible}}"
+                                              dashboard-controller="$ctrl">
+                            </wb:action-widget>
+                        </div>
+
+                        <div ng-if="itemDashboard.widgetType === 'LINK_BOX'" ng-class="itemDashboard.style"
+                             class="row-content">
+                            <wb:link-widget title="{{itemDashboard.title}}"
+                                            change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                            favourite-value="{{itemDashboard.favouriteValue}}"
+                                            change-widget-model="$ctrl.model.requestDto.changeWidgetModel"
+                                            favourite-type="{{itemDashboard.favouriteType}}"
+                                            sub-title="{{itemDashboard.subTitle}}"
+                                            title-operation="{{itemDashboard.titleOperation}}"
+                                            user-widget-id="{{itemDashboard.userWidgetId}}"
+                                            icon="{{itemDashboard.icon}}"
+                                            css-class=""
+                                            color="{{itemDashboard.color}}"
+                                            mode="EDIT"
+                                            accounts-list="$ctrl.model.accountsList"
+                                            cards-list="$ctrl.model.cardList"
+                                            view-mode="{{itemDashboard.dashboardMode}}"
+                                            dashboard-controller="$ctrl"
+                                            background-color="{{itemDashboard.color}}"
+                                            subtitle-filter="{{itemDashboard.subtitleFilters}}"
+                                            link-widget-delete-model="$ctrl.model.requestDto.deleteLinkWidget">
+                            </wb:link-widget>
+                        </div>
+                        <div ng-if="itemDashboard.widgetType === 'TODO' && (itemDashboard.visible == true || $ctrl.model.mode == 'EDIT')"
+                             ng-class="itemDashboard.style" class="row-content">
+                            <div class="row clearfix" style="position: relative">
+                                <wb:account-min-daily-chart title="{{itemDashboard.title}}"
+                                                            change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                                            sub-title="{{itemDashboard.subTitle}}"
+                                                            favourite-value="{{itemDashboard.favouriteValue}}"
+                                                            favourite-type="{{itemDashboard.favouriteType}}"
+                                                            mode="EDIT"
+                                                            user-widget-id="{{itemDashboard.userWidgetId}}"
+                                                            accounts-list="$ctrl.model.accountsList"
+                                                            view-mode="{{itemDashboard.dashboardMode}}"
+                                                            visible="{{itemDashboard.visible}}"
+                                                            dashboard-controller="$ctrl">
+                                </wb:account-min-daily-chart>
+                            </div>
+                        </div>
+                        <div ng-if="itemDashboard.widgetType === 'TRANSACTION_LINE_CHART' && (itemDashboard.visible == true)"
+                             ng-class="itemDashboard.style" class="row-content">
+
+                            <div class="row clearfix" style="position: relative">
+                                <div class="col-xs-12">
+                                    <wb-all-assets title="{{itemDashboard.title}}"
+                                                   change-widget-model='$ctrl.model.requestDto.changeWidgetModel'
+                                                   sub-title="{{itemDashboard.subTitle}}"
+                                                   favourite-value="{{itemDashboard.favouriteValue}}"
+                                                   favourite-type="{{itemDashboard.favouriteType}}"
+                                                   mode="EDIT"
+                                                   user-widget-id="{{itemDashboard.userWidgetId}}"
+                                                   accounts-list="$ctrl.model.accountsList"
+                                                   view-mode="{{itemDashboard.dashboardMode}}"
+                                                   visible="{{itemDashboard.visible}}"
+                                                   dashboard-controller="$ctrl">
+                                    </wb-all-assets>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="$ctrl.dashboardList.dashboardItems[item].hasFavAccount == false && $ctrl.dashboardList.dashboardItems[item].sectionGroupType == 'ACTION_WIDGET'"
+                         class="row-content">
+                        <div class="col-xs-12 col-sm-6">
+                            <wb:add-action-widget
+                                    type="ACCOUNT"
+                                    cards-list="$ctrl.model.cardList"
+                                    accounts-list="$ctrl.model.accountsList"
+                                    action-widget-add-model="$ctrl.model.requestDto.actionWidgetAddModel">
+                            </wb:add-action-widget>
+                        </div>
+                    </div>
+
+                    <div ng-if="$ctrl.dashboardList.dashboardItems[item].hasFavCard == false && $ctrl.dashboardList.dashboardItems[item].sectionGroupType == 'ACTION_WIDGET'"
+                         class="row-content">
+                        <div class="col-xs-12 col-sm-6">
+                            <wb:add-action-widget
+                                    type="CARD"
+                                    cards-list="$ctrl.model.cardList"
+                                    accounts-list="$ctrl.model.accountsList"
+                                    action-widget-add-model="$ctrl.model.requestDto.actionWidgetAddModel">
+                            </wb:add-action-widget>
+                        </div>
+                    </div>
+
+                    <div ng-if="$ctrl.dashboardList.dashboardItems[item].allowAddItem == true"
+                         class="row-content">
+                        <wb:add-link-widget cards-list="$ctrl.model.cardList"
+                                            accounts-list="$ctrl.model.accountsList"
+                                            link-widget-model="$ctrl.model.requestDto.addNewWidget">
+                        </wb:add-link-widget>
+                    </div>
+                </div>
+
+                <div ng-if="$ctrl.dashboardList.dashboardItems[item].hasFavAccount == false && $ctrl.dashboardList.dashboardItems[item].sectionGroupType == 'TODO'"
+                     class="row-content">
+                    <div class="col-xs-12 col-sm-6">
+                        <wb:add-transaction-line-chart-widget-widget
+                                cards-list="$ctrl.model.cardList"
+                                accounts-list="$ctrl.model.accountsList"
+                                action-widget-add-model="$ctrl.model.requestDto.chartWidgetAddModel">
+                        </wb:add-transaction-line-chart-widget-widget>
+                    </div>
+                </div>
+
+                <div ng-if="$ctrl.dashboardList.dashboardItems[item].hasFavAccount == false && $ctrl.dashboardList.dashboardItems[item].sectionGroupType == 'TRANSACTION_LINE_CHART'"
+                     class="row-content">
+                    <div class="col-xs-12 col-sm-6">
+                        <wb:add-transaction-line-chart-widget-widget
+                                cards-list="$ctrl.model.cardList"
+                                accounts-list="$ctrl.model.accountsList"
+                                action-widget-add-model="$ctrl.model.requestDto.chartWidgetAddModel">
+                        </wb:add-transaction-line-chart-widget-widget>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row-content">
+                    <div class="col-lg-6 col-lg-offset-6 col-xs-12 pull-end">
+                        <div class="row wb-form-btn-margin">
+                            <div class="col-xs-12 col-md-4">
+                                <button type="submit" class="btn btn-success wb-full-size-btn"
+                                        ng-click="$ctrl.actions.goToApplyChange()">{{'Dashboard.apply' | translate}}
+                                </button>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <button type="submit" class="btn btn-primary wb-full-size-btn"
+                                        ng-click="$ctrl.actions.resetDashboard()">{{'Dashboard.resetDefault' |
+                                    translate}}
+                                </button>
+                            </div>
+
+                            <div class="col-xs-12 col-md-4">
+                                <button type="button" class="btn btn-danger pull-end wb-full-size-btn"
+                                        ng-click="$ctrl.actions.revertChanges()">
+                                    {{'GeneralTranslations.doReturn' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </spl:load-when>
+</div>

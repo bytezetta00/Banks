@@ -1,0 +1,28 @@
+{
+    "totalBalance":
+        {
+            "kariz":1235853,"hoseininasab":0
+        },
+    "accounts":
+        {
+            "0302672677006":
+                {
+                    "currentBalance":1235853,
+                    "availableBalance":1235853,
+                    "accountTitle":1,
+                    "accountTitleName":"\u0642\u0631\u0636 \u0627\u0644\u062d\u0633\u0646\u0647",
+                    "accountType":1,
+                    "accountTypeName":"\u0627\u0646\u0641\u0631\u0627\u062f\u06cc",
+                    "sheba":"IR640620000000302672677006"
+                }
+        },
+        "error":0,
+        "message":"accounts stats prepared successfully",
+        "lastUpdate":"<h6 class=\"yekan\">\u06f1\u06f5:\u06f5\u06f3 \u06f0\u06f2\/\u06f0\u06f2\/\u06f2\u06f8<\/h6>",
+        "message_key":"accounts_stats_prepared_successfully",
+        "message_key_t9n":"accounts_stats_prepared_successfully",
+        "accordion":"<div class=\"panel panel-default\">\n\t<div class=\"panel-heading\" role=\"tab\" id=\"heading0302672677006\">\n\t\t<h4 class=\"panel-title\">\n\t\t\t<!--<a class=\"\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse0302672677006\" aria-expanded=\"false\" aria-controls=\"collapse0302672677006\"\n\t\t\t   style=\"display: block;position: relative\">-->\n            <a>\n\t\t\t\t<div style=\"margin-left: 50px; display: block;\">\n\t\t\t\t\t<div class=\"container-fluid\">\n\t\t\t\t\t\t<div class=\"row kariz-dropdown-header\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!--<div class=\"col-lg-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"yekan label label-danger\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<i class=\"fa \"><\/i>\n\t\t\t\t\t\t\t\t\t\t0\t\t\t\t\t\t\t\t\t\t\u0631\u06cc\u0627\u0644\n\t\t\t\t\t\t\t\t\t<\/span>\n\t\t\t\t\t\t\t\t<\/div>-->\n\t\t\t\t\t\t\t\t<div class=\"col-lg-4\">\n\t\t\t\t\t\t\t\t\t<span class=\" yekan label label-primary\"> 1,235,853 \u0631\u06cc\u0627\u0644  \/   1,235,853 \u0631\u06cc\u0627\u0644<\/span>\n\t\t\t\t\t\t\t\t<\/div>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"col-lg-3\">\n\t\t\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t\t\u0627\u0646\u0641\u0631\u0627\u062f\u06cc \u0627\u0632 \u0646\u0648\u0639\n\t\t\t\t\t\t\t\t\u0642\u0631\u0636 \u0627\u0644\u062d\u0633\u0646\u0647\t\t\t\t\t\t\t\t<\/span>\n\t\t\t\t\t\t\t<\/div>\n\t\t\t\t\t\t\t<div class=\"col-lg-3 yekan\">\n\t\t\t\t\t\t\t\t<span>0302672677006<\/span>\n\t\t\t\t\t\t\t<\/div>\n\t\t\t\t\t\t<\/div>\n\t\t\t\t\t<\/div>\n\t\t\t\t<\/div>\n\t\t\t<\/a>\n\t\t<\/h4>\n\t<\/div>\n\t<div id=\"collapse0302672677006\" class=\"panel-collapse collapse in\" role=\"tabpanel\" aria-labelledby=\"heading0302672677006\">\n\t\t<!--<div class=\"panel-body\">\n\t\t\t\t\t\t\t\t\t\t<table class=\"table table-striped\" >\n\t\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th class=\"text-center bold hidden-xs\">\u0631\u062f\u06cc\u0641 <\/th>\n\t\t\t\t\t<th class=\"text-center bold\">\u062a\u0627\u0631\u06cc\u062e<\/th>\n\t\t\t\t\t<th class=\"text-center bold\">\u0628\u0631\u062f\u0627\u0634\u062a<\/th>\n\t\t\t\t\t<th class=\"text-center bold\">\u0648\u0627\u0631\u06cc\u0632<\/th>\n\t\t\t\t\t<th class=\"text-center bold hidden-sm hidden-xs\">\u06a9\u062f \u0639\u0645\u0644\u06cc\u0627\u062a<\/th>\n\t\t\t\t\t<th class=\"text-center bold hidden-xs\">\u062a\u0648\u0636\u06cc\u062d\u0627\u062a<\/th>\n\t\t\t\t<\/tr>\n\t\t\t\t<\/thead>\n\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t<td class=\"text-center hidden-xs\"><\/td>\n\t\t\t        <td class=\"text-center\"><\/td>\n\t\t\t\t\t<td class=\"text-center\"><\/td>\n\t\t\t\t\t<td class=\"text-center\"><\/td>\n\t\t\t        <td class=\"text-center hidden-sm hidden-xs\"><\/td>\n\t\t\t        <td class=\"text-right hidden-xs\"> <\/td>\n\t\t\t\t<\/tr>\n\t\t\t\t\t\t\t\t<\/tbody>\n\t\t\t<\/table>\n\t\t\t\t\t\t\t<table class=\"table table-striped m-t-1\">\n\t\t\t\t<tbody>\n\t\t\t\t<tr>\n\t\t\t\t\t<td class=\"text-center\">\u0647\u06cc\u0686 \u062a\u0631\u0627\u06a9\u0646\u0634\u06cc \u0627\u0632 \u0633\u0631\u0648\u0631 \u062f\u0631\u06cc\u0627\u0641\u062a \u0646\u0634\u062f!<\/td>\n\t\t\t\t<\/tr>\n\t\t\t\t<\/tbody>\n\t\t\t<\/table>\n\t\t\t\t\t\t\t\t\t\t<table class=\"table table-striped m-t-1\">\n\t\t\t\t<tbody>\n\t\t\t\t<tr>\n\t\t\t\t\t<td class=\"text-center\">\u062e\u0637\u0627\u06cc \t\t\t\t\t  \u0627\u0637\u0644\u0627\u0639\u0627\u062a \u0627\u0632 \u0633\u0631\u0648\u0631 \u062f\u0631\u06cc\u0627\u0641\u062a \u0646\u0634\u062f\n\t\t\t\t\t<\/td>\n\t\t\t\t<\/tr>\n\t\t\t\t<\/tbody>\n\t\t\t<\/table>\n\t\t\t\t\t<\/div>-->\n\t<\/div>\n<\/div>",
+        "dates":[],
+        "totalGraph":{"x":[],"y":[]},
+        "lastRemain":1235853
+    }

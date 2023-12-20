@@ -1,0 +1,27 @@
+/**
+ * Statement Operation Service used to expose Statement page services
+ *
+ * @author Saman Delfani
+ * @version 1.1
+ * @since 05/15/2018 17:46 PM
+ */
+
+@lego.OperationService("StatementController", "app/view/account/Statement.html")
+export class StatementOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+
+    @lego.OperationMethod()
+    init(initForm): ng.IPromise<any> {
+        return null;
+    }
+
+    @lego.OperationMethod()
+    calendar(accountNumber): ng.IPromise<any> {
+        return null;
+    }
+
+    @lego.OperationMethod()
+    timeline(accountNumber): ng.IPromise<any> {
+        return null;
+    }
+
+}

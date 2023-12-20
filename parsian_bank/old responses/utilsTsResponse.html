@@ -1,0 +1,559 @@
+/**
+ * All global variables and needed utils should be in this class
+ *
+ * @author Amir Tajik
+ * @author Saman Delfani
+ * @author Saleh Rahimzadeh
+ * @author Mehdi Afifi
+ * @author Arash Heidari
+ * @author Homa Sedigh
+ * @author Hamid Khatami
+ * @version 1.59
+ * @since 05/06/2018 01:55 PM
+ */
+export module Utils {
+
+    export class General {
+        /**
+         * Cloning an object
+         * @param obj
+         * @returns {any}
+         */
+        public static clone(obj) {
+            let copy;
+
+            // Handle the 3 simple types, and null or undefined
+            if (null == obj || "object" != typeof obj) return obj;
+
+            // Handle Date
+            if (obj instanceof Date) {
+                copy = new Date();
+                copy.setTime(obj.getTime());
+                return copy;
+            }
+
+            // Handle Array
+            if (obj instanceof Array) {
+                copy = [];
+                for (var i = 0, len = obj.length; i < len; i++) {
+                    copy[i] = General.clone(obj[i]);
+                }
+                return copy;
+            }
+
+            // Handle Object
+            if (obj instanceof Object) {
+                copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr)) copy[attr] = General.clone(obj[attr]);
+                }
+                return copy;
+            }
+
+            throw new Error("Unable to copy obj! Its type isn't supported.");
+        }
+
+        public static hasValue(data) {
+            return typeof (data) != 'undefined' && data != null && data.toString() != '';
+        }
+    }
+
+    export class Account {
+        public static ACCOUNT_OWNER_STATUSES = ['DEPOSIT_OWNER', 'OWNER_OF_DEPOSIT_AND_SIGNATURE', 'SIGNATURE_OWNER', 'BROKER'];
+
+        public static ACCOUNT_ACTIVITY_TYPES = [
+            {code: 'BOTH', description: 'both', index: 0}, {
+                code: 'CREDIT',
+                description: 'credit',
+                index: 1
+            }, {
+                code: 'DEBIT',
+                description: 'debit',
+                index: 2
+            }];
+
+        public static ACCOUNT_TRANSACTIONS_ORDER = [
+            {
+                code: '1',
+                description: 'ascending',
+                index: 0,
+                key: 'ASC'
+            }, {
+                code: '2',
+                description: 'descending',
+                index: 1,
+                key: 'DESC'
+            }];
+
+        public static WITHDRAWAL_OPTIONS = {
+            NONE: "NONE",
+            MASHRUT: "MASHRUT",
+            BE_TANHAYEE: "BE_TANHAYEE"
+        };
+
+        public static ACCOUNT_STATUSES = {
+            OPEN: 'OPEN'
+        };
+
+        /**
+         * fixes account number in client side and removes dashes
+         * @param accountNumber input account number
+         * @return {string} fixed account number
+         */
+        public static fixAccountNumber(accountNumber: string): string {
+            if (accountNumber && accountNumber != '') {
+                // 1st technique
+                // return accountNumber.replace(/-/g, "").trim();
+
+                // 2nd technique
+                return accountNumber.replace(/[^0-9]/gi, '');
+            }
+        }
+
+        public static translateFileTransferErrorItems(item, utils: any) {
+            let errs = '';
+            for (let i = 0; i < item.errorCodes.length; i++) {
+                errs += (utils.translate('GeneralTranslations.' + item.errorCodes[i])) + ((i == item.errorCodes.length - 1) ? '' : ',');
+            }
+            return errs;
+        }
+    }
+
+    export class PaymentPeriods {
+        public static DAILY = 'DAILY';
+        public static WEEKLY = 'WEEKLY';
+        public static MONTHLY = 'MONTHLY';
+    }
+
+    export class PaymentServiceCode {
+        public static Bill = 'Bill';
+        public static Charity = 'Charity';
+        public static CHARGE_SIM_CARD = 'CHARGE_SIM_CARD';
+        public static SPECIAL_PAYMENT = 'SPECIAL_PAYMENT';
+    }
+
+    export class PichakReportType {
+        public static ISSUED = 'ISSUED';
+        public static ACCEPTED = 'ACCEPTED';
+        public static TRANSFERRED = 'TRANSFERRED';
+    }
+
+    export class ReportTypeOpenAccount {
+        public static DAILY = 'DAILY';
+        public static WEEKLY = 'WEEKLY';
+        public static MONTHLY = 'MONTHLY';
+        public static TWO_MONTH = 'TWO_MONTH';
+        public static THREE_MONTH = 'THREE_MONTH';
+        public static FOUR_MONTH = 'FOUR_MONTH';
+        public static SIX_MONTH = 'SIX_MONTH';
+        public static YEAR = 'YEAR';
+    }
+
+    export class ContactDetailTypes {
+        public static ACCOUNT = 'D';
+        public static CARD = 'C';
+        public static LENDING = 'L';
+        public static IBAN = 'I';
+        public static EMAIL = 'E';
+        public static PHONE = 'P';
+        public static BILL = 'B';
+        public static NATIONALCODE = "N";
+    }
+
+    export class BourseStatus {
+        public static REGISTERED = 'REGISTERED';
+        public static UNREGISTERED = 'UNREGISTERED';
+
+    }
+
+    export class WithdrawalOfDeposits {
+        public static WHOLEBALANCE = 'WHOLEBALANCE';
+        public static PARTOFBALANCE = 'PARTOFBALANCE';
+
+    }
+
+    export class ServiceCodes {
+        public static NORMAL_TRANSFER = 'NORMAL_TRANSFER';
+        public static ACH_NORMAL_TRANSFER = 'ACH_NORMAL_TRANSFER';
+        public static RTGS_NORMAL_TRANSFER = 'RTGS_NORMAL_TRANSFER';
+        public static CARD_TRANSFER = 'CARD_TRANSFER';
+        public static GET_DEPOSITS = 'GET_DEPOSITS';
+        public static GET_STATEMENT = 'GET_STATEMENT';
+    }
+
+    export class TransferTypes {
+        public static CARDTOCARD = 'CARDTOCARD';
+        public static ACCOUNTTOACCOUNT = 'ACCOUNTTOACCOUNT';
+        public static ACHNORMAL = 'ACHNORMAL';
+        public static RTGS = 'RTGS';
+        public static SONORMAL = 'SONORMAL';
+        public static ACHAUTOTRANSFER = 'ACHAUTOTRANSFER';
+        public static CARTABLE_NORMAL = 'CARTABLE_NORMAL';
+        public static CARTABLE_ACH = 'CARTABLE_ACH';
+        public static CARTABLE_RTGS_SEMI_PRESENSE = 'CARTABLE_RTGS_SEMI_PRESENSE';
+    }
+
+    export class AccountTypes {
+        public static CURRENCY_OPEN_TERM = 'CURRENCY_OPEN_TERM';
+        public static RIAL_OPEN_TERM = 'RIAL_OPEN_TERM';
+        public static CURRENCY_SAVING = 'CURRENCY_SAVING';
+        public static RIAL_SAVING = 'RIAL_SAVING';
+        public static JARI_ACCOUNT = 'JARI_ACCOUNT';
+        public static LONG_ACCOUNT = 'LONG_ACCOUNT';
+        public static SHORT_ACCOUNT = 'SHORT_ACCOUNT';
+        public static PASANDAZ = 'PASANDAZ';
+        public static SPECIAL_LONG_ACCOUNT = 'SPECIAL_LONG_ACCOUNT';
+        public static SPECIAL_SHORT_ACCOUNT = 'SPECIAL_SHORT_ACCOUNT';
+        public static OTHERS = 'OTHERS';
+        public static EDARE_SHODE = 'EDARE_SHODE';
+        public static ANDOKHTE_ACCOUNT = 'ANDOKHTE_ACCOUNT';
+    }
+    export class loanReportType {
+        public static PDF = 'PDF';
+        public static MHTML = 'MHTML';
+    }
+    export class Cartable {
+        public static PRIORITIES = [
+            {code: 'M', description: 'Major', index: 0},
+            {code: 'C', description: 'Critical', index: 1},
+            {code: 'I', description: 'Minor', index: 2},
+            {code: 'T', description: 'Trivial', index: 3}];
+
+        public static STATUSES = [
+            {description: 'All', index: 0},
+            {description: 'Registered', index: 1},
+            {description: 'Confirmed', index: 2},
+            {description: 'Rejected', index: 3},
+            {description: 'Canceled', index: 4},
+            {description: 'Unsuccessful', index: 5},
+            {description: 'Successful', index: 6},
+            {description: 'Expired', index: 7}
+        ];
+
+        public static REQUEST_TYPE = [
+            {description: 'All', index: 0},
+            {description: 'singleNormalTransfer', index: 1},
+            {description: 'normalBatchTransfer', index: 2},
+            /*{description: `autoNormalTransfer`, index: 3},*/
+            {description: 'achTransfer', index: 4},
+            {description: 'achBatchTransfer', index: 5},
+            {description: 'rtgsTransfer', index: 7},
+            {description: 'rtgsSemiPresenceTransfer', index: 8},
+            {description: 'institutionalTransfer', index: 9},
+            {description: 'billPaymentByAccount', index: 10},
+            {description: 'rtgsBatchTransfer', index: 11}
+            /*{description: `autoAchTransfer`, index: 6},*/
+        ];
+
+        /**
+         * Checks the selected account from list is cartable or not
+         * @param accountList list of Accounts from getWithdrawableAccounts service
+         * @param accountNumber selected account number
+         * @returns {boolean} account type is cartable
+         */
+        public static checkAccountIsCartable(accountList, accountNumber): boolean {
+            if (accountList && accountList.length > 0 && accountNumber && accountNumber != '') {
+                for (let item of accountList) {
+                    const itemAccNumber = item.accountNumber ? item.accountNumber : item.depositNumber;
+                    if (Utils.Account.fixAccountNumber(itemAccNumber) == Utils.Account.fixAccountNumber(accountNumber)) {
+                        return !!(item.withdrawalOption && item.withdrawalOption == Account.WITHDRAWAL_OPTIONS.MASHRUT);
+                    }
+                }
+            }
+            return false;
+        }
+
+        /**
+         * Check that account is cartable ot not
+         * @param account is an account object with all information
+         * @returns {boolean} account type is cartable
+         */
+        public static checkAccountIsCartableAccount(account): boolean {
+            return (account.withdrawalOption && account.withdrawalOption === Account.WITHDRAWAL_OPTIONS.MASHRUT);
+        }
+
+        /**
+         * Gets the persian priority title for cartable fund transfer
+         * @param code
+         * @returns {any}
+         */
+        public static getPriorityTitle(code) {
+            if (code) {
+                for (let item of Cartable.PRIORITIES) {
+                    if (item.code == code) {
+                        return item.description;
+                    }
+                }
+            }
+            return "";
+        }
+    }
+
+    export class Card {
+
+        /**
+         * Masks cards to dashed format
+         *
+         * @param pan input card number
+         * @returns {string} Masked card no.
+         */
+        public static panCardMasker(pan: string) {
+            let regexp = new RegExp("([0-9])", "g");
+            if (pan.length == 16 && regexp.exec(pan)) {
+                let result = "";
+                if (pan.length < 16)
+                    result = pan;
+                else if (pan.length == 16)
+                    result = pan.substr(0, 4) + "-" + pan.substr(4, 4) + "-" + pan.substr(8, 4) + "-" + pan.substr(12, 4);
+                else if (pan.length > 16)
+                    result = pan.substr(0, 4) + "-" + pan.substr(4, 4) + "-" + pan.substr(8, 4) + "-" + pan.substr(12, 4) + "-" + pan.substr(16, 3);
+                return result;
+            } else {
+                return pan;
+            }
+        }
+
+        /**
+         * Reverse card number segments for persian direction
+         * Before call this method, use "formService.validateCardNumber" to validate card number
+         * @param {string} card
+         * @returns {string}
+         */
+        public static reverseCardNumberForPersian(card: string): string {
+            let cardArray = card.split('-');
+            cardArray.reverse();
+            return cardArray.join('-');
+        }
+
+        /**
+         * fixes card number and removes dashes
+         * @param cardNumber input card number
+         * @return {string} fixed card number
+         */
+        public static fixCardNumber(cardNumber: string): string {
+            if (cardNumber && cardNumber != '') {
+                return cardNumber.replace(/[^0-9]/gi, '');
+            }
+        }
+    }
+
+    export class CardStatus {
+        public static OK = 'OK';
+        public static HOT = 'HOT';
+        public static WARM = 'WARM';
+        public static BLOCKED = 'BLOCKED';
+        public static CAPTURED = 'CAPTURED';
+        public static EXPIRED = 'EXPIRED';
+        public static INACTIVE = 'INACTIVE';
+        public static SETTLEMENT = 'SETTLEMENT';
+        public static CLOSED = 'CLOSED';
+        public static ALL = 'ALL';
+    }
+
+    export class LoadStatementType {
+        public static LAST_N_COUNT = "LAST_N_COUNT";
+        public static LAST_N_DAY = "LAST_N_DAY";
+        public static FROM_LAST_VIEW_STATEMENT_DATE = "FROM_LAST_VIEW_BILL_DATE";
+    }
+
+    export class OrderType {
+        public static DESC = 'DESC';
+        public static ASC = 'ASC';
+    }
+
+    export class StatementField {
+        public static DEPOSIT_NUMBER = 'DEPOSIT_NUMBER';
+        public static BALANCE = 'BALANCE';
+        public static DOCUMENT_NUMBER = 'DOCUMENT_NUMBER';
+        public static CHEQUE_NUMBER = 'CHEQUE_NUMBER';
+        public static DATE = 'DATE';
+        public static NOTE = 'NOTE';
+        public static DEPOSIT_TITLE = 'DEPOSIT_TITLE';
+        public static DEBIT = 'DEBIT';
+        public static CREDIT = 'CREDIT';
+        public static TIME = 'TIME';
+        public static AGENTBRANCH = 'AGENTBRANCH';
+    }
+
+    export class periodType {
+        public static DAILY = 'DAILY';
+        public static MONTHLY = 'MONTHLY';
+        public static WEEKLY = 'WEEKLY';
+    }
+
+    export class bourseType {
+        public static SAIPA = 'saipa';
+
+    }
+
+    export class ContactType {
+        public static FAX = 'DAILYFAX';
+        public static EMAIL = 'EMAIL';
+        public static SMS = 'SMS';
+    }
+
+    export class PassType {
+        public static MAIN_PASSWORD = 'MAIN_PASSWORD';
+        public static FUND_TRANSFER_PASSWORD = 'FUND_TRANSFER_PASSWORD';
+    }
+    export class TransferType {
+        public static STATIC = 'STATIC';
+        public static OTP = 'OTP';
+    }
+    export class ReceiveCard {
+        public static POST ='CARD_PHYSICS'
+        public static CARD = 'CARD_IMAGE';
+    }
+    export class AddressType {
+        public static  EXIST_ADDRESS= 'EXIST_ADDRESS';
+        public static NEW_ADDRESS = 'NEW_ADDRESS';
+    }
+
+    export class BlockCause {
+        public static FORGE = 'FORGE';
+        public static ROBBERY = 'ROBBERY';
+        public static FRAUD = 'FRAUD';
+        public static LOSS = 'LOSS';
+
+    }
+
+    export class ChakadCustomerType {
+        public static IR_INDIVIDUAL = "IR_INDIVIDUAL";
+        public static IR_CORPORATE = "IR_CORPORATE";
+        public static NON_IR_INDIVIDUAL = "NON_IR_INDIVIDUAL";
+        public static NON_IR_CORPORATE = "NON_IR_CORPORATE";
+    }
+
+    export class CardPassType {
+        public static CARD = 'CARD';
+        public static EPAY = 'EPAY';
+    }
+
+    export class CardPasswordType {
+        public static FIRST_PASSWORD = 'FIRST_PASSWORD';
+        public static SECOND_PASSWORD = 'SECOND_PASSWORD';
+    }
+
+    export class ContactTypeInfo {
+        public static EMAIL = 'E';
+        public static TEl = 'T';
+        public static MOBILE = 'M';
+        public static FAX = 'F';
+        public static WEBSITE = 'W';
+    }
+
+    export class BillType {
+        public static UNKNOWN = 'UNKNOWN';
+        public static WATER = 'WATER';
+        public static ELECTRICITY = 'ELECTRICITY';
+        public static GAS = 'GAS';
+        public static IMMOBILE_PHONE = 'IMMOBILE_PHONE';
+        public static MOBILE_PHONE = 'MOBILE_PHONE';
+        public static MUNICIPALITY_DUE = 'MUNICIPALITY_DUE';
+        public static CUSTOM = 'CUSTOM';
+        public static MUNICIPALITY_7 = 'MUNICIPALITY_7';
+        public static TAX = 'TAX';
+        public static INSURANCE = 'INSURANCE';
+    }
+
+    export class VoucherStatus {
+        public static ACTIVE = 'ACTIVE';
+        public static DE_ACTIVE = 'DE_ACTIVE';
+        public static EXPIRED = 'EXPIRED';
+        public static CANCELED = 'CANCELED';
+    }
+
+    export class FileUploaderTypes {
+        public static EXCEL = 'EXCEL';
+        public static IMAGE = 'IMAGE';
+    }
+
+    export class FeedbackPriority {
+        public static LOW = 'LOW';
+        public static NORMAL = 'NORMAL';
+        public static HIGH = 'HIGH';
+    }
+
+    export class LanguageCode {
+        public static PERSIAN = 'PERSIAN';
+        public static ENGLISH = 'ENGLISH';
+    }
+
+    export class Ach {
+        public static statusTypes = [
+            {code: 'ALL', description: `All`, index: ""},
+            {code: 'TRANSFERRED', description: 'achFilterStatus_TRANSFERRED', index: "1"},
+            {code: 'CANCELED', description: 'achFilterStatus_CANCELED', index: "2"},
+            {code: 'READY_TO_TRANSFER', description: 'achFilterStatus_READY_TO_TRANSFER', index: "3"},
+            {code: 'SUSPEND', description: 'achFilterStatus_SUSPEND', index: "4"},
+            {code: 'WAIT_FOR_CUSTOMER_ACCEPT', description: 'achFilterStatus_WAIT_FOR_CUSTOMER_ACCEPT', index: "5"},
+            {code: 'WAIT_FOR_BRANCH_ACCEPT', description: 'achFilterStatus_WAIT_FOR_BRANCH_ACCEPT', index: "6"},
+            {code: 'BRANCH_REJECT', description: 'achFilterStatus_BRANCH_REJECT', index: "7"},
+        ];
+    }
+
+    export class AchTransferReport {
+        public static statusTypes = [
+            {code: 'ALL', description: `All`, index: ""},
+            {code: 'TRANSFERRED', description: 'achFilterStatus_TRANSFERRED', index: "1"},
+            {code: 'CANCELED', description: 'achFilterStatus_CANCELED', index: "2"},
+            {code: 'WAIT_FOR_BRANCH_ACCEPT', description: 'achFilterStatus_WAIT_FOR_BRANCH_ACCEPT', index: "6"}
+        ];
+    }
+
+    export class CacheKeys {
+        public static CREDIT_CARD_BILL_DETAILS = 'creditCardBillDetails';
+    }
+
+    export class AutoBillType {
+        public static MOBILE = 'MOBILE';
+        public static PHONE = "PHONE";
+        public static ALL = "ALL";
+        public static POWER = "POWER";
+    }
+
+    export class Voucher {
+        public static statusTypes = [
+            {code: 'INACTIVE', description: 'voucherStatus_INACTIVE', index: "1"},
+            {code: 'DELETED', description: 'voucherStatus_DELETED', index: "2"},
+            {code: 'NOT_COLLECTED', description: 'voucherStatus_OUTSTANDING', index: "3"},
+            {code: 'PAID', description: 'voucherStatus_PAID', index: "4"},
+            {code: 'EXPIRED', description: 'voucherStatus_EXPIRED', index: "5"}
+        ];
+
+
+    }
+
+    export class MediaType {
+        public static Normal = 'BANS';
+        public static E_Cheque = 'CHD';
+    }
+    export class chequeType {
+        public static Normal = "1";
+        public static Bank = "2";
+        public static Coded = "3";
+    }
+    export class serviceCode {
+        public static Issue = "05";
+        public static Transfer = "17";
+        public static Activation = "02";
+        public static Revoke="18";
+    }
+
+    export class requestSource {
+        public static INTERNET = "INTERNET";
+    }
+
+    export class debitCardReceiptMethod {
+        public static PHYSICAL_CARD_RECEIPT = "PHYSICAL_CARD_RECEIPT";
+        public static SHOW_CARD_INFO = "SHOW_CARD_INFO";
+    }
+
+    export class debitCardRequestType {
+        public static RENEWAL = "RENEWAL";
+        public static ISSUE = "ISSUE";
+        public static REISSUE = "REISSUE";
+    }
+
+}
+

@@ -1,0 +1,121 @@
+<div class="input-group" ng-if="!$ctrl.touchable" ng-init="$ctrl.attachKeypad()">
+    <span ng-if="$ctrl.glyph" class="input-group-addon wb-input-glyph-span wb-glyph" title=""
+          ng-class="{'mandatory-input-group-addon' : $ctrl.notNull}">
+            <span class="la-one-half {{$ctrl.glyph}}"></span>
+    </span>
+    <div ng-if="!$ctrl.maskPattern">
+        <input id="{{$ctrl.name}}"
+               uib-typeahead="th for th in $ctrl.typeAheadSource | filter:$viewValue | limitTo:8"
+               ng-disabled="$ctrl.disabled"
+               type="{{$ctrl.type}}"
+               uib-tooltip="{{$ctrl.placeholder|translate}}"
+               placeholder="{{$ctrl.placeholder|translate}}"
+               ng-model="$ctrl.myModel"
+               ng-class="{'emailField': $ctrl.isEmail() && $ctrl._myModel , 'password-input' : $ctrl.isPassword == true && $ctrl.myModel.length > 0 , 'text-start' :  $ctrl.isPassword == true && $ctrl.myModel.length == 0 , 'english-input' : $ctrl.englishOnly == true && $ctrl.language.isPersian() && $ctrl.myModel.length > 0 }"
+               popover-trigger="mouseenter"
+               name="{{$ctrl.name}}"
+               autocomplete="off"
+               ng-blur="$ctrl.onBlur($event)"
+               ng-focus="$ctrl.onFocus($event)"
+               typeahead="item for item in $ctrl.getItems($viewValue)"
+               class="form-control wb-input"
+               uib-popover="{{$ctrl.tooltip|translate}}"
+               title=""
+               maxlength="{{$ctrl.maxlength}}"
+               minlength="{{$ctrl.minlength}}"
+               dir="{{$ctrl.englishOnly == true && $ctrl.myModel.length > 0 ? 'ltr' : 'rtl' }}"/>
+    </div>
+    <div ng-if="$ctrl.maskPattern">
+        <input id="{{$ctrl.name}}"
+               uib-typeahead="th for th in $ctrl.typeAheadSource | filter:$viewValue | limitTo:8"
+               ng-disabled="$ctrl.disabled"
+               type="{{$ctrl.type}}"
+               uib-tooltip="{{$ctrl.placeholder|translate}}"
+               placeholder="{{$ctrl.placeholder|translate}}"
+               ng-model="$ctrl.myModel"
+               ng-class="{'emailField': $ctrl.isEmail() && $ctrl._myModel , 'password-input' : $ctrl.isPassword == true && $ctrl.myModel.length > 0 , 'text-start' :  $ctrl.isPassword == true && $ctrl.myModel.length == 0 , 'english-input' : $ctrl.englishOnly == true && $ctrl.language.isPersian() && $ctrl.myModel.length > 0 }"
+               popover-trigger="mouseenter"
+               name="{{$ctrl.name}}"
+               autocomplete="off"
+               typeahead="item for item in $ctrl.getItems($viewValue)"
+               class="form-control wb-input"
+               uib-popover="{{$ctrl.tooltip|translate}}"
+               ui-mask="{{$ctrl.maskPattern}}"
+               ui-mask-placeholder
+               ng-blur="$ctrl.onBlur($event)"
+               ng-focus="$ctrl.onFocus($event)"
+               model-view-value="true"
+               ui-mask-placeholder-char="_"
+               maxlength="{{$ctrl.maxlength}}"
+               minlength="{{$ctrl.minlength}}"
+               dir="{{$ctrl.englishOnly == true && $ctrl.myModel.length > 0 ? 'ltr' : 'rtl' }}"/>
+    </div>
+    <div id="keyboard-tray_{{$ctrl.name}}" class="input-group-addon wb-mobile-hidden"
+         ng-if="$ctrl.keypad || $ctrl.keyboard">
+        <button type="button" id="keypad-btn_{{$ctrl.name}}" class="btn btn-default keypad-btn">
+            <i class="la la-keyboard-o la-left la-one-eight"></i>
+        </button>
+        <div style="background-color: red" id="keypad-position_{{$ctrl.name}}" class="keypad-tray"></div>
+    </div>
+</div>
+<div class="input-group" ng-if="$ctrl.touchable">
+    <span ng-if="$ctrl.glyph" class="input-group-addon wb-input-glyph-span wb-glyph" title=""
+          ng-class="{'mandatory-input-group-addon' : $ctrl.notNull}">
+            <span class="la-one-half {{$ctrl.glyph}}"></span>
+    </span>
+    <div ng-if="!$ctrl.maskPattern">
+        <input id="{{$ctrl.name}}"
+               uib-typeahead="th for th in $ctrl.typeAheadSource | filter:$viewValue | limitTo:8"
+               ng-disabled="$ctrl.disabled"
+               type="{{$ctrl.type}}"
+               placeholder="{{$ctrl.placeholder|translate}}"
+               ng-model="$ctrl.myModel"
+               ng-class="{'emailField': $ctrl.isEmail() && $ctrl._myModel , 'password-input' : $ctrl.isPassword == true && $ctrl.myModel.length > 0 , 'text-start' :  $ctrl.isPassword == true && $ctrl.myModel.length == 0 , 'english-input' : $ctrl.englishOnly == true && $ctrl.language.isPersian() && $ctrl.myModel.length > 0 }"
+               popover-trigger="mouseenter"
+               name="{{$ctrl.name}}"
+               autocomplete="off"
+               ng-blur="$ctrl.onBlur($event)"
+               ng-focus="$ctrl.onFocus($event)"
+               typeahead="item for item in $ctrl.getItems($viewValue)"
+               class="form-control wb-input"
+               uib-popover="{{$ctrl.tooltip|translate}}"
+               title=""
+               maxlength="{{$ctrl.maxlength}}"
+               minlength="{{$ctrl.minlength}}"
+               dir="{{$ctrl.englishOnly == true && $ctrl.myModel.length > 0 ? 'ltr' : 'rtl' }}"/>
+    </div>
+
+    <div ng-if="$ctrl.maskPattern">
+        <input id="{{$ctrl.name}}"
+               uib-typeahead="th for th in $ctrl.typeAheadSource | filter:$viewValue | limitTo:8"
+               ng-disabled="$ctrl.disabled"
+               type="{{$ctrl.type}}"
+               placeholder="{{$ctrl.placeholder|translate}}"
+               ng-model="$ctrl.myModel"
+               ng-class="{'emailField': $ctrl.isEmail() && $ctrl._myModel , 'password-input' : $ctrl.isPassword == true && $ctrl.myModel.length > 0 , 'text-start' :  $ctrl.isPassword == true && $ctrl.myModel.length == 0 , 'english-input' : $ctrl.englishOnly == true && $ctrl.language.isPersian() && $ctrl.myModel.length > 0 }"
+               popover-trigger="mouseenter"
+               name="{{$ctrl.name}}"
+               autocomplete="off"
+               typeahead="item for item in $ctrl.getItems($viewValue)"
+               class="form-control wb-input"
+               uib-popover="{{$ctrl.tooltip|translate}}"
+               ui-mask="{{$ctrl.maskPattern}}"
+               ui-mask-placeholder
+               ng-blur="$ctrl.onBlur($event)"
+               ng-focus="$ctrl.onFocus($event)"
+               model-view-value="true"
+               ui-mask-placeholder-char="_"
+               maxlength="{{$ctrl.maxlength}}"
+               minlength="{{$ctrl.minlength}}"
+               dir="{{$ctrl.englishOnly == true && $ctrl.myModel.length > 0 ? 'ltr' : 'rtl' }}"/>
+    </div>
+    <div id="keyboard-tray_{{$ctrl.name}}" class="input-group-addon wb-mobile-hidden"
+         ng-if="$ctrl.keypad || $ctrl.keyboard">
+        <button type="button" id="keypad-btn_{{$ctrl.name}}" class="btn btn-default keypad-btn ">
+            <i class="la la-keyboard-o la-left la-one-eight"></i>
+        </button>
+        <div id="keypad-position_{{$ctrl.name}}" class="keypad-tray"></div>
+    </div>
+</div>
+<spl:validation-messages name="{{$ctrl.name}}" ng-transclude>
+</spl:validation-messages>

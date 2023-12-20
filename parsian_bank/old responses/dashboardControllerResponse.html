@@ -1,0 +1,505 @@
+import {AutoNormalTransferReportOperationsService} from "../services/operations/AutoNormalTransferReportOperationsService";
+import {ActiveChequeBookletsOperationsService} from "../services/operations/ActiveChequeBookletsOperationsService";
+import {NormalFundTransferOperationsService} from "../services/operations/NormalFundTransferOperationsService";
+import {StatementOperationsService} from "../services/operations/StatementOperationsService";
+import {TransferredOtherBankChequesStatusOperationsService} from "../services/operations/TransferredOtherBankChequesStatusOperationsService";
+import {CardToCardFundTransferOperationsService} from "../services/operations/CardToCardFundTransferOperationsService";
+import {Utils} from "../services/Utils";
+import {ChargeServiceOperationsService} from "../services/operations/ChargeServiceOperationsService";
+import {DashboardOperationsService} from "../services/operations/DashboardOperationsService";
+import {AchFundTransferOperationsService} from "../services/operations/AchFundTransferOperationsService";
+import {RtgsFundTransferOperationsService} from "../services/operations/RtgsFundTransferOperationsService";
+import {CharityOperationsService} from "../services/operations/CharityOperationsService";
+import {CardlessIssueVoucherOperationsService} from "../services/operations/CardlessIssueVoucherOperationsService";
+import {ChangeCardPasswordOperationsService} from "../services/operations/ChangeCardPasswordOperationsService";
+import {DeactivationCardPasswordOperationsService} from "../services/operations/DeactivationCardPasswordOperationsService";
+import {BlockSingularCardOperationsService} from "../services/operations/BlockSingularCardOperationsService";
+import {BillPaymentOperationsService} from "../services/operations/BillPaymentOperationsService";
+import {ChangeLoginPasswordOperationsService} from "../services/operations/ChangeLoginPasswordOperationsService";
+
+/**
+ * @author Saman Delfani
+ * @author Amir Tajik
+ * @author Sedigh
+ * @version 1.3
+ * @since 05/06/2018 01:55 PM
+ */
+
+interface IDashboardModel extends lego.IBasicModel {
+}
+
+@lego.Controller({
+    type: lego.ControllerType.OPERATION_CONTROLLER,
+    requestMapping: {
+        Account: "/account",
+        Card: "/card",
+        General: "/general",
+        Customer: "/customer",
+        Cheque: "/cheque",
+        Settings: "/settings",
+    }
+})
+export class DashboardController implements lego.ILegoController<IDashboardModel, lego.IGeneralActions>, lego.IGeneralActions {
+    public static $inject = ["$filter"];
+    public model: any = {};
+    public actions: any;
+    public dashboardList: any = {};
+    public corporateList: any = {};
+    public restService;
+    public form: any;
+    public passwordForceToChange:boolean;
+    private _applicationComponent;
+    public agreementAccepted;
+
+    //DO NOT remove these injects, they are used in dashboard widgets
+    @lego.Inject()
+    public statementOperationsService: StatementOperationsService;
+
+    @lego.Inject()
+    public changeLoginPasswordOperationsService: ChangeLoginPasswordOperationsService;
+
+    @lego.Inject()
+    public normalFundTransferOperationsService: NormalFundTransferOperationsService;
+
+    @lego.Inject()
+    public activeChequeBookletsOperationsService: ActiveChequeBookletsOperationsService;
+
+    @lego.Inject()
+    public autoNormalTransferReportOperationsService: AutoNormalTransferReportOperationsService;
+
+    @lego.Inject()
+    public chargeServiceOperationsService: ChargeServiceOperationsService;
+
+    @lego.Inject()
+    public billPaymentOperationsService: BillPaymentOperationsService;
+
+    @lego.Inject()
+    public blockSingularCardOperationsService: BlockSingularCardOperationsService;
+
+    @lego.Inject()
+    public transferredOtherBankChequesStatusOperationsService: TransferredOtherBankChequesStatusOperationsService;
+
+    @lego.Inject()
+    public cardToCardFundTransferOperationsService: CardToCardFundTransferOperationsService;
+
+    @lego.Inject()
+    public achFundTransferOperationsService: AchFundTransferOperationsService;
+
+    @lego.Inject()
+    public rtgsFundTransferOperationsService: RtgsFundTransferOperationsService;
+
+    @lego.Inject()
+    public charityOperationsService: CharityOperationsService;
+
+    @lego.Inject()
+    public cardlessIssueVoucherOperationsService: CardlessIssueVoucherOperationsService;
+
+    @lego.Inject()
+    public changeCardPasswordOperationsService: ChangeCardPasswordOperationsService;
+
+
+    @lego.Inject()
+    public deactivationCardPasswordOperationsService: DeactivationCardPasswordOperationsService;
+
+
+    @lego.Inject()
+    public dashboardOperations: DashboardOperationsService;
+
+    @lego.Resource()
+    public WbNotificationUtil: WbNotificationUtil;
+
+    @lego.Resource()
+    public Utils;
+
+    //----------PLEASE DO NOT CLEAN
+    @lego.Resource()
+    public $state: any;
+
+    @lego.Resource()
+    public $filter: any;
+
+    @lego.Resource()
+    public language: LanguageService;
+
+    public set applicationComponent(value) {
+        this._applicationComponent = value;
+        value.subscribeByName("resetController", () => {
+            this.$onInit();
+        });
+    }
+
+    public get applicationComponent() {
+        return this._applicationComponent;
+    }
+
+    public constructor() {
+        this.actions = new ControllerActions(this);
+    };
+
+    getConfig(): lego.IAbstractControllerConfig<IDashboardModel, lego.IGeneralActions> {
+        return {};
+    }
+
+    $onInit() {
+        this.passwordForceToChange=false;
+        this.model.requestDto = {};
+        this.model.requestDto.addNewWidget = [];
+        this.model.requestDto.deleteLinkWidget = [];
+        this.model.requestDto.changeWidgetModel = [];
+        this.model.requestDto.actionWidgetAddModel = {};
+        this.model.requestDto.chartWidgetAddModel = {};
+        localStorage.setItem("isRepresentative", "false");
+        localStorage.setItem("menuVisible", "true");
+        //----------PLEASE DO NOT CLEAN
+        //change state callback
+        this.$state.addStateChangeNotifier((f) => {
+            this.restService.General.echo();
+        });
+
+        this.model.debitFromTitles = [''];
+        this.model.headerContactField = ['depositNumber'];
+        this.model.middleContactField = ['depositAlias'];
+        this.model.detailField = [];
+        this.model.mode = 'SHOW';
+        this.actions.checkUserConditions();
+    }
+}
+
+class ControllerActions {
+    public operations: DashboardOperationsService;
+
+    constructor(public ctrl: DashboardController) {
+        this.operations = ctrl.dashboardOperations;
+    }
+
+    acceptAgreement() {
+        this.ctrl.restService.Customer.acceptAgreement().$promise.then((data) => {
+            if (data.result) {
+                localStorage.setItem("agreementAcceptance", true);
+                this.initDashboard();
+            }
+        });
+    }
+
+
+    checkUserConditions() {
+        this.ctrl.restService.Customer.getCurrentUser().$promise.then((data) => {
+            localStorage.setItem("agreementAcceptance", data.agreementAcceptance.toString());
+            localStorage.setItem("loginPasswordForceToChange", data.loginPasswordForceToChange.toString());
+            if (data.loginPasswordForceToChange == true) {
+                this.ctrl.changeLoginPasswordOperationsService.init();
+            }
+            else if (data.agreementAcceptance == false) {
+                this.operations.agreement();
+            }
+            else {
+                // this.initDashboard();
+                this.selectUser();
+            }
+        });
+    }
+
+    initDashboard() {
+        this.loadDashboard();
+        this.checkLawyerRelated();
+
+    }
+
+    loadUserProfile() {
+        this.ctrl.restService.Account.getAllAccounts({
+            accountTypes: [Utils.AccountTypes.JARI_ACCOUNT, Utils.AccountTypes.PASANDAZ, Utils.AccountTypes.SHORT_ACCOUNT],
+            currency: 'IRR'
+        }).$promise.then((data) => {
+            this.ctrl.model.accountsList = [data.allAccountList];
+        });
+
+        this.ctrl.restService.Card.getCardList({
+            cardStatus: Utils.CardStatus.OK
+        }).$promise.then((data) => {
+            this.ctrl.model.cardList = [data.cardItemDtos];
+        });
+    }
+
+    selectUser() {
+        this.ctrl.restService.Settings.loadListOfRepresentativeCorporate().$promise.then((data) => {
+            localStorage.setItem("menuVisible", data.beanList.length > 0 ? "false" : "true");
+            localStorage.setItem("isRepresentative", "false");
+            if (data.beanList.length > 0) {
+                this.ctrl.corporateList = data.beanList;
+                this.operations.corporateUser();
+            } else {
+                this.initial();
+            }
+        });
+    }
+
+    selectUserPerform() {
+        if (this.ctrl.model.isRepresentativeUser == 'true') {
+            let reqDto = {
+                corporateId: this.ctrl.model.requestDto.id
+            };
+            let _ctrl = this.ctrl;
+            this.ctrl.restService.Settings.setRepresentativeUserInContext(reqDto).$promise.then((data) => {
+                if (data.result) {
+                    localStorage.setItem("menuVisible", "true");
+                    localStorage.setItem("isRepresentative", "true");
+                    this.operations.resetPage();
+                }
+            });
+        } else {
+            localStorage.setItem("isRepresentative", "false");
+            localStorage.setItem("menuVisible", "true");
+            this.initial();
+        }
+
+    }
+
+    initial() {
+        // this.checkAgreement();
+        this.loadDashboard();
+        this.checkLawyerRelated();
+        this.showRegisteredCheque();
+        // this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("GeneralTranslations.SabaDepositLottery") + "<br/>" +
+        //     this.ctrl.Utils.translate("GeneralTranslations.SabaDepositLotteryDate") + "<br/>" +
+        //     this.ctrl.Utils.translate("GeneralTranslations.SabaDepositLotteryDescription")
+        //     , lego.NotificationTypes.WARNING, true);
+    }
+
+    loadDashboard() {
+        this.ctrl.restService.General.getUserDashboard().$promise.then((data) => {
+            if (data.userHasFavourites == true) {
+                this.ctrl.dashboardList.sections = data.sections;
+                this.ctrl.dashboardList.dashboardItems = data.dashboardMap;
+                this.operations.show();
+            } else {
+                this.operations.home();
+            }
+        });
+    }
+
+    checkLawyerRelated() {
+        this.ctrl.restService.Customer.isLawyerRelated().$promise.then((data) => {
+            if (data.result == true) {
+                this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("GeneralTranslations.lawyerRelatedError"), lego.NotificationTypes.WARNING);
+            }
+        });
+    }
+    showRegisteredCheque() {
+        this.ctrl.restService.Cheque.getUpcomingDueDateCheques().$promise.then((data) => {
+            if (data.getUpcomingDueDateChequesBeanlist.length != 0) {
+                let temp =  this.ctrl.Utils.translate("Dashboard.customer")+" "+this.ctrl.Utils.translate("Dashboard.dear")+",";
+
+                for (let item of data.getUpcomingDueDateChequesBeanlist) {
+                    temp += " "+this.ctrl.Utils.translate("Dashboard.sayadId") +" "+
+                        this.ctrl.Utils.translate(item.sayadId) + " " +
+                        this.ctrl.Utils.translate("Dashboard.dueDate") +" "+
+                        this.ctrl.Utils.translate(this.ctrl.$filter('persianDate')(item.dueDate))+" " ;
+
+                }
+                temp+= this.ctrl.Utils.translate("Dashboard.willExpire");
+                this.ctrl.WbNotificationUtil.notify(temp, lego.NotificationTypes.DANGER, true);
+
+            }
+        });
+    }
+
+    routeToPreConfigDashboard() {
+        this.ctrl.restService.General.echo().$promise.then((data) => {
+            if (!data || data.Result != 1) {
+                window.location.reload();
+            } else {
+                delete this.ctrl.model.persistFavRequestDto;
+                this.loadUserProfile();
+                this.operations.preconfig();
+            }
+        });
+    }
+
+    routeToConfigDashboard() {
+        this.ctrl.restService.General.echo().$promise.then((data) => {
+            if (!data || data.Result != 1) {
+                window.location.reload();
+            } else {
+                this.loadUserProfile();
+                this.operations.config(null);
+            }
+        });
+    }
+
+    validateApplyItems() {
+        for (let item of this.ctrl.model.requestDto.addNewWidget) {
+            if (!item.widgetId || item.widgetId == '') {
+                this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("app.pleaseSelectWidgetToAdd"), lego.NotificationTypes.ERROR);
+                return false;
+            }
+            if (item.favType == 'CARD' && (!item.favCardNumber || item.favCardNumber == '')) {
+                this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("app.pleaseSelectWidgetToAdd"), lego.NotificationTypes.ERROR);
+                return false;
+            }
+            if (item.favType == 'ACCOUNT' && (!item.favAccNumber || item.favAccNumber == '')) {
+                this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("app.pleaseSelectWidgetToAdd"), lego.NotificationTypes.ERROR);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    prepareApplyFinalDto() {
+        let _reqDto = {
+            userWidgetIdsToDelete: [],
+            userWidgetsToAdd: [],
+            userWidgetsToEdit: []
+        };
+
+        for (let item of this.ctrl.model.requestDto.deleteLinkWidget) {
+            _reqDto.userWidgetIdsToDelete.push(item);
+        }
+
+        for (let item of this.ctrl.model.requestDto.addNewWidget) {
+            let _obj: any = {
+                widgetId: item.widgetId,
+                favAccount: item.favAccNumber,
+                favCard: item.favCardNumber,
+            };
+            if (item.color && item.color != '') {
+                _obj.color = item.color.replace('#', '');
+            }
+            _reqDto.userWidgetsToAdd.push(_obj);
+        }
+
+        let _actionWidgetAddModel = this.ctrl.model.requestDto.actionWidgetAddModel;
+        if (_actionWidgetAddModel) {
+            let __cardModel = _actionWidgetAddModel.newActionCardWidget;
+            if (__cardModel && __cardModel.widgetId && __cardModel.favCardNumber) {
+                let _obj: any = {
+                    widgetId: __cardModel.widgetId,
+                    favCard: __cardModel.favCardNumber,
+                };
+                _reqDto.userWidgetsToAdd.push(_obj);
+            }
+            let __accountModel = _actionWidgetAddModel.newActionAccountWidget;
+            if (__accountModel && __accountModel.widgetId && __accountModel.favAccNumber) {
+                let _obj: any = {
+                    widgetId: __accountModel.widgetId,
+                    favAccount: __accountModel.favAccNumber,
+                };
+                _reqDto.userWidgetsToAdd.push(_obj);
+
+                let _trsChart: any = {
+                    widgetId: _actionWidgetAddModel.newTransactionLineChartWidget.widgetId,
+                    favAccount: _actionWidgetAddModel.newActionAccountWidget.favAccNumber,
+                };
+                _reqDto.userWidgetsToAdd.push(_trsChart);
+            }
+        }
+
+        for (let item of this.ctrl.model.requestDto.changeWidgetModel) {
+            let _obj: any = {
+                userWidgetId: item.userWidgetId,
+            };
+            if (typeof item.visible != 'undefined') {
+                _obj.visible = item.visible;
+            }
+            if (item.favouritePan && item.favouritePan != '') {
+                _obj.favouritePan = item.favouritePan;
+            }
+            if (item.favouriteAccountNumber && item.favouriteAccountNumber != '') {
+                _obj.favouriteAccountNumber = item.favouriteAccountNumber;
+            }
+            if (item.color && item.color != '') {
+                _obj.color = item.color.replace('#', '');
+            }
+            _reqDto.userWidgetsToEdit.push(_obj);
+        }
+        return _reqDto;
+    }
+
+    goToApplyChange() {
+
+        if (!this.validateApplyItems()) {
+            return false;
+        }
+
+        let _reqDto = this.prepareApplyFinalDto();
+
+        this.ctrl.WbNotificationUtil.question(this.ctrl.Utils.translate("GeneralTranslations.changeWidgetQuestion")).then(() => {
+            this.ctrl.restService.General.applyDashboardChanges(_reqDto).$promise.then((data) => {
+                if (data.success) {
+                    this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("GeneralTranslations.operationDoneSuccessfully"), lego.NotificationTypes.SUCCESS);
+                    this.flushChangeModels();
+                    this.loadDashboard();
+                }
+            });
+        });
+    }
+
+    persistDashboardUserFavourites() {
+        let needAccountSelect, needCardSelect, parent = this, needConfirm = false;
+
+        if (this.ctrl.model.accountsList && this.ctrl.model.accountsList[0].length > 0) {
+            if (!this.ctrl.model.persistFavRequestDto.favAccount || this.ctrl.model.persistFavRequestDto.favAccount == '') {
+                needAccountSelect = true;
+            }
+        } else {
+            needAccountSelect = false;
+        }
+
+        if (this.ctrl.model.cardList && this.ctrl.model.cardList[0].length > 0) {
+            if (!this.ctrl.model.persistFavRequestDto.favCard || this.ctrl.model.persistFavRequestDto.favCard == '') {
+                needCardSelect = true;
+            }
+        } else {
+            needCardSelect = false;
+        }
+
+        if (needCardSelect == true && needAccountSelect == true) {
+            this.ctrl.WbNotificationUtil.notify(this.ctrl.Utils.translate("Dashboard.selectOneOfCardOrAccount"), lego.NotificationTypes.ERROR);
+            return false;
+        }
+
+        let persistData = function () {
+            parent.ctrl.restService.General.persistUserFavourite(parent.ctrl.model.persistFavRequestDto).$promise.then((data) => {
+                if (data) {
+                    parent.ctrl.actions.loadDashboard();
+                }
+            });
+        };
+
+        if (this.ctrl.model.accountsList && this.ctrl.model.accountsList[0].length > 0 && this.ctrl.model.persistFavRequestDto.favAccount) {
+            for (let item of this.ctrl.model.accountsList[0]) {
+                if (Utils.Account.fixAccountNumber(item.depositNumber) == Utils.Account.fixAccountNumber(parent.ctrl.model.persistFavRequestDto.favAccount)
+                    && item.depositStatus != 'OPEN') {
+                    needConfirm = true;
+                    parent.ctrl.WbNotificationUtil.question(parent.ctrl.Utils.translate("Dashboard.selectedAccountIsNotOpen")).then(() => {
+                        persistData();
+                    });
+                    break;
+                }
+            }
+        }
+        if (!needConfirm) {
+            persistData();
+        }
+    }
+
+    revertChanges() {
+        this.flushChangeModels();
+        this.loadDashboard();
+    }
+
+    resetDashboard() {
+        this.ctrl.WbNotificationUtil.question(this.ctrl.Utils.translate("Dashboard.resetConfirm")).then(() => {
+            this.ctrl.restService.General.deleteUserDashboardData().$promise.then((data) => {
+                this.revertChanges();
+            });
+        });
+    }
+
+    flushChangeModels() {
+        this.ctrl.model.requestDto.deleteLinkWidget = [];
+        this.ctrl.model.requestDto.addNewWidget = [];
+        this.ctrl.model.requestDto.changeWidgetModel = [];
+        this.ctrl.model.requestDto.actionWidgetAddModel = {};
+        this.ctrl.model.requestDto.chartWidgetAddModel = {};
+    }
+}

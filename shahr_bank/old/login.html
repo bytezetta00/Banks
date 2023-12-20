@@ -1,0 +1,1089 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>اینترنت بانک بانک شهر</title>
+    
+    
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="description" content="انجام امور بانکی نظیر: انواع انتقال وجه (سپرده، کارت، ساتنا، پایا)، پرداخت قبض، افتتاح سپرده، پرداخت اقساط و.... در هر ساعت از شبانه‌روز، در دسترس شما است.">
+    <meta name="summary" content="انجام امور بانکی نظیر: انواع انتقال وجه (سپرده، کارت، ساتنا، پایا)، پرداخت قبض، افتتاح سپرده، پرداخت اقساط و.... در هر ساعت از شبانه‌روز، در دسترس شما است.">
+    <meta name="keyword" content="اینترنت بانک، بانکداری الکترونیک،، بانکداری شخصی، خدمات بانکی، بانک آنلاین، انتقال وجه، ساتنا، پایا، کارت به کارت، پرداخت قبض">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="robots" content="index">
+    <meta name="CSRF_TOKEN" content=s+NRY1pnwV+28yMjOKOmw6TtEfGiKnMetOS2hEyUg+A=>
+
+    
+    <link rel="shortcut icon" href="https://ebank.shahr-bank.ir/ebank/favicon.ico"/>
+    
+        
+            
+        
+        
+    
+    <link rel="stylesheet" type="text/css"
+          href="https://ebank.shahr-bank.ir/ebank/styles/login-theme-withAd.css?v=4.121.7-4012"/>
+    <script type="text/javascript" language="javascript">
+        /* this variable is for position of error tips  on username and password Box - set 'top' or 'sides' */
+        var IB = {};
+        IB.ctx = 'https://ebank.shahr-bank.ir/ebank';
+        var tipPosition = 'side';
+        IB.tempKeys = {
+            chequeManagemnet: 'مدیریت چک',
+            batchTransfer: 'دسته ای',
+            batch: 'batch',
+            chequeAndChequeBook: 'چک و دسته چک',
+            transferredChequeListTitle: 'چکهای واگذار شده به سپرده',
+            payBill: 'pay.bill',
+            batchBillPayment: 'batch.Bill.Payment'
+        };
+        // end of template keys
+        IB.periodicalReports = {};
+        IB.periodicalReports.smsConfig = ('true' == 'true');
+        IB.periodicalReports.emailConfig = ('false' == 'true');
+        IB.periodicalReports.faxConfig = ('false' == 'true');
+
+        IB.userName = '';
+        IB.direction = 'rtl';
+        IB.ctx = 'https://ebank.shahr-bank.ir/ebank';
+        if ('' !== '') {
+            IB.pageSize = parseInt('', 10);
+        } else {
+            IB.pageSize = '';
+        }
+        IB.kartabl_activation = ('' == 'true');
+        IB.timerDuration = '120';
+        IB.remainingTimeDuration = '';
+        IB.ticketModernServiceType = ''
+    </script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://ebank.shahr-bank.ir/ebank/styles/login-4.121.7-4012.css"/>
+</head>
+<body class="rtl loginPage ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="mask"
+     style="display: none; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background-color: #000; opacity: 0.4; filter: alpha(opacity = 40);z-index: 1000000;">
+</div>
+<div id="taskNotifier"
+     style="display: none; background-color: #FFFFCC; padding: 10px 10px; border: solid 1px #F2C94D; border-top: none; position: fixed; left: 46%; top: -4px; height: 12px; -moz-border-radius: 5px; -webkit-border-radius: 5px; z-index: 10000000;">
+    بارگذاری...
+</div>
+
+<noscript>
+    
+    <style type="text/css">
+        #container, #header, #content, #loginAndAttentionConstructor, #errorDiv {
+            display: none;
+        }
+
+        body {
+            background: #fdf2ab !important;
+        }
+    </style>
+
+    <body bgcolor="#fdf2ab">
+    <br/>
+    <hr color="#E80000"/>
+    <p align="center" dir="rtl" width="90%" style="width:90%; margin: 0 auto; padding: 10px 0;">
+        <img src="https://ebank.shahr-bank.ir/ebank/images/warning.png" align="absmiddle"/>
+        <b>
+            <font face="Tahoma" size="2" color="#E80000">
+                برای استفاده از این سامانه نیاز به پشتیبانی جاوا اسکریپت بر روی مرورگر خود دارید، مرورگر شما از جاوا اسکریپت پشتیبانی نمی کند و یا این امکان بر روی مرورگر شما غیر فعال شده است.
+                <a href="https://ebank.shahr-bank.ir/ebank/login/noscript.action">با انتخاب این گزینه اطلاعات بیشتر نمایش داده می شود.</a>
+            </font>
+        </b>
+    </p>
+    <hr color="#E80000"/>
+    </body>
+</noscript>
+
+<script type="text/javascript">
+    /* Show the mask*/
+    document.getElementById('mask').style.display = 'block';
+    document.getElementById('taskNotifier').style.display = 'block';
+
+    /*@$buoop is the setting object for browser detector script
+     * @context the context of application, which is used to make a valid url for images { i: ie, f: firefox, o: opera, s: safari, n: netScape}
+     * @vs in this object you can define your supported browser minor version, this means that the version you specify and less than than one IS NOT SUPPORTED
+     * @l your application language
+     * @onshow in addition of default program behaviour which is showing a message bar to user, you can define your own behaviour as a function here,
+     *           pay attention that in this situation both behaviour will be executed.
+     * @url the url that links your message bar to a link for browser update.*/
+
+    var $buoop = {context: 'https://ebank.shahr-bank.ir/ebank', vs: {
+        i: 9,
+        f: 20,
+        o: 11,
+        s:5,
+        c:25
+    }, newwindow: true, reminder: 0, test: false, l: 'fa', onshow: function (opt) {
+
+        /* @blackList the list of browser which you will not support*/
+        var blackList = { i: 6, f: 2};
+        for (var b in blackList) {
+            if (b === opt.browser.n && blackList[b] >= opt.browser.v) {
+                document.getElementById('blackListBrowser').style.display = 'block';
+                document.getElementById('container').style.display = 'none';
+                document.getElementById('mask').style.display = 'none';
+                document.getElementById('taskNotifier').style.display = 'none';
+                document.getElementById('updateLink').style.display = 'none';
+                return;
+            }
+        }
+    }, url: 'https://ebank.shahr-bank.ir/ebank/login/browserUpdate.action'};
+
+
+    /* Here we add browser detector JS file to page dynamically so for any body use this UI tag, it's enough to just put right after <body> start tag*/
+    var e = document.createElement("script");
+    e.setAttribute("type", "text/javascript");
+    e.setAttribute("src", 'https://ebank.shahr-bank.ir/ebank/scripts/utility/browserDetector.js');
+    document.body.appendChild(e);
+
+    /* Hide the mask after page load is done*/
+    window.onload = function () {
+        document.getElementById('mask').style.display = 'none';
+        document.getElementById('taskNotifier').style.display = 'none';
+        browserDetectionInit();
+    }
+</script>
+
+
+<div id="blackListBrowser"
+     style="width: 100%; height: 100%; position:fixed; top:0; left:0; padding: 30px; font-size: 15px; color: red; background-color: #EFEFEF;display: none;">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="oldBrowserContainer">
+    <h1 id="oldBrowserHeader">
+        به روز رسانی مرورگر
+    </h1>
+
+    <p id="upgradeMsg">
+        شما می توانید با انتخاب آیکون زیر مرورگر خود را بروز کنید.
+    </p>
+
+    <div id="current-browser"></div>
+
+    <p style="border-top: 1px dotted #d1d1d1;">
+        و یا از مرورگرهای دیگر استفاده کنید.
+    </p>
+
+    <ul id="other-browsers"></ul>
+
+    <div id="close"
+         style="margin:0; clear: both; padding:0; ">
+    </div>
+</div>
+
+<script type="text/javascript">
+    var browserIsNotUpgradeableMessage = "با توجه به نسخه سیستم عامل و مرورگر دستگاه شما، قادر به بروز رسانی مرورگر خود نمی باشید، لطفاً از آخرین نسخه سایر مرورگرهای جایگزین استفاده کنید.";
+
+    if (typeof window.onload != 'function') {
+        window.onload = browserDetectionInit;
+    }
+    function browserDetectionInit() {
+        var detectedBrowser = $buoop.browser.n;
+        /*Don't alert if user has win xp or lower versions*/
+        var os = (function () {
+            var ua = navigator.userAgent.toLowerCase();
+            return {
+                isWin2K: /windows nt 5.0/.test(ua),
+                isXP: /windows nt 5.1/.test(ua),
+                isVista: /windows nt 6.0/.test(ua),
+                isWin7: /windows nt 6.1/.test(ua)
+            };
+        }());
+
+        var isBrowserUpgradeable = function () {
+            if (os.isXP && $buoop.browser.v === 8 && $buoop.browser.n === 'i') {
+                return false;
+            } else {
+                return true;
+            }
+        };
+
+        var browsers = {
+            f: {bname: "firefox", name: "Firefox", link: "http://www.mozilla.com/firefox/"},
+            c: {bname: "chrome", name: "Chrome", link: "http://www.google.com/chrome/"},
+            i: {bname: "msie", name: "Internet Explorer", link: "http://www.microsoft.com/windows/Internet-explorer/default.aspx"},
+            o: {bname: "opera", name: "Opera", link: "http://www.opera.com/download/"},
+            s: {bname: "safari", name: "Safari", link: "http://www.apple.com/safari/download/"}
+        };
+
+        if (!isBrowserUpgradeable()) {
+            document.getElementById('upgradeMsg').innerHTML = browserIsNotUpgradeableMessage;
+            detectedBrowser = "f";
+            delete(browsers.i);
+        }
+
+        var currentBrowser = document.getElementById('current-browser');
+        var otherBrowsers = document.getElementById('other-browsers');
+        for (var browser in browsers) {
+            if (browsers[browser].bname == browsers[detectedBrowser].bname) {
+                currentBrowser.innerHTML =
+                        '<div class="item ' + browsers[browser].bname + '">' +
+                                '<a target="_blank" href="' + browsers[browser].link + '">' +
+                                '<div class="icon"></div>' +
+                                '<div class="link">' +
+                                browsers[browser].name +
+                                '</div>' +
+                                '</a>' +
+                                '</div>';
+                continue;
+            }
+            otherBrowsers.innerHTML = otherBrowsers.innerHTML +
+                    '<li id="' + browsers[browser].bname + '" class="item ' + browsers[browser].bname + '">' +
+                    '<a target="_blank" href="' + browsers[browser].link + '">' +
+                    '<div class="icon"></div>' +
+                    '<div class="link">' +
+                    browsers[browser].name +
+                    '</div>' +
+                    '</a>' +
+                    '</li>';
+        }
+
+        if (!isBrowserUpgradeable()) {
+            otherBrowsers.className = 'browserIsNotUpgradeable';
+        }
+    }
+
+</script>
+
+</div>
+
+
+    
+    
+        
+            
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="header">
+    
+        <div id="date">
+            ‪۱۴۰۲/۰۲/۲۱‬
+        </div>
+    
+    <div id="logoBox"></div>
+</div>
+<div id="content">
+    <div id="errorDiv">
+        
+
+
+
+
+        
+
+
+
+
+    </div>
+    <div id="login">
+        <div class="loginBoxTitle"></div>
+        <div id="loginBox">
+            
+                
+                
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+<form action="https://ebank.shahr-bank.ir/ebank/login/login.action?ibReq=WEB&amp;lang=fa" method="post" autocomplete="off"
+      clientSideValidation="true"
+      
+      id="loginForm"
+      
+      
+      
+      submission="true"
+      
+        >
+
+    
+    <input type="hidden" name="struts.token.name" value="loginToken" />
+<input type="hidden" name="loginToken" value="A359TZ02BOFXFBVQTK3FCOM1RSNS083U" />
+    
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="otpSyncRequired" id="otpSyncRequired" value="false"/>
+    
+    
+
+    <div id="usernameBox">
+        <label for="username" class="usernameLabel">نام کاربری:</label>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+    
+
+
+
+
+
+<input type="text" name="username" id="username" value="" spellcheck="false"
+       
+       
+       maxlength="50"
+       
+       
+       
+       
+       
+       
+       
+       dir="ltr"
+       class="required limitedKeys"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="hidden">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="" name="hiddenPass1" id="hiddenPass1"
+       value="1"
+       
+       
+       
+       
+       dir="rtl"
+       
+       
+       
+        />
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="" name="hiddenPass2" id="hiddenPass2"
+       value="2"
+       
+       
+       
+       
+       dir="rtl"
+       
+       
+       
+        />
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="" name="hiddenPass3" id="hiddenPass3"
+       value="3"
+       
+       
+       
+       
+       dir="rtl"
+       
+       
+       
+        />
+
+    </div>
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+<div class="passwordBox syncablePassword" id="">
+    
+        
+        
+            <label id="passwordLabel" for="password" class="passwordLabel ">
+                
+                    
+                    
+                        رمز عبور:
+                    
+                
+            </label>
+        
+    
+
+    <div class=" form-item-field">
+        
+            
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="loginInput form-item-field otpSync required fullKeys" name="password" id="password"
+       
+       
+       
+       
+       
+       dir="ltr"
+       
+       
+       
+        />
+
+            
+            
+        
+        <span class="hint" id="capsLockHint">روشن است Caps Lock
+            <span class="hint-pointer">&nbsp;</span>
+        </span>
+    </div>
+</div>
+
+
+
+
+    
+    
+        
+        
+        
+            <div class="loginTypeBox">
+                <select name="loginType" id="loginType">
+                    
+                        <option value="STATIC_PASSWORD"
+                                >
+                            رمز ایستا
+                        </option>
+                    
+                        <option value="OTP_COUNTER"
+                                >
+                            رمز یكبار مصرف (شمارنده)
+                        </option>
+                    
+                </select>
+            </div>
+            
+
+        
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="captchaBox">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+        
+    
+
+
+
+    
+
+
+
+
+
+<input type="text" name="captcha" id="captcha" value="" spellcheck="false"
+       
+       
+       maxlength="20"
+       
+       
+       
+       
+       
+       
+       
+       dir="ltr"
+       class="required captcha"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+        <div id="captchaContainer">
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="isSoundCaptcha" id="isSoundCaptcha" value="false"/>
+    
+    
+
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="soundCaptchaEnable" id="soundCaptchaEnable" value="true"/>
+    
+    
+
+            
+            
+                <script>
+                    document.getElementById("captcha").className += " soundEnable";
+                </script>
+                <audio id="audioCaptcha"  class="audioCaptcha captchaAudio hidden" autoplay="true" type="audio/mpeg"
+                       src=""></audio>
+                <div id="captchaSelector">
+                    <div id="imageCaptchaLinkContainer" class="linkContainer">
+                        <button type="button" class="captchaLink" id="imageCaptchaLink" title="کد امنیتی تصویری">کد امنیتی تصویری</button>
+                    </div>
+                    <div id="soundCaptchaLinkContainer" class="linkContainer">
+                        <button type="button" class="captchaLink" id="soundCaptchaLink" title="کد امنیتی صوتی">کد امنیتی صوتی</button>
+                    </div>
+                </div>
+            
+            <div id="captchaHolder">
+                <div id="soundCaptchaContainer">
+                    <p id="msgText">کد امنیتی صوتی در حال پخش است...</p>
+                    <button type="button" id="replayCaptcha"
+                            alt="پخش مجدد"
+                            title="پخش مجدد"><img
+                            src="https://ebank.shahr-bank.ir/ebank/images/loginWithAd/reload.png">
+                    </button>
+                </div>
+                <img id="captchaImage" src="https://ebank.shahr-bank.ir/ebank/images/spacer.gif" align="absmiddle">
+                <img id="refreshCaptcha" align="absmiddle"
+                     src="https://ebank.shahr-bank.ir/ebank/images/loginWithAd/refresh.png"
+                     alt="تغییر عکس"
+                     title="تغییر عکس">
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="captchaHelpContainer">
+        <div id="captchaHelp">متن داخل تصویر را در فیلد بالا وارد کنید.</div>
+        <div>به حروف بزرگ و کوچک حساس نیست.</div>
+    </div>
+
+
+
+    <div class="keyboardContainer" id="fullKeyboardContainer">
+        <div class="keyboardKeypad" id="keyboard">
+        </div>
+    </div>
+    <div class="keyboardContainer" id="limitedKeyboardContainer">
+        <div class="keyboardKeypad" id="limitedKeyboard">
+        </div>
+    </div>
+
+    
+
+
+
+
+<div class="commandBar"
+   
+        >
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="submit" value="ورود" class="button preventDoubleSubmission" 
+       
+       
+       
+        />
+
+    
+</div>
+
+
+
+
+</form>
+
+                
+            
+            <div id="locales">
+                
+
+
+
+
+
+
+    
+        <a href="https://ebank.shahr-bank.ir/ebank/login/changeLocale.action?lang=en"
+           title="تغییر زبان" id="localeLink">
+                English
+        </a>
+    
+
+    
+
+
+            </div>
+        </div>
+        <div class="forgetPassword">
+            
+                <a id="showSignUpModalLink"
+                   href="https://ebank.shahr-bank.ir/ebank/login/userAccountPage.action?strategy=SIGN_UP&lang=fa&channel=INTERNET_BANK">
+                    ثبت نام در اینترنت بانک
+                </a>
+            
+
+            
+                <div id="modalLinkSeparator">|</div>
+            
+
+            
+                <a id="showResetPassModalLink"
+                   href="https://ebank.shahr-bank.ir/ebank/login/userAccountPage.action?strategy=RESET_PASSWORD&lang=fa&channel=INTERNET_BANK">
+                    رمز عبور خود را فراموش کرده ام.
+                </a>
+            
+        </div>
+    </div>
+    
+    
+        
+        
+            <div class="advertise">
+                
+                    
+                        <div id="adContent"><h1>هشدار</h1><p><ol><li>در محل های عمومی (کافی نت و...) از اینترنت بانک استفاده نفرمایید.</li><li>به آدرس URL صفحات بانک توجه کنید. آدرس هایی غیر از آدرس بانک، نامعتبر هستند.</li><li>در هنگام هشدار عدم اعتبار گواهی (Certificate Error) از ادامه عملیات خودداری نمایید.</li><li>توصیه می شود از مرورگر های مطمئن و بروز (مانند گوگل کروم و فایرفاکس) استفاده کنید.</li><li>همواره از نرم افزارهای آنتی ویروس معتبر و بروزشده استفاده نمایید.</li><li>رمز عبور خود را در فواصل زمانی کوتاه تغییر دهید.</li><li>به منظور بالا بردن امنیت رمز عبور خود، از صفحه کلید مجازی استفاده کنید.</li><li>پس از انجام و اتمام كار، حتما از سیستم خارج شوید.</li><li>بانک هرگز اطلاعات محرمانه شما را از طریق ایمیل درخواست نمی کند. درصورت رخداد این مورد، سریعا به بانک اطلاع دهید.</li></ol></p></div>
+                    
+                
+            </div>
+        
+    
+</div>
+<div class="footer">© 2009 shahr-bank.ir - All rights reserved</div>
+
+
+            
+            
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://ebank.shahr-bank.ir/ebank/locale/l10n.action?version=4.121.7-4012&locale=fa"></script>
+<script type="text/javascript" src="/shahr_bank/ebank/scripts/login-4.121.7-4012.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var loginForm = $('#loginForm');
+        var userAccountPage = $('#forgetPasswordModal');
+        var showLink = 'false';
+        var showPasswordInput = function (operateOnErrors) {
+            var loginType = $('select[name=loginType]').val();
+            var submitedLoginType = '';
+            if (typeof operateOnErrors !== 'undefined' && operateOnErrors) {
+                if (submitedLoginType === loginType) {
+                    $('#errorDiv').removeClass('hidden');
+                    $('#errorDiv').css('display', 'block');
+                } else {
+                    $('#errorDiv').addClass('hidden');
+                    $('#errorDiv.hidden').css('display', 'none');
+                }
+            }
+            if (loginType === 'STATIC_PASSWORD' || submitedLoginType !== loginType || showLink === 'true') {
+                $('#syncableOtpContainer').addClass('hidden');
+                $('#passwordLabel').text('رمز عبور:');
+            } else {
+                $('#syncableOtpContainer').removeClass('hidden');
+                if ($('#otpSyncPassword').attr('id') == undefined) {
+                    $('#passwordLabel').text('رمز عبور:');
+                } else {
+                    $('#passwordLabel').text('رمز عبور اول:');
+                }
+            }
+        };
+
+        if (loginForm.length > 0 || userAccountPage.length > 0) {
+            showPasswordInput();
+            setupVKeyboardLogin('rtl', 'fullKeys');
+            setupVKeyboardLogin('rtl', 'limitedKeys');
+        }
+
+        $('#syncLink').click(function () {
+            showChalengResponse = true;
+            $('.challengeResponse').addClass('hidden');
+            $('.forSync').removeClass("hidden");
+            showLink = 'false';
+            showPasswordInput(true);
+            $('.otpDecisionLink').hide();
+            $('.errorContainer ul.errors').removeClass("errors").addClass("notification ").html(
+                '<li class="warningMsg">' + applicationResources['OTP.outOfSync.guide'] + '</li>'
+            );
+            $('.errorContainer').addClass("InfoContainer").removeClass("errorContainer");
+            $('#syncMessage.messages.notification').show();
+        });
+        $('#loginType').change(function () {
+            showPasswordInput(true);
+        });
+irst').focus();

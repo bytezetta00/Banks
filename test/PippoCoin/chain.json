@@ -1,0 +1,15 @@
+
+{"chain":		
+	[{
+	"index":0,
+	"hashid":"first-block-doesnt-need-it",
+	"timestamp":1541152127213,
+	"proof-of-work":"xyz",
+	"content":
+		{
+		"from":"network",
+		"to":"simone",
+		"amount":1
+		}
+	}]
+}

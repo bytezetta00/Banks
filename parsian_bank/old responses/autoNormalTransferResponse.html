@@ -1,0 +1,14 @@
+/**
+ * @author Saman Delfani
+ * @version 1.0
+ * @since 08/18/2018 08:05 AM
+ */
+
+@lego.OperationService("AutoNormalTransferReportController", "app/view/AutoNormalTransferReport.html")
+export class AutoNormalTransferReportOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+
+    @lego.OperationMethod()
+    init(accountNumber): ng.IPromise<any> {
+        return null;
+    }
+}

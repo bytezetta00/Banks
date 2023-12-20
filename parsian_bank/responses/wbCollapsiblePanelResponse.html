@@ -1,0 +1,39 @@
+<div class="row-content wb-filter" ng-show="$ctrl.active" ng-if="$ctrl._enableButtons || $ctrl.title" title="">
+    <div class="col-xs-6 col-sm-9 col-md-9 wb-padding-full-0"
+         title="{{'GeneralTranslations.expandCriteria' | translate}}">
+        <a class="wb-collapsible-title" ng-show="!$ctrl._disabledCollapsible" role="button"
+           ng-click="$ctrl.isFilterCollapsed = !$ctrl.isFilterCollapsed" aria-expanded="false" href="#">
+            <span class="{{$ctrl.collapsibleIcon}} la-2x no-animate wb-filter-header-icon"></span>
+            <span class="wb-filter-header-title">{{$ctrl.title | translate}}</span>
+            <span class="la la-angle-down la-one-half no-animate" aria-hidden="true"
+                  ng-hide="!$ctrl.isFilterCollapsed" ng-show="$ctrl.isFilterCollapsed"></span>
+            <span class="la la-angle-up la-one-half no-animate" aria-hidden="true"
+                  ng-hide="$ctrl.isFilterCollapsed" ng-show="!$ctrl.isFilterCollapsed"></span>
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3 wb-padding-full-0 wb-collapsible-actions" title="Export to file">
+        <ul class="wb-filter-icons" ng-if="$ctrl._enableButtons">
+
+            <li ng-if="$ctrl._enablePdfReport && !!$ctrl.pdfClick" ng-click="$ctrl.pdfClick()" uib-tooltip="{{$ctrl.auxPdfClick ? 'GeneralTranslations.newPDF' : 'GeneralTranslations.PDF' | translate}}"
+                title="{{$ctrl.auxPdfClick ? 'GeneralTranslations.newPDF' : 'GeneralTranslations.PDF' | translate}}">
+                <img src="app/resources/svg/npdf.svg" height="26" width="26" alt="Export to PDF">
+            </li>
+            <li ng-if="$ctrl._enableAuxPdfReport && !!$ctrl.auxPdfClick" ng-click="$ctrl.auxPdfClick()" uib-tooltip="{{$ctrl.auxPdfClick ? 'GeneralTranslations.oldPDF' : 'GeneralTranslations.PDF' | translate}}"
+                title="{{$ctrl.auxPdfClick ? 'GeneralTranslations.oldPDF' : 'GeneralTranslations.PDF' | translate}}">
+                <img src="app/resources/svg/opdf.svg" height="26" width="26" alt="Export to PDF">
+            </li>
+            <li ng-if="$ctrl._enableExcelReport && !!$ctrl.excelClick" ng-click="$ctrl.excelClick()"
+                uib-tooltip="{{'GeneralTranslations.excel' | translate}}" title="{{'GeneralTranslations.excel' | translate}}">
+                <img src="app/resources/svg/excel.svg" height="26" width="26" alt="Export to Excel">
+            </li>
+            <li ng-if="$ctrl._enablePrintReport && !!$ctrl.printClick" ng-click="$ctrl.printClick()"
+                uib-tooltip="{{'GeneralTranslations.exportPrintable' | translate}}" title="{{'GeneralTranslations.exportPrintable' | translate}}">
+                <img src="app/resources/svg/print.svg" height="26" width="26" alt="Send to Printer">
+            </li>
+        </ul>
+    </div>
+    <div uib-collapse="$ctrl.isFilterCollapsed">
+        <div class="wb-filter-block" ng-transclude>
+        </div>
+    </div>
+</div>

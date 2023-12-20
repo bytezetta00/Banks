@@ -1,0 +1,465 @@
+<!doctype html>
+<html ng-app="LoginController">
+<head>
+    <title translate="login">Parsian Internet Bank - Login</title>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+    <meta name="title"/>
+    <meta name="description"/>
+    <meta name="revised">
+    <meta name="application-name" content="Parsian Internet Bank"/>
+    <meta name='copyright' content="All rights reserved for Parsian bank"/>
+    <meta name='keywords' content="Parsian, Bank, InternetBank, PrivateBanking, Caspian, Lotus CoreBanking"/>
+    <meta name="author" content="Caspian Inc."/>
+    <meta name="robots" content="NOINDEX, NOFOLLOW">
+    <link rel="icon" href="favicon.ico"/>
+    <script type="application/javascript">
+        function determineReload() {
+            var url = window.location.href;
+            if (url.indexOf("current=true") < 0) {
+                if (url.indexOf('?') > -1) {
+                    url += '&current=true';
+                } else {
+                    url += '?current=true';
+                }
+                window.location.href = url;
+            }
+        }
+    </script>
+
+    <!-- loginCssDeps:css -->
+    <link rel="stylesheet" href="app/resources/css/jquery.bxslider.css">
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/jquery-ui/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="vendors/ladda/dist/ladda-themeless.min.css">
+    <link rel="stylesheet" href="vendors/keyboard/css/keyboard.css">
+    <link rel="stylesheet" href="app/resources/css/line-awesome.css">
+    <link rel="stylesheet" href="app/resources/css/login_style.css">
+    <!-- endinject -->
+
+    <!-- mainJsDeps:js -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/keyboard/dist/js/jquery.keyboard.min.js"></script>
+    <script src="vendors/keyboard/dist/js/jquery.mousewheel.min.js"></script>
+    <script src="vendors/keyboard/dist/js/jquery.keyboard.extension-scramble.min.js"></script>
+    <script src="vendors/ladda/dist/spin.min.js"></script>
+    <script src="vendors/ladda/dist/ladda.min.js"></script>
+    <script src="app/resources/scripts/browserDetector.js"></script>
+    <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="vendors/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="vendors/angular-messages/angular-messages.min.js"></script>
+    <script src="vendors/angular-translate/angular-translate.min.js"></script>
+    <script src="vendors/angular-cookies/angular-cookies.min.js"></script>
+    <script src="app/resources/scripts/bxslider.js"></script>
+    <script src="app/resources/scripts/login.js"></script>
+    <script src="app/resources/scripts/LoginController.js"></script>
+    <!-- endinject -->
+
+</head>
+
+<body ng-cloak dir="{{getLang() === 'fa' ? 'rtl' : 'ltr'}}" ng-controller="Application" class="ng-scope randbg"
+      data-ng-init="getVersion();getCaptcha()" onload="isDuplicateBrowser()">
+
+<link rel="{{getLang() === 'fa' ? 'null' : 'stylesheet'}}" href="app/resources/css/login-ltr.css">
+
+<div class="top-link-container">
+    <div class="col-sm-12">
+        <div class="top-links">
+            <a id="security-note-link"><span>{{'securityWarn' | translate}}</span><i class="la la-warning"></i></a>
+            <a rel="noopener" target="_blank"
+               href="https://www.parsian-bank.ir/general_content/91300-%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D8%A7%DB%8C%D9%86%D8%AA%D8%B1%D9%86%D8%AA-%D8%A8%D8%A7%D9%86%DA%A9.html"><span>{{'help' | translate}}</span>
+                <i class="la la-question-circle"></i>
+            </a>
+            <a ng-click="changeLanguage(getLang() === 'fa' ? 'en' : 'fa')"><span
+                    class="persian-font">{{'currentLang' | translate}}</span><i
+                    class="la la-globe"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="login-container">
+    <div class="login-row">
+        <div class="col-xs-12">
+            <div class="login-col center-block">
+
+<!--                <div id="securityHintBox" class="security-hint-box">-->
+<!--                    <div style="margin-top:15px"></div>-->
+<!--                    <div class="security-hint-body">-->
+<!--                        <a class="security-hint-close" onclick="closeSecurityHintBox()">&#x2A09;</a>-->
+<!--                        <p>{{'securityUrlHint11' | translate}}</p>-->
+<!--                        <p>{{'securityUrlHint12' | translate}}</p>-->
+<!--                        <p>{{'securityUrlHint13' | translate}}</p>-->
+<!--                        <p>{{'securityUrlHint14' | translate}}</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <img ng-if="getLang() === 'fa'" id="parsian_fa_logo" class="login-img"
+                             src="app/resources/img/layout/replaceable.gif" width="1" height="1">
+                        <img ng-if="getLang() !== 'fa'" id="parsian_en_logo" class="login-img"
+                             src="app/resources/img/layout/replaceable.gif" width="1" height="1">
+                        <div class="login-panel">
+                            <div class="alert alert-info"
+                                 ng-if="!isExceptionRaised && iranMoment === 'none' && currentStep != '2'">
+                                {{'welcomeMsg' | translate}}
+                            </div>
+                            <div class="alert alert-info"
+                                 ng-if="!isExceptionRaised && iranMoment === 'morning' && currentStep != '2'">
+                                {{'morningWelcomeMsg' | translate}}
+                            </div>
+                            <div class="alert alert-info"
+                                 ng-if="!isExceptionRaised && iranMoment === 'evening' && currentStep != '2'">
+                                {{'eveningWelcomeMsg' | translate}}
+                            </div>
+                            <div class="alert alert-info"
+                                 ng-if="!isExceptionRaised && iranMoment === 'night' && currentStep != '2' ">
+                                {{'nightWelcomeMsg' | translate}}
+                            </div>
+                            <div class="alert alert-info"
+                                 ng-if="!isExceptionRaised && passwordType == 'S' && currentStep == '2'">
+                                {{'checkSmsHint' | translate}}
+                            </div>
+                            <div id="exceptionAlert" class="alert alert-danger" ng-show="isExceptionRaised"></div>
+
+
+                            <form method="post" class="form-horizontal" autocomplete="off" id="frmLogin"
+                                  action="/login">
+                                <input type="hidden" name="challengeKey" id="challengeKey" ng-value="challengeKey">
+                                <input type="hidden" name="langKey" id="langKey" ng-value="langKey">
+                                <input type="hidden" name="browserMode" id="browserMode" ng-value="browserMode">
+                                <input type="hidden" name="otpInProgress" id="otpInProgress" ng-value="otpInProgress">
+                                <input type="hidden" name="currentStep" id="currentStep" ng-value="currentStep">
+
+                                <div class="input-group" ng-show="currentStep == '1'">
+                                    <div class="input-group-addon">
+                                        <i class="la la-user la-one-eight"></i>
+                                    </div>
+                                    <input type="text" class="form-control login-username" autofocus autocomplete="off"
+                                           dir="ltr" maxlength="32"
+                                           ng-disabled="isBrowserIE()"
+                                           ng-model="username" ng-class="{'english-input': username.length > 0}"
+                                           placeholder="{{'username' | translate}}"
+                                           name="pib_username" id="pib_username">
+                                </div>
+
+                                <div class="input-group" ng-hide="currentStep == '2'">
+                                    <div class="input-group-addon">
+                                        <i class="la la-lock la-one-eight"></i>
+                                    </div>
+                                    <input id="pib_password" type="password" class="form-control" autocomplete="off"
+                                           maxlength="{{ passwordType == 'S' ? 100 : 6}}"
+                                           dir="ltr"
+                                           ng-disabled="isBrowserIE()"
+                                           ng-model="password" ng-class="{'password-input': password}"
+                                           placeholder="{{ passwordType == 'S' ? 'staticPassword' : 'password' | translate}}"
+                                           name="pib_password">
+                                    <div class="input-group-addon">
+                                        <button type="button" id="keyboard-button"
+                                                ng-disabled="isBrowserIE()"
+                                                class="btn btn-default keyboard-button"><i
+                                                class="la la-keyboard-o la-left la-one-eight"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="input-group" ng-show="currentStep == '1'">
+                                    <div class="input-group-addon">
+                                        <i class="la la-bars la-one-eight"></i>
+                                    </div>
+                                    <select  ng-change="typeChanged()" title="{{'passwordType' | translate}}" class="form-control"
+                                            ng-disabled="isBrowserIE()"
+                                            ng-model="passwordType"
+                                            name="passwordType" id="passwordType">
+                                        <option value="S" selected>{{'gstatic' | translate}}</option>
+                                        <option value="O">{{'hardwareOtp' | translate}}</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="input-group" ng-if="currentStep == '2'">
+                                    <div class="input-group-addon">
+                                        <i class="la la-lock la-one-eight"></i>
+                                    </div>
+                                    <input id="otpPassword" type="password" class="form-control" autocomplete="off"
+                                           name="otpPassword" ng-model="otpPassword" maxlength="100" dir="rtl"
+                                           ng-disabled="isBrowserIE()" ng-class="{'password-input': password}"
+                                           placeholder="{{'password' | translate}}">
+                                    <div class="input-group-addon otp-timer">
+                                        <span ng-if="otpInProgress" class="timer-box" id="timerText"></span>
+                                        <button class="btn btn-success " ng-click="resendOtp()"
+                                                ng-disabled="otpInProgress">
+                                            {{'resendOtp' | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix" ng-show="currentStep == '1'">
+                                    <div class="col-xs-12 wb-padding-full-0">
+                                        <div id="keyboard-position"></div>
+                                    </div>
+                                </div>
+
+                                <div ng-show="currentStep == '1' || (currentStep == '2' && showSecondCaptcha == true)">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <div class="la la-unlock-alt la-one-eight"></div>
+                                        </div>
+                                        <input type="text" class="form-control"
+                                               ng-model="captcha"
+                                               ng-class="{'english-input': captcha.length > 0}"
+                                               dir="ltr"
+                                               ng-disabled="isBrowserIE()"
+                                               placeholder="{{'securityImage' | translate}}"
+                                               autocomplete="off"
+                                               id="txtCaptcha"
+                                               name="captcha">
+                                    </div>
+                                    <div class="input-group captcha">
+                                        <img id="captcha" class="form-control" ng-src="{{dataURL}}">
+                                        <div class="input-group-btn">
+                                            <button ng-click="getCaptcha()"
+                                                    ng-disabled="isBrowserIE()"
+                                                    class="btn btn-default btn-captcha-refresh"
+                                                    type="button">
+                                                <i class="la la-refresh la-one-eight"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group-section" ng-if="currentStep == '1'">
+                                    <div class="btn-group btn-group-justified">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success" id="loginButton"
+                                                    ng-disabled="isBrowserIE() || disableSubmitButtons" type="submit">
+                                                {{'loginButton' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group-section" ng-if="currentStep == '2'">
+                                    <!--<div class="btn-group btn-group-justified" ng-show="currentStep == '1'">-->
+                                    <!--<div class="btn-group" role="group">-->
+                                    <!--<button class="btn btn-primary" type="submit" id="btnStep2"-->
+                                    <!--ng-disabled="isBrowserIE()">-->
+                                    <!--{{'sendSMSButton' | translate}}-->
+                                    <!--</button>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="btn-group btn-group-justified">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success" id="loginButtonTwoStep"
+                                                    ng-disabled="isBrowserIE() || disableSubmitButtons" type="submit">
+                                                {{'loginButton' | translate}}
+                                            </button>
+                                        </div>
+                                        <div class="btn-group btn-double-separator" role="group"></div>
+                                        <div class="btn-group btn-sms" role="group">
+                                            <button id="smsButton" type="button" class="btn btn-danger ladda-button"
+                                                    ng-disabled="isBrowserIE()"
+                                                    role="button" data-style="expand-left" ng-click="returnToStep1()">
+                                                <span class="ladda-label">{{'ret' | translate}}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <div class="users-links" ng-if="currentStep == '1'">
+                                <a rel="noopener" target="_blank" href="https://ipbhome.parsian-bank.ir/services/ac">
+                                    {{'newUserLink' | translate}}
+                                </a>
+                                <a rel="noopener" target="_blank" href="https://ipbhome.parsian-bank.ir/services/ac">
+                                    {{'forgetPasswordLink' | translate}}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="security-note-panel" dir="ltr">
+                            <div class="alert alert-warning">{{'securityWarn' | translate}}<i
+                                    class="la la-warning la-one-half"></i></div>
+                            <!--<div class="well well-sm">{{'securityTitleAlert' | translate}}</div>-->
+                            <div class="bx-wrapper">
+                                <ul class="bxslider">
+                                    <li>
+                                        <img id="slide1" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1">
+                                        {{'securityUrlAlert1' | translate}}
+                                        <br/>
+                                        {{'securityUrlAlert2' | translate}}
+                                        <br/>
+                                        <a rel="noopener" href="https://oldipb.parsian-bank.ir">{{'securityUrl' |
+                                        translate}}</a>
+                                    </li>
+                                    <li>
+                                        <img id="slide2" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1"> {{'securityInternetAlert' | translate}}
+                                    </li>
+                                    <li>
+                                        <img id="slide3" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1">
+                                        {{'securityCertificationAlert' | translate}}
+                                    </li>
+                                    <li>
+                                        <img id="slide4" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1">
+                                        {{'securityPasswordAlert' | translate}}
+                                    </li>
+                                    <li>
+                                        <img id="slide5" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1">
+                                        {{'securityKeyboardAlert' | translate}}
+                                    </li>
+                                    <li>
+                                        <img id="slide6" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1">
+                                        {{'securityLogoutAlert' | translate}}
+                                    </li>
+                                    <li class="securityNoteImage">
+                                        <img id="slide7" src="app/resources/img/layout/replaceable.gif" width="1"
+                                             height="1">
+                                        {{'securityEmailAlert' | translate}}
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="chevronDown">
+                                <a id="panel-security-close">
+                                    <i class="la la-angle-double-down la-2x" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copywrite">
+                    <span>{{'copyrightStart' | translate}}</span>
+                    <a target="_blank" href="https://www.parsian-bank.ir">{{'copyrightMiddle' | translate}}</a>
+                    <span>{{'copyrightEnd' | translate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+    var localStorageTimeout = (5) * 1000; // 15,000 milliseconds = 15 seconds.
+    var localStorageResetInterval = (1 / 2) * 1000; // 10,000 milliseconds = 10 seconds.
+    var localStorageTabKey = 'parsian-browser-tab';
+
+    var ItemType = {
+        Session: 1,
+        Local: 2
+    };
+
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function GetItem(itemtype) {
+        var val = "";
+        switch (itemtype) {
+            case ItemType.Session:
+                val = window.name;
+                break;
+            case ItemType.Local:
+                val = decodeURIComponent(getCookie(localStorageTabKey));
+                if (val == undefined)
+                    val = "";
+                break;
+        }
+        return val;
+    }
+
+    function SetItem(itemtype, val) {
+        switch (itemtype) {
+            case ItemType.Session:
+                window.name = val;
+                break;
+            case ItemType.Local:
+                setCookie(localStorageTabKey, val, 1);
+                break;
+        }
+    }
+
+    function createGUID() {
+        this.s4 = function () {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        };
+        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    }
+
+    /**
+     * @return {boolean}
+     */
+    function TestIfDuplicate() {
+        var sessionGuid = GetItem(ItemType.Session) || createGUID();
+        SetItem(ItemType.Session, sessionGuid);
+
+        var val = GetItem(ItemType.Local);
+        var tabObj = (val == "" ? null : JSON.parse(val)) || null;
+
+        // If no or stale tab object, our session is the winner.  If the guid matches, ours is still the winner
+        if (tabObj === null || (tabObj.timestamp < (new Date().getTime() - localStorageTimeout)) || tabObj.guid === sessionGuid) {
+            function setTabObj() {
+                var newTabObj = {
+                    guid: sessionGuid,
+                    timestamp: new Date().getTime()
+                };
+                SetItem(ItemType.Local, JSON.stringify(newTabObj));
+            }
+
+            setTabObj();
+            setInterval(setTabObj, localStorageResetInterval); //every x interval refresh timestamp in cookie
+            return false;
+        } else {
+            // An active tab is already open that does not match our session guid.
+            return true;
+        }
+    }
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    var isDuplicateBrowser = function () {
+        if (TestIfDuplicate() == false) {
+            SetItem(ItemType.Local, "");
+        } else {
+            var lang = localStorage.getItem("locale");
+            if (lang === "fa_IR") {
+                alert("کاربر گرامی با توجه به مخاطره های استفاده بیش از یک پنجره فعال از اینترنت بانک یا بستن مرورگر بدون زدن دکمه خروج امکان ادامه فعالیت شما وجود ندارد و به صفحه ورود هدایت می شوید. لطفا قبل از ورود نسبت به بسته بودن سایر صفحه های باز دیگر از اینترنت بانک پارسیان اطمینان حاصل کنید.");
+            } else {
+                alert("Dear user, for security reasons using more than one open active tab or closing tab without logout from your Internet bank, you will route to login page. Before login again close all others opened Parsian Internet bank pages please.");
+            }
+        }
+    };
+
+    var closeSecurityHintBox = function () {
+        document.getElementById("securityHintBox").style.display = "none";
+    };
+</script>
+
+</body>
+
+</html>

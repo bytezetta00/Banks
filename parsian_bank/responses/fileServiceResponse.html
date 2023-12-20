@@ -1,0 +1,125 @@
+/**
+ * @author Saman Delfani
+ * @author Amir Tajik
+ * @version 1.11
+ * @since 05 Jun 2018 14:06
+ */
+@lego.Service()
+export class FileService {
+    public static $inject = ["FileUtils", "$http", "WbNotificationUtil", 'Utils', '$q', 'CaptchaService'];
+
+    public ReportTypes = {PDF: "PDF", XLS: "XLS", CSV: "CSV", XLSX: "XLSX"};
+
+    constructor(public FileUtils: lego.IFileUtils, public $http: ng.IHttpService, public WbNotificationUtil: lego.INotificationUtils, public utils: lego.IUtils, public $q: ng.IQService, public CaptchaService: CaptchaService) {
+    }
+
+    public downloadFile(url, model, urlPrefix = "/report/") {
+        this.$http.post(urlPrefix + url + "/", model, {responseType: 'arraybuffer'}).success(
+            (data, status, headers, config) => {
+                let fileName = headers("filename");
+                let contentType = headers("content-type");
+                this.FileUtils.saveData(data, fileName, contentType);
+            });
+    }
+
+    public downloadSampleFile(type) {
+        this.$http.get("/downloadSampleFile?type=" + type, {responseType: 'arraybuffer'}).success(
+            (data, status, headers, config) => {
+                let fileName = headers("filename");
+                let contentType = headers("content-type");
+                this.FileUtils.saveData(data, fileName, contentType);
+            });
+    }
+
+    public uploadFile(item, ctrl, config: UploadConfig, callback) {
+        let _parentCtrl = ctrl;
+        let formData = new FormData();
+        formData.append("file", item);
+
+        this.CaptchaService.enableCaptchaWithConfig(ctrl, "/uploadFile", formData, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then((data) => {
+            if (config.showNotification && config.successMessage) {
+                _parentCtrl.WbNotificationUtil.notify(this.utils.translate("app.successfulUpload"), lego.NotificationTypes.SUCCESS);
+            }
+            callback(data);
+        }).catch(()=> {
+            formData.append("file", null);
+            _parentCtrl.WbNotificationUtil.notify(this.utils.translate("app.fileuploadFailed"), lego.NotificationTypes.DANGER, true);
+        });
+    }
+
+    public uploadImage(item, ctrl, config: UploadConfig, callback) {
+        let _parentCtrl = ctrl;
+        let formData = new FormData();
+        formData.append("file", item);
+
+        this.$http.post('/uploadImage', formData, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function (data) {
+            if (config.showNotification && config.successMessage) {
+                _parentCtrl.WbNotificationUtil.notify(this.utils.translate("app.successfulUpload"), lego.NotificationTypes.SUCCESS);
+            }
+            callback(data);
+        }).catch((reason) => {
+            _parentCtrl.WbNotificationUtil.notify(this.utils.translate("app.fileuploadFailed"), lego.NotificationTypes.DANGER, true);
+        });
+    }
+
+    public makeThumbnailImage(fileName) {
+        let defer = this.$q.defer();
+
+        this.$http.post("/makeThumbnailImage", {fileName: fileName}).then((success) => {
+            defer.resolve(success.data);
+        });
+
+        return defer.promise;
+    }
+
+    public downloadOfflineStatementFile(requestId, extension) {
+        let _reqDto = {
+            requestId: requestId,
+            fileType: extension
+        };
+
+        this.$http.post("/account/downloadOfflineStatementFile", _reqDto, {responseType: 'arraybuffer'}).success(
+            (data, status, headers, config) => {
+                let fileName = headers("filename");
+                let contentType = headers("content-type");
+                this.FileUtils.saveData(data, fileName, contentType);
+            });
+    }
+}
+
+export class SampleFileTypes {
+    public static NORMAL_TRANSFER = 'fund_transfer_normal';
+    public static ACH_TRANSFER = 'fund_transfer_ach';
+}
+
+export class UploadConfig {
+    private _showNotification: boolean;
+    private _successMessage: String;
+
+    constructor(showNotification: boolean) {
+        this._showNotification = showNotification;
+        this._successMessage = '';
+    }
+
+    get showNotification(): boolean {
+        return this._showNotification;
+    }
+
+    set showNotification(value: boolean) {
+        this._showNotification = value;
+    }
+
+    get successMessage(): String {
+        return this._successMessage;
+    }
+
+    set successMessage(value: String) {
+        this._successMessage = value;
+    }
+}

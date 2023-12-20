@@ -1,0 +1,13 @@
+/**
+ * @author Amir Tajik
+ * @version 1.0
+ */
+
+@lego.OperationService("AccountBlockReasonsController", "app/view/account/AccountBlockReasons.html")
+export class AccountBlockReasonsOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+
+    @lego.OperationMethod()
+    init(accountNumber): ng.IPromise<any> {
+        return null;
+    }
+}

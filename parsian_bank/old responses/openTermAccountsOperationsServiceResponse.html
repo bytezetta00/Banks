@@ -1,0 +1,16 @@
+/**
+ * Open Term Accounts Operation Service used to expose Open Term Account page services
+ *
+ * @author Saman Delfani
+ * @version 1.0
+ * @since 04/08/2019 08:54 AM
+ */
+
+@lego.OperationService("OpenTermAccountsController", "app/view/account/OpenTermAccounts.html")
+export class OpenTermAccountsOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+
+    @lego.OperationMethod()
+    init(initForm): ng.IPromise<any> {
+        return null;
+    }
+}

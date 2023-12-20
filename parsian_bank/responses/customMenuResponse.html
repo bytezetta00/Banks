@@ -1,0 +1,153 @@
+<div class="extended-sidebar">
+    <div class="spl-menu-container" ng-if="$ctrl.isRepresentative() != 'true'">
+        <div ng-repeat="menu in $ctrl.menus" class="spl-parent-menu" >
+
+            <div ng-if="$index != 0 && menu.prefix == 'UserProfileMenu'" class="spl-menu-title-container logo-container"
+                 ng-click="$ctrl.openMenu(menu, $index)">
+                <div class="wb-user-profile center-block">
+                    <i class="la la-user la-5x"></i>
+                </div>
+                <span class="spl-parent-menu-text">{{$ctrl.model.user.fullname}}</span>
+                <span ng-if="menu.menuItems.length > 0" class="wb-caret wb-caret-{{menu.opened?'up':'down'}}"></span>
+                <div class="wb-margin-top-15 wb-search-box" >
+                    <wb-input name="searchKey"
+                              type="text"
+                              disable-label="true"
+                              glyph="la la-search"
+                              ng-keyup="$ctrl.filterMenu()"
+                              ng-model="$ctrl.model.searchKey"
+                              placeholder="GeneralTranslations.search"
+                              title="{{'GeneralTranslations.search' | translate}}"/>
+                </div>
+
+                <div class="wb-margin-top-30">
+                    <div ng-if="!$ctrl.menuVisible() ">
+                        <span class="wb-text-bold" > {{$ctrl.returnMessageHint() | translate}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div ng-if="$index != 0 && menu.prefix != 'UserProfileMenu' && $ctrl.menuVisible()"
+                 class="spl-menu-title-container"
+                 ng-click="$ctrl.openMenu(menu, $index)" ng-class="{'active-menu-title-container': menu.opened}">
+                <span ng-if="menu.glyph"
+                      class="{{menu.glyph ? ('la la-' + menu.glyph + ' la-one-half'):''}} spl-prefix-glyph"></span>
+                <span ng-if="menu.img"><img class="spl-prefix-img" ng-src="{{menu.img}}"></span>
+                <span class="spl-parent-menu-text"
+                      ng-init="menu.prefixTranslated=(menu.prefix|translate)">{{menu.prefixTranslated}}</span>
+                <span class="wb-caret wb-caret-{{menu.opened?'up':'down'}}"></span>
+            </div>
+
+
+            <div ng-if="menu.opened" class="spl-menu-detail-container">
+                <div ng-show="$ctrl.menuVisible()" ng-repeat="menuItem in menu.menuItems">
+                    <div class="spl-menu-item-before"></div>
+                    <div ng-if="menuItem.menuActions.length==0">
+                        <div class="spl-menu-group">
+                            <span class="menu-group-title">
+                                {{menuItem.labelKey | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="menuItem.menuActions.length!=0">
+                        <div ng-if="!menuItem.href" ng-click="$ctrl.actions.select(menuItem.labelKey,menuItem)"
+                             ng-init='menuItem.opened=false;menuItem.labelTranslated=((menuItem.labelKey)|translate)'
+                             class="spl-menu-item {{menuItem.selected?'spl-menu-item-selected':''}}">
+                            <span ng-if="menuItem.glyph"
+                                  class="{{menuItem.glyph ? ('la la-' + menuItem.glyph + ' la-one-half') : ''}}  "></span>
+                            <span ng-if="menuItem.img"><img class="spl-menu-img" ng-src="{{menuItem.img}}"></span>
+                            {{menuItem.labelTranslated}}
+                        </div>
+                        <div ng-if="menuItem.href!=undefined"
+                             class="spl-menu-item {{menuItem.selected?'spl-menu-item-selected':''}}">
+                            <span ng-if="menuItem.glyph"
+                                  class="{{menuItem.glyph ? ('la la-' + menuItem.glyph + ' la-one-half'):''}}  "></span>
+                            <span ng-if="menuItem.img"><img class="spl-menu-img" ng-src="{{menuItem.img}}"></span>
+                            <a class="spl-menu-separate-item"
+                               href="{{menuItem.href}}" target="_blank">{{menuItem.labelKey | translate}}</a>
+                        </div>
+                    </div>
+                    <div class="spl-menu-item-after"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spl-menu-container" ng-if="$ctrl.isRepresentative() == 'true'">
+        <div ng-repeat="menu in $ctrl.representativeMenus" class="spl-parent-menu" >
+
+            <div ng-if="$index != 0 && menu.prefix == 'UserProfileMenu'" class="spl-menu-title-container logo-container"
+                 ng-click="$ctrl.openMenu(menu, $index)">
+                <div class="wb-user-profile center-block">
+                    <i class="la la-user la-5x"></i>
+                </div>
+                <span class="spl-parent-menu-text">{{$ctrl.model.user.fullname}}</span>
+                <span ng-if="menu.menuItems.length > 0" class="wb-caret wb-caret-{{menu.opened?'up':'down'}}"></span>
+                <div class="wb-margin-top-15 wb-search-box" >
+                    <wb-input name="searchKey"
+                              type="text"
+                              disable-label="true"
+                              glyph="la la-search"
+                              ng-keyup="$ctrl.filterMenu()"
+                              ng-model="$ctrl.model.searchKey"
+                              placeholder="GeneralTranslations.search"
+                              title="{{'GeneralTranslations.search' | translate}}"/>
+                </div>
+
+                <div class="wb-margin-top-30">
+                    <div ng-if="!$ctrl.menuVisible() ">
+                        <span class="wb-text-bold" > {{$ctrl.returnMessageHint() | translate}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div ng-if="$index != 0 && menu.prefix != 'UserProfileMenu' && $ctrl.menuVisible()"
+                 class="spl-menu-title-container"
+                 ng-click="$ctrl.openMenu(menu, $index)" ng-class="{'active-menu-title-container': menu.opened}">
+                <span ng-if="menu.glyph"
+                      class="{{menu.glyph ? ('la la-' + menu.glyph + ' la-one-half'):''}} spl-prefix-glyph"></span>
+                <span ng-if="menu.img"><img class="spl-prefix-img" ng-src="{{menu.img}}"></span>
+                <span class="spl-parent-menu-text"
+                      ng-init="menu.prefixTranslated=(menu.prefix|translate)">{{menu.prefixTranslated}}</span>
+                <span class="wb-caret wb-caret-{{menu.opened?'up':'down'}}"></span>
+            </div>
+
+
+            <div ng-if="menu.opened" class="spl-menu-detail-container">
+                <div ng-show="$ctrl.menuVisible()" ng-repeat="menuItem in menu.menuItems">
+                    <div class="spl-menu-item-before"></div>
+                    <div ng-if="menuItem.menuActions.length==0">
+                        <div class="spl-menu-group">
+                            <span class="menu-group-title">
+                                {{menuItem.labelKey | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-if="menuItem.menuActions.length!=0">
+                        <div ng-if="!menuItem.href" ng-click="$ctrl.actions.select(menuItem.labelKey,menuItem)"
+                             ng-init='menuItem.opened=false;menuItem.labelTranslated=((menuItem.labelKey)|translate)'
+                             class="spl-menu-item {{menuItem.selected?'spl-menu-item-selected':''}}">
+                            <span ng-if="menuItem.glyph"
+                                  class="{{menuItem.glyph ? ('la la-' + menuItem.glyph + ' la-one-half') : ''}}  "></span>
+                            <span ng-if="menuItem.img"><img class="spl-menu-img" ng-src="{{menuItem.img}}"></span>
+                            {{menuItem.labelTranslated}}
+                        </div>
+                        <div ng-if="menuItem.href!=undefined"
+                             class="spl-menu-item {{menuItem.selected?'spl-menu-item-selected':''}}">
+                            <span ng-if="menuItem.glyph"
+                                  class="{{menuItem.glyph ? ('la la-' + menuItem.glyph + ' la-one-half'):''}}  "></span>
+                            <span ng-if="menuItem.img"><img class="spl-menu-img" ng-src="{{menuItem.img}}"></span>
+                            <a class="spl-menu-separate-item"
+                               href="{{menuItem.href}}" target="_blank">{{menuItem.labelKey | translate}}</a>
+                        </div>
+                    </div>
+                    <div class="spl-menu-item-after"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

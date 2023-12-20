@@ -1,0 +1,3551 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        صورتحساب
+        سپرده ‪۳۳۱-۱۲-۴۹۲۰۸۷۸-۱‬
+        
+            (ريال ايران)
+        
+     | اینترنت بانک سینا</title>
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="CSRF_TOKEN" content=RmMNPNUN4g2mohRHZP2rv9Rr0MtMKD8NYG+fQCjcts0=>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/webbank/styles/main-4.121.10-4014.css"/>
+<link rel="stylesheet" type="text/css" media="print" href="/webbank/styles/print-4.121.10-4014.css"/>
+<script type="text/javascript" src="/webbank/scripts/mainHeaders-4.121.10-4014.js"></script>
+<script type="text/javascript" src="/webbank/scripts/mainHeaders-fa-4.121.10-4014.js"></script>
+<script type="text/javascript" >
+
+    // internet bank name space
+    var IB = {};
+    IB.queryText = '';
+    // sequence of these lines is important and should be kept in this way.
+    IB.smartCombo = {};
+    IB.smartCombo.queryText = '';
+    IB.ctx = '/webbank';
+    IB.isBatchListPage = false;
+    IB.locale = 'fa';
+
+    IB.tempKeys = {
+        chequeManagemnet            : 'مدیریت چک',
+        batchTransfer               : 'دسته ای',
+        batch                       : 'batch',
+        chequeAndChequeBook         : 'چک و دسته چک',
+        transferredChequeListTitle  : 'چکهای واگذار شده به سپرده',
+        payBill                     : 'pay.bill',
+        batchBillPayment            : 'batch.Bill.Payment'
+    };
+    // end of template keys
+    IB.periodicalReports = {};
+    IB.periodicalReports.smsConfig = ('true' == 'true');
+    IB.periodicalReports.emailConfig = ('true' == 'true');
+    IB.periodicalReports.faxConfig = ('false' == 'true');
+
+    IB.cardTransactionsMaxDay = (30);
+    IB.billStatementReportMaxDay = '365';
+    IB.ibanDefaultPrefix = ('IR');
+    IB.removeLeadingZerosFromDeposit = (true);
+
+    IB.userName = 'علي هاشمي خواجه پاشا';
+    IB.direction = 'rtl';
+    IB.ctx = '/webbank';
+    if ('20' !== '') {
+        IB.pageSize = parseInt('20', 10);
+    } else {
+        IB.pageSize = '';
+    }
+    IB.kartabl_activation = ('true' == 'true');
+    IB.calendar = 'jalali';
+    IB.illegalCharacters = [38, 37, 59, 124, 36, 35, 40, 41, 39, 96, 34, 60, 62, 92];
+    IB.defaultCurrencyCode = 'IRR';
+    IB.defaultCurrencyFractionalDigits = '2';
+    IB.showCountdownTimer = ('true' == 'true');
+    IB.remainingCountdownTime = '600';
+    IB.showAlertMaxTime = '1';
+    IB.maxPasswordLength = '';
+    IB.minPasswordLength = '';
+    IB.specialCharacterReplacement = ' ';
+    IB.harimResendPasswordDuration = '120';
+    IB.timerDuration = '60';
+    IB.remainingTimeDuration = '';
+</script>
+
+    <link rel="shortcut icon" href="/webbank/favicon.ico"/>
+    
+    
+
+</head>
+<body class="rtl statement viewingAccountMain depositParent
+">
+<div id="taskNotifier">
+    بارگذاری...
+</div>
+
+<div id="mainContainer">
+    <div id="topBar">
+        
+            <div id="userInfo">
+                <a href="/webbank/login/logout.action"
+                   title="خروج">
+                    <span id="top-logout">خروج</span></a>
+                
+                    
+                    <span id="timerContainer" class="timerContainer tooltip-trigger">زمان باقی‌مانده: </span><span id="timer" class="timer"></span>
+                        <div id="timerContainer-tooltip" class="tooltip">در صورتی که مهلت نمایش داده شده به پایان برسد، برای استفاده از اینترنت بانک نیاز به ورود دوباره نام کاربری و رمز عبور خواهد بود.</div>
+                        <span id="top-user" class="withTimer">علي هاشمي خواجه پاشا</span>
+                    
+                    
+                
+            </div>
+            
+            <div id="topLinks">
+                <a href="/webbank/contact.action" title="تماس با ما">
+                    <span id="top-contactUs">تماس با ما</span></a>
+                <a href="/webbank/chooseSubMenu.action?actionParameter=config" title="تنظیمات">
+                    <span id="top-setting">تنظیمات</span></a>
+                <a href="/webbank/index.action#contacts" title="تماس ها">
+                    <span id="top-contacts">تماس ها</span></a>
+            </div>
+            
+        
+    </div>
+    
+        <div id="navigationBar">
+            <div id="navigation">
+                
+
+
+
+
+
+
+
+<div class="navigationContainer">
+<ul class="mainMenu">
+    
+        
+            
+                <li class="menus menuFirstItem"
+                    id="home">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/home/homePage.action'>
+                        <div class="itemIcon"></div>
+                    خانه</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-1">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewFavoriteAccountsList" href="/webbank/home/homePage.action">
+                                    خانه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="transferPayment" href="/webbank/chooseSubMenu.action?actionParameter=transfer">
+                                    انتقال وجه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="payments" href="/webbank/chooseSubMenu.action?actionParameter=payments">
+                                    پرداخت قبوض
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="viewAcc" href="/webbank/viewAcc/viewAccAction.action">
+                                    صورتحساب
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="depositParent">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=deposit'>
+                        <div class="itemIcon"></div>
+                    سپرده</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-2">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewAccAction" href="/webbank/viewAcc/viewAccAction.action">
+                                    سپرده ها در یک نگاه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="openingDeposit" href="/webbank/openingDeposit/chooseDepositType.action">
+                                    افتتاح سپرده
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="calendarViewBillList">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/viewAcc/calendarViewBillList.action'>
+                        <div class="itemIcon"></div>
+                    روزشمار</a>
+                    <div class="menuArrowBlue"></div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="transferPayment">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=transfer'>
+                        <div class="itemIcon"></div>
+                    انتقال وجه</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-4">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="normalTransfer" href="/webbank/transfer/newNormal.action">
+                                    عادی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="continuumTransfer" href="/webbank/transfer/newContinuum.action">
+                                    مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="batchTransfer" href="/webbank/transfer/newBatch.action">
+                                    دسته ای
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="rtgsTransfer" href="/webbank/transfer/newRtgs.action">
+                                    بین بانکی ساتنا
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardToCardTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                    کارت به کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardToDepositTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                    کارت به سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="normalAchTransfer" href="/webbank/transfer/newNormalAch.action">
+                                    بین بانکی پایا عادی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="batchAchTransfer" href="/webbank/transfer/newAchBatch.action">
+                                    بین بانکی پایا دسته ای
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="autoAchTransfer" href="/webbank/transfer/newAutoAch.action">
+                                    بین بانکی پایا مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="instantInterbankTransfer" href="/webbank/transfer/instantInterbankTransfer.action">
+                                    بین بانکی آنی
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="Reports">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=report'>
+                        <div class="itemIcon"></div>
+                    گزارش</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-5">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="transferReport" href="/webbank/transfer/report.action">
+                                    انتقال وجه مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="continnumInputTransfer" href="/webbank/transfer/continnumInputTransferPage.action">
+                                    انتقال وجه مستمر به مشتری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="rtgsReport" href="/webbank/transfer/rtgsReport.action?step=1">
+                                    انتقال وجه بین بانکی ساتنا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="achTransferBatchReport" href="/webbank/transfer/achTransferBatchReport.action">
+                                    انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="achTransferTransactionReport" href="/webbank/transfer/achTransferTransactionReport.action">
+                                    جزییات انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardPaymentsReport" href="/webbank/index.action#reports?ref=cardPaymentsReport">
+                                    پرداخت ها
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardTransactionsReport" href="/webbank/card/cardTransactionsReportPage.action">
+                                    تراکنش های کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="periodicalReports" href="/webbank/index.action#periodicalReportsSettings">
+                                    تنظیمات گزارش های دوره ای
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="userActivitiesHistory" href="/webbank/index.action#userActivitiesHistory">
+                                    تاریخچه عملیات کاربر
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="kartablReport">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/index.action#kartabl'>
+                        <div class="itemIcon"></div>
+                    کارپوشــه</a>
+                    <div class="menuArrowBlue"></div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="chequeParent">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=cheque'>
+                        <div class="itemIcon"></div>
+                    چک</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-7">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="jariDepositReport" href="/webbank/cheque/jariDepositsReport.action">
+                                    چک و دسته چک
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="transferredChequesList" href="/webbank/cheque/transferredChequesListPage.action">
+                                    چکهای واگذار شده به سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="registerDigitalCheque" href="/webbank/cheque/registerDigitalCheque.action">
+                                    ثبت چک صیاد
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="acceptOrRejectDigitalCheque" href="/webbank/cheque/acceptOrRejectDigitalCheque.action">
+                                    تایید یا رد چک صیاد
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="transferDigitalCheque" href="/webbank/cheque/transferDigitalCheque.action">
+                                    انتقال چک صیاد
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="loans">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=loan'>
+                        <div class="itemIcon"></div>
+                    تسهیلات</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-8">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewLoans" href="/webbank/loan/initialLoan.action">
+                                    مشاهده تسهیلات
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="othersLoanPayment" href="/webbank/loan/othersLoanPaymentPage.action">
+                                    پرداخت قسط
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="cardParent">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=card'>
+                        <div class="itemIcon"></div>
+                    کارت</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-9">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardManagement" href="/webbank/card/viewCardManagement.action">
+                                    کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="creditDossierStatement" href="/webbank/card/creditDossiersPage.action">
+                                    پرونده اعتباری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="activeCardOtp" href="/webbank/otp/showActivationPage.action">
+                                    فعال‌سازی رمز یکبارمصرف کارت
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus "
+                    id="payments">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=payments'>
+                        <div class="itemIcon"></div>
+                    پرداخت</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-10">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="topUp" href="/webbank/payment/topUp.action">
+                                    شارژ مستقیم تلفن همراه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="paymentServices" href="/webbank/thirdParty/treeViewPaymentServices.action">
+                                    سرویس های پرداخت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="paymentWithPayNo" href="/webbank/payment/payWithPayNoPage.action">
+                                    پرداخت با شناسه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="billPayment" href="/webbank/payment/newBillPayment.action">
+                                    پرداخت قبض
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="batchBillPayment" href="/webbank/payment/viewBatchBillPayment.action">
+                                    پرداخت قبض دسته ای
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+        
+            
+                <li class="menus menuLastItem"
+                    id="settings">
+                    <div class="notifyHolder"></div>
+                    <a href='/webbank/chooseSubMenu.action?actionParameter=config'>
+                        <div class="itemIcon"></div>
+                    تنظیمات</a>
+                    <div class="menuArrowBlue"></div>
+            
+                    <div class="popup" id="menu-11">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="changePassword" href="/webbank/config/changePassword.action">
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="changeUsername" href="/webbank/config/changeUsername.action">
+                                    تغییر نام کاربری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="homeSettingsPage" href="/webbank/config/homeSettingsPage.action">
+                                    تنظیمات سپرده های برگزیده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="displaySettingsPage" href="/webbank/config/displaySettingsPage.action">
+                                    تنظیمات نمایش
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="billStatementSettingPage" href="/webbank/config/billStatementSettingPage.action">
+                                    تنظیمات صورتحساب
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+            
+                </li>
+            
+            
+    
+</ul>
+</div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/webbank/kartabl/getKartabls.action',
+                dataType: 'json',
+                type: 'POST',
+                cache: false,
+                data: {
+                    reportType: 'ACTIONABLE',
+                    pageSize: 1,
+                    offset: 0
+                },
+                success: function (response) {
+                    if (response.total !== 0 && typeof response.total !== 'undefined') {
+                        var total = IB.locale == 'fa' ? english2PersianNumbers(response.total) : response.total;
+                        $('#kartablReport .notifyHolder').append('<div class="kartablNotification">' + total + '</div>');
+                    }
+                },
+                error: function () {
+                    $('#kartablReport .notifyHolder').append('<div class="kartablNotification kartablNotificationError">!</div>');
+                }
+            });
+        });
+    </script>
+
+
+
+            </div>
+        </div>
+    
+    <h2 id="content-title">
+        صورتحساب
+        سپرده ‪۳۳۱-۱۲-۴۹۲۰۸۷۸-۱‬
+        
+            (ريال ايران)
+        
+    </h2>
+    <div id="content-body">
+        
+
+
+
+
+        
+
+
+
+
+        
+
+    
+    
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+<form action="/webbank/viewAcc/depositShow.action" method="GET" autocomplete="off"
+      clientSideValidation="true"
+      
+      
+      class="twoColFormSection"
+      
+      
+      submission="true"
+      
+        >
+
+    
+<input type="hidden" name="struts.token.name" value="depositShowToken" />
+<input type="hidden" name="depositShowToken" value="O0E955THLFTFBUP3454W53VOBUJ4D6RQ" />
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="advancedSearch" id="advancedSearch" value="true"/>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="personalityType" id="personalityType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="depositGroupByReq" id="depositGroupByReq" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="referenceCustomerName" id="referenceCustomerName" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="referenceCif" id="referenceCif" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="ownershipType" id="ownershipType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="accountType" id="accountType" value="JARI_ACCOUNT"/>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="currencyType" id="currencyType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="maxLenForNote" id="maxLenForNote" value="200"/>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <div class="formSection " id="">
+        <div class=" 0 "></div>
+        <h6 class="formSectionTitle">
+            جستجوی گردش های سپرده
+        </h6>
+    
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem smartComboInBillView">
+    
+        
+        
+            
+                
+                
+                    <label for="sourceSaving"
+                           class="form-item-label  requiredField">سپرده:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+<div class="smartCombo-wrapper">
+    <div id="" class="smartCombo">
+        
+        
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="selectedDeposit" id="selectedDeposit" value="331-12-4920878-1" spellcheck="false"
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       dir="ltr"
+       class=" required first"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+        <div id="selectedDepositCleanFilter" class="clean-combo-filter" title="پاک کردن"></div>
+    </div>
+    <div id="selectedDepositTrigger" class="smartCombo-trigger" comboid="selectedDeposit" ></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="selectedDepositValueType" id="selectedDepositValueType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="selectedDepositPinnedDeposit" id="selectedDepositPinnedDeposit" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="selectedDepositIsComboValInStore" id="selectedDepositIsComboValInStore" value="false"/>
+    
+    
+
+<script type="text/javascript">
+
+    
+    
+    IB.smartCombo.selectedDeposit =
+            '331-12-4920878-1';
+    
+    $(document).ready(function () {
+        var currencyChangeFireEvent = '';
+        if('true' == 'true') {
+            currencyChangeFireEvent = true;
+        } else {
+            currencyChangeFireEvent = false;
+        }
+        var combo = $('#selectedDeposit');
+        combo.id = 'selectedDeposit';
+        combo.store = {};
+        combo.type = 'DEPOSIT';
+        combo.showContacts = false;
+        combo.showDetailInfo = false;
+        combo.businessType = 'all';
+        combo.serviceName = '';
+        combo.name = 'selectedDeposit';
+        combo.prefixValue = '';
+        combo.isBatchInput = false;
+        combo.containerId = '';
+        combo.value = IB.smartCombo.selectedDeposit;
+        combo.defaultValue = '';
+        combo.defaultValueLabelKey = '';
+        combo.defaultValueType = '';
+        combo.autoCompilitified = false;
+        combo.hint = '';
+        combo.currency = '';
+        combo.changeEventHandler = '';
+        combo.comboValNotInStoreHandler = '';
+        combo.isDefaultValueSelectedName='';
+        combo.currencyChangeFireEvent = currencyChangeFireEvent;
+
+        if (combo.isBatchInput) {
+            combo.batchInputValue = '';
+        }
+        combo.addClass(IB.direction).val(applicationResources['IB.smartCombo.loading']);
+        IB.smartCombo.createAutoComplete(combo);
+
+//        show title in qtip:
+        $('#selectedDepositsmartCombotHelp').qtip({
+            content: '',
+            style: {
+                classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+            }, position: {
+                effect: false,
+                target: 'event',
+                viewport: $(window),
+                my: 'bottom middle',
+                at: 'top middle'
+            }
+        });
+    });
+
+</script>
+
+
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        نوع تراکنش:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        <select name="billType">
+            <option ></option>
+            <option value="1" >
+                واریز
+            </option>
+            <option value="2" >
+                برداشت
+            </option>
+        </select>
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  requiredField"
+                           id="">
+                        از تاریخ:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+        
+    
+
+
+
+<div class="calendarField-wrapper">
+    <div class="calendarField-input">
+        <input type="text" name="fromDateTime" id="fromDateTime" value="1402/05/20  -  00:00" dir="ltr" spellcheck="false"
+               class="iconField first  dateRange required billStatementMaxIntervalDateReport dateTime"
+               
+               
+               validateagainstTo="toDateTime"
+               
+               onchange="" maxlength="20"/>
+    </div>
+    <div id="fromDateTimeButton" class="calendarIcon"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Calendar.setup({
+                inputField: "fromDateTime",
+                button: "fromDateTimeButton",
+                ifFormat: "%Y/%m/%d  -  %H:%M",
+                dateType: IB.calendar,
+                weekNumbers: false,
+                showOthers: true,
+                showsTime: true,
+                singleClick: false,
+                langNumbers: false,
+                autoShowOnFocus: false
+
+                /* This is required when the date is picked from calendar and no key event is triggered to cause validation
+                 * this event let me now when the field is updated to validate it again.*/
+                /*onUpdate: function() {
+                 if($(this.inputField).valid()){
+                 $(this.inputField).qtip('destroy')
+                 };
+                 }*/
+            });
+
+            $('#_calendarFieldHint').qtip({
+                content: '',
+                style: {
+                    classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+                }, position: {
+                    effect: false,
+                    target: 'event',
+                    viewport: $(window),
+                    my: 'bottom middle',
+                    at: 'top middle'
+                }
+            });
+        });
+    </script>
+
+
+
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  requiredField"
+                           id="">
+                        تا تاریخ:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+        
+    
+
+
+
+<div class="calendarField-wrapper">
+    <div class="calendarField-input">
+        <input type="text" name="toDateTime" id="toDateTime" value="1402/06/20  -  23:59" dir="ltr" spellcheck="false"
+               class="iconField  dateRange required billStatementMaxIntervalDateReport dateTime"
+               
+               
+               
+               validateagainstFrom="fromDateTime"
+               onchange="" maxlength="20"/>
+    </div>
+    <div id="toDateTimeButton" class="calendarIcon"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Calendar.setup({
+                inputField: "toDateTime",
+                button: "toDateTimeButton",
+                ifFormat: "%Y/%m/%d  -  %H:%M",
+                dateType: IB.calendar,
+                weekNumbers: false,
+                showOthers: true,
+                showsTime: true,
+                singleClick: false,
+                langNumbers: false,
+                autoShowOnFocus: false
+
+                /* This is required when the date is picked from calendar and no key event is triggered to cause validation
+                 * this event let me now when the field is updated to validate it again.*/
+                /*onUpdate: function() {
+                 if($(this.inputField).valid()){
+                 $(this.inputField).qtip('destroy')
+                 };
+                 }*/
+            });
+
+            $('#_calendarFieldHint').qtip({
+                content: '',
+                style: {
+                    classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+                }, position: {
+                    effect: false,
+                    target: 'event',
+                    viewport: $(window),
+                    my: 'bottom middle',
+                    at: 'top middle'
+                }
+            });
+        });
+    </script>
+
+
+
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+    
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                
+                    <label for="minAmount"
+                           class="form-item-label  ">از مبلغ:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="minAmount" id="minAmount" value="" spellcheck="false"
+       
+       
+       maxlength="20"
+       
+       validateagainst="maxAmount"
+       
+       
+       
+       onkeyup="validate(this);"
+       
+       dir="ltr"
+       class="numberRange"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="currency" id="currency_selectedDeposit" value="IRR"/>
+    
+    
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="currencyDefaultFractionDigits" id="currencyDefaultFractionDigits_selectedDeposit" value="2"/>
+    
+    
+
+    
+    
+
+    </span>
+</div>
+
+
+    
+
+
+<script type="text/javascript">
+    $(function () {
+        var sourceCurrencyId = 'selectedDeposit';
+        if (sourceCurrencyId) {
+            var sourceCurrencyEl = $('#' + sourceCurrencyId);
+            if (sourceCurrencyEl) {
+                sourceCurrencyEl.bind('valueChanged', updateCurrency);
+            }
+        }
+    });
+
+    function updateCurrency() {
+        var sourceCurrencyEl = this;
+        updateCurrencyValue(sourceCurrencyEl);
+    }
+
+    function validate(inputEl) {
+        var hiddenCurrencyCodeEl = $('#currency_selectedDeposit'),
+                hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_selectedDeposit');
+        placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
+                '', true);
+    }
+</script>
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+    
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                
+                    <label for="maxAmount"
+                           class="form-item-label  ">تا مبلغ:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="maxAmount" id="maxAmount" value="" spellcheck="false"
+       
+       
+       maxlength="20"
+       
+       validateagainst="minAmount"
+       
+       
+       
+       onkeyup="validate(this);"
+       
+       dir="ltr"
+       class="numberRange"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    
+    
+
+    </span>
+</div>
+
+
+    
+
+
+<script type="text/javascript">
+    $(function () {
+        var sourceCurrencyId = 'selectedDeposit';
+        if (sourceCurrencyId) {
+            var sourceCurrencyEl = $('#' + sourceCurrencyId);
+            if (sourceCurrencyEl) {
+                sourceCurrencyEl.bind('valueChanged', updateCurrency);
+            }
+        }
+    });
+
+    function updateCurrency() {
+        var sourceCurrencyEl = this;
+        updateCurrencyValue(sourceCurrencyEl);
+    }
+
+    function validate(inputEl) {
+        var hiddenCurrencyCodeEl = $('#currency_selectedDeposit'),
+                hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_selectedDeposit');
+        placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
+                '', true);
+    }
+</script>
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        ترتیب:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+        <select name="order">
+            <option value="ASC" >صعودی</option>
+            <option value="DESC" selected="selected">
+                نزولی</option>
+        </select>
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        شرح / یادداشت:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+    
+
+
+
+
+
+<input type="text" name="desc" id="desc" value="" spellcheck="false"
+       
+       
+       maxlength="40"
+       
+       
+       
+       
+       
+       
+       
+       dir="rtl"
+       class="wideTextField"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    
+    </span>
+</div>
+
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        شناسه واریز:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+    
+
+
+
+
+
+<input type="text" name="paymentId" id="paymentId" value="" spellcheck="false"
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       dir="rtl"
+       class="wideTextField"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+        
+    </span>
+</div>
+
+    
+
+</div>
+
+
+
+
+
+<div class="commandBar"
+   
+        >
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="submit" value="صورتحساب" class="button importantButton" 
+       
+       
+       
+        />
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="button" value="بازگشت" class="button normalButton"
+       
+       
+       
+       
+        />
+
+
+
+
+</div>
+
+
+    
+    
+        
+            
+
+
+<tr class="even">
+    <td colspan="2">
+        
+                
+                    
+                    
+                        
+                        
+<table class="datagrid" id="rowTbl">
+<caption class="gridHeader">
+                                گردش های سپرده
+                            </caption>
+<thead>
+<tr>
+<th>ردیف</th>
+<th>شرح</th>
+<th>یادداشت</th>
+<th>تاریخ</th>
+<th>واریز</th>
+<th>برداشت</th>
+<th>موجودی</th>
+<th>شناسه واریز</th>
+<th>جزئیات</th></tr></thead>
+<tbody>
+<tr class="odd">
+<td>۱</td>
+<td class="textBox">رهگيري : ۱۴۰۲۰۶۱۶۰۵۹۲۰۳۳۶۱۵۷۰ارسالي پايا از شعبه :۱۱۴گيرنده :عليرضا ديرنيک- اينترنت بانک</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote1" id="stmtIdnote1" value="30960656_1694101292000_331_1"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۶,۰۹۱,۱۲۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۵۹۷,۶۰۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail1" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail1-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۹:۱۱:۳۲‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۳۰۹۶۰۶۵۶<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="even">
+<td>۲</td>
+<td class="textBox">دريافت کارمزد بابت ثبت دستور پرداخت پايا  از سپرده ۳۳۱.۱۲.۴۹۲۰۸۷۸.۱-کارمزد انتقال وجه پايا سهم بانک مقابل و بانک مرکزي</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote2" id="stmtIdnote2" value="10957322_1694101292000_331_3"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۷۲۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۶,۶۸۸,۷۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail2" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail2-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۹:۱۱:۳۲‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۱۰۹۵۷۳۲۲<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="odd">
+<td>۳</td>
+<td class="textBox">دريافت کارمزد بابت ثبت دستور پرداخت پايا  از سپرده ۳۳۱.۱۲.۴۹۲۰۸۷۸.۱-کارمزد انتقال وجه پايا سهم بانک</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote3" id="stmtIdnote3" value="10957322_1694101292000_331_1"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۱,۶۸۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۶,۶۸۹,۴۴۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail3" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail3-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۹:۱۱:۳۲‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۱۰۹۵۷۳۲۲<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="even">
+<td>۴</td>
+<td class="textBox">انتقال از اينترنت ۱۲۳۴۵۶   بانک خاورميانه از ک ۵۸۵۹۴۷۱۰۲۲۹۵۹۷۰۸ ش م ۳۲۵۰۱۵۱۲۵۱۴۹ ش پ ۱۲۵۱۴۹</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote4" id="stmtIdnote4" value="20961670_1694101176000_331_2"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                            ۳,۵۰۰,۰۰۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۶,۶۹۱,۱۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail4" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail4-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۹:۹:۳۶‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۲۰۹۶۱۶۷۰<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="odd">
+<td>۵</td>
+<td class="textBox">انتقال از خودپرداز ۰۰۰۱۴۲۳۹ بانک  اقتصاد نوين از ک ۶۳۹۳۴۶۱۰۳۳۰۳۳۵۰۳ ش م ۹۹۹۹۲۵۱۱۴۵۱۴ ش پ ۱۱۴۵۱۴</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote5" id="stmtIdnote5" value="20961651_1694101063000_331_6"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                            ۲,۰۰۰,۰۰۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۳,۱۹۱,۱۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail5" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail5-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۹:۷:۴۳‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۲۰۹۶۱۶۵۱<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="even">
+<td>۶</td>
+<td class="textBox">انتقال از اينترنت ۰۲۸۸۴۳۲۵ ملت از ک ۶۱۰۴۳۳۷۳۸۱۱۷۶۹۷۱ ش م ۱۳۷۷۷۶۲۱۰۱۰۴ ش پ ۲۱۰۱۰۴</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote6" id="stmtIdnote6" value="20961631_1694100934000_331_2"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                            ۱,۰۰۰,۰۰۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۱,۱۹۱,۱۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail6" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail6-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۹:۵:۳۴‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۲۰۹۶۱۶۳۱<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="odd">
+<td>۷</td>
+<td class="textBox">رهگيري : ۱۴۰۲۰۶۱۶۰۵۹۲۰۳۳۶۱۵۲۰ارسالي پايا از شعبه :۱۱۴گيرنده :يوسف پاك عنصر- اينترنت بانک</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote7" id="stmtIdnote7" value="30960655_1694100533000_331_1"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۱۰,۰۰۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۱۹۱,۱۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail7" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail7-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۸:۵۸:۵۳‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۳۰۹۶۰۶۵۵<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="even">
+<td>۸</td>
+<td class="textBox">دريافت کارمزد بابت ثبت دستور پرداخت پايا  از سپرده ۳۳۱.۱۲.۴۹۲۰۸۷۸.۱-کارمزد انتقال وجه پايا سهم بانک مقابل و بانک مرکزي</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote8" id="stmtIdnote8" value="10957321_1694100533000_331_3"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۷۲۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۲۰۱,۱۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail8" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail8-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۸:۵۸:۵۳‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۱۰۹۵۷۳۲۱<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="odd">
+<td>۹</td>
+<td class="textBox">دريافت کارمزد بابت ثبت دستور پرداخت پايا  از سپرده ۳۳۱.۱۲.۴۹۲۰۸۷۸.۱-کارمزد انتقال وجه پايا سهم بانک</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote9" id="stmtIdnote9" value="10957321_1694100533000_331_1"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۶‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۱,۶۸۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۲۰۱,۸۴۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail9" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail9-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۱۸:۵۸:۵۳‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۱۰۹۵۷۳۲۱<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr>
+<tr class="even">
+<td>۱۰</td>
+<td class="textBox">کارمزد مانده حساب از خودپرداز ۲۱۴۸۵۵۶۹ ملت از ک ۶۳۹۳۴۶۱۰۵۶۰۴۶۳۰۹ ش م ۱۳۷۶۸۵۳۰۲۷۸۵ ش پ ۳۰۲۷۸۵</td>
+<td class="textBox"><div class="editableContainer"
+                                             title="">
+                                            <div class="editable">
+                                            </div>
+                                        </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="stmtIdnote10" id="stmtIdnote10" value="20944814_1693866605000_331_1"/>
+    
+    
+</td>
+<td>‪۱۴۰۲/۰۶/۱۴‬</td>
+<td>
+                                        
+                                        
+                                            -
+                                        
+                                    </td>
+<td>
+                                        
+                                            ۱,۴۴۰
+                                        
+                                        
+                                    </td>
+<td>
+                                        
+                                        
+                                            ۲۰۳,۵۲۰
+                                        
+                                    </td>
+<td></td>
+<td><span dir="rtl" id="detail10" class="tooltip-trigger inverse">
+               <img src='/webbank/images/detail.gif' alt=""/>
+            </span>
+
+                                    <div id="detail10-tooltip" class="tooltip">
+                                        
+                                        
+                                           <span class="tooltip-label">شعبه عامل</span>
+                                            شعبه کارت سينا<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">ساعت</span>
+                                            ‪۲:۰:۵‬<br/>
+                                        
+                                        
+                                           <span class="tooltip-label">شماره سند</span>
+                                            ۲۰۹۴۴۸۱۴<br/>
+                                        
+                                        
+                                            <span class="tooltip-label">شماره مرجع</span>
+                                            
+                                        
+                                    </div></td></tr></tbody></table><span
+        class="pagebanner">&nbsp;</span><span
+        class="pagebanner">&nbsp; </span>
+<div align="center" valign="middle" style="text-align:center;" class="infText"> </div>
+                        <div class="gridFooter pagingFooter">
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="paging">
+    
+    
+        <img id="disablePrev" src="/webbank/images/spacer.gif"
+             title="قبلی" alt="قبلی">&nbsp;&nbsp;
+    
+    
+        
+        
+        
+        <img id="disableNext" src="/webbank/images/spacer.gif"
+             title="بعدی ">
+        
+        
+            
+</div>
+
+<div id="exportFiles">
+    
+        
+            
+            
+                
+                <a href="billExcelReport.action?selectedDeposit=331-12-4920878-1&amp;fromDateTime=1402%2F05%2F20++-++00%3A00&amp;toDateTime=1402%2F06%2F20++-++23%3A59&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId="
+                   title="دریافت فایل excel" class="clientTrigger">
+                    <img src="/webbank/images/excel.gif"
+                         alt="دریافت فایل excel"
+                         />
+                </a>
+                <a target="_blank" href="billPdfReport.action?selectedDeposit=331-12-4920878-1&amp;fromDateTime=1402%2F05%2F20++-++00%3A00&amp;toDateTime=1402%2F06%2F20++-++23%3A59&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId="
+                   title="دریافت فایل pdf" class="clientTrigger">
+                    <img src="/webbank/images/pdf.gif"
+                         alt="دریافت فایل pdf"
+                         />
+                </a>
+                <a href="billCsvReport.action?selectedDeposit=331-12-4920878-1&amp;fromDateTime=1402%2F05%2F20++-++00%3A00&amp;toDateTime=1402%2F06%2F20++-++23%3A59&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId="
+                   title="دریافت فایل csv" class="clientTrigger">
+                    <img src="/webbank/images/csv.gif"
+                         alt="دریافت فایل csv"
+                         />
+                </a>
+                <a target="_blank" href="billHtmlReport.action?selectedDeposit=331-12-4920878-1&amp;fromDateTime=1402%2F05%2F20++-++00%3A00&amp;toDateTime=1402%2F06%2F20++-++23%3A59&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId="
+                   title="دریافت فایل html" class="clientTrigger">
+                    <img src="/webbank/images/html.gif"
+                         alt="دریافت فایل html"
+                         />
+                </a>
+                
+                
+                
+                
+            
+        
+    
+</div>
+
+                        </div>
+                    
+                
+            
+    </td>
+</tr>
+
+        
+        
+
+
+<tr class="odd">
+    <td colspan="2">
+        
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            
+            
+            
+                
+                    
+                        
+
+                        
+                        
+                            
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                                <a
+                                        
+                                        href="/webbank/config/billStatementSettingPage.action?selectedDeposit=331-12-4920878-1&fromDateTime=1402/05/20  -  00:00&toDateTime=1402/06/20  -  23:59&desc=&orderBillView=DESC&billType=0&accountType=JARI_ACCOUNT&depositGroupByReq=&referenceCustomerName=&referenceCif=&fromBillViewPage=TRUE" class="">
+                                        جهت تنظیمات نمایش اطلاعات صورتحساب کلیک کنید.
+                                </a>
+                            
+                        
+                        
+
+                    
+                
+                
+            
+        
+    
+    
+
+        
+    </td>
+</tr>
+
+    
+
+
+
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        var maxLen = $('#maxLenForNote').val();
+        $('.editableContainer').each(function (index, item) {
+            var ct = $(item).children().html();
+            if (ct.replace(/[ ]/ig, '').length === 1) {
+                $(item).addClass('centerEdit')
+            }
+            if (item.offsetHeight < item.scrollHeight || item.offsetWidth < item.scrollWidth) {
+                $(item).append("<div class='continued'>...</div>");
+            }
+        });
+        $('.normalButton').on('click', function () {
+            if ($('#accountType').val() != "" || $('#ownershipType').val() != "" || $('#currencyType').val() != "" || $('#referenceCif').val() != "") {
+                window.location = $('#depositGroupByReq').val() === "REFERENCE_CIF" ?
+                        'viewDetailsAccount.action?referenceCustomerName=&referenceCif=&summaryDepositGroupBy=&ownershipType=&accountType=JARI_ACCOUNT&currencyType=' :
+                        'viewDetails.action?accountType=JARI_ACCOUNT';
+            } else {
+                window.location = $('#depositGroupByReq').val() === "REFERENCE_CIF" ? 'viewOwnTypeAccAction' : 'viewAccAction.action';
+            }
+            return false;
+        });
+        $(document).on('click', ".editable", function () {
+            var parent = $(this).parent().get(0);
+            var originalText = $.trim($(this).text());
+            $(parent).qtip('destroy');
+            $(parent).removeAttr('oldtitle');
+            $(parent).removeAttr('title');
+            $(parent).animate({height: 90}).html("<div ><textarea cols='100' class='textarea' originalText='" + originalText + "' maxlength='" + maxLen + "' pdfReports='4' >" + originalText + "</textarea></div>" +
+                    "<div class='buttons'><div title='ذخیره' class='submitBtn'></div><div title='انصراف' class='cancelBtn'></div>");
+            if(!is_touch_device()) {
+                $('.cancelBtn, .submitBtn').qtip({
+                    style: {
+                        classes: 'qtip-rounded'
+                    },
+                    position: {
+                        effect: false,
+                        my: 'top right',
+                        at: 'bottom center',
+                        viewport: $(window)
+                    }
+                });
+            }
+
+            $('.textarea').focus();
+            checkInvalidCharacter();
+        });
+        $(document).on('click', '.cancelBtn', function () {
+            var parent = $(this).parents('.editableContainer').get(0);
+            var originalText = $(parent).find('.textarea').attr('originalText');
+            $(this).qtip('destroy');
+            $(parent).animate({height: 29}, 400,
+                    function () {
+                        if (parent.offsetHeight < parent.scrollHeight) {
+                            $(parent).append("<div class='continued'>...</div>");
+                        } else {
+                            $(parent).remove(".continued");
+                        }
+                    }).html('<div  class="editable" >' + originalText + '</div>');
+            if (!is_touch_device()) {
+                $(parent).qtip({
+                    content: originalText, style: {
+                        classes: 'qtip-rounded'
+                    }, position: {
+                        effect: false,
+                        target: 'event',
+                        viewport: $(window),
+                        my: 'bottom middle',
+                        at: 'top middle'
+                    }
+                })
+            }
+        });
+
+        $('tr').mouseover(function () {
+            $(this).find('div.continued').addClass('over');
+            $(this).find('div.editable').addClass('edit');
+        });
+
+        $('tr').mouseout(function () {
+            $(this).find('div.continued').removeClass('over');
+            $(this).find('div.editable').removeClass('edit');
+        });
+
+        $(document).on('click', '.submitBtn', function () {
+            var parent = $(this).parents('.editableContainer').get(0);
+            var originalText = $(parent).find('.textarea').attr('originalText');
+            var newNote = $(parent).find('.textarea').val();
+            if (newNote.length > maxLen) {
+                $(parent).find('.textarea').addClass('error').qtip({
+                    content: applicationResources['IB.commons.maxLength'].replace('{0}', maxLen),
+                    show: {
+                        ready: true
+                    },
+                    style: {
+                        classes: 'qtip-rounded'
+                    },
+                    position: {
+                        effect: false,
+                        viewport: $(window),
+                        my: 'bottom middle',
+                        at: 'top middle'
+                    }
+                });
+                $(parent).find('.textarea').keyup(function () {
+                    if ($(this).val().length <= maxLen) {
+                        $(parent).find('.textarea').removeClass('error').qtip('destroy');
+                    } else {
+                        $(parent).find('.textarea').addClass('error').qtip({
+                            content: applicationResources['IB.commons.maxLength'].replace('{0}', maxLen),
+                            show: {
+                                ready: true
+                            },
+                            style: {
+                                classes: 'qtip-rounded'
+                            },
+                            position: {
+                                effect: false,
+                                viewport: $(window),
+                                my: 'bottom middle',
+                                at: 'top middle'
+                            }
+                        })
+                    }
+                })
+            } else {
+                submitNote(parent, newNote, originalText, this);
+            }
+        });
+
+        var submitNote = function (parent, newNote, originalText, btn) {
+            var statementID = $(parent).next('input').val();
+            $(parent).animate({height: 29}, 500,
+                    function () {
+                        $(btn).qtip('destroy');
+                        showLoading(parent);
+                        saveNote('/webbank/viewAcc/saveNote.action', '331-12-4920878-1', parent, newNote, statementID, originalText);
+                    });
+
+        };
+
+        var saveNote = function (saveNoteAction, depositNumber, parent, newNote, statementID, originalText) {
+            $.ajax({
+                url: saveNoteAction,
+                type: 'GET',
+                data: {
+                    statementId: statementID,
+                    note: newNote,
+                    depositNumber: depositNumber
+                },
+                success: function (json) {
+                    $(parent).html('<div  class="editable" >' + newNote + '</div>');
+                    if (newNote !== '') {
+                        $(parent).removeClass('centerEdit');
+                    } else {
+                        $(parent).addClass('centerEdit')
+                    }
+                    if (newNote !== '' && !is_touch_device()) {
+                        $(parent).qtip({content: newNote, style: {
+                            classes: 'qtip-rounded'
+                        }, position: {
+                            effect: false,
+                            target: 'event',
+                            viewport: $(window),
+                            my: 'bottom middle',
+                            at: 'top middle'
+                        }});
+                    }
+                    if (parent.offsetHeight < parent.scrollHeight) {
+                        $(parent).append("<div class='continued'>...</div>");
+                    } else {
+                        $(parent).remove(".continued");
+                    }
+                },
+                error: function (response) {
+                    var responseObj = $.parseJSON(response.responseText);
+                    if (responseObj.logout) {
+                        $(parent).animate({height: 29}).html("<div class='noteError' >" + applicationResources['IB.commons.errorLogout'] + "</div>");
+                        setTimeout(function () {
+                            location.href = '../login/logout.action'
+                        }, 1800);
+                    } else {
+                        $(parent).animate({height: 29}).html("<div class='noteError' >" + formatDigitsInText(responseObj.errorMessages[0], ',/IR-') + "</div>");
+                        if(!is_touch_device()) {
+                            $(parent).qtip({content: formatDigitsInText(responseObj.errorMessages[0], ',/IR-'), style: {
+                                classes: 'qtip-rounded noteErrorQtip'
+                            }, position: {
+                                effect: false,
+                                target: 'event',
+                                viewport: $(window),
+                                my: 'bottom middle',
+                                at: 'top middle'
+                            }});
+                        }
+                        if (parent.offsetHeight < parent.scrollHeight) {
+                            $(parent).append("<div class='continued'>...</div>");
+                        } else {
+                            $(parent).remove(".continued");
+                        }
+                        $(parent).fadeIn();
+                        setTimeout(function () {
+                            $('.noteErrorQtip').css("display", "none");
+                            $('.noteError').fadeOut();
+                            $(parent).html('<div  class="editable" >' + originalText + '</div>');
+                            $('.editableContainer.centerEdit').css("display","block");
+                        }, 3000);
+                    }
+                }
+            });
+        };
+
+        var showLoading = function (parent) {
+            $(parent).html("<div class='editable noteLoading'></div>");
+        };
+    });
+</script>
+
+        <div class="keyboardContainer" id="fullKeyboardContainer">
+            <div class="keyboardKeypad" id="keyboard">
+            </div>
+        </div>
+        <div class="keyboardContainer" id="limitedKeyboardContainer">
+            <div class="keyboardKeypad" id="limitedKeyboard">
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dialog-wrap">
+    <div class="dialog-mask"></div>
+    <div class="dialog animated">
+        <div class="dialog-close">X</div>
+        <div class="dialog-header"></div>
+        <div class="dialog-body"></div>
+        <div class="dialog-footer"></div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="/webbank/locale/l10n.action?version=4.121.10-4014&locale=fa"></script>
+<script type="text/javascript" src="/webbank/scripts/mainFooters-4.121.10-4014.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.setupVKeyboard('rtl', 'fullKeys');
+        $.setupVKeyboard('rtl', 'limitedKeys');
+        $('.first').focus();
+        /*$('div.itemIcon').hover(function () {
+                $(this).closest("div#navigation").css("border-bottom", "0");
+        });*/
+    });
+</script>
+</body>
+</html>

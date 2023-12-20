@@ -1,0 +1,3263 @@
+200
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        صورتحساب
+        سپرده ‪‬
+        
+     | اینترنت بانک بانک شهر</title>
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="CSRF_TOKEN" content=dBo/ZNk8668twhnzw846n71YKDe6JbTtt2WxYdGcRYw=>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/ebank/styles/main-4.121.17-4022.css"/>
+<link rel="stylesheet" type="text/css" media="print" href="/ebank/styles/print-4.121.17-4022.css"/>
+<script type="text/javascript" src="/ebank/scripts/mainHeaders-4.121.17-4022.js"></script>
+<script type="text/javascript" src="/ebank/scripts/mainHeaders-fa-4.121.17-4022.js"></script>
+<script type="text/javascript" >
+
+    // internet bank name space
+    var IB = {};
+    IB.queryText = '';
+    // sequence of these lines is important and should be kept in this way.
+    IB.smartCombo = {};
+    IB.smartCombo.queryText = '';
+    IB.ctx = '/ebank';
+    IB.isBatchListPage = false;
+    IB.locale = 'fa';
+
+    IB.tempKeys = {
+        chequeManagemnet            : 'مدیریت چک',
+        batchTransfer               : 'دسته ای',
+        batch                       : 'batch',
+        chequeAndChequeBook         : 'چک و دسته چک',
+        transferredChequeListTitle  : 'چکهای واگذار شده به سپرده',
+        payBill                     : 'pay.bill',
+        batchBillPayment            : 'batch.Bill.Payment'
+    };
+    // end of template keys
+    IB.periodicalReports = {};
+    IB.periodicalReports.smsConfig = ('true' == 'true');
+    IB.periodicalReports.emailConfig = ('false' == 'true');
+    IB.periodicalReports.faxConfig = ('false' == 'true');
+
+    IB.cardTransactionsMaxDay = (30);
+    IB.billStatementReportMaxDay = '365';
+    IB.ibanDefaultPrefix = ('IR');
+    IB.removeLeadingZerosFromDeposit = (false);
+
+    IB.userName = 'سام فنگي';
+    IB.direction = 'rtl';
+    IB.ctx = '/ebank';
+    if ('10' !== '') {
+        IB.pageSize = parseInt('10', 10);
+    } else {
+        IB.pageSize = '';
+    }
+    IB.kartabl_activation = ('true' == 'true');
+    IB.calendar = 'jalali';
+    IB.illegalCharacters = [38, 37, 59, 124, 36, 35, 40, 41, 39, 96, 34, 60, 62, 92];
+    IB.defaultCurrencyCode = 'IRR';
+    IB.defaultCurrencyFractionalDigits = '2';
+    IB.showCountdownTimer = ('true' == 'true');
+    IB.remainingCountdownTime = '600';
+    IB.showAlertMaxTime = '1';
+    IB.maxPasswordLength = '';
+    IB.minPasswordLength = '';
+    IB.specialCharacterReplacement = ' ';
+    IB.harimResendPasswordDuration = '120';
+    IB.timerDuration = '120';
+    IB.remainingTimeDuration = '-1';
+</script>
+
+    <link rel="shortcut icon" href="/ebank/favicon.ico"/>
+    
+    
+
+</head>
+<body class="rtl statement viewingAccountMain depositParent
+">
+<div id="taskNotifier">
+    بارگذاری...
+</div>
+<div id="mainContainer">
+    <div id="topBar">
+        
+            <div id="topLinks">
+                
+                <span id="timerContainer" class="timerContainer tooltip-trigger">زمان باقی‌مانده: <span id="timer" class="timer"></span></span>
+                    <div id="timerContainer-tooltip" class="tooltip">در صورتی که مهلت نمایش داده شده به پایان برسد، برای استفاده از اینترنت بانک نیاز به ورود دوباره نام کاربری و رمز عبور خواهد بود.</div>
+                
+                
+                    <a href="/ebank/index.action#contacts" class="contactsIcon">تماس ها</a>
+                    <a href="/ebank/contact.action" class="contactIcon">تماس با ما</a>
+                    <a href="/ebank/config/changePassword.action" class="changePassIcon">تغییر رمز عبور</a>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=config" class="settingIcon">تنظیمات</a>
+                
+                <a href="/ebank/login/logout.action" class="exitIcon">خروج</a>
+                <div id="userInfo">
+                    <div id="name">سام فنگي</div>
+                    
+                        <div id="date">
+                            ‪۱۴۰۲/۰۹/۱۹‬
+                        </div>
+                    
+                </div>
+            </div>
+        
+    </div>
+    
+        <div id="navigationBar">
+            <div id="navigation">
+                
+
+
+
+
+
+
+
+<div class="navigationContainer">
+<ul class="mainMenu">
+    
+        
+            
+                <li class="menus menuFirstItem"
+                    id="home">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/home/homePage.action'>
+                    خانه</a>
+                    <ul class="navList" id="menu-1">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="viewFavoriteAccountsList" href="/ebank/home/homePage.action">
+                                    خانه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="transferPayment" href="/ebank/chooseSubMenu.action?actionParameter=transfer">
+                                    انتقال وجه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="payments" href="/ebank/chooseSubMenu.action?actionParameter=payments">
+                                    پرداخت قبض و  خريد شارژ آني 
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="viewAcc" href="/ebank/viewAcc/viewAccAction.action">
+                                    صورتحساب
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-1">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewFavoriteAccountsList" href="/ebank/home/homePage.action">
+                                    خانه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="transferPayment" href="/ebank/chooseSubMenu.action?actionParameter=transfer">
+                                    انتقال وجه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="payments" href="/ebank/chooseSubMenu.action?actionParameter=payments">
+                                    پرداخت قبض و  خريد شارژ آني 
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="viewAcc" href="/ebank/viewAcc/viewAccAction.action">
+                                    صورتحساب
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="dashboard">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=dashboard'>
+                    پیشخوان</a>
+                    <ul class="navList" id="menu-2">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="monthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=30">
+                                    صورتحساب ماهانه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="threeMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=90">
+                                    صورتحساب سه ماهه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="sixMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=180">
+                                    صورتحساب شش ماهه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="monthlyCardTransferReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    گزارش تراکنش های کارت سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="monthlySurrenderCheqes" href="/ebank/cheque/transferredChequesListPage.action?period=30">
+                                    گزارش چک های واگذار شده سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="monthlyAchTransferReport" href="/ebank/index.action#reports?ref=achTransferBatchReport&daysAgo=30">
+                                    گزارش انتقال وجه پایا سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="monthlyRtgsTransferReport" href="/ebank/index.action#reports?ref=rtgsReport&daysAgo=30">
+                                    گزارش انتقال وجه ساتنا سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="loanPaymentReport" href="/ebank/loan/initialLoan.action">
+                                    گزارش اقساط تسهیلات
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-2">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="monthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=30">
+                                    صورتحساب ماهانه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="threeMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=90">
+                                    صورتحساب سه ماهه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="sixMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=180">
+                                    صورتحساب شش ماهه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="monthlyCardTransferReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    گزارش تراکنش های کارت سی روز اخیر
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="monthlySurrenderCheqes" href="/ebank/cheque/transferredChequesListPage.action?period=30">
+                                    گزارش چک های واگذار شده سی روز اخیر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="monthlyAchTransferReport" href="/ebank/index.action#reports?ref=achTransferBatchReport&daysAgo=30">
+                                    گزارش انتقال وجه پایا سی روز اخیر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="monthlyRtgsTransferReport" href="/ebank/index.action#reports?ref=rtgsReport&daysAgo=30">
+                                    گزارش انتقال وجه ساتنا سی روز اخیر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="loanPaymentReport" href="/ebank/loan/initialLoan.action">
+                                    گزارش اقساط تسهیلات
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="exchange">
+                    <a href="/ebank/index.action#exchange">
+                        بورسار
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="depositParent">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=deposit'>
+                    سپرده</a>
+                    <ul class="navList" id="menu-4">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="viewAccAction" href="/ebank/viewAcc/viewAccAction.action">
+                                    سپرده ها در یک نگاه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="openingDeposit" href="/ebank/openingDeposit/chooseDepositType.action">
+                                    افتتاح سپرده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="calendarViewBillList" href="/ebank/viewAcc/calendarViewBillList.action">
+                                    روزشمار
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-4">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewAccAction" href="/ebank/viewAcc/viewAccAction.action">
+                                    سپرده ها در یک نگاه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="openingDeposit" href="/ebank/openingDeposit/chooseDepositType.action">
+                                    افتتاح سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="calendarViewBillList" href="/ebank/viewAcc/calendarViewBillList.action">
+                                    روزشمار
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="transferPayment">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=transfer'>
+                    انتقال وجه</a>
+                    <ul class="navList" id="menu-5">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="normalTransfer" href="/ebank/transfer/newNormal.action">
+                                    عادی
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="batchTransfer" href="/ebank/transfer/newBatch.action">
+                                    دسته ای
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="rtgsTransfer" href="/ebank/transfer/newRtgs.action">
+                                    بین بانکی ساتنا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardToCardTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                    کارت به کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardToDepositTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                    کارت به سپرده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardToIBANTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                    کارت به شبا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="normalAchTransfer" href="/ebank/transfer/newNormalAch.action">
+                                    بین بانکی پایا عادی
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="batchAchTransfer" href="/ebank/transfer/newAchBatch.action">
+                                    بین بانکی پایا دسته ای
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="autoAchTransfer" href="/ebank/transfer/newAutoAch.action">
+                                    بین بانکی پایا مستمر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardless" href="/ebank/index.action#cardlessCash">
+                                    برداشت وجه بدون کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="instantInterbankTransfer" href="/ebank/transfer/instantInterbankTransfer.action">
+                                    بين بانکي آني (پل)
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-5">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="normalTransfer" href="/ebank/transfer/newNormal.action">
+                                    عادی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="batchTransfer" href="/ebank/transfer/newBatch.action">
+                                    دسته ای
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="rtgsTransfer" href="/ebank/transfer/newRtgs.action">
+                                    بین بانکی ساتنا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardToCardTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                    کارت به کارت
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardToDepositTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                    کارت به سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardToIBANTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                    کارت به شبا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="normalAchTransfer" href="/ebank/transfer/newNormalAch.action">
+                                    بین بانکی پایا عادی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="batchAchTransfer" href="/ebank/transfer/newAchBatch.action">
+                                    بین بانکی پایا دسته ای
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="autoAchTransfer" href="/ebank/transfer/newAutoAch.action">
+                                    بین بانکی پایا مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardless" href="/ebank/index.action#cardlessCash">
+                                    برداشت وجه بدون کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="instantInterbankTransfer" href="/ebank/transfer/instantInterbankTransfer.action">
+                                    بين بانکي آني (پل)
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="Reports">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/index.action#reports?'>
+                    گزارش</a>
+                    <ul class="navList" id="menu-6">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="transferReport" href="/ebank/index.action#reports?ref=report">
+                                    انتقال وجه مستمر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="rtgsReport" href="/ebank/index.action#reports?ref=rtgsReport">
+                                    انتقال وجه بین بانکی ساتنا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="achTransferBatchReport" href="/ebank/index.action#reports?ref=achTransferBatchReport">
+                                    انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardPaymentsReport" href="/ebank/index.action#reports?ref=cardPaymentsReport">
+                                    پرداخت ها
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardTransactionsReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    تراکنش های کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="periodicalReports" href="/ebank/index.action#periodicalReportsSettings">
+                                    تنظیمات گزارش های دوره ای
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="userActivitiesHistory" href="/ebank/index.action#userActivitiesHistory">
+                                    تاریخچه عملیات کاربر
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-6">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="transferReport" href="/ebank/index.action#reports?ref=report">
+                                    انتقال وجه مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="rtgsReport" href="/ebank/index.action#reports?ref=rtgsReport">
+                                    انتقال وجه بین بانکی ساتنا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="achTransferBatchReport" href="/ebank/index.action#reports?ref=achTransferBatchReport">
+                                    انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardPaymentsReport" href="/ebank/index.action#reports?ref=cardPaymentsReport">
+                                    پرداخت ها
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardTransactionsReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    تراکنش های کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="periodicalReports" href="/ebank/index.action#periodicalReportsSettings">
+                                    تنظیمات گزارش های دوره ای
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="userActivitiesHistory" href="/ebank/index.action#userActivitiesHistory">
+                                    تاریخچه عملیات کاربر
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="kartablReport">
+                    <a href="/ebank/index.action#kartabl">
+                        کارپوشــه
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="chequeParent">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=cheque'>
+                    چک</a>
+                    <ul class="navList" id="menu-8">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="jariDepositReport" href="/ebank/cheque/jariDepositsReport.action">
+                                    چک و دسته چک
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="transferredChequesList" href="/ebank/cheque/transferredChequesListPage.action">
+                                    چکهای واگذار شده به سپرده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="registerDigitalCheque" href="/ebank/cheque/registerDigitalCheque.action">
+                                    ثبت چک صیاد
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="acceptOrRejectDigitalCheque" href="/ebank/cheque/acceptOrRejectDigitalCheque.action">
+                                    تایید یا رد چک صیاد
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="transferDigitalCheque" href="/ebank/cheque/transferDigitalCheque.action">
+                                    انتقال چک صیاد
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-8">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="jariDepositReport" href="/ebank/cheque/jariDepositsReport.action">
+                                    چک و دسته چک
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="transferredChequesList" href="/ebank/cheque/transferredChequesListPage.action">
+                                    چکهای واگذار شده به سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="registerDigitalCheque" href="/ebank/cheque/registerDigitalCheque.action">
+                                    ثبت چک صیاد
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="acceptOrRejectDigitalCheque" href="/ebank/cheque/acceptOrRejectDigitalCheque.action">
+                                    تایید یا رد چک صیاد
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="transferDigitalCheque" href="/ebank/cheque/transferDigitalCheque.action">
+                                    انتقال چک صیاد
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="loans">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=loan'>
+                    تسهیلات</a>
+                    <ul class="navList" id="menu-9">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="viewLoans" href="/ebank/loan/initialLoan.action">
+                                    مشاهده تسهيلات و پرداخت اقساط خود
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="othersLoanPayment" href="/ebank/loan/othersLoanPaymentPage.action">
+                                    پرداخت قسط ديگران
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-9">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewLoans" href="/ebank/loan/initialLoan.action">
+                                    مشاهده تسهيلات و پرداخت اقساط خود
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="othersLoanPayment" href="/ebank/loan/othersLoanPaymentPage.action">
+                                    پرداخت قسط ديگران
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="cardParent">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=card'>
+                    کارت</a>
+                    <ul class="navList" id="menu-10">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="cardManagement" href="/ebank/card/viewCardManagement.action">
+                                    کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="creditDossierStatement" href="/ebank/card/creditDossiersPage.action">
+                                    پرونده اعتباری
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="virtualDepositCard" href="/ebank/index.action#virtualDepositCard">
+                                    کارت واریز مجازی
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="activeCardOtp" href="/ebank/otp/showActivationPage.action">
+                                    فعال‌سازی رمز یکبارمصرف کارت
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-10">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardManagement" href="/ebank/card/viewCardManagement.action">
+                                    کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="creditDossierStatement" href="/ebank/card/creditDossiersPage.action">
+                                    پرونده اعتباری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="virtualDepositCard" href="/ebank/index.action#virtualDepositCard">
+                                    کارت واریز مجازی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="activeCardOtp" href="/ebank/otp/showActivationPage.action">
+                                    فعال‌سازی رمز یکبارمصرف کارت
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="payments">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=payments'>
+                    پرداخت</a>
+                    <ul class="navList" id="menu-11">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="topUp" href="/ebank/payment/topUp.action">
+                                    شارژ مستقیم تلفن همراه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="paymentServices" href="/ebank/thirdParty/treeViewPaymentServices.action">
+                                    سرویس های پرداخت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="paymentWithPayNo" href="/ebank/payment/payWithPayNoPage.action">
+                                    پرداخت با شناسه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="billPayment" href="/ebank/payment/newBillPayment.action">
+                                    پرداخت قبض
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="batchBillPayment" href="/ebank/payment/viewBatchBillPayment.action">
+                                    پرداخت قبض دسته ای
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-11">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="topUp" href="/ebank/payment/topUp.action">
+                                    شارژ مستقیم تلفن همراه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="paymentServices" href="/ebank/thirdParty/treeViewPaymentServices.action">
+                                    سرویس های پرداخت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="paymentWithPayNo" href="/ebank/payment/payWithPayNoPage.action">
+                                    پرداخت با شناسه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="billPayment" href="/ebank/payment/newBillPayment.action">
+                                    پرداخت قبض
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="batchBillPayment" href="/ebank/payment/viewBatchBillPayment.action">
+                                    پرداخت قبض دسته ای
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus menuLastItem"
+                    id="settings">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href='/ebank/chooseSubMenu.action?actionParameter=config'>
+                    تنظیمات</a>
+                    <ul class="navList" id="menu-12">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="changePassword" href="/ebank/config/changePassword.action">
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="changeSecondPassword" href="/ebank/config/changeSecondPassword.action">
+                                    تغییر رمز دوم
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="changeUsername" href="/ebank/config/changeUsername.action">
+                                    تغییر نام کاربری
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="homeSettingsPage" href="/ebank/config/homeSettingsPage.action">
+                                    تنظیمات سپرده های برگزیده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="displaySettingsPage" href="/ebank/config/displaySettingsPage.action">
+                                    تنظیمات نمایش
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="billStatementSettingPage" href="/ebank/config/billStatementSettingPage.action">
+                                    تنظیمات صورتحساب
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-12">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="changePassword" href="/ebank/config/changePassword.action">
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="changeSecondPassword" href="/ebank/config/changeSecondPassword.action">
+                                    تغییر رمز دوم
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="changeUsername" href="/ebank/config/changeUsername.action">
+                                    تغییر نام کاربری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="homeSettingsPage" href="/ebank/config/homeSettingsPage.action">
+                                    تنظیمات سپرده های برگزیده
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="displaySettingsPage" href="/ebank/config/displaySettingsPage.action">
+                                    تنظیمات نمایش
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="billStatementSettingPage" href="/ebank/config/billStatementSettingPage.action">
+                                    تنظیمات صورتحساب
+                                </a>
+                            </li>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+</ul>
+</div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/ebank/kartabl/getKartabls.action',
+                dataType: 'json',
+                type: 'POST',
+                cache: false,
+                data: {
+                    reportType: 'ACTIONABLE',
+                    pageSize: 1,
+                    offset: 0
+                },
+                success: function (response) {
+                    if (response.total !== 0 && typeof response.total !== 'undefined') {
+                        var total = IB.locale == 'fa' ? english2PersianNumbers(response.total) : response.total;
+                        $('#kartablReport').append('<div class="kartablNotification">' + total + '</div>');
+                    }
+                },
+                error: function () {
+                    $('#kartablReport').append('<div class="kartablNotification kartablNotificationError">!</div>');
+                }
+            });
+        });
+    </script>
+
+
+
+            </div>
+        </div>
+    
+    <div class="contentContainer">
+        <h2 id="content-title">
+        صورتحساب
+        سپرده ‪‬
+        
+    </h2>
+
+        <div id="content-body">
+            
+
+
+
+
+            
+
+
+
+
+            
+
+    
+    
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+<form action="/ebank/viewAcc/depositShow.action" method="GET" autocomplete="off"
+      clientSideValidation="true"
+      
+      
+      class="twoColFormSection"
+      
+      
+      submission="true"
+      
+        >
+
+    
+<input type="hidden" name="struts.token.name" value="depositShowToken" />
+<input type="hidden" name="depositShowToken" value="MA1UJNMV66TIEQFF4DX0ZTNUH6NIPFKZ" />
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="advancedSearch" id="advancedSearch" value="true"/>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="personalityType" id="personalityType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="depositGroupByReq" id="depositGroupByReq" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="referenceCustomerName" id="referenceCustomerName" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="referenceCif" id="referenceCif" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="ownershipType" id="ownershipType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="accountType" id="accountType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="currencyType" id="currencyType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="maxLenForNote" id="maxLenForNote" value="200"/>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <div class="formSection " id="">
+        <div class=" 0 "></div>
+        <h6 class="formSectionTitle">
+            جستجوی گردش های سپرده
+        </h6>
+    
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem smartComboInBillView">
+    
+        
+        
+            
+                
+                
+                    <label for="sourceSaving"
+                           class="form-item-label  requiredField">سپرده:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+<div class="smartCombo-wrapper">
+    <div id="" class="smartCombo">
+        
+        
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="selectedDeposit" id="selectedDeposit" value="" spellcheck="false"
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       dir="ltr"
+       class=" required first"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+        <div id="selectedDepositCleanFilter" class="clean-combo-filter" title="پاک کردن"></div>
+    </div>
+    <div id="selectedDepositTrigger" class="smartCombo-trigger" comboid="selectedDeposit" ></div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="selectedDepositValueType" id="selectedDepositValueType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="selectedDepositPinnedDeposit" id="selectedDepositPinnedDeposit" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="selectedDepositIsComboValInStore" id="selectedDepositIsComboValInStore" value="false"/>
+    
+    
+
+<script type="text/javascript">
+
+    
+    
+    IB.smartCombo.selectedDeposit =
+            '';
+    
+    $(document).ready(function () {
+        var currencyChangeFireEvent = '';
+        if('true' == 'true') {
+            currencyChangeFireEvent = true;
+        } else {
+            currencyChangeFireEvent = false;
+        }
+        var combo = $('#selectedDeposit');
+        combo.id = 'selectedDeposit';
+        combo.store = {};
+        combo.type = 'DEPOSIT';
+        combo.showContacts = false;
+        combo.showDetailInfo = false;
+        combo.businessType = 'all';
+        combo.serviceName = '';
+        combo.name = 'selectedDeposit';
+        combo.prefixValue = '';
+        combo.isBatchInput = false;
+        combo.containerId = '';
+        combo.value = IB.smartCombo.selectedDeposit;
+        combo.defaultValue = '';
+        combo.defaultValueLabelKey = '';
+        combo.defaultValueType = '';
+        combo.autoCompilitified = false;
+        combo.hint = '';
+        combo.currency = '';
+        combo.changeEventHandler = '';
+        combo.comboValNotInStoreHandler = '';
+        combo.isDefaultValueSelectedName='';
+        combo.currencyChangeFireEvent = currencyChangeFireEvent;
+
+        if (combo.isBatchInput) {
+            combo.batchInputValue = '';
+        }
+        combo.addClass(IB.direction).val(applicationResources['IB.smartCombo.loading']);
+        IB.smartCombo.createAutoComplete(combo);
+
+//        show title in qtip:
+        $('#selectedDepositsmartCombotHelp').qtip({
+            content: '',
+            style: {
+                classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+            }, position: {
+                effect: false,
+                target: 'event',
+                viewport: $(window),
+                my: 'bottom middle',
+                at: 'top middle'
+            }
+        });
+    });
+
+</script>
+
+
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        نوع تراکنش:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        <select name="billType">
+            <option ></option>
+            <option value="1" >
+                واریز
+            </option>
+            <option value="2" >
+                برداشت
+            </option>
+        </select>
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  requiredField"
+                           id="">
+                        از تاریخ:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+        
+    
+
+
+
+<div class="calendarField-wrapper">
+    <div class="calendarField-input">
+        <input type="text" name="fromDateTime" id="fromDateTime" value="1402/08/19  -  00:00" dir="ltr" spellcheck="false"
+               class="iconField first  dateRange required billStatementMaxIntervalDateReport dateTime"
+               
+               
+               validateagainstTo="toDateTime"
+               
+               onchange="" maxlength="20"/>
+    </div>
+    <div id="fromDateTimeButton" class="calendarIcon"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Calendar.setup({
+                inputField: "fromDateTime",
+                button: "fromDateTimeButton",
+                ifFormat: "%Y/%m/%d  -  %H:%M",
+                dateType: IB.calendar,
+                weekNumbers: false,
+                showOthers: true,
+                showsTime: true,
+                singleClick: false,
+                langNumbers: false,
+                autoShowOnFocus: false
+
+                /* This is required when the date is picked from calendar and no key event is triggered to cause validation
+                 * this event let me now when the field is updated to validate it again.*/
+                /*onUpdate: function() {
+                 if($(this.inputField).valid()){
+                 $(this.inputField).qtip('destroy')
+                 };
+                 }*/
+            });
+
+            $('#_calendarFieldHint').qtip({
+                content: '',
+                style: {
+                    classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+                }, position: {
+                    effect: false,
+                    target: 'event',
+                    viewport: $(window),
+                    my: 'bottom middle',
+                    at: 'top middle'
+                }
+            });
+        });
+    </script>
+
+
+
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  requiredField"
+                           id="">
+                        تا تاریخ:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+    
+        
+    
+
+
+
+<div class="calendarField-wrapper">
+    <div class="calendarField-input">
+        <input type="text" name="toDateTime" id="toDateTime" value="1402/09/19  -  13:10" dir="ltr" spellcheck="false"
+               class="iconField  dateRange required billStatementMaxIntervalDateReport dateTime"
+               
+               
+               
+               validateagainstFrom="fromDateTime"
+               onchange="" maxlength="20"/>
+    </div>
+    <div id="toDateTimeButton" class="calendarIcon"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Calendar.setup({
+                inputField: "toDateTime",
+                button: "toDateTimeButton",
+                ifFormat: "%Y/%m/%d  -  %H:%M",
+                dateType: IB.calendar,
+                weekNumbers: false,
+                showOthers: true,
+                showsTime: true,
+                singleClick: false,
+                langNumbers: false,
+                autoShowOnFocus: false
+
+                /* This is required when the date is picked from calendar and no key event is triggered to cause validation
+                 * this event let me now when the field is updated to validate it again.*/
+                /*onUpdate: function() {
+                 if($(this.inputField).valid()){
+                 $(this.inputField).qtip('destroy')
+                 };
+                 }*/
+            });
+
+            $('#_calendarFieldHint').qtip({
+                content: '',
+                style: {
+                    classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+                }, position: {
+                    effect: false,
+                    target: 'event',
+                    viewport: $(window),
+                    my: 'bottom middle',
+                    at: 'top middle'
+                }
+            });
+        });
+    </script>
+
+
+
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+    
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                
+                    <label for="minAmount"
+                           class="form-item-label  ">از مبلغ:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="minAmount" id="minAmount" value="" spellcheck="false"
+       
+       
+       maxlength="20"
+       
+       validateagainst="maxAmount"
+       
+       
+       
+       onkeyup="validate(this);"
+       
+       dir="ltr"
+       class="numberRange"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="currency" id="currency_selectedDeposit" />
+    
+    
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="currencyDefaultFractionDigits" id="currencyDefaultFractionDigits_selectedDeposit" />
+    
+    
+
+    
+    
+
+    </span>
+</div>
+
+
+    
+
+
+<script type="text/javascript">
+    $(function () {
+        var sourceCurrencyId = 'selectedDeposit';
+        if (sourceCurrencyId) {
+            var sourceCurrencyEl = $('#' + sourceCurrencyId);
+            if (sourceCurrencyEl) {
+                sourceCurrencyEl.bind('valueChanged', updateCurrency);
+            }
+        }
+    });
+
+    function updateCurrency() {
+        var sourceCurrencyEl = this;
+        updateCurrencyValue(sourceCurrencyEl);
+    }
+
+    function validate(inputEl) {
+        var hiddenCurrencyCodeEl = $('#currency_selectedDeposit'),
+                hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_selectedDeposit');
+        placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
+                '', true);
+    }
+</script>
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+    
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                
+                    <label for="maxAmount"
+                           class="form-item-label  ">تا مبلغ:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="maxAmount" id="maxAmount" value="" spellcheck="false"
+       
+       
+       maxlength="20"
+       
+       validateagainst="minAmount"
+       
+       
+       
+       onkeyup="validate(this);"
+       
+       dir="ltr"
+       class="numberRange"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    
+    
+
+    </span>
+</div>
+
+
+    
+
+
+<script type="text/javascript">
+    $(function () {
+        var sourceCurrencyId = 'selectedDeposit';
+        if (sourceCurrencyId) {
+            var sourceCurrencyEl = $('#' + sourceCurrencyId);
+            if (sourceCurrencyEl) {
+                sourceCurrencyEl.bind('valueChanged', updateCurrency);
+            }
+        }
+    });
+
+    function updateCurrency() {
+        var sourceCurrencyEl = this;
+        updateCurrencyValue(sourceCurrencyEl);
+    }
+
+    function validate(inputEl) {
+        var hiddenCurrencyCodeEl = $('#currency_selectedDeposit'),
+                hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_selectedDeposit');
+        placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
+                '', true);
+    }
+</script>
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        ترتیب:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+        <select name="order">
+            <option value="ASC" >صعودی</option>
+            <option value="DESC" selected="selected">
+                نزولی</option>
+        </select>
+    
+    </span>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        شرح / یادداشت:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+    
+
+
+
+
+
+<input type="text" name="desc" id="desc" value="" spellcheck="false"
+       
+       
+       maxlength="40"
+       
+       
+       
+       
+       
+       
+       
+       dir="rtl"
+       class="wideTextField"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+    
+    </span>
+</div>
+
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        شناسه واریز:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+    
+
+
+
+
+
+<input type="text" name="paymentId" id="paymentId" value="" spellcheck="false"
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       dir="rtl"
+       class="wideTextField"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+        
+    </span>
+</div>
+
+    
+
+</div>
+
+
+
+
+
+<div class="commandBar"
+   
+        >
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="submit" value="صورتحساب" class="button importantButton" 
+       
+       
+       
+        />
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="button" value="بازگشت" class="button normalButton"
+       
+       
+       
+       
+        />
+
+
+
+
+</div>
+
+
+    
+    
+        
+            
+
+
+<tr class="even">
+    <td colspan="2">
+        
+                
+                    
+                        
+                            
+                                <div class="noResult">
+                                    <img src="/ebank/images/warning.png" align="absmiddle"/>
+                                    سپرده خود را از لیست سپرده ها انتخاب کنید.
+                                </div>
+                            
+                            
+                        
+                    
+                    
+                
+            
+    </td>
+</tr>
+
+        
+        
+
+
+<tr class="odd">
+    <td colspan="2">
+        
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            
+            
+            
+                
+                    
+                        
+
+                        
+                        
+                            
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                                <a
+                                        
+                                        href="/ebank/config/billStatementSettingPage.action?selectedDeposit=&fromDateTime=1402/08/19  -  00:00&toDateTime=1402/09/19  -  13:10&desc=&orderBillView=DESC&billType=0&accountType=&depositGroupByReq=&referenceCustomerName=&referenceCif=&fromBillViewPage=TRUE" class="">
+                                        جهت تنظیمات نمایش اطلاعات صورتحساب کلیک کنید.
+                                </a>
+                            
+                        
+                        
+
+                    
+                
+                
+            
+        
+    
+    
+
+        
+    </td>
+</tr>
+
+    
+
+
+
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        var maxLen = $('#maxLenForNote').val();
+        $('.editableContainer').each(function (index, item) {
+            var ct = $(item).children().html();
+            if (ct.replace(/[ ]/ig, '').length === 1) {
+                $(item).addClass('centerEdit')
+            }
+            if (item.offsetHeight < item.scrollHeight || item.offsetWidth < item.scrollWidth) {
+                $(item).append("<div class='continued'>...</div>");
+            }
+        });
+        $('.normalButton').on('click', function () {
+            if ($('#accountType').val() != "" || $('#ownershipType').val() != "" || $('#currencyType').val() != "" || $('#referenceCif').val() != "") {
+                window.location = $('#depositGroupByReq').val() === "REFERENCE_CIF" ?
+                        'viewDetailsAccount.action?referenceCustomerName=&referenceCif=&summaryDepositGroupBy=&ownershipType=&accountType=&currencyType=' :
+                        'viewDetails.action?accountType=';
+            } else {
+                window.location = $('#depositGroupByReq').val() === "REFERENCE_CIF" ? 'viewOwnTypeAccAction' : 'viewAccAction.action';
+            }
+            return false;
+        });
+        $(document).on('click', ".editable", function () {
+            var parent = $(this).parent().get(0);
+            var originalText = $.trim($(this).text());
+            $(parent).qtip('destroy');
+            $(parent).removeAttr('oldtitle');
+            $(parent).removeAttr('title');
+            $(parent).animate({height: 90}).html("<div ><textarea cols='100' class='textarea' originalText='" + originalText + "' maxlength='" + maxLen + "' pdfReports='4' >" + originalText + "</textarea></div>" +
+                    "<div class='buttons'><div title='ذخیره' class='submitBtn'></div><div title='انصراف' class='cancelBtn'></div>");
+            if(!is_touch_device()) {
+                $('.cancelBtn, .submitBtn').qtip({
+                    style: {
+                        classes: 'qtip-rounded'
+                    },
+                    position: {
+                        effect: false,
+                        my: 'top right',
+                        at: 'bottom center',
+                        viewport: $(window)
+                    }
+                });
+            }
+
+            $('.textarea').focus();
+            checkInvalidCharacter();
+        });
+        $(document).on('click', '.cancelBtn', function () {
+            var parent = $(this).parents('.editableContainer').get(0);
+            var originalText = $(parent).find('.textarea').attr('originalText');
+            $(this).qtip('destroy');
+            $(parent).animate({height: 29}, 400,
+                    function () {
+                        if (parent.offsetHeight < parent.scrollHeight) {
+                            $(parent).append("<div class='continued'>...</div>");
+                        } else {
+                            $(parent).remove(".continued");
+                        }
+                    }).html('<div  class="editable" >' + originalText + '</div>');
+            if (!is_touch_device()) {
+                $(parent).qtip({
+                    content: originalText, style: {
+                        classes: 'qtip-rounded'
+                    }, position: {
+                        effect: false,
+                        target: 'event',
+                        viewport: $(window),
+                        my: 'bottom middle',
+                        at: 'top middle'
+                    }
+                })
+            }
+        });
+
+        $('tr').mouseover(function () {
+            $(this).find('div.continued').addClass('over');
+            $(this).find('div.editable').addClass('edit');
+        });
+
+        $('tr').mouseout(function () {
+            $(this).find('div.continued').removeClass('over');
+            $(this).find('div.editable').removeClass('edit');
+        });
+
+        $(document).on('click', '.submitBtn', function () {
+            var parent = $(this).parents('.editableContainer').get(0);
+            var originalText = $(parent).find('.textarea').attr('originalText');
+            var newNote = $(parent).find('.textarea').val();
+            if (newNote.length > maxLen) {
+                $(parent).find('.textarea').addClass('error').qtip({
+                    content: applicationResources['IB.commons.maxLength'].replace('{0}', maxLen),
+                    show: {
+                        ready: true
+                    },
+                    style: {
+                        classes: 'qtip-rounded'
+                    },
+                    position: {
+                        effect: false,
+                        viewport: $(window),
+                        my: 'bottom middle',
+                        at: 'top middle'
+                    }
+                });
+                $(parent).find('.textarea').keyup(function () {
+                    if ($(this).val().length <= maxLen) {
+                        $(parent).find('.textarea').removeClass('error').qtip('destroy');
+                    } else {
+                        $(parent).find('.textarea').addClass('error').qtip({
+                            content: applicationResources['IB.commons.maxLength'].replace('{0}', maxLen),
+                            show: {
+                                ready: true
+                            },
+                            style: {
+                                classes: 'qtip-rounded'
+                            },
+                            position: {
+                                effect: false,
+                                viewport: $(window),
+                                my: 'bottom middle',
+                                at: 'top middle'
+                            }
+                        })
+                    }
+                })
+            } else {
+                submitNote(parent, newNote, originalText, this);
+            }
+        });
+
+        var submitNote = function (parent, newNote, originalText, btn) {
+            var statementID = $(parent).next('input').val();
+            $(parent).animate({height: 29}, 500,
+                    function () {
+                        $(btn).qtip('destroy');
+                        showLoading(parent);
+                        saveNote('/ebank/viewAcc/saveNote.action', '', parent, newNote, statementID, originalText);
+                    });
+
+        };
+
+        var saveNote = function (saveNoteAction, depositNumber, parent, newNote, statementID, originalText) {
+            $.ajax({
+                url: saveNoteAction,
+                type: 'GET',
+                data: {
+                    statementId: statementID,
+                    note: newNote,
+                    depositNumber: depositNumber
+                },
+                success: function (json) {
+                    $(parent).html('<div  class="editable" >' + newNote + '</div>');
+                    if (newNote !== '') {
+                        $(parent).removeClass('centerEdit');
+                    } else {
+                        $(parent).addClass('centerEdit')
+                    }
+                    if (newNote !== '' && !is_touch_device()) {
+                        $(parent).qtip({content: newNote, style: {
+                            classes: 'qtip-rounded'
+                        }, position: {
+                            effect: false,
+                            target: 'event',
+                            viewport: $(window),
+                            my: 'bottom middle',
+                            at: 'top middle'
+                        }});
+                    }
+                    if (parent.offsetHeight < parent.scrollHeight) {
+                        $(parent).append("<div class='continued'>...</div>");
+                    } else {
+                        $(parent).remove(".continued");
+                    }
+                },
+                error: function (response) {
+                    var responseObj = $.parseJSON(response.responseText);
+                    if (responseObj.logout) {
+                        $(parent).animate({height: 29}).html("<div class='noteError' >" + applicationResources['IB.commons.errorLogout'] + "</div>");
+                        setTimeout(function () {
+                            location.href = '../login/logout.action'
+                        }, 1800);
+                    } else {
+                        $(parent).animate({height: 29}).html("<div class='noteError' >" + formatDigitsInText(responseObj.errorMessages[0], ',/IR-') + "</div>");
+                        if(!is_touch_device()) {
+                            $(parent).qtip({content: formatDigitsInText(responseObj.errorMessages[0], ',/IR-'), style: {
+                                classes: 'qtip-rounded noteErrorQtip'
+                            }, position: {
+                                effect: false,
+                                target: 'event',
+                                viewport: $(window),
+                                my: 'bottom middle',
+                                at: 'top middle'
+                            }});
+                        }
+                        if (parent.offsetHeight < parent.scrollHeight) {
+                            $(parent).append("<div class='continued'>...</div>");
+                        } else {
+                            $(parent).remove(".continued");
+                        }
+                        $(parent).fadeIn();
+                        setTimeout(function () {
+                            $('.noteErrorQtip').css("display", "none");
+                            $('.noteError').fadeOut();
+                            $(parent).html('<div  class="editable" >' + originalText + '</div>');
+                            $('.editableContainer.centerEdit').css("display","block");
+                        }, 3000);
+                    }
+                }
+            });
+        };
+
+        var showLoading = function (parent) {
+            $(parent).html("<div class='editable noteLoading'></div>");
+        };
+    });
+</script>
+
+            <div class="keyboardContainer" id="fullKeyboardContainer">
+                <div class="keyboardKeypad" id="keyboard">
+                </div>
+            </div>
+            <div class="keyboardContainer" id="limitedKeyboardContainer">
+                <div class="keyboardKeypad" id="limitedKeyboard">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dialog-wrap">
+    <div class="dialog-mask"></div>
+    <div class="dialog animated">
+        <div class="dialog-close">X</div>
+        <div class="dialog-header"></div>
+        <div class="dialog-body"></div>
+        <div class="dialog-footer"></div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="/ebank/locale/l10n.action?version=4.121.17-4022&locale=fa"></script>
+<script type="text/javascript" src="/ebank/scripts/mainFooters-4.121.17-4022.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.setupVKeyboard('rtl', 'fullKeys');
+        $.setupVKeyboard('rtl', 'limitedKeys');
+        $('.first').focus();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/**
+ * @author Amir Tajik
+ * @version 1.0
+ */
+
+@lego.OperationService("AverageAccountBalanceController", "app/view/account/AverageAccountBalance.html")
+export class AverageAccountBalanceOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+
+    @lego.OperationMethod()
+    init(accountNumber): ng.IPromise<any> {
+        return null;
+    }
+}

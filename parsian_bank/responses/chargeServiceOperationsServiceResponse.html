@@ -1,0 +1,23 @@
+/**
+ * @author Saleh Rahimzadeh
+ * @version 1.0
+ * @since 09/03/2018 10:28 AM
+ */
+
+@lego.OperationService("ChargeServiceController", "app/view/ChargeService.html")
+export class ChargeServiceOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+    @lego.OperationMethod()
+    init(initForm): ng.IPromise<any> {
+        return null;
+    }
+
+    @lego.OperationMethod()
+    confirmation(confirmationForm): ng.IPromise<any> {
+        return null;
+    }
+
+    @lego.OperationMethod()
+    receipt(receiptForm): ng.IPromise<any> {
+        return null;
+    }
+}

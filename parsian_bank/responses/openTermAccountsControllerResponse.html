@@ -1,0 +1,386 @@
+/**
+ * @author Homa Sedigh
+ * @author Amir Tajik
+ * @author Saman Delfani
+ * @version 1.5
+ * @since 05/06/2018 01:55 PM
+ */
+
+import {FileService} from "../services/FileService";
+import {Utils} from "../services/Utils";
+import {UIUtils} from "../services/UIUtils";
+import {
+    DisplayTypes,
+    PrintConfig,
+    PrintReport,
+    ReportCriteriaDto,
+    ReportCriteriaItemDto,
+    ReportItemObj,
+    ReportRowObj
+} from "../services/ReportUtils";
+import {StatementOperationsService} from "../services/operations/StatementOperationsService";
+import {NormalFundTransferOperationsService} from "../services/operations/NormalFundTransferOperationsService";
+import {ActiveChequeBookletsOperationsService} from "../services/operations/ActiveChequeBookletsOperationsService";
+import {AchTransferReportOperationsService} from "../services/operations/AchTransferReportOperationsService";
+import {AutoNormalTransferReportOperationsService} from "../services/operations/AutoNormalTransferReportOperationsService";
+import {TransferredOtherBankChequesStatusOperationsService} from "../services/operations/TransferredOtherBankChequesStatusOperationsService";
+import {PaymentByReferenceCodeOperationsService} from "../services/operations/PaymentByReferenceCodeOperationsService";
+import {CardlessIssueVoucherOperationsService} from "../services/operations/CardlessIssueVoucherOperationsService";
+import {AccountBlockReasonsOperationsService} from "../services/operations/AccountBlockReasonsOperationsService";
+import {AverageAccountBalanceOperationsService} from "../services/operations/AverageAccountBalanceOperationsService";
+
+interface IOpenTermAccountsModel extends lego.IBasicModel {
+}
+
+@lego.Controller({
+    type: lego.ControllerType.OPERATION_CONTROLLER,
+    requestMapping: {
+        Account: "/account"
+    }
+})
+export class OpenTermAccountsController implements lego.ILegoController<IOpenTermAccountsModel, lego.IGeneralActions>, lego.IGeneralActions {
+    @lego.Inject()
+    public fileService: FileService;
+
+    @lego.Resource()
+    public $filter;
+
+    @lego.Resource()
+    public language: LanguageService;
+
+    @lego.Resource()
+    public WebbankCache;
+
+    @lego.Resource()
+    public Utils;
+
+    @lego.Resource()
+    public WbNotificationUtil: WbNotificationUtil;
+
+    @lego.Inject()
+    public statementOperations: StatementOperationsService;
+
+    @lego.Inject()
+    public normalFundTransferOperations: NormalFundTransferOperationsService;
+
+    @lego.Inject()
+    public activeChequeBookletsOperationsService: ActiveChequeBookletsOperationsService;
+
+    @lego.Inject()
+    public achTransferReportOperationsService: AchTransferReportOperationsService;
+
+    @lego.Inject()
+    public autoNormalTransferReportOperationsService: AutoNormalTransferReportOperationsService;
+
+    @lego.Inject()
+    public transferredOtherBankChequesStatusOperationsService: TransferredOtherBankChequesStatusOperationsService;
+
+    @lego.Inject()
+    public paymentByReferenceCodeService: PaymentByReferenceCodeOperationsService;
+
+    @lego.Inject()
+    public cardlessIssueVoucherService: CardlessIssueVoucherOperationsService;
+
+    @lego.Inject()
+    public accountBlockReasonsOperationsService: AccountBlockReasonsOperationsService;
+
+    @lego.Inject()
+    public averageAccountBalanceOperationsService: AverageAccountBalanceOperationsService;
+
+    public model: any = {};
+    public actions: any;
+    public util: lego.IUtils;
+    public restService;
+    public activePanel: boolean;
+    public defaultCollapsed;
+    private isOpen;
+
+    public totalItems = 0;
+    public currentPage = 0;
+    public pageSize = 9; //Number of items per page
+
+    public constructor() {
+        this.actions = new ControllerActions(this);
+    };
+
+    private _applicationComponent: any;
+
+    public set applicationComponent(value) {
+        this._applicationComponent = value;
+        value.subscribeByName("resetController", () => {
+            this.model = {};
+            this.model.requestDto = {};
+            this.$onInit();
+        });
+    }
+
+    public get applicationComponent() {
+        return this._applicationComponent;
+    }
+
+    getConfig(): lego.IAbstractControllerConfig<IOpenTermAccountsModel, lego.IGeneralActions> {
+        return {};
+    }
+
+    beforeInit() {
+        this.model = {};
+        this.model.requestDto = {};
+
+        // OpenTermAccounts Cache manager
+        let requestDto = this.WebbankCache.get('openTermAccountsCriteriaCache');
+        if (requestDto) {
+            this.model.requestDto = requestDto;
+            this.defaultCollapsed = 'false';
+        } else {
+            this.defaultCollapsed = 'true';
+        }
+    }
+
+    $onInit() {
+        this.isOpen = [false];
+        this.activePanel = true;
+        this.model.accountStatuses = [];
+        this.model.accountOwnerStatuses = [];
+        this.model.accountList = [];
+        this.model.printModel = {};
+
+        this.restService.Account.getAccountStatuses().$promise.then((data) => {
+            data.statuses.unshift({value: 'ALL'});
+            this.model.accountStatuses = data.statuses;
+            if (!(this.model.requestDto && this.model.requestDto.accountStatus)) {
+                this.model.requestDto.accountStatus = Utils.Account.ACCOUNT_STATUSES.OPEN;
+            }
+
+            this.restService.Account.getAccountSignatureOwnerStatuses().$promise.then((data) => {
+                data.statuses.unshift({value: 'ALL'});
+                this.model.accountOwnerStatuses = data.statuses;
+            });
+
+            this.actions.getOpenTermAccounts();
+        });
+
+        this.restService.Account.unusedAccounts().$promise.then((data) => {
+            if (data && data.unusedAccountDtoList)
+                this.model.unusedAccountDtoList = data.unusedAccountDtoList;
+        });
+    };
+
+    public pageChanged() {
+        this.WebbankCache.put('openTermAccountsPaginationCache', this.currentPage);
+    }
+
+    changePanelStatus() {
+        if (this.isOpen.length <= 1) {
+            this.activePanel = !this.activePanel;
+        } else {
+            let panelOpened = 0;
+            _.forEach(this.isOpen, (item: any) => {
+                if (item)
+                    panelOpened += 1;
+            });
+            this.activePanel = panelOpened == 0;
+        }
+    }
+
+    routeToStatementPage(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        let initForm = {requestDto: {sourceAccountNumber: accountNumber}, masterPage: 'OpenTermAccounts'};
+        this.statementOperations.init(initForm);
+    }
+
+    public routeToNormalFundTransfer(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        let initForm = {requestDto: {sourceAccountNumber: accountNumber}};
+        this.normalFundTransferOperations.init(initForm);
+        this.applicationComponent.notify('NormalFundTransferOperationsService.init');
+    }
+
+    public routeToActiveChequeBooklets(index) {
+        let initForm = {requestDto: {sourceAccountNumber: this.model.accountList[index].accountNumber}};
+        this.activeChequeBookletsOperationsService.init(initForm);
+        this.applicationComponent.notify('ActiveChequeBookletsOperationsService.init');
+
+    }
+
+    public routeToAchTransferRequestsReport(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        let initForm = {requestDto: {sourceAccountNumber: accountNumber}};
+        this.achTransferReportOperationsService.init(initForm);
+        this.applicationComponent.notify('AchTransferReportOperationsService.init');
+    }
+
+    public routeToAutoNormalTransferReport(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        this.autoNormalTransferReportOperationsService.init(accountNumber);
+        this.applicationComponent.notify('AutoNormalTransferReportOperationsService.init');
+    }
+
+    public routeToTransferredOtherBankChequesStatus(index) {
+        let initForm = {requestDto: {accounts: this.model.accountList[index].accountNumber}};
+        this.transferredOtherBankChequesStatusOperationsService.init(initForm);
+        this.applicationComponent.notify('TransferredOtherBankChequesStatusOperationsService.init');
+    }
+
+    public routeToCardlessIssueVoucherService(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        let initForm = {requestDto: {sourceAccountNumber: accountNumber}};
+        this.cardlessIssueVoucherService.init(initForm);
+        this.applicationComponent.notify('CardlessIssueVoucherOperationsService.init');
+    }
+
+    public routeToPaymentByReferenceCodeService(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        let initForm = {requestDto: {sourceAccountNumber: accountNumber}};
+        this.paymentByReferenceCodeService.init(initForm);
+        this.applicationComponent.notify('PaymentByReferenceCodeOperationsService.init');
+    }
+
+    public routeToAccountBlockReasons(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        this.accountBlockReasonsOperationsService.init(accountNumber);
+        this.applicationComponent.notify('AccountBlockReasonsOperationsService.init');
+    }
+
+    public routeToAverageAccountBalance(index) {
+        let accountNumber = this.model.accountList[index].accountNumber;
+        this.averageAccountBalanceOperationsService.init(accountNumber);
+        this.applicationComponent.notify('AverageAccountBalanceOperationsService.init');
+    }
+
+    public isPanelRelative(index, size, norm) {
+        return UIUtils.checkPanelPosition(index, size, norm);
+    }
+}
+
+class ControllerActions {
+    constructor(public ctrl: OpenTermAccountsController) {
+
+    }
+
+    private getRequestDto() {
+
+        let accountStatus = (!this.ctrl.model.requestDto.accountStatus || this.ctrl.model.requestDto.accountStatus.toUpperCase() == 'ALL')
+            ? null : this.ctrl.model.requestDto.accountStatus;
+
+        let ownerStatuses;
+        if (!this.ctrl.model.requestDto.ownerStatuses || this.ctrl.model.requestDto.ownerStatuses.includes("ALL"))
+            ownerStatuses = Utils.Account.ACCOUNT_OWNER_STATUSES;
+        else
+            ownerStatuses = this.ctrl.model.requestDto.ownerStatuses;
+
+
+        return {
+            ownerStatuses: ownerStatuses,
+            accountStatus: accountStatus,
+            alias: this.ctrl.model.requestDto.alias
+        };
+    }
+
+    getOpenTermAccounts() {
+        this.ctrl.WebbankCache.put('openTermAccountsCriteriaCache', this.ctrl.model.requestDto);
+        this.ctrl.restService.Account.getOpenTermAccounts(this.getRequestDto()).$promise.then((data) => {
+            this.ctrl.model.accountList = data.accountItemDtoList;
+
+            if (this.ctrl.model.accountList != undefined) {
+                // Def: because Angular UI pagination has issue to ItemPerPage(pageSize) more or less than 10, two below lines wrote here.
+                let totalPages = this.ctrl.pageSize < 1 ? 1 : Math.ceil(this.ctrl.model.accountList.length / this.ctrl.pageSize);
+                this.ctrl.totalItems = Math.max(totalPages * this.ctrl.pageSize + ((window.innerWidth - 1200) > 0 ? 0 : 1) || 0, 1);
+                let paginationCacheNumber = this.ctrl.WebbankCache ? this.ctrl.WebbankCache.get('openTermAccountsPaginationCache') : 0;
+                this.ctrl.currentPage = paginationCacheNumber && paginationCacheNumber > 1 && paginationCacheNumber <= totalPages ? paginationCacheNumber : 1;
+            }
+
+        });
+    }
+
+    getOpenTermAccountsExcelReport() {
+        this.ctrl.fileService.downloadFile('accountListReport', {
+            requestDto: this.getRequestDto(),
+            fileType: "XLS",
+            accountType: Utils.AccountTypes.RIAL_OPEN_TERM,
+            reportTitle: this.ctrl.Utils.translate('Accounts.openTermAccounts')
+        });
+    }
+
+    getIban(item) {
+        this.ctrl.restService.Account.getIbanNumber({accountNumber: item.accountNumber}).$promise.then((data) => {
+            item.iban = data.iban;
+        });
+    }
+
+    showAlias(item) {
+        item.showAlias = true;
+        item.oldAlias = item.accountAlias;
+    }
+
+    changeAlias(item) {
+        let reqDto = {
+            accountNumber: item.accountNumber,
+            alias: item.accountAlias
+        };
+
+        this.ctrl.restService.Account.changeAccountAlias(reqDto).$promise.then((data) => {
+            //TODO:HANDLE ERROR HERE !
+            if (data.result == false) {
+                alert('error ! ');
+            }
+            item.showAlias = false;
+        });
+    }
+
+    revertAliasChange(item) {
+        item.showAlias = false;
+        item.accountAlias = item.oldAlias;
+    }
+
+    prepareCriteria() {
+        let firstRowCriteria = new ReportCriteriaDto();
+
+        if (this.ctrl.model.requestDto.accountStatus)
+            firstRowCriteria.criteriaItems.push(new ReportCriteriaItemDto("Accounts.accountStatus", this.ctrl.Utils.translate('Accounts.STATUS_' + this.ctrl.model.requestDto.accountStatus), DisplayTypes.String));
+        if (this.ctrl.model.requestDto.ownerStatuses.length > 0) {
+            let ownerStatus = "";
+            for (let item of this.ctrl.model.requestDto.ownerStatuses) {
+                ownerStatus = ownerStatus + this.ctrl.Utils.translate('Accounts.SIGNATURE_' + item) + ", ";
+            }
+            firstRowCriteria.criteriaItems.push(new ReportCriteriaItemDto("Accounts.accountOwnerType", ownerStatus, DisplayTypes.String));
+        }
+        if (this.ctrl.model.requestDto.alias) {
+            firstRowCriteria.criteriaItems.push(new ReportCriteriaItemDto("Accounts.accountAlias", this.ctrl.model.requestDto.alias, DisplayTypes.String));
+        }
+
+        let criteriaFields = Array<ReportCriteriaDto>();
+        criteriaFields.push(firstRowCriteria);
+        return criteriaFields;
+    }
+
+    getOpenTermAccountsPrintableReport() {
+        let headers = [
+            'GeneralTranslations.accountNumber',
+            'Accounts.accountAlias',
+            'Accounts.accountType',
+            'Accounts.accountStatus',
+            'GeneralTranslations.balance',
+            'Accounts.blockedBalanceInRial',
+            'Accounts.availableBalanceInRial'];
+
+        let rowsObj = Array<ReportRowObj>();
+        for (let item of this.ctrl.model.accountList) {
+            let row = new ReportRowObj();
+            row.rowItems = [];
+
+            row.rowItems.push(new ReportItemObj(this.ctrl.$filter("accountFormatter")(item.accountNumber), DisplayTypes.Number));
+            row.rowItems.push(new ReportItemObj(item.accountAlias, DisplayTypes.String));
+            row.rowItems.push(new ReportItemObj('Accounts.TYPE_' + item.group, DisplayTypes.Translatable));
+            row.rowItems.push(new ReportItemObj('Accounts.STATUS_' + item.accountStatus, DisplayTypes.Translatable));
+            row.rowItems.push(new ReportItemObj(item.balance, DisplayTypes.Money));
+            row.rowItems.push(new ReportItemObj(item.blockedAmount, DisplayTypes.Money));
+            row.rowItems.push(new ReportItemObj(item.availableBalance, DisplayTypes.Money));
+            rowsObj.push(row);
+        }
+
+        this.ctrl.model.printModel.criteriaFields = this.prepareCriteria();
+        this.ctrl.model.printModel.headers = headers;
+        this.ctrl.model.printModel.rows = rowsObj;
+        PrintReport.doPrint(new PrintConfig('Accounts.openTermAccount', 'forPrint', this.ctrl));
+    }
+}

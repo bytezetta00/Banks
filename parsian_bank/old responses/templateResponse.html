@@ -1,0 +1,187 @@
+<div spl-application-resolver="$ctrl.applicationComponent"></div>
+<div class="navbar-container">
+    <button ng-if="!$ctrl.parent.isOpenPopup" class="hidden-lg hidden-md btn-drop-sidebar la la-bars la-2x"
+            ng-click="$ctrl.openPopupMenu()">
+        <span class="sr-only">Open Sidebar Menus</span>
+    </button>
+    <button ng-if="$ctrl.parent.isOpenPopup" class="hidden-lg hidden-md btn-drop-sidebar la la-remove la-2x"
+            ng-click="$ctrl.closePopupMenu()">
+        <span class="sr-only">Close Sidebar Menus</span>
+    </button>
+
+    <button ng-if="!$ctrl.parent.isOpenNavbar" class="hidden-lg hidden-md btn-drop-navbar la la-ellipsis-v la-2x"
+            ng-click="$ctrl.openPopupNavbar()">
+        <span class="sr-only">Open Navbar Menus</span>
+    </button>
+    <button ng-if="$ctrl.parent.isOpenNavbar" class="hidden-lg hidden-md btn-drop-navbar la la-remove la-2x"
+            ng-click="$ctrl.closePopupNavbar()">
+        <span class="sr-only">Close Navbar Menus</span>
+    </button>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-12">
+        <div class="navbar navbar-default navbar-fixed-top">
+            <!-- brand -->
+            <div class="col-md-3 col-lg-2 wb-padding-full-0">
+                <div class="navbar-header navbar-brand">
+                    <a class="brand-logo" href="/">
+                        <img alt="Brand" ng-src="app/resources/img/parsian-logo.png"></a>
+                    <a class="brand-name hidden-sm hidden-xs" href="/">
+                        <img ng-if="$ctrl.language.isPersian()" alt="Brand"
+                             ng-src="app/resources/img/parsian-slogan.png">
+                        <img ng-if="$ctrl.language.isEnglish()" alt="Brand"
+                             ng-src="app/resources/img/parsian-slogan-en.png">
+                    </a>
+                </div>
+            </div>
+            <!-- Navbar -->
+            <div class="col-sm-12 col-md-9 col-lg-10 wb-padding-full-0 popup-navbar"
+                 ng-class="{true:'show' , false:'hide'}[$ctrl.parent.isOpenNavbar]">
+
+                <div class="navbar-collapse wb-navbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/" ng-click="$ctrl.routeToDashboard();$ctrl.closePopupNavbar()">
+                                <i class="la la-cubes la-2x la-dashboard-color"></i>
+                                {{'app.menuDashboard' | translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="Https://kadoona.ir/"
+                               ng-click="$ctrl.closePopupNavbar()">
+                                <i class="la la-gift la-2x la-dashboard-color"></i>
+                                {{'app.kadoona' | translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://ipbclub.parsian-bank.ir/"
+                               ng-click="$ctrl.closePopupNavbar()">
+                                <i class="la la-users la-2x la-parsian-color"></i>
+                                {{'app.menuCustomer' | translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://ipbhome.parsian-bank.ir/"
+                               ng-click="$ctrl.closePopupNavbar()">
+                                <i class="la la-home la-2x la-parsian-color"></i>
+                                {{'app.menuParsian' | translate}}
+                            </a>
+                        </li>
+                        <li ng-show="$ctrl.agreementAccepted()">
+                            <a href="" data-toggle="modal" focus-element="autofocus"
+                               data-target=".services-modal"
+                               ng-click="$ctrl.closePopupNavbar()">
+                                <i class="la la-sitemap la-2x la-services-color"></i>
+                                {{'app.menuServices' | translate}}
+                            </a>
+                        </li>
+                        <li ng-show="$ctrl.agreementAccepted()" class="hidden-xs">
+                            <a href="" ng-click="$ctrl.routeToFeedback();$ctrl.closePopupNavbar()">
+                                <i class="la la-comments la-2x la-learning-color"></i>
+                                {{'app.menuFeedback' | translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank"
+                               href="https://www.parsian-bank.ir/general_content/91300-%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C-%D8%A7%DB%8C%D9%86%D8%AA%D8%B1%D9%86%D8%AA-%D8%A8%D8%A7%D9%86%DA%A9.html"
+                               ng-click="$ctrl.closePopupNavbar()">
+                                <i class="la la-question-circle la-2x la-help-color"></i>
+                                {{'app.menuHelp' | translate}}
+                            </a>
+                        </li>
+                        <li>
+                            <wb-change-language></wb-change-language>
+                        </li>
+                        <li style="display: none">
+                            <div class="navbar-item-nolink" ng-if="$ctrl.sessionTimeout">
+                                <!--                                <timer interval="1000" countdown="$ctrl.sessionTimeout">-->
+                                <!--                                    <i class="la la-hourglass-half la-2x"-->
+                                <!--                                       ng-class="{'timer-success-label': minutes >= 2, 'timer-warning-label': minutes >= 1 && minutes < 2, 'timer-danger-label': minutes === 0 && seconds > 30, 'timer-danger-faster-label': minutes === 0 && seconds <= 30 && seconds > 0, 'timer-stop-label': minutes === 0 && seconds === 0}"></i>-->
+                                <!--                                    <span ng-class="{'timer-success': minutes >= 2, 'timer-warning': minutes >= 1 && minutes < 2, 'timer-danger': minutes === 0 && seconds > 30, 'timer-danger-faster': minutes === 0 && seconds <= 30 && seconds > 0, 'wb-hidden': minutes === 0 && seconds === 0}">-->
+                                <!--                                        <span ng-class="{'wb-hidden': minutes > 9 }">0</span>{{minutes}}:<span-->
+                                <!--                                            ng-class="{'wb-hidden': seconds > 9 }">0</span>{{seconds}}-->
+                                <!--                                    </span>-->
+                                <!--                                    <span ng-class="{'wb-hidden': minutes > 0 || seconds > 0 , 'timer-danger-slow': minutes === 0 && seconds === 0}">{{'app.sessionTimeout' | translate}}</span>-->
+                                <!--                                    <span ng-class="{'wb-hidden': minutes > 1, 'timer-alert': minutes === 1 && seconds >= 0 && seconds <= 1}">{{$ctrl.showLogoutAlert()}}</span>-->
+                                <!--                                </timer>-->
+                            </div>
+                        </li>
+                        <!--<li>-->
+                        <!--    <a href="" class="navbar-item-legacy-version" ng-click="$ctrl.logout(true)" tooltip-placement="bottom"-->
+                        <!--       uib-tooltip="{{'app.pibLegacyVersionTooltip'|translate}}">-->
+                        <!--        <i class="la la-backward la-2x"></i>-->
+                        <!--        {{'app.pibLegacyVersion'|translate}}-->
+                        <!--    </a>-->
+                        <!--</li>-->
+                        <li>
+                            <a class="navbar-item-logout" href="" ng-click="$ctrl.logout(false)">
+                                <i class="la la-power-off la-2x"></i>
+                                {{'app.menuLogout' | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade services-modal" focus-group focus-group-head="loop" focus-group-tail="loop"
+         focus-stacktabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 90%">
+            <div class="modal-content" style="border-radius: 0;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{{'app.menuServices' | translate}}</h4>
+                </div>
+                <div class="modal-body service-modal-navbar">
+                    <ul class="clearfix service-menu-section">
+                        <li class="col-xs-12 col-sm-6 col-md-6 col-md-3 service-menu-sub-section"
+                            ng-repeat="menu in $ctrl.menus"
+                            style="{{($index < 4) ? 'min-height: 500px' : 'min-height: 280px'}}"
+                            ng-if="$index != 0 && $index != 1">
+                            <div class="service-menu-heading">
+                                <i ng-if="menu.glyph"
+                                   class="{{menu.glyph ? ('la la-' + menu.glyph + ' la-2x'):''}}"></i>
+                                <label class="h4"
+                                       ng-init="menu.prefixTranslated=(menu.prefix|translate)">{{menu.prefixTranslated}}</label>
+                            </div>
+                            <div class="service-menu-items">
+                                <ul class="clearfix">
+                                    <li ng-repeat="menuItem in menu.menuItems">
+                                        <div ng-if="menuItem.menuActions.length==0">
+                                            <label class="h5 text-bold service-menu-title">{{menuItem.labelKey |
+                                            translate}}</label>
+                                        </div>
+                                        <div class="service-menu-item" ng-if="menuItem.menuActions.length!=0">
+                                            <a data-dismiss="modal" href="{{menuItem.href}}" ng-if="!menuItem.href"
+                                               ng-click="$ctrl.actions.select(menuItem.labelKey,menuItem)"
+                                               ng-init='menuItem.opened=false;menuItem.labelTranslated=((menuItem.labelKey)|translate)'
+                                               class="{{menuItem.selected?'spl-menu-item-selected':''}}">
+                                                <i ng-if="menuItem.glyph"
+                                                   class="{{menuItem.glyph ? ('la la-' + menuItem.glyph + ' la-one-half') : ''}}  "></i>
+                                                <!--<span ng-if="menuItem.img"><img class="spl-menu-img" ng-src="{{menuItem.img}}"></span>-->
+                                                {{menuItem.labelTranslated}}
+                                            </a>
+                                            <div ng-if="menuItem.href!=undefined"
+                                                 class="spl-menu-item {{menuItem.selected?'spl-menu-item-selected':''}}">
+                                                <i ng-if="menuItem.glyph"
+                                                   class="{{menuItem.glyph ? ('la la-' + menuItem.glyph + ' la-one-half'):''}}  "></i>
+                                                <!--<span ng-if="menuItem.img"><img class="spl-menu-img" ng-src="{{menuItem.img}}"></span>-->
+                                                <a href="{{menuItem.href}}" target="_blank">{{menuItem.labelKey |
+                                                translate}}</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="col-lg-12 col-md-10 col-sm-10 col-xs-10" ng-transclude></div>-->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="wholePage" ng-click="$ctrl.closePopupMenu()"
+         ng-class="{true:'show' , false:'hide'}[$ctrl.parent.openWhole]">
+    </div>
+</div>

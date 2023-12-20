@@ -1,0 +1,14 @@
+/**
+ * @author Saman Delfani
+ * @version 1.0
+ * @since 08/16/2018 20:00
+ */
+
+@lego.OperationService("ActiveChequeBookletsController", "app/view/ActiveChequeBooklets.html")
+export class ActiveChequeBookletsOperationsService implements lego.IBasicCrudService<lego.IBasicModel> {
+
+    @lego.OperationMethod()
+    init(initForm): ng.IPromise<any> {
+        return null;
+    }
+}

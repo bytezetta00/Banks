@@ -1,0 +1,332 @@
+<html xmlns:spl="http://caspco.ir/spl" xmlns:wb="http://schemas.xmlsoap.org/wsdl/" ng-app="application">
+<head>
+    <title ng-bind-template="{{'app.name' | translate}}">Parsian Internet Bank</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <script type="application/javascript">
+        function determineReload() {
+
+        }
+        function determineReload__() {
+
+            var url = window.location.href;
+            if (url.indexOf("current=true") < 0) {
+
+
+                if (url.indexOf('?') > -1) {
+                    url += '&current=true';
+                } else {
+                    url += '?current=true';
+                }
+                window.location.href = url;
+            }
+        }
+
+        window.onbeforeunload = function () {
+            logoutBeforeCloseTab();
+        };
+
+        function logoutBeforeCloseTab() {
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/getoff/user",
+            // data: JSON.stringify({ type: 'logoutBeforeCloseTab' }),
+            // contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            // success: function () {
+            $.ajax({
+                type: "POST",
+                url: "/getoff/user",
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({ type: 'logoutBeforeCloseTab' }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    location.replace("/logout");
+                    location.reload();
+                    var request = new XMLHttpRequest();
+                    request.open("POST", "/logout", true);
+                    request.setRequestHeader("Content-type", "application/json");
+                    request.readystatechange = stateChanged;
+                    request.send(null);
+                }
+            // }
+            // });
+        }
+
+        function stateChanged() {
+            if (request.readyState == 4 || request.readyState == "complete")
+                alert("Your Parsian Internet Bank Close successfully");
+        }
+
+    </script>
+
+    <!-- cssDeps:css -->
+    <link rel="stylesheet" href="vendors/angular-ui-select/dist/select.min.css">
+    <link rel="stylesheet" href="vendors/toastr/toastr.min.css">
+    <link rel="stylesheet" href="vendors/angular1-confirm/dist/angular-confirm.min.css">
+    <link rel="stylesheet" href="app/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css">
+    <link rel="stylesheet" href="vendors/angular-timeline/dist/angular-timeline.css">
+    <link rel="stylesheet" href="vendors/ladda/dist/ladda-themeless.min.css">
+    <link rel="stylesheet" href="app/css/responsive-calendar.css">
+    <link rel="stylesheet" href="vendors/keyboard/dist/css/keyboard.min.css">
+    <link rel="stylesheet" href="vendors/bootstrap-rtl/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="app/styles/app.css">
+    <!-- endinject -->
+
+    <link rel="null" href="app/css/app-ltr.css" dir="ltr">
+
+</head>
+
+<body ng-cloak ng-keydown="fireKeyDown($event)" class="application-body" ng-controller="ApplicationController" onload="isDuplicateBrowser()">
+<wb:waiting></wb:waiting>
+<spl:application>
+    <wb:empty-topnavbar></wb:empty-topnavbar>
+    <div class="container-fluid">
+        <div class="row menu-row">
+            <div class="col-md-3 col-lg-2 wb-padding-full-0">
+                <wb:sidebar></wb:sidebar>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 wb-padding-full-0 wb-padding-start-ltr-15">
+                <spl:theme-resolver layout="extended">
+                    <spl:new-body>
+                        <!--<spl:breadcrumbs/>-->
+                    </spl:new-body>
+                </spl:theme-resolver>
+            </div>
+        </div>
+    </div>
+</spl:application>
+
+<!-- deps:js -->
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<script src="vendors/keyboard/dist/js/jquery.keyboard.min.js"></script>
+<script src="vendors/keyboard/dist/js/jquery.mousewheel.min.js"></script>
+<script src="vendors/keyboard/dist/js/jquery.keyboard.extension-scramble.min.js"></script>
+<script src="vendors/ladda/dist/spin.min.js"></script>
+<script src="vendors/ladda/dist/ladda.min.js"></script>
+<script src="app/resources/scripts/browserDetector.js"></script>
+<script src="vendors/angular/angular.min.js"></script>
+<script src="vendors/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="vendors/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="vendors/angular-messages/angular-messages.min.js"></script>
+<script src="vendors/angular-translate/angular-translate.min.js"></script>
+<script src="vendors/angular-cookies/angular-cookies.min.js"></script>
+<script src="vendors/alertifyjs/dist/js/alertify.js"></script>
+<script src="vendors/lodash/dist/lodash.min.js"></script>
+<script src="vendors/angular-resource/angular-resource.min.js"></script>
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="vendors/ng-tags-input/ng-tags-input.min.js"></script>
+<script src="vendors/angular-ui-select/dist/select.min.js"></script>
+<script src="vendors/toastr/toastr.min.js"></script>
+<script src="vendors/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="vendors/angular-ui-mask/dist/mask.min.js"></script>
+<script src="vendors/reflect-metadata/Reflect.js"></script>
+<script src="vendors/typescript/typescript.js"></script>
+<script src="vendors/system.js/dist/system.js"></script>
+<script src="vendors/angular-animate/angular-animate.min.js"></script>
+<script src="app/modules/lego-index.js"></script>
+<script src="vendors/persian-date/dist/0.1.8/persian-date-0.1.8.min.js"></script>
+<script src="app/modules/vertical.js"></script>
+<script src="vendors/angular-timer/dist/angular-timer.min.js"></script>
+<script src="vendors/humanize-duration/humanize-duration.js"></script>
+<script src="vendors/angular1-confirm/dist/angular-confirm.min.js"></script>
+<script src="vendors/moment/min/moment.min.js"></script>
+<script src="vendors/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js"></script>
+<script src="vendors/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+<script src="vendors/angular-timeline/dist/angular-timeline.js"></script>
+<script src="vendors/moment-jalaali/build/moment-jalaali.js"></script>
+<script src="vendors/angular-useragent-parser/release/angular-useragent-parser.min.js"></script>
+<script src="vendors/highcharts/highcharts.js"></script>
+<script src="vendors/angular-ladda/dist/angular-ladda.js"></script>
+<script src="app/modules/angular-bootstrap-calendar-tpls-override.js"></script>
+<script src="app/modules/spectrum.js"></script>
+<script src="app/app.js"></script>
+<script src="app/config.js"></script>
+<!-- endinject -->
+
+<!-- configs:js -->
+<script type="application/javascript" src="config.js-v9N7uUcH0u3" onerror="determineReload()"></script>
+<!-- endinject -->
+
+<!-- comps:js -->
+<script src="app/components/splLineChart.js"></script>
+<script src="app/components/WbAccountMinDailyChart.js"></script>
+<script src="app/components/WbActionWidget.js"></script>
+<script src="app/components/WbAddActionWidget.js"></script>
+<script src="app/components/WbAddLinkWidget.js"></script>
+<script src="app/components/WbAddToContactPanelController.js"></script>
+<script src="app/components/WbAddTransactionLineChartWidget.js"></script>
+<script src="app/components/WbAllAssetsWidget.js"></script>
+<script src="app/components/WbCardSecurityInputPanel.js"></script>
+<script src="app/components/WbChangeLanguage.js"></script>
+<script src="app/components/WbCollapsiblePanel.js"></script>
+<script src="app/components/WbColorPicker.js"></script>
+<script src="app/components/WbDatePicker.js"></script>
+<script src="app/components/WbEmptyTopNavbar.js"></script>
+<script src="app/components/WbException.js"></script>
+<script src="app/components/WbExelector.js"></script>
+<script src="app/components/WbFileUploaderController.js"></script>
+<script src="app/components/WbInput.js"></script>
+<script src="app/components/WbLabel.js"></script>
+<script src="app/components/WbLinkWidget.js"></script>
+<script src="app/components/WblInputListSelector.js"></script>
+<script src="app/components/WbMessageBarController.js"></script>
+<script src="app/components/WbMoneyInput.js"></script>
+<script src="app/components/WbMultiSelector.js"></script>
+<script src="app/components/WbPageHeader.js"></script>
+<script src="app/components/WbPasswordSelectorController.js"></script>
+<script src="app/components/WbReportPrinter.js"></script>
+<script src="app/components/WbRowsPanel.js"></script>
+<script src="app/components/WbSelect.js"></script>
+<script src="app/components/WbSidebar.js"></script>
+<script src="app/components/WbSimpleSelect.js"></script>
+<script src="app/components/WbStatementLineChartWidget.js"></script>
+<script src="app/components/WbStepItem.js"></script>
+<script src="app/components/WbTextarea.js"></script>
+<script src="app/components/WbTypedInput.js"></script>
+<script src="app/components/WbWaiting.js"></script>
+<script src="app/filters/Abs.js"></script>
+<script src="app/filters/AccountFormatter.js"></script>
+<script src="app/filters/FilterPicker.js"></script>
+<script src="app/filters/FourDigit.js"></script>
+<script src="app/filters/IbanFormatter.js"></script>
+<script src="app/filters/IsArray.js"></script>
+<script src="app/filters/WbDate.js"></script>
+<script src="app/filters/WbDateTime.js"></script>
+<script src="app/filters/WbUTF8NumberConverter.js"></script>
+<script src="app/directive/AutoTab.js"></script>
+<script src="app/directive/Resize.js"></script>
+<script src="app/components/services/BrowserIdentifier.js"></script>
+<script src="app/components/services/CaptchaService.js"></script>
+<script src="app/components/services/LanguageService.js"></script>
+<script src="app/components/services/WbNotificationUtil.js"></script>
+<script src="app/components/factory/WebbankCache.js"></script>
+<!-- endinject -->
+
+<script type="application/javascript">
+    var localStorageTimeout = (5) * 1000; // 15,000 milliseconds = 15 seconds.
+    var localStorageResetInterval = (1 / 2) * 1000; // 10,000 milliseconds = 10 seconds.
+    var localStorageTabKey = 'parsian-browser-tab';
+
+    var ItemType = {
+        Session: 1,
+        Local: 2
+    };
+
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function GetItem(itemtype) {
+        var val = "";
+        switch (itemtype) {
+            case ItemType.Session:
+                val = window.name;
+                break;
+            case ItemType.Local:
+                val = decodeURIComponent(getCookie(localStorageTabKey));
+                if (val == undefined)
+                    val = "";
+                break;
+        }
+        return val;
+    }
+
+    function SetItem(itemtype, val) {
+        switch (itemtype) {
+            case ItemType.Session:
+                window.name = val;
+                break;
+            case ItemType.Local:
+                setCookie(localStorageTabKey, val, 1);
+                break;
+        }
+    }
+
+    function createGUID() {
+        this.s4 = function () {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        };
+        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    }
+
+    /**
+     * @return {boolean}
+     */
+    function TestIfDuplicate() {
+        var sessionGuid = GetItem(ItemType.Session) || createGUID();
+        SetItem(ItemType.Session, sessionGuid);
+
+        var val = GetItem(ItemType.Local);
+        var tabObj = (val == "" ? null : JSON.parse(val)) || null;
+
+        // If no or stale tab object, our session is the winner.  If the guid matches, ours is still the winner
+        if (tabObj === null || (tabObj.timestamp < (new Date().getTime() - localStorageTimeout)) || tabObj.guid === sessionGuid) {
+            function setTabObj() {
+                var newTabObj = {
+                    guid: sessionGuid,
+                    timestamp: new Date().getTime()
+                };
+                SetItem(ItemType.Local, JSON.stringify(newTabObj));
+            }
+
+            setTabObj();
+            setInterval(setTabObj, localStorageResetInterval); //every x interval refresh timestamp in cookie
+            return false;
+        } else {
+            // An active tab is already open that does not match our session guid.
+            return true;
+        }
+    }
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    var isDuplicateBrowser = function () {
+        if (TestIfDuplicate() == false) {
+            SetItem(ItemType.Local, "");
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            $.ajax({
+                type: "POST",
+                url: "/getoff/user",
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({type: 'isDuplicateBrowser'}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+
+                }
+            });
+            xmlhttp.open("POST", "/logout", false);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send();
+            location.reload();
+            var request = new XMLHttpRequest();
+        }
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>خطر امنیتی | اینترنت بانک سینا</title>
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="CSRF_TOKEN" content=6Bwt/uO51Wi/Tlq9pmFRE8fWOc0UXNYs14usPpPWWlE=>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/webbank/styles/main-4.121.10-4014.css"/>
+<link rel="stylesheet" type="text/css" media="print" href="/webbank/styles/print-4.121.10-4014.css"/>
+<script type="text/javascript" src="/webbank/scripts/mainHeaders-4.121.10-4014.js"></script>
+<script type="text/javascript" src="/webbank/scripts/mainHeaders-en_US-4.121.10-4014.js"></script>
+<script type="text/javascript" >
+
+    // internet bank name space
+    var IB = {};
+    IB.queryText = '';
+    // sequence of these lines is important and should be kept in this way.
+    IB.smartCombo = {};
+    IB.smartCombo.queryText = '';
+    IB.ctx = '/webbank';
+    IB.isBatchListPage = false;
+    IB.locale = 'fa';
+
+    IB.tempKeys = {
+        chequeManagemnet            : 'مدیریت چک',
+        batchTransfer               : 'دسته ای',
+        batch                       : 'batch',
+        chequeAndChequeBook         : 'چک و دسته چک',
+        transferredChequeListTitle  : 'چکهای واگذار شده به سپرده',
+        payBill                     : 'pay.bill',
+        batchBillPayment            : 'batch.Bill.Payment'
+    };
+    // end of template keys
+    IB.periodicalReports = {};
+    IB.periodicalReports.smsConfig = ('true' == 'true');
+    IB.periodicalReports.emailConfig = ('true' == 'true');
+    IB.periodicalReports.faxConfig = ('false' == 'true');
+
+    IB.cardTransactionsMaxDay = (30);
+    IB.billStatementReportMaxDay = '';
+    IB.ibanDefaultPrefix = ('IR');
+    IB.removeLeadingZerosFromDeposit = (true);
+
+    IB.userName = '';
+    IB.direction = 'rtl';
+    IB.ctx = '/webbank';
+    if ('' !== '') {
+        IB.pageSize = parseInt('', 10);
+    } else {
+        IB.pageSize = '';
+    }
+    IB.kartabl_activation = ('' == 'true');
+    IB.calendar = 'jalali';
+    IB.illegalCharacters = ;
+    IB.defaultCurrencyCode = 'IRR';
+    IB.defaultCurrencyFractionalDigits = '2';
+    IB.showCountdownTimer = ('true' == 'true');
+    IB.remainingCountdownTime = '';
+    IB.showAlertMaxTime = '1';
+    IB.maxPasswordLength = '20';
+    IB.minPasswordLength = '0';
+    IB.specialCharacterReplacement = ' ';
+    IB.harimResendPasswordDuration = '120';
+    IB.timerDuration = '60';
+    IB.remainingTimeDuration = '';
+</script>
+
+    <link rel="shortcut icon" href="/webbank/favicon.ico"/>
+    
+    
+    <meta name="decorator" content="main"/>
+
+</head>
+<body class="rtl errorPage securityError
+noNavigation">
+<div id="taskNotifier">
+    بارگذاری...
+</div>
+
+<div id="mainContainer">
+    <div id="topBar">
+        
+    </div>
+    
+    <h2 id="content-title">خطر امنیتی</h2>
+    <div id="content-body">
+        
+
+
+
+
+        
+
+
+
+
+        
+<strong>خطر امنیتی</strong><br/>
+به دلایل زیر ممکن است خطر امنیتی رخ دهد:
+<ul>
+    <li>بکار بردن کاراکترهای نامعتبر: مانند % یا & و ...</li>
+    <li>دوبار کلیک کردن برروی دکمه ها</li>
+    <li>استفاده از دکمه بازگشت مرورگر</li>
+    <li>سپری شدن زمان اعتبار صفحه</li>
+    <li>و یا به دلایل دیگر</li>
+</ul>
+
+        <div class="keyboardContainer" id="fullKeyboardContainer">
+            <div class="keyboardKeypad" id="keyboard">
+            </div>
+        </div>
+        <div class="keyboardContainer" id="limitedKeyboardContainer">
+            <div class="keyboardKeypad" id="limitedKeyboard">
+            </div>
+        </div>
+    </div>
+    
+        
+
+
+
+
+<div class="commandBar"
+   
+        >
+    
+            
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="button" value="بازگشت به صفحه ورود" class="button importantButton"
+       
+       
+       
+       onclick="window.location='/webbank/login/logout.action'; return false;"
+        />
+
+
+
+        
+</div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dialog-wrap">
+    <div class="dialog-mask"></div>
+    <div class="dialog animated">
+        <div class="dialog-close">X</div>
+        <div class="dialog-header"></div>
+        <div class="dialog-body"></div>
+        <div class="dialog-footer"></div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="/webbank/locale/l10n.action?version=4.121.10-4014&locale=en_US"></script>
+<script type="text/javascript" src="/webbank/scripts/mainFooters-4.121.10-4014.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.setupVKeyboard('rtl', 'fullKeys');
+        $.setupVKeyboard('rtl', 'limitedKeys');
+        $('.first').focus();
+        /*$('div.itemIcon').hover(function () {
+                $(this).closest("div#navigation").css("border-bottom", "0");
+        });*/
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+/**
+ * @author Amir Tajik
+ * @author Saman Delfani
+ * @version 1.0
+ * @since 05/07/2018 08:01 AM
+ */
+export class PrintReport {
+
+    public static EMPTY_MONEY = "-";
+
+    private static retry(isDone, next) {
+        let current_trial = 0, max_retry = 50, interval = 10, is_timeout = false;
+        let id = window.setInterval(
+            function () {
+                if (isDone()) {
+                    window.clearInterval(id);
+                    next(is_timeout);
+                }
+                if (current_trial++ > max_retry) {
+                    window.clearInterval(id);
+                    is_timeout = true;
+                    next(is_timeout);
+                }
+            },
+            10
+        );
+    }
+
+    private static isIE10OrLater(user_agent) {
+        let ua = user_agent.toLowerCase();
+        if (ua.indexOf('msie') === 0 && ua.indexOf('trident') === 0) {
+            return false;
+        }
+        let match = /(?:msie|rv:)\s?([\d\.]+)/.exec(ua);
+        return !!(match && parseInt(match[1], 10) >= 10);
+
+    }
+
+    private static detectPrivateMode(callback) {
+        let is_private;
+
+        if ((<any>window).webkitRequestFileSystem) {
+            (<any>window).webkitRequestFileSystem(
+                (<any>window).TEMPORARY, 1,
+                function () {
+                    is_private = false;
+                },
+                function (e) {
+                    is_private = true;
+                }
+            );
+        } else if (window.indexedDB && /Firefox/.test(window.navigator.userAgent)) {
+            var db;
+            try {
+                db = window.indexedDB.open('test');
+            } catch (e) {
+                is_private = true;
+            }
+
+            if (typeof is_private === 'undefined') {
+                this.retry(
+                    function isDone() {
+                        return db.readyState === 'done' ? true : false;
+                    },
+                    function next(is_timeout) {
+                        if (!is_timeout) {
+                            is_private = db.result ? false : true;
+                        }
+                    }
+                );
+            }
+        } else if (this.isIE10OrLater(window.navigator.userAgent)) {
+            is_private = false;
+            try {
+                if (!window.indexedDB) {
+                    is_private = true;
+                }
+            } catch (e) {
+                is_private = true;
+            }
+        } else if (window.localStorage && /Safari/.test(window.navigator.userAgent)) {
+            try {
+                window.localStorage.setItem('test', "1");
+            } catch (e) {
+                is_private = true;
+            }
+
+            if (typeof is_private === 'undefined') {
+                is_private = false;
+                window.localStorage.removeItem('test');
+            }
+        }
+        this.retry(
+            function isDone() {
+                return typeof is_private !== 'undefined' ? true : false;
+            },
+            function next(is_timeout) {
+                callback(is_private);
+            }
+        )
+    }
+
+    private static detect = function (callback) {
+        this.detectPrivateMode(function (mode) {
+            mode = typeof mode === 'undefined' ? 'undefined' : mode ? 'private' : 'public';
+            callback(mode);
+        });
+    };
+
+    private static readCookie = function (name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    };
+
+    public static doPrint(config: PrintConfig) {
+        let mode;
+        this.detect((item) => {
+            mode = item;
+
+            let __echo = $.ajax({
+                type: 'POST',
+                url: '/general/echo',
+                headers: {
+                    'browser-mode': mode,
+                    'XSRF-TOKEN': this.readCookie("XSRF-TOKEN"),
+                },
+                async: false,
+            }).responseJSON;
+
+            if (!__echo || __echo.Result != 1) {
+                window.location.reload();
+            }
+
+            setTimeout(function () {
+                let _w = window.open('', '_blank', "height=" + (window.innerHeight - 100) + ",width= " + (window.innerWidth - 50));
+                if (!_w || _w == null || _w.closed || typeof _w.closed == 'undefined') {
+                    let _ctrl = config.controller;
+                    if (_ctrl && _ctrl != null) {
+                        let _notif = (_ctrl.WbNotificationUtil) ? _ctrl.WbNotificationUtil : null;
+                        let _utils = (_ctrl.Utils) ? _ctrl.Utils : null;
+
+                        if (_notif != null && _utils != null) {
+                            _notif.notify(_utils.translate('GeneralTranslations.pleaseCheckPopUpBlocker'), lego.NotificationTypes.ERROR);
+                        }
+                    }
+                }
+                $.ajax({
+                    type: 'GET',
+                    url: '/print/index.html',
+                    dataType: 'html',
+
+                    success: function (data) {
+                        _w.document.write(data);
+                        let _printArea = _w.document.getElementById('printArea');
+                        _printArea.innerHTML = document.getElementById(config.elementId).innerHTML;
+
+                        _w.document.close(); // necessary for IE >= 10
+                        _w.focus(); // necessary for IE >= 10*/
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+                return true;
+            }, 1000);
+        });
+    }
+}
+
+export class PrintConfig {
+    private _title: string;
+    private _elementId: string;
+    private _controller;
+
+    constructor(title: string, elementId: string, controller) {
+        this._title = title;
+        this._elementId = elementId;
+        this._controller = controller;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(value: string) {
+        this._title = value;
+    }
+
+    get elementId(): string {
+        return this._elementId;
+    }
+
+    set elementId(value: string) {
+        this._elementId = value;
+    }
+
+    get controller() {
+        return this._controller;
+    }
+
+    set controller(value) {
+        this._controller = value;
+    }
+}
+
+export class ReportKeyValuePair {
+    private _title: string;
+    private _reportItem: ReportItemObj;
+
+    constructor(title: string, reportItem: ReportItemObj) {
+        this._title = title;
+        this._reportItem = reportItem;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(value: string) {
+        this._title = value;
+    }
+
+    get reportItem(): ReportItemObj {
+        return this._reportItem;
+    }
+
+    set reportItem(value: ReportItemObj) {
+        this._reportItem = value;
+    }
+}
+
+export class ReportRowObj {
+    private _rowItems: Array<ReportItemObj>;
+
+    public get rowItems(): Array<ReportItemObj> {
+        return this._rowItems;
+    }
+
+    public set rowItems(value: Array<ReportItemObj>) {
+        this._rowItems = value;
+    }
+}
+
+export class ReportDto {
+    public rows: Array<ReportRowDto>;
+}
+
+export class CriteriaDto {
+    public criteriaFields: Array<ReportCriteriaDto>;
+}
+
+export class ReportRowDto {
+    public rowItems: Array<ReportRowItemDto>;
+}
+
+export class ReportCriteriaDto {
+    public criteriaItems: Array<ReportCriteriaItemDto>;
+
+    public constructor() {
+        this.criteriaItems = [];
+    }
+}
+
+export class ReportItemObj {
+    private _value: string;
+    private _type: string;
+
+
+    constructor(value: string, type: string) {
+        this._value = value;
+        this._type = type;
+    }
+
+
+    get value(): string {
+        return this._value;
+    }
+
+    set value(value: string) {
+        this._value = value;
+    }
+
+    get type(): string {
+        return this._type;
+    }
+
+    set type(value: string) {
+        this._type = value;
+    }
+}
+
+export class ReportRowItemDto {
+    public value: string;
+    public type: string;
+
+    constructor(value: string, type: string) {
+        this.value = value;
+        this.type = type;
+    }
+}
+
+export class ReportCriteriaItemDto {
+    public value: string;
+    public type: string;
+    public label: string;
+
+    constructor(label: string, value: string, type: string) {
+        this.label = label;
+        this.value = value;
+        this.type = type;
+    }
+}
+
+export class DisplayTypes {
+    public static Money = 'MONEY';
+    public static Number = 'NUMBER';
+    public static String = 'STRING';
+    public static Translatable = 'TRANSLATABLE';
+    public static LongDate = 'LONG_DATE';
+    public static Date = 'DATE';
+    public static Time = 'TIME';
+    public static AccountNumber = 'ACCOUNT_NUMBER';
+}
+
+export class CardToCardTransactionReceiptModel {
+    public source: String;
+    public destination: String;
+
+
+}
+
+export class ReceiptTransactionTypes {
+    public static CARD_TO_CARD = 'CARD_TO_CARD';
+}
+
+export class ReportReceiptUtils {
+
+    public static generateReportKeyValuePairs(model, type): Array<ReportKeyValuePair> {
+        let receiptModel = Array<ReportKeyValuePair>();
+
+        if (type == ReceiptTransactionTypes.CARD_TO_CARD) {
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.debitFrom', new ReportItemObj(model.sourceNumber, DisplayTypes.Number)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.srcBank', new ReportItemObj(model.transactionData.sourceBank, DisplayTypes.String)));
+            receiptModel.push(new ReportKeyValuePair('CardToCardFundTransfer.sourceOwnerName', new ReportItemObj(model.transactionData.sourceOwnerName, DisplayTypes.String)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.creditTo', new ReportItemObj(model.destinationNumber, DisplayTypes.Number)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.destBank', new ReportItemObj(model.transactionData.destinationBank, DisplayTypes.String)));
+            receiptModel.push(new ReportKeyValuePair('CardToCardFundTransfer.destOwnerName', new ReportItemObj(model.transactionData.destinationOwnerName, DisplayTypes.String)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.transferAmount', new ReportItemObj(model.amount, DisplayTypes.Money)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.email', new ReportItemObj(model.transactionData.email, DisplayTypes.String)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.trackingNo', new ReportItemObj(model.trackingNumber, DisplayTypes.Number)));
+            receiptModel.push(new ReportKeyValuePair('GeneralTranslations.transactionTime', new ReportItemObj(model.transactionDate, DisplayTypes.LongDate)));
+
+            return receiptModel;
+
+        }
+        return null;
+    }
+
+}
