@@ -356,4 +356,63 @@ class sina extends banking{
             return false;
         }
     }
+
+    public function payaTransfer($iban, $amount, $name, $surname, $desc = '')
+    {
+        $normalAchTransferUrl = "https://ib.sinabank.ir/webbank/transfer/normalAchTransfer.action";
+        $normalAchTransferData = [
+            "transferType" => "NORMAL_ACH",
+            "struts.token.name" => "normalAchTransferToken",
+            "normalAchTransferToken" => "E789QL7KHY0NX0TQXLTJ9SDDNSIPAXHU",
+            "sourceSaving" => $this->account,
+            "sourceSavingValueType" => "sourceDeposit",
+            "sourceSavingPinnedDeposit" => "",
+            "sourceSavingIsComboValInStore" => "false",
+            "destinationIbanNumber" => $iban,
+            "destinationIbanNumberValueType" => "",
+            "destinationIbanNumberPinnedDeposit" => "",
+            "destinationIbanNumberIsComboValInStore" => "false",
+            "owner" => "$name $surname",
+            "amount" => $amount,
+            "currency" => "",
+            "currencyDefaultFractionDigits" => "",
+            "reason" => "GPPC",
+            "factorNumber" => "",
+            "remark" => ""
+        ];
+
+        $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $normalAchTransferData, '');
+
+        $generateTicketData = [
+            "CSRF_TOKEN" => "OUd+QzsQ6qTyqILm/eSBOsy0JwngNCcc9J89FfAxqDc=",
+            "ticketAmountValue" => $amount,
+            "ticketModernServiceType" => "NORMAL_ACH_TRANSFER",
+            "ticketParameterResourceType" => "DEPOSIT",
+            "ticketParameterResourceValue" => $this->account,
+            "ticketParameterDestinationType" => "IBAN",
+            "ticketParameterDestinationValue" => $iban,
+            "ticketDestinationName" => "$name $surname",
+            "ticketAdditionalInfoAmount" => ""
+        ];
+
+        $generateTicketUrl = "https://ib.sinabank.ir/webbank/general/generateTicket.action?".http_build_query($generateTicketData);
+        $generateTicketResponse = $this->http->get($generateTicketUrl, 'get', '', '', '');
+
+        if($generateTicketResponse['resultType'] === "success"){
+            return [
+                'iban' => $iban,
+                'amount' => $amount,
+                'name' => $name,
+                'surname' => $surname,
+                'desc' => $desc,
+            ];
+        }else{
+            return false;
+        }
+    }
+
+    public function payaTransferStep2(array $data, $otp)
+    {
+
+    }
 }

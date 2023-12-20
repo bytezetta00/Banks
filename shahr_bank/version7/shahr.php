@@ -373,7 +373,7 @@ class shahr extends banking
             "destinationIbanNumberValueType" => "",
             "destinationIbanNumberPinnedDeposit" => "",
             "destinationIbanNumberIsComboValInStore" => false,
-            "owner" => "$name . $surname",
+            "owner" => "$name $surname",
             "amount" => $amount,
             "currency" => "",
             "currencyDefaultFractionDigits" => "",
