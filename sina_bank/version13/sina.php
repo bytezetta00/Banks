@@ -413,6 +413,34 @@ class sina extends banking{
 
     public function payaTransferStep2(array $data, $otp)
     {
+        if((!$otp) || strlen($otp) === 0 || $otp === null){
+            return false;
+        }
 
+        $normalAchTransferUrl = "https://ib.sinabank.ir/webbank/transfer/normalAchTransfer.action";
+        $newNormalAchUrlData = [
+            'struts.token.name' => 'normalAchTransferConfirmToken',
+            'normalAchTransferConfirmToken' => '185BP49QHRXWEUYYK9ZZOE186D9YEJ71',
+            "transferType" => "NORMAL_ACH",
+            "sourceSaving" => $this->account,
+            "destinationIbanNumber" => $data["iban"],
+            "owner" => $data['name'] . " " . $data['surname'],
+            "amount" => $data['amount'],
+            "currency" => "IRR",
+            "reason" => "SPAC",
+            "factorNumber" => "",
+            "remark" => "",
+            "hiddenPass1" => "1",
+            "hiddenPass2" => "2",
+            "hiddenPass3" => "3",
+            "ticketRequired" => "true",
+            "ticketResendTimerRemaining" => "15",
+            "ticket" => $otp,
+            "back" => "back",
+            "perform" => "%D8%AB%D8%A8%D8%AA+%D8%A7%D9%88%D9%84%D9%8A%D9%87",
+        ];
+        $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $newNormalAchUrlData, '');
+
+        return $newNormalAchUrlResponse;
     }
 }
