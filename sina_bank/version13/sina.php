@@ -411,9 +411,15 @@ class sina extends banking{
         }
     }
 
-    public function payaTransferStep2(array $data, $otp)
+    public function payaTransferStep2(array|bool $data, $otp)
     {
         if((!$otp) || strlen($otp) === 0 || $otp === null){
+            newLog("There is not code",'noOTPCode');
+            return false;
+        }
+
+        if($data === false){
+            newLog("There is Data for payaTransferStep2",'noDataForPayaTransferStep2');
             return false;
         }
 
