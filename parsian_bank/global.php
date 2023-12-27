@@ -1,7 +1,12 @@
 <?php
 
-define('PROXY', 'ctr-2-1m.geosurf.io:8000');
-define('PROXYUSERPWD', '630386+IR+630386-750244:e9fdbb701');
+//define('PROXY', 'ctr-2-1m.geosurf.io:8000');
+//define('PROXYUSERPWD', '630386+IR+630386-750244:e9fdbb701');
+//define('COOKIE_FILE', "cookie.txt");
+//define('COOKIE_FILE2', "cookie2.txt");
+
+define('PROXY', 'pr.oxylabs.io:7777');
+define('PROXYUSERPWD', 'customer-userrr3-cc-ir-sessid-1931399239-sesstime-30:amirrr000R3zA');
 define('COOKIE_FILE', "cookie.txt");
 define('COOKIE_FILE2', "cookie2.txt");
 
