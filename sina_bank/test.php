@@ -6,7 +6,7 @@ $data = fread($file, 5000000);
 fclose($file);
 // $account = "464-700-5026793-1";
 //$account = "272-12-5020721-1";
-var_dump(getDeposits( $data, $user_id = 1, $banking_id = 1));die;
+var_dump(getBalance($data));die;
 // if(strpos($data ,"موجودی") == false || strpos($data , "مبلغ مسدودی") == false){
 //     $accounts = getAccountsLinks($data);
 //     foreach($accounts as $account){
@@ -15,7 +15,7 @@ var_dump(getDeposits( $data, $user_id = 1, $banking_id = 1));die;
 //     // "https://ib.sinabank.ir/webbank/viewAcc/viewDetails.action?accountType=PASANDAZ";
 // }
 
-function getBalanceNew(string $html,$account)
+function getBalance(string $html/*,$account*/)
 {
     $doc = new DOMDocument();
 
@@ -23,25 +23,37 @@ function getBalanceNew(string $html,$account)
     $text = "<html><body>
     $matches[0]
     </body></html>";
-    
+
     $internalErrors = libxml_use_internal_errors(true);
     $doc->loadHTML($text);
     libxml_use_internal_errors($internalErrors);
     $trs = $doc->getElementsByTagName("tr");
-    for ($i = 1;$i < $trs->count(); $i++){
+    $result = false;
+    for ($i = 2;$i < $trs->count(); $i++){
         $accountNumber = $trs->item($i)->getElementsByTagName("td")->item(0)->textContent;
-        if(strpos(setPersianFormatForBalance($accountNumber) ,$account) != false){
+//        if(strpos(setPersianFormatForBalance($accountNumber) ,$account) != false){
             $balance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(1)->textContent);
             $availableBalance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(2)->textContent);
+            $status = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(3)->textContent);
             $blocked = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(4)->textContent);
+
+            $balance = (int)str_replace(',', '',$balance);
+            $availableBalance = (int)str_replace(',', '',$availableBalance);
+            $blockedBalance = $balance - $availableBalance;
             $result = [
-                'balance' => str_replace(',', '', $balance),
-                'blocked_balance' => str_replace(',', '', $blocked)
+                'balance' => $balance,
+                'blocked_balance' => $blockedBalance
             ];
-        }
-        
+            if(strpos($status , "مسدود برداشت") !== false)
+            {
+                $result["is_account_blocked"] = true;
+            }
+            return $result;
+//        }
+
     }
-    return $result ?? false;
+
+    return $result;
 }
 die;
 
@@ -237,28 +249,6 @@ $depositShowData = [
 ];
 var_dump(http_build_query($depositShowData));
 die;
-function getBalance($html)
-{
-    $doc = new DOMDocument();
-
-    preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
-    $matches[0]
-    </body></html>";
-
-    $doc->loadHTML($text);
-    $trs = $doc->getElementsByTagName("tr");
-
-    $balance = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(1)->textContent);
-    $availableBalance = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(2)->textContent);
-    $blocked = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(4)->textContent);
-
-    return [
-        'balance' => $balance,
-        'availableBalance' => $availableBalance,
-        'blocked' => $blocked
-    ];
-}
 
 function setPersianFormatForBalance(string $text)
 {

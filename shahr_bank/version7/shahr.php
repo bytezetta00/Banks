@@ -34,7 +34,7 @@ class shahr extends banking
         $this->http->setCookieLocation($this->cookieFile);
         $this->http->setTimeout(50);
         $this->http->setVerbose(true);
-        $this->testingBankingId = 324;
+        $this->testingBankingId = 1;
     }
 
     public function setProxy($config)
@@ -51,6 +51,9 @@ class shahr extends banking
 
     public function login()
     {
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(convertToString($this->isSignedIn()), 'isSignedIn');
+        }
         if ($this->isSignedIn()) {
             return true;
         } else {
@@ -62,13 +65,13 @@ class shahr extends banking
 
     function isSignedIn()
     {
-//        if ($this->banking_id == $this->testing_banking_id) {
-//            $this->newLog(json_encode([
-//                $this->account,
-//                $this->username,
-//                $this->password,
-//            ]), 'account');
-//        }
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(json_encode([
+                $this->account,
+                $this->username,
+                $this->password,
+            ]), 'account');
+        }
         $homeUrl = 'https://ebank.shahr-bank.ir/ebank/home/homePage.action';
         $homePage = $this->http->get($homeUrl, 'get', '', '', '');
         $logoutLink = "/ebank/login/logout.action";
@@ -82,9 +85,16 @@ class shahr extends banking
     public function autoSigninStep1()
     {
         $signinPage = $this->getSigninPage();
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(json_encode($signinPage), 'signinPage');
+        }
         if ($signinPage == null || $signinPage == "" || $signinPage == false) {
+            $message = "Signin page didn't load currectly !!";
+            $this->newLog($message, 'Signinpagedidntloadcurrectly');
+            $this->logout();
+
             return [
-                "message" => "Signin page didn't load currectly !!",
+                "message" => $message,
                 "status" => false
             ];
         }
@@ -106,6 +116,9 @@ class shahr extends banking
         //$this->newLog(json_encode($loginData), 'loginData');
 
         $sendSMSResponse = $this->sendSMSCodeToUser($loginData);
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(convertToString($sendSMSResponse), 'sendSMSResponse');
+        }
 //        $this->newLog(convertToString($sendSMSResponse), 'sendSMSResponse');
 
         $invalidCaptcha = 'لطفا کد امنیتی را درست وارد نمایید.';
@@ -146,6 +159,9 @@ class shahr extends banking
     public function autoSigninStep2($data, $otp)
     {
         $data["ticketCode"] = $otp;
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(json_encode($data), 'autoSigninStep2');
+        }
         if ($this->twoPhaseLogin($data)) {
             return true;
         } else {
@@ -217,10 +233,10 @@ class shahr extends banking
         $firstUrl = 'https://ebank.shahr-bank.ir/ebank/login/loginPage.action?ibReq=WEB';
         $firstResponse = $this->http->get($firstUrl, 'get', '', '', '');
 
-        //$secondUrl = 'https://ebank.shahr-bank.ir/ebank/dispatcherNamespace/dispatcherAction.action?ibReq=WEB';
-        //$secondResponse = $this->http->get($secondUrl, 'get', '', '', '');
-
-        //$thirdResponse = $this->http->get($firstUrl, 'get', '', '', '');
+//        $secondUrl = 'https://ebank.shahr-bank.ir/ebank/dispatcherNamespace/dispatcherAction.action?ibReq=WEB';
+//        $secondResponse = $this->http->get($secondUrl, 'get', '', '', '');
+//
+//        $thirdResponse = $this->http->get($firstUrl, 'get', '', '', '');
 
         return $firstResponse;
 
@@ -294,8 +310,8 @@ class shahr extends banking
             foreach ($messages as $message) {
                 if ((strpos($message['message'], 'بانک شهر') !== false) || (strpos($message['message'], 'پایا') !== false)) {
                     preg_match_all('! \d{6}! ', $message['message'], $matches);
-                    if (isset($matches[0][1])) {
-                        var_dump($matches[0][1]);
+                    if (isset($matches[0][0])) {
+                        return trim($matches[0][0]);
                     }
                 }
             }
@@ -359,18 +375,31 @@ class shahr extends banking
 
     public function payaTransfer($iban, $amount, $name, $surname, $desc = '')
     {
-        $this->newLog(json_encode([
+        error_reporting(E_ALL);
+        ini_set('display_errors',1);
+        /*$this->newLog(json_encode([
             $iban,
             $amount,
             $name,
             $surname,
             $desc
-        ]),'payaTransfer');
+        ]),'payaTransfer');*/
+        $newNormalAchUrl = 'https://ebank.shahr-bank.ir/ebank/transfer/newNormalAch.action';
+        $newNormalAchData = [
+            'showInfoPage' => "true",
+        ];
+
+        $this->newLog('params:'.var_export($newNormalAchData,true),'payaTransfer');
+        $newNormalAchUrlResponse = $this->http->get($newNormalAchUrl, 'post', '', $newNormalAchData, '');
+        $this->newLog('response:'.var_export($newNormalAchUrlResponse,true),'payaTransfer');
+        $pattern = '/<input type="hidden" name="normalAchTransferToken" value="(.*?)">/s';
+        $normalAchTransferToken = getInputTag($newNormalAchUrlResponse,$pattern);
+
         $normalAchTransferUrl =  "https://ebank.shahr-bank.ir/ebank/transfer/normalAchTransfer.action";
         $normalAchTransferData = [
             "transferType" => "NORMAL_ACH",
             "struts.token.name" => "normalAchTransferToken",
-//            "normalAchTransferToken" => "DGS3WXL4RJ1GQWVTT76A7ZMEU7OJQDQH",
+            "normalAchTransferToken" => $normalAchTransferToken,
             "sourceSaving" => $this->account,
             "sourceSavingValueType" => "sourceDeposit",
             "sourceSavingPinnedDeposit" => "",
@@ -387,13 +416,15 @@ class shahr extends banking
             "factorNumber" => "",
             "remark" => $desc
         ];
+        $this->newLog('params:'.var_export($normalAchTransferData,true),'payaTransfer');
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $normalAchTransferData, '');
+        $this->newLog('response:'.var_export($newNormalAchUrlResponse,true),'payaTransfer');
 
-        $pattern = '/<meta name="CSRF_TOKEN" content="(.*?)">/s';
+        $pattern = '/<meta name="CSRF_TOKEN" content=(.*?)>/s';
         $CSRF_TOKEN = getMetaTag($newNormalAchUrlResponse,$pattern);
         $generateTicketdata = [
             "CSRF_TOKEN"=> $CSRF_TOKEN,//"hSDNNS/pe+AA5+7RFXQfjArvd7BaierrMnCYW5+u2gQ=",
-            "ticketAmountValue" => $this->account,
+            "ticketAmountValue" => $amount,
             "ticketModernServiceType" => "NORMAL_ACH_TRANSFER",
             "ticketParameterResourceType" => "DEPOSIT",
             "ticketParameterResourceValue" => $this->account,
@@ -403,11 +434,14 @@ class shahr extends banking
             "ticketAdditionalInfoAmount"=> ""
         ];
         $generateTicketUrl = "https://ebank.shahr-bank.ir/ebank/general/generateTicket.action?".http_build_query($generateTicketdata);
+        $this->newLog('params:'.var_export($generateTicketdata,true),'payaTransfer');
         $generateTicketResponse = $this->http->get($generateTicketUrl, 'get', '', '', '');
+        $generateTicketResponse = json_decode($generateTicketResponse,true);
+        $this->newLog('response:'.var_export($generateTicketResponse,true),'payaTransfer');
         $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
-        $normalAchTransferConfirmToken = getInputTag($generateTicketResponse,$pattern);
+        $normalAchTransferConfirmToken = getInputTag($newNormalAchUrlResponse,$pattern);
         if($generateTicketResponse['resultType'] === "success"){
-            return [
+            $data = [
                 'iban' => $iban,
                 'amount' => $amount,
                 'name' => $name,
@@ -415,8 +449,15 @@ class shahr extends banking
                 'desc' => $desc,
                 'normalAchTransferConfirmToken' => $normalAchTransferConfirmToken,
             ];
+            return [
+                'status' => 1,
+                'data' => $data,
+            ];
         }else{
-            return false;
+            return [
+                'status' => 0,
+                'error' => var_export($generateTicketResponse,true),
+            ];
         }
 
     }
@@ -458,7 +499,53 @@ class shahr extends banking
 
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $normalAchTransferData, '');
 
-        return $newNormalAchUrlResponse;
+        if($newNormalAchUrlResponse == "" || $newNormalAchUrlResponse == null)
+        {
+            return [
+                'status' => 0,
+                'error' => "خطای ریسپانس خالی ",
+            ];
+        }
 
+        if(strpos($newNormalAchUrlResponse, 'درخواست انتقال وجه بین بانکی پایا عادی ثبت شد.') !== false)
+        {
+            $newNormalAchUrlResponse = convertPersianNumberToEnglish($newNormalAchUrlResponse);
+            preg_match_all('/<div class="formSection noTitleSection transferReceipt" id="">(.*?)<div class="commandBar/s', $newNormalAchUrlResponse, $matches1);
+            preg_match_all('/<span class="form-item-field " id="">(.*?)<\/span>/s', $matches1[0][0], $matches2);
+            $name = $matches2[0][5];
+            preg_match_all('!\d{19,21}!', $matches2[0][0], $matches3);
+            $peygiri = $matches3[0][0];
+            preg_match_all('/به نام (.*?)<\/span>/s', $name, $matches4);
+            $dest = trim($matches4[1][0]);
+
+            return [
+                'status' => 1,
+                'peygiri' => $peygiri,
+                'dest' => $dest,
+            ];
+        }
+
+        if(strpos($newNormalAchUrlResponse, 'مبلغ" بیش از مبلغ تعیین شده سقف روزانه است') !== false)
+        {
+            return [
+                'status' => 0,
+                'error' => 'مبلغ" بیش از مبلغ تعیین شده سقف روزانه است',
+            ];
+        }
+
+        elseif(strpos($newNormalAchUrlResponse, 'بلیط امنیتی نامعتبر است ، لطفا آن را به درستی وارد نمایید.'))
+        {
+            return [
+                'status' => 0,
+                'error' => 'بلیط امنیتی نامعتبر است ، لطفا آن را به درستی وارد نمایید.',
+            ];
+        }
+
+        else{
+            return [
+                'status' => 0,
+                'error' => 'خطای نامشخص!!',
+            ];
+        }
     }
 }

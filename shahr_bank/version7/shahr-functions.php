@@ -96,9 +96,8 @@ function getBalance(string $html, $currentAccount)
 
     $doc = new DOMDocument();
     preg_match('/<table cellpadding="0" cellspacing="0">(.*?)<\/table>/s', $html, $matches);
-//    preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
-    $matches[0]
+    //    preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>$matches[0]
     </body></html>";
 
     $internalErrors = libxml_use_internal_errors(true);
@@ -120,17 +119,19 @@ function getBalance(string $html, $currentAccount)
         $blocked = $total - $available_balance;
         if ($currentAccount == $account) {
             $result = [
-                'balance' => $total,
+                'balance' =>  $total,
                 'blocked_balance' => $blocked
             ];
+
             if (strpos($status, "مسدود برداشت") !== false) {
                 $result["is_account_blocked"] = true;
             }
-            newLog(var_export($result,true)."\n\n".$status,'shahr-balance-debug');
+//            newLog(var_export($result,true)."\n\n".$status,'shahr-balance-debug');
             return $result;
         }
 
     }
+
     return $result;
 }
 
@@ -185,6 +186,20 @@ function formatTime($time)
     return $time;
 }
 
+function getMetaTag(string $html, string $pattern)
+{
+    $doc = new DOMDocument();
+    preg_match($pattern, $html, $matches);
+    $text = "<html><body>
+    $matches[0]
+    </body></html>";
+    $doc->loadHTML($text);
+    $result = null;
+    if ($doc->getElementsByTagName("meta"))
+        $result = $doc->getElementsByTagName("meta")[0]->getAttribute("content");
+    return $result;
+}
+
 function convertPersianNumberToEnglish(string $text)
 {
     $persianNumber = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -204,18 +219,4 @@ function setPersianFormatForBalance(string $text)
         str_replace(
             $persianNumber,$englishNumber,$encodedText
         ));
-}
-
-function getMetaTag(string $html, string $pattern)
-{
-    $doc = new DOMDocument();
-    preg_match($pattern, $html, $matches);
-    $text = "<html><body>
-    $matches[0]
-    </body></html>";
-    $doc->loadHTML($text);
-    $result = null;
-    if ($doc->getElementsByTagName("meta"))
-        $result = $doc->getElementsByTagName("meta")[0]->getAttribute("content");
-    return $result;
 }

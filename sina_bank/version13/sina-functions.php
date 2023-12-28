@@ -124,10 +124,21 @@ function getBalance(string $html,$account)
             $balance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(1)->textContent);
             $availableBalance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(2)->textContent);
             $blocked = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(4)->textContent);
+            $status = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(3)->textContent);
+
+            $balance = (int)str_replace(',', '',$balance);
+            $availableBalance = (int)str_replace(',', '',$availableBalance);
+            $blockedBalance = $balance - $availableBalance;
             $result = [
-                'balance' => str_replace(',', '', $balance),
-                'blocked_balance' => str_replace(',', '', $blocked)
+                'balance' => $balance,
+                'blocked_balance' => $blockedBalance
             ];
+            if(strpos($status , "مسدود برداشت") !== false)
+            {
+                $result["is_account_blocked"] = true;
+            }
+            newLog(var_export($result,true)."\n\n".$status,'sina-balance-debug','sina');
+
             return $result;
         }
         
