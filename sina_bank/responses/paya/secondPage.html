@@ -11,11 +11,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>انتقال وجه بین بانکی پایا عادی | اینترنت بانک سینا</title>
+    <title>بررسی و تایید انتقال وجه بین بانکی پایا عادی | اینترنت بانک سینا</title>
 
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="CSRF_TOKEN" content=jfgawUK4rG0cmLaLDcVk02NRt1cbIBliAWnePi8s700=>
+    <meta name="CSRF_TOKEN" content=IRveXlUttguyCGYdu+0LmgjtHUHAi3lpzn7huhszf2U=>
 
 
 
@@ -34,7 +34,7 @@
 
     <link rel="stylesheet" type="text/css" media="all" href="/webbank/styles/main-4.121.16-4022.css"/>
     <link rel="stylesheet" type="text/css" media="print" href="/webbank/styles/print-4.121.16-4022.css"/>
-    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=GtlHHaz0qU4i0ioAbEosKroKzWzebHF3RpyQe0apy76WGdHFAnhd6idaO5__T6VvrWt7IOBjT9Me3lhNIolWNnqL3gZmkywmQmyiNkmrNzE" charset="UTF-8"></script><script type="text/javascript" src="/webbank/scripts/mainHeaders-4.121.16-4022.js"></script>
+    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=RcpNL61VnvbE8y3CGu-o5jzpLl8NxkFWwtepnytBqnWpIGkTpmi9Rt7iW13_kh7NsIEAINBJfTnQe-yGzm0hgmjfAfkYlVowEP9hvOYQ0OVuiTrVs8Iy1mL5dOwFXwFd" charset="UTF-8"></script><script type="text/javascript" src="/webbank/scripts/mainHeaders-4.121.16-4022.js"></script>
     <script type="text/javascript" src="/webbank/scripts/mainHeaders-fa-4.121.16-4022.js"></script>
     <script type="text/javascript" >
 
@@ -96,8 +96,155 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <input type="hidden" class="" name="ticket_Resource_Value" id="ticket_Resource_Value" value="373-873-5006287-1"/>
+
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            var otpTypeChanged = function (challengeAction) {
+                $('#challengeError').fadeOut();
+                if ($('#otpType').val() == 3) {
+                    $('#loadingChallenges').show();
+                    $.getJSON(challengeAction, {CSRF_TOKEN: getCSRFMetaTag()}, function (json) {
+                        if (json.v1.length == 0 && json.v2.length == 0) {
+                            $('.challengeNumbers').fadeOut();
+                            $('#challengeError').css({'font-weigth': 'normal'}).fadeIn();
+                            $('#otpType').val(1);
+                        } else {
+                            $('.challengeNumbers').fadeIn();
+                            $('#challengeV1').text(json.v1);
+                            $('#challengeV2').text(json.v2);
+                        }
+                        $('#loadingChallenges').hide();
+                    });
+                } else {
+                    if ($('#otpType').val() == 1 || $('#otpType').val() == 2) {
+                        $('.challengeNumbers').fadeOut();
+                    } else {
+                        $('#otpType').focus();
+                    }
+                }
+            };
+            var getTicket = function (generateTicketAction) {
+                $('#getTicket').css("display", "none");
+                $('#loadingTicket').css("visibility", "visible");
+                $.getJSON(generateTicketAction,
+                    {
+                        CSRF_TOKEN: getCSRFMetaTag(),
+                        ticketAmountValue: "10000".replace(/[^\d.]/g, ''),
+                        ticketModernServiceType: "NORMAL_ACH_TRANSFER",
+                        ticketParameterResourceType: "DEPOSIT",
+                        ticketParameterResourceValue: $('#ticket_Resource_Value').val(),
+                        ticketParameterDestinationType: "IBAN",
+                        ticketParameterDestinationValue: "IR170590016381309973057001",
+                        ticketDestinationName: "رنيا",
+                        ticketAdditionalInfoAmount: ""
+                    }, null).error(
+                    function () {
+                        $('#loadingTicket').css("visibility", "hidden");
+                        timer = parseInt(IB.timerDuration, 10);
+                        startTimer();
+                    }).success(
+                    function () {
+                        $('#loadingTicket').css("visibility", "hidden");
+                        timer = parseInt(IB.timerDuration, 10);
+                        startTimer();
+                    });
+            };
+
+            var timer = IB.remainingTimeDuration ? parseInt(IB.remainingTimeDuration, 10) : parseInt(IB.timerDuration, 10);
+
+            function startTimer() {
+                var timerInterval = null;
+                $('.authenticationUiDataInfo').css("display", "inline-block");
+                var display = $('#generateTicketTimer');
+                var minutes, seconds;
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                timerInterval = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+                    minutes = minutes < 0 ? 0 : minutes;
+                    seconds = seconds < 0 ? 0 : seconds;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.text(minutes + ":" + seconds);
+
+                    if (--timer < 0) {
+                        clearInterval(timerInterval);
+                        $('#loadingTicket').css("visibility", "hidden");
+                        $('.authenticationUiDataInfo').css("display", "none");
+                        $('#getTicket').css("display", "inline-block");
+                        $('#ticket').focus();
+                    }
+                }, 1000);
+            };
+
+            $('#otpType').bind('change keyup', function () {
+                otpTypeChanged('/webbank/general/challenge.action')
+            });
+
+            $('#otpType:hidden').trigger('change');
+
+            $('#getTicket').click(function (e) {
+                getTicket('/webbank/general/generateTicket.action')
+            });
+            $('#back').focus();
+            $('input[name=back]').focus();
+
+            new RandomizedVKeyboard('keyboard', true);
+
+
+
+
+
+            $('#getTicket').focus();
+
+
+
+
+
+        });
+    </script>
+
+
+
 </head>
-<body class="rtl withSideNote transferPayment normalAchTransfer wizard
+<body class="rtl withSideNote transferPayment normalAchTransfer confirmPage
 ">
 <div id="taskNotifier">
     بارگذاری...
@@ -798,7 +945,7 @@
         </div>
     </div>
 
-    <h2 id="content-title">انتقال وجه بین بانکی پایا عادی</h2>
+    <h2 id="content-title">بررسی و تایید انتقال وجه بین بانکی پایا عادی</h2>
     <div id="content-body">
 
 
@@ -810,6 +957,996 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+        <div class="formContainer">
+            <div class="confirm ">
+
+
+
+                اگر اطلاعات وارد شده صحیح است، دکمه "ثبت اوليه" را انتخاب نمایید.
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <form action="/webbank/transfer/normalAchTransfer.action" method="post" autocomplete="off"
+                  clientSideValidation="true"
+
+
+
+
+
+                  submission="true"
+
+            >
+
+
+                <input type="hidden" name="struts.token.name" value="normalAchTransferConfirmToken" />
+                <input type="hidden" name="normalAchTransferConfirmToken" value="555LM2KRMCXU25SLXKHD3NENFDK60S6X" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="transferType" id="transferType" value="NORMAL_ACH"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formSection noTitleSection " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            برداشت از سپرده:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="sourceSaving" id="sourceSaving" value="373-873-5006287-1"/>
+
+
+
+            ‪۳۷۳-۸۷۳-۵۰۰۶۲۸۷-۱‬
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            واریز به شبای:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="destinationIbanNumber" id="destinationIbanNumber" value="IR170590016381309973057001"/>
+
+
+
+            IR۱۷۰۵۹۰۰۱۶۳۸۱۳۰۹۹۷۳۰۵۷۰۰۱
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            نام و نام خانوادگی گیرنده:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field ownerName" id="">
+
+
+
+
+                        حميد&nbspفعله کري
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="owner" id="owner" value="حميد فعله کري"/>
+
+
+
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            نوع مقصد:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+                    سپرده
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            بانک مقصد:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                    بانک سینا
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            مبلغ:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="amount" id="amount" value="10٫000"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="currency" id="currency" value="IRR"/>
+
+
+
+            ۱۰,۰۰۰&nbsp;ريال ايران
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            بابت:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="reason" id="reason" value="SPAC"/>
+
+
+
+                خريد خدمات
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            شناسه واریز:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="factorNumber" id="factorNumber" />
+
+
+
+
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem textBox">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            یادداشت:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="remark" id="remark" />
+
+
+
+
+
+    </span>
+                    </div>
+
+
+
+
+
+                    <div class="hidden">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="password" class="" name="hiddenPass1" id="hiddenPass1"
+                               value="1"
+
+
+
+
+                               dir="rtl"
+
+
+
+                        />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="password" class="" name="hiddenPass2" id="hiddenPass2"
+                               value="2"
+
+
+
+
+                               dir="rtl"
+
+
+
+                        />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="password" class="" name="hiddenPass3" id="hiddenPass3"
+                               value="3"
+
+
+
+
+                               dir="rtl"
+
+
+
+                        />
+
+                    </div>
+
+
+
+
+
+
+
+                    <div id="ticketSection">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="hidden" class="" name="ticketRequired" id="ticketRequired" value="true"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="hidden" class="" name="ticketResendTimerRemaining" id="ticketResendTimerRemaining" value="15"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="formItem ">
+
+
+
+
+
+
+                            <label for="ticket"
+                                   class="form-item-label  requiredField">بلیت امنیتی:</label>
+
+
+
+
+                            <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="password" name="ticket" id="ticket" dir="ltr"
+       maxlength="10"
+
+       dir="ltr"
+
+       class="digitPassword required"
+/>
+<img id="loadingTicket" src="/webbank/images/ajax-loader.gif"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="button" value="دریافت بلیت امنیتی" class="button ticket-btn"
+
+       name="ticket-button"
+       id="getTicket"
+
+/>
+
+
+
+<span class="authenticationUiDataInfo">بلیت امنیتی را دریافت نکرده اید؟
+    <span id="regenerateTicket">لطفا <span id='generateTicketTimer'>00:00</span> منتظر بمانید.</span>
+</span>
+
+
+    </span>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
+
+
+                <div class="commandBar"
+
+                >
+
+                    <!--for resolving IE problem with Enter key-->
+                    <input type="hidden" name="back" value="back"/>
+                    <!--for resolving Firefox problem with Enter key-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <input type="submit" value="ثبت اوليه" class="button importantButton"
+
+                           name="perform"
+                           id="perform"
+                    />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <input type="submit" value="بازگشت" class="button normalButton"
+
+                           name="back"
+                           id="back"
+                    />
+
+
+                </div>
+
+        </div>
+
+
+        </form>
 
 
 
@@ -904,1954 +2041,6 @@
 
 
 
-        <div class="formContainer">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <form action="/webbank/transfer/normalAchTransfer.action" method="post" autocomplete="off"
-                  clientSideValidation="true"
-
-
-
-
-
-                  submission="true"
-
-            >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <input type="hidden" class="" name="transferType" id="transferType" value="NORMAL_ACH"/>
-
-
-
-                <input type="hidden" name="struts.token.name" value="normalAchTransferToken" />
-                <input type="hidden" name="normalAchTransferToken" value="HR4XBU0ERACACDAJAOWL02ZECIEO5LD0" />
-
-
-
-
-
-
-
-
-
-
-
-                <div class="formSection " id="">
-                    <div class=" stepOne "></div>
-                    <h6 class="formSectionTitle">
-                        انتخاب سپرده مبداء
-                    </h6>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="sourceSaving"
-                               class="form-item-label  requiredField">برداشت از سپرده:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-                
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-    
-
-
-
-
-
-
-<div class="smartCombo-wrapper">
-    <div id="sourceSavingContainer" class="smartCombo">
-        
-        
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-        
-    
-    
-
-
-
-
-
-
-
-<input type="text" name="sourceSaving" id="sourceSaving" value="" spellcheck="false"
-
-
-
-
-
-
-
-
-
-
-       dir="ltr"
-       class=" required first"
-
-
-/>
-
-
-<script type="text/javascript">
-    
-
-</script>
-        <div id="sourceSavingCleanFilter" class="clean-combo-filter" title="پاک کردن"></div>
-    </div>
-    <div id="sourceSavingTrigger" class="smartCombo-trigger" comboid="sourceSaving" ></div>
-
-    
-</div>
-
-
-    <div id="sourceSavingContainerInfo" class="smartComboInfo"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="sourceSavingValueType" id="sourceSavingValueType" />
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="sourceSavingPinnedDeposit" id="sourceSavingPinnedDeposit" />
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="sourceSavingIsComboValInStore" id="sourceSavingIsComboValInStore" value="false"/>
-    
-    
-
-<script type="text/javascript">
-
-    
-    
-    IB.smartCombo.sourceSaving =
-        '';
-
-    $(document).ready(function () {
-        var currencyChangeFireEvent = '';
-        if('true' == 'true') {
-            currencyChangeFireEvent = true;
-        } else {
-            currencyChangeFireEvent = false;
-        }
-        var combo = $('#sourceSaving');
-        combo.id = 'sourceSaving';
-        combo.store = {};
-        combo.type = 'DEPOSIT';
-        combo.showContacts = false;
-        combo.showDetailInfo = true;
-        combo.businessType = 'withdrawable';
-        combo.serviceName = 'ACH_NORMAL_TRANSFER';
-        combo.name = 'sourceSaving';
-        combo.prefixValue = '';
-        combo.isBatchInput = false;
-        combo.containerId = 'sourceSavingContainer';
-        combo.value = IB.smartCombo.sourceSaving;
-        combo.defaultValue = '';
-        combo.defaultValueLabelKey = '';
-        combo.defaultValueType = '';
-        combo.autoCompilitified = false;
-        combo.hint = '';
-        combo.currency = '';
-        combo.changeEventHandler = '';
-        combo.comboValNotInStoreHandler = '';
-        combo.isDefaultValueSelectedName='';
-        combo.currencyChangeFireEvent = currencyChangeFireEvent;
-
-        if (combo.isBatchInput) {
-            combo.batchInputValue = '';
-        }
-        combo.addClass(IB.direction).val(applicationResources['IB.smartCombo.loading']);
-        IB.smartCombo.createAutoComplete(combo);
-
-//        show title in qtip:
-        $('#sourceSavingsmartCombotHelp').qtip({
-            content: '',
-            style: {
-                classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
-            }, position: {
-                effect: false,
-                target: 'event',
-                viewport: $(window),
-                my: 'bottom middle',
-                at: 'top middle'
-            }
-        });
-    });
-
-</script>
-
-
-            
-    </span>
-                    </div>
-
-
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-                <div class="formSection " id="">
-                    <div class=" stepTwo "></div>
-                    <h6 class="formSectionTitle">
-                        انتخاب سپرده مقصد
-                    </h6>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="destinationIbanNumber"
-                               class="form-item-label  requiredField">واریز به شبای:</label>
-
-
-
-
-                        <span class="form-item-field " id="iban-container">
-        
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-    
-
-
-
-
-
-
-<div class="smartCombo-wrapper">
-    <div id="destinationIbanNumberContainer" class="smartCombo">
-        
-        
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-        
-    
-    
-
-
-
-
-
-
-
-<input type="text" name="destinationIbanNumber" id="destinationIbanNumber" value="" spellcheck="false"
-
-
-       maxlength="26"
-
-
-       size="28"
-
-
-       onkeyup="numericalAlphabetical(this)"
-
-       dir="ltr"
-       class=" required sheba"
-
-
-/>
-
-
-<script type="text/javascript">
-    
-
-</script>
-        <div id="destinationIbanNumberCleanFilter" class="clean-combo-filter" title="پاک کردن"></div>
-    </div>
-    <div id="destinationIbanNumberTrigger" class="smartCombo-trigger" comboid="destinationIbanNumber" ></div>
-
-    
-</div>
-
-
-    <div id="destinationIbanNumberContainerInfo" class="smartComboInfo"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="destinationIbanNumberValueType" id="destinationIbanNumberValueType" />
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="destinationIbanNumberPinnedDeposit" id="destinationIbanNumberPinnedDeposit" />
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="destinationIbanNumberIsComboValInStore" id="destinationIbanNumberIsComboValInStore" value="false"/>
-    
-    
-
-<script type="text/javascript">
-
-    
-    
-    IB.smartCombo.destinationIbanNumber =
-        '';
-
-    $(document).ready(function () {
-        var currencyChangeFireEvent = '';
-        if('' == 'true') {
-            currencyChangeFireEvent = true;
-        } else {
-            currencyChangeFireEvent = false;
-        }
-        var combo = $('#destinationIbanNumber');
-        combo.id = 'destinationIbanNumber';
-        combo.store = {};
-        combo.type = 'IBAN';
-        combo.showContacts = true;
-        combo.showDetailInfo = true;
-        combo.businessType = 'depositable';
-        combo.serviceName = 'ACH_NORMAL_TRANSFER';
-        combo.name = 'destinationIbanNumber';
-        combo.prefixValue = 'IR';
-        combo.isBatchInput = false;
-        combo.containerId = 'destinationIbanNumberContainer';
-        combo.value = IB.smartCombo.destinationIbanNumber;
-        combo.defaultValue = '';
-        combo.defaultValueLabelKey = '';
-        combo.defaultValueType = '';
-        combo.autoCompilitified = false;
-        combo.hint = '';
-        combo.currency = '';
-        combo.changeEventHandler = '';
-        combo.comboValNotInStoreHandler = '';
-        combo.isDefaultValueSelectedName='';
-        combo.currencyChangeFireEvent = currencyChangeFireEvent;
-
-        if (combo.isBatchInput) {
-            combo.batchInputValue = '';
-        }
-        combo.addClass(IB.direction).val(applicationResources['IB.smartCombo.loading']);
-        IB.smartCombo.createAutoComplete(combo);
-
-//        show title in qtip:
-        $('#destinationIbanNumbersmartCombotHelp').qtip({
-            content: '',
-            style: {
-                classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
-            }, position: {
-                effect: false,
-                target: 'event',
-                viewport: $(window),
-                my: 'bottom middle',
-                at: 'top middle'
-            }
-        });
-    });
-
-</script>
-
-
-            
-    </span>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="owner"
-                               class="form-item-label  requiredField">نام و نام خانوادگی گیرنده:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-        
-    
-    
-
-
-
-
-
-
-
-<input type="text" name="owner" id="owner" value="" spellcheck="false"
-
-
-       maxlength="30"
-
-
-
-
-
-       onkeyup="avoidDigits(this)"
-
-       dir="rtl"
-       class="required alphabet"
-
-
-/>
-
-
-<script type="text/javascript">
-    
-
-</script>
-            
-    </span>
-                    </div>
-
-
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-                <div class="formSection " id="">
-                    <div class=" stepThree "></div>
-                    <h6 class="formSectionTitle">
-                        تکمیل جزئیات پرداخت
-                    </h6>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="amount"
-                               class="form-item-label  requiredField">مبلغ:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-        
-    
-    
-
-
-
-
-
-
-
-<input type="text" name="amount" id="amount" value="" spellcheck="false"
-
-
-       maxlength="20"
-
-
-
-
-
-       onkeyup="validate(this);"
-
-       dir="ltr"
-       class="required"
-
-
-/>
-
-
-<script type="text/javascript">
-    
-
-</script>
-    
-        
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="currency" id="currency_sourceSaving" />
-    
-    
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-        <input type="hidden" class="" name="currencyDefaultFractionDigits" id="currencyDefaultFractionDigits_sourceSaving" />
-    
-    
-
-    
-    
-        <label class="depositCurrency">
-            ریال ایران
-        </label>
-    
-
-    </span>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="amount"
-                               class="form-item-label  ">مبلغ به حروف:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-            <label id="textAmount" name="textAmount" class="readOnlyText">
-            </label>
-            <label class="depositCurrency">
-                ریال ایران
-            </label>
-        
-    </span>
-                    </div>
-
-
-
-
-                    <script type="text/javascript">
-                        $(function () {
-                            var sourceCurrencyId = 'sourceSaving';
-                            if (sourceCurrencyId) {
-                                var sourceCurrencyEl = $('#' + sourceCurrencyId);
-                                if (sourceCurrencyEl) {
-                                    sourceCurrencyEl.bind('valueChanged', updateCurrency);
-                                }
-                            }
-                        });
-
-                        function updateCurrency() {
-                            var sourceCurrencyEl = this;
-                            updateCurrencyValue(sourceCurrencyEl);
-                        }
-
-                        function validate(inputEl) {
-                            var hiddenCurrencyCodeEl = $('#currency_sourceSaving'),
-                                hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_sourceSaving');
-                            placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
-                                '', false);
-                        }
-                    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="reason"
-                               class="form-item-label  requiredField">بابت:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-        <select name="reason" id="reason"
-
-
-
-                class="required first "
-
-        >
-            
-                
-                
-                
-            
-            <option value=""></option>
-            
-                
-                    
-                    
-                        
-                    
-                    
-                
-                
-                    
-                    
-                        
-                    
-                    
-                
-                <option value="POSA"
-
-                >
-                
-                    
-                        ‪واريز حقوق‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="IOSP"
-
-            >
-                
-                    
-                        ‪امور بيمه خدمات‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="HIPA"
-
-            >
-                
-                    
-                        ‪امور درماني‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="ISAP"
-
-            >
-                
-                    
-                        ‪امور سرمايه‌گذاري و بورس‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="FXAP"
-
-            >
-                
-                    
-                        ‪امور ارزي در چارچوب ضوابط و مقررات‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="DRPA"
-
-            >
-                
-                    
-                        ‪پرداخت قرض و تاديه ديون(قرض‌الحسنه، بدهي، ...)‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="RTAP"
-
-            >
-                
-                    
-                        ‪امور بازنشستگي‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="MPTP"
-
-            >
-                
-                    
-                        ‪معاملات اموال منقول‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="IMPT"
-
-            >
-                
-                    
-                        ‪معاملات اموال غيرمنقول‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="LMAP"
-
-            >
-                
-                    
-                        ‪مديريت نقدينگي‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="CDAP"
-
-            >
-                
-                    
-                        ‪عوارض گمرکي‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="TCAP"
-
-            >
-                
-                    
-                        ‪تسويه مالياتي‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="GEAC"
-
-            >
-                
-                    
-                        ‪ساير خدمات دولتي‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="LRPA"
-
-            >
-                
-                    
-                        ‪تسهيلات و تعهدات‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="CCPA"
-
-            >
-                
-                    
-                        ‪توديع وثيقه‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="GPAC"
-
-            >
-                
-                    
-                        ‪هزينه عمومي و امور روزمره‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="CPAC"
-
-            >
-                
-                    
-                        ‪کمک‌هاي خيريه‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="GPPC"
-
-            >
-                
-                    
-                        ‪خريد کالا‬</option>
-
-
-
-
-            </option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <option value="SPAC"
-
-            >
-                
-                    
-                        ‪خريد خدمات‬</option>
-
-
-
-
-            </option>
-            
-        </select>
-    
-
-
-
-                
-    </span>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="factorNumber"
-                               class="form-item-label  ">شناسه واریز:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-        
-    
-    
-
-
-
-    
-
-
-
-
-
-<input type="text" name="factorNumber" id="factorNumber" value="" spellcheck="false"
-
-
-       maxlength="50"
-
-
-
-
-
-       onkeyup="removeExtraCharacters(this)"
-
-       dir="ltr"
-
-
-
-/>
-
-
-<script type="text/javascript">
-    
-
-</script>
-            
-    </span>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="formItem ">
-
-
-
-
-
-
-                        <label for="remark"
-                               class="form-item-label  ">یادداشت:</label>
-
-
-
-
-                        <span class="form-item-field " id="">
-        
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-        
-    
-    
-
-
-
-    
-
-
-
-
-
-<input type="text" name="remark" id="remark" value="" spellcheck="false"
-
-
-       maxlength="50"
-
-
-
-
-
-
-
-       dir="rtl"
-       class="wideTextField"
-
-
-/>
-
-
-<script type="text/javascript">
-    
-
-</script>
-            
-    </span>
-                    </div>
-
-
-                </div>
-
-
-
-
-
-                <div class="commandBar"
-
-                >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <input type="submit" value="ادامه" class="button importantButton"
-
-
-
-                    />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <input type="button" value="بازگشت" class="button normalButton"
-
-
-
-                           onclick="window.location='../chooseSubMenu.action?actionParameter=transfer'; return false;"
-                    />
-
-
-
-
-                </div>
-
-
-
-            </form>
-
-        </div>
-
-
-
-        <ul id="slideMenu" class="slideMenu">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </ul>
-
-        <!--this script is useful for detect source Deposit Currency and must be used in transfer in forign exchange
-        and when you use this Script you shoul remove onkeyup event from amount field.-->
-
-        <script type="text/javascript">
-            var characterInputType = "UI_BASED";
-        </script>
 
         <div class="keyboardContainer" id="fullKeyboardContainer">
             <div class="keyboardKeypad" id="keyboard">

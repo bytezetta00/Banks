@@ -1,0 +1,3210 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>درخواست انتقال وجه بین بانکی پایا عادی | اینترنت بانک سینا</title>
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="CSRF_TOKEN" content=egs7gTW8nawGHQzve/xXbPSlPynxuOxGgIZP2LmPflQ=>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <link rel="stylesheet" type="text/css" media="all" href="/webbank/styles/main-4.121.16-4022.css"/>
+    <link rel="stylesheet" type="text/css" media="print" href="/webbank/styles/print-4.121.16-4022.css"/>
+    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=m3RCB4Nr4uCCzANIej4lNiRSKB_UVUPsFoPyOnRZ70zsdbuyTJh0Arlop1R66zp696pKBEq7i5Sa9gzDHt2tnPmsIhL_XA0I4VDsLV-ioqlg15E8759WCYqlVQitb2q8" charset="UTF-8"></script><script type="text/javascript" src="/webbank/scripts/mainHeaders-4.121.16-4022.js"></script>
+    <script type="text/javascript" src="/webbank/scripts/mainHeaders-fa-4.121.16-4022.js"></script>
+    <script type="text/javascript" >
+
+        // internet bank name space
+        var IB = {};
+        IB.queryText = '';
+        // sequence of these lines is important and should be kept in this way.
+        IB.smartCombo = {};
+        IB.smartCombo.queryText = '';
+        IB.ctx = '/webbank';
+        IB.isBatchListPage = false;
+        IB.locale = 'fa';
+
+        IB.tempKeys = {
+            chequeManagemnet            : 'مدیریت چک',
+            batchTransfer               : 'دسته ای',
+            batch                       : 'batch',
+            chequeAndChequeBook         : 'چک و دسته چک',
+            transferredChequeListTitle  : 'چکهای واگذار شده به سپرده',
+            payBill                     : 'pay.bill',
+            batchBillPayment            : 'batch.Bill.Payment'
+        };
+        // end of template keys
+        IB.periodicalReports = {};
+        IB.periodicalReports.smsConfig = ('true' == 'true');
+        IB.periodicalReports.emailConfig = ('true' == 'true');
+        IB.periodicalReports.faxConfig = ('false' == 'true');
+
+        IB.cardTransactionsMaxDay = (30);
+        IB.billStatementReportMaxDay = '';
+        IB.ibanDefaultPrefix = ('IR');
+        IB.removeLeadingZerosFromDeposit = (true);
+
+        IB.userName = 'پريا فعله کري';
+        IB.direction = 'rtl';
+        IB.ctx = '/webbank';
+        if ('10' !== '') {
+            IB.pageSize = parseInt('10', 10);
+        } else {
+            IB.pageSize = '';
+        }
+        IB.kartabl_activation = ('true' == 'true');
+        IB.calendar = 'jalali';
+        IB.illegalCharacters = [38, 37, 59, 124, 36, 35, 40, 41, 39, 96, 34, 60, 62, 92];
+        IB.defaultCurrencyCode = 'IRR';
+        IB.defaultCurrencyFractionalDigits = '2';
+        IB.showCountdownTimer = ('true' == 'true');
+        IB.remainingCountdownTime = '600';
+        IB.showAlertMaxTime = '1';
+        IB.maxPasswordLength = '';
+        IB.minPasswordLength = '';
+        IB.specialCharacterReplacement = ' ';
+        IB.harimResendPasswordDuration = '120';
+        IB.timerDuration = '60';
+        IB.remainingTimeDuration = '15';
+    </script>
+
+    <link rel="shortcut icon" href="/webbank/favicon.ico"/>
+
+
+
+</head>
+<body class="rtl transferPayment normalAchTransfer  receiptPage twoColFormSection
+">
+<div id="taskNotifier">
+    بارگذاری...
+</div>
+
+<div id="mainContainer">
+    <div id="topBar">
+
+        <div id="userInfo">
+            <a href="/webbank/login/logout.action"
+               title="خروج">
+                <span id="top-logout">خروج</span></a>
+
+
+            <span id="timerContainer" class="timerContainer tooltip-trigger">زمان باقی‌مانده: </span><span id="timer" class="timer"></span>
+            <div id="timerContainer-tooltip" class="tooltip">در صورتی که مهلت نمایش داده شده به پایان برسد، برای استفاده از اینترنت بانک نیاز به ورود دوباره نام کاربری و رمز عبور خواهد بود.</div>
+            <span id="top-user" class="withTimer">پريا فعله کري</span>
+
+
+
+        </div>
+
+        <div id="topLinks">
+            <a href="/webbank/contact.action" title="تماس با ما">
+                <span id="top-contactUs">تماس با ما</span></a>
+            <a href="/webbank/chooseSubMenu.action?actionParameter=config" title="تنظیمات">
+                <span id="top-setting">تنظیمات</span></a>
+            <a href="/webbank/index.action#contacts" title="تماس ها">
+                <span id="top-contacts">تماس ها</span></a>
+        </div>
+
+
+    </div>
+
+    <div id="navigationBar">
+        <div id="navigation">
+
+
+
+
+
+
+
+
+            <div class="navigationContainer">
+                <ul class="mainMenu">
+
+
+
+                    <li class="menus menuFirstItem"
+                        id="home">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/home/homePage.action'>
+                            <div class="itemIcon"></div>
+                            خانه</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-1">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="viewFavoriteAccountsList" href="/webbank/home/homePage.action">
+                                        خانه
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="transferPayment" href="/webbank/chooseSubMenu.action?actionParameter=transfer">
+                                        انتقال وجه
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="payments" href="/webbank/chooseSubMenu.action?actionParameter=payments">
+                                        پرداخت قبوض
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="viewAcc" href="/webbank/viewAcc/viewAccAction.action">
+                                        صورتحساب
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="depositParent">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=deposit'>
+                            <div class="itemIcon"></div>
+                            سپرده</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-2">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="viewAccAction" href="/webbank/viewAcc/viewAccAction.action">
+                                        سپرده ها در یک نگاه
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="openingDeposit" href="/webbank/openingDeposit/chooseDepositType.action">
+                                        افتتاح سپرده
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="calendarViewBillList">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/viewAcc/calendarViewBillList.action'>
+                            <div class="itemIcon"></div>
+                            روزشمار</a>
+                        <div class="menuArrowBlue"></div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="exchange">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/index.action#exchange'>
+                            <div class="itemIcon"></div>
+                            بورسار</a>
+                        <div class="menuArrowBlue"></div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="transferPayment">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=transfer'>
+                            <div class="itemIcon"></div>
+                            انتقال وجه</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-5">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="normalTransfer" href="/webbank/transfer/newNormal.action">
+                                        عادی
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="continuumTransfer" href="/webbank/transfer/newContinuum.action">
+                                        مستمر
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="batchTransfer" href="/webbank/transfer/newBatch.action">
+                                        دسته ای
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="rtgsTransfer" href="/webbank/transfer/newRtgs.action">
+                                        بین بانکی ساتنا
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="cardToCardTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                        کارت به کارت
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="cardToDepositTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                        کارت به سپرده
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="cardToIBANTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                        کارت به شبا
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="normalAchTransfer" href="/webbank/transfer/newNormalAch.action">
+                                        بین بانکی پایا عادی
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="batchAchTransfer" href="/webbank/transfer/newAchBatch.action">
+                                        بین بانکی پایا دسته ای
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="autoAchTransfer" href="/webbank/transfer/newAutoAch.action">
+                                        بین بانکی پایا مستمر
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="instantInterbankTransfer" href="/webbank/transfer/instantInterbankTransfer.action">
+                                        بین بانکی آنی
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="Reports">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=report'>
+                            <div class="itemIcon"></div>
+                            گزارش</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-6">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="transferReport" href="/webbank/transfer/report.action">
+                                        انتقال وجه مستمر
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="continnumInputTransfer" href="/webbank/transfer/continnumInputTransferPage.action">
+                                        انتقال وجه مستمر به مشتری
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="rtgsReport" href="/webbank/transfer/rtgsReport.action?step=1">
+                                        انتقال وجه بین بانکی ساتنا
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="achTransferBatchReport" href="/webbank/transfer/achTransferBatchReport.action">
+                                        انتقال وجه بین بانکی پایا
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="achTransferTransactionReport" href="/webbank/transfer/achTransferTransactionReport.action">
+                                        جزییات انتقال وجه بین بانکی پایا
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="cardPaymentsReport" href="/webbank/index.action#reports?ref=cardPaymentsReport">
+                                        پرداخت ها
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="cardTransactionsReport" href="/webbank/card/cardTransactionsReportPage.action">
+                                        تراکنش های کارت
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="periodicalReports" href="/webbank/index.action#periodicalReportsSettings">
+                                        تنظیمات گزارش های دوره ای
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="userActivitiesHistory" href="/webbank/index.action#userActivitiesHistory">
+                                        تاریخچه عملیات کاربر
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="kartablReport">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/index.action#kartabl'>
+                            <div class="itemIcon"></div>
+                            کارپوشــه</a>
+                        <div class="menuArrowBlue"></div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="chequeParent">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=cheque'>
+                            <div class="itemIcon"></div>
+                            چک</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-8">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="jariDepositReport" href="/webbank/cheque/jariDepositsReport.action">
+                                        چک و دسته چک
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="transferredChequesList" href="/webbank/cheque/transferredChequesListPage.action">
+                                        چکهای واگذار شده به سپرده
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="registerDigitalCheque" href="/webbank/cheque/registerDigitalCheque.action">
+                                        ثبت چک صیاد
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="acceptOrRejectDigitalCheque" href="/webbank/cheque/acceptOrRejectDigitalCheque.action">
+                                        تایید یا رد چک صیاد
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="transferDigitalCheque" href="/webbank/cheque/transferDigitalCheque.action">
+                                        انتقال چک صیاد
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="loans">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=loan'>
+                            <div class="itemIcon"></div>
+                            تسهیلات</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-9">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="viewLoans" href="/webbank/loan/initialLoan.action">
+                                        مشاهده تسهیلات
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="othersLoanPayment" href="/webbank/loan/othersLoanPaymentPage.action">
+                                        پرداخت قسط
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="cardParent">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=card'>
+                            <div class="itemIcon"></div>
+                            کارت</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-10">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="cardManagement" href="/webbank/card/viewCardManagement.action">
+                                        کارت
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="creditDossierStatement" href="/webbank/card/creditDossiersPage.action">
+                                        پرونده اعتباری
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="activeCardOtp" href="/webbank/otp/showActivationPage.action">
+                                        فعال‌سازی رمز یکبارمصرف کارت
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus "
+                        id="payments">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=payments'>
+                            <div class="itemIcon"></div>
+                            پرداخت</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-11">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="topUp" href="/webbank/payment/topUp.action">
+                                        شارژ مستقیم تلفن همراه
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="paymentServices" href="/webbank/thirdParty/treeViewPaymentServices.action">
+                                        سرویس های پرداخت
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="paymentWithPayNo" href="/webbank/payment/payWithPayNoPage.action">
+                                        پرداخت با شناسه
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="billPayment" href="/webbank/payment/newBillPayment.action">
+                                        پرداخت قبض
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="batchBillPayment" href="/webbank/payment/viewBatchBillPayment.action">
+                                        پرداخت قبض دسته ای
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    <li class="menus menuLastItem"
+                        id="settings">
+                        <div class="notifyHolder"></div>
+                        <a href='/webbank/chooseSubMenu.action?actionParameter=config'>
+                            <div class="itemIcon"></div>
+                            تنظیمات</a>
+                        <div class="menuArrowBlue"></div>
+
+                        <div class="popup" id="menu-12">
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="changePassword" href="/webbank/config/changePassword.action">
+                                        تغییر رمز عبور
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="changeUsername" href="/webbank/config/changeUsername.action">
+                                        تغییر نام کاربری
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="homeSettingsPage" href="/webbank/config/homeSettingsPage.action">
+                                        تنظیمات سپرده های برگزیده
+                                    </a>
+                                </li>
+
+
+
+                                <li>
+                                    <a id="displaySettingsPage" href="/webbank/config/displaySettingsPage.action">
+                                        تنظیمات نمایش
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+                            <ul>
+
+                                <li>
+                                    <a id="billStatementSettingPage" href="/webbank/config/billStatementSettingPage.action">
+                                        تنظیمات صورتحساب
+                                    </a>
+                                </li>
+
+
+                        </div>
+
+                    </li>
+
+
+
+                </ul>
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $.ajax({
+                        url: '/webbank/kartabl/getKartabls.action',
+                        dataType: 'json',
+                        type: 'POST',
+                        cache: false,
+                        data: {
+                            reportType: 'ACTIONABLE',
+                            pageSize: 1,
+                            offset: 0
+                        },
+                        success: function (response) {
+                            if (response.total !== 0 && typeof response.total !== 'undefined') {
+                                var total = IB.locale == 'fa' ? english2PersianNumbers(response.total) : response.total;
+                                $('#kartablReport .notifyHolder').append('<div class="kartablNotification">' + total + '</div>');
+                            }
+                        },
+                        error: function () {
+                            $('#kartablReport .notifyHolder').append('<div class="kartablNotification kartablNotificationError">!</div>');
+                        }
+                    });
+                });
+            </script>
+
+
+
+        </div>
+    </div>
+
+    <h2 id="content-title">درخواست انتقال وجه بین بانکی پایا عادی</h2>
+    <div id="content-body">
+
+
+
+
+
+
+
+
+
+        <div class="messages notification" id="messages">
+
+            <div class="success">انتقال وجه بین بانکی پایا عادی ثبت شد.</div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <form action="com.kishware.ebank.internetbank.action.transfer.NormalAchTransferAction@46db8e23" method="post" autocomplete="off"
+              clientSideValidation="true"
+              name="contactAddForm"
+              id="contactAddForm"
+
+
+
+              submission="false"
+
+        >
+
+
+            <img src="/webbank/images/contactbg-rtl.png" class="hidden"/>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formSection hidden contactForm oneColFormSection" id="">
+                <div class=" 0 "></div>
+                <h6 class="formSectionTitle">
+                    آیا مایلید این اطلاعات به تماس ها افزوده شود؟
+                </h6>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for=""
+                           class="form-item-label  requiredField"
+                           id="">
+                        نام:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+            <div class="smartCombo">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="contactName" id="contactName" value="" spellcheck="false"
+
+
+
+
+
+
+
+
+
+
+       dir="rtl"
+       class="required"
+
+
+/>
+
+
+<script type="text/javascript">
+
+
+</script>
+                <div id="contactNameCleanFilter" class="clean-combo-filter"
+                     title="پاک کردن"></div>
+            </div>
+            <div id="contactNameTrigger" class="smartCombo-trigger" comboid="contactName"></div>
+            <div class="smartCombotHelp" title="برای افزودن این اطلاعات به یکی از تماس های موجود، نام تماس مورد نظر را جستجو کرده و از میان نتایج یک تماس را انتخاب کنید، در غیر این صورت، این اطلاعات به عنوان یک تماس جدید ذخیره خواهد شد."></div>
+
+    </span>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        عنوان:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="contactInfoTitle" id="contactInfoTitle" value="" spellcheck="false"
+
+
+       maxlength="30"
+
+
+
+
+
+
+
+       dir="rtl"
+
+
+
+/>
+
+
+<script type="text/javascript">
+
+
+</script>
+            <div class="inputHelp" title="در صورت تمایل می توانید یک نام مستعار برای این اطلاعات بانکی در نظر بگیرید، این نام مستعار در هنگام گزینش و استفاده از این اطلاعات در سایر بخش ها به شما کمک خواهد کرد."></div>
+
+    </span>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for=""
+                           class="form-item-label  "
+                           id="">
+                        شرح:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="contactInfoDescription" id="contactInfoDescription" value="" spellcheck="false"
+
+
+       maxlength="70"
+
+
+
+
+
+
+
+       dir="rtl"
+
+
+
+/>
+
+
+<script type="text/javascript">
+
+
+</script>
+
+    </span>
+                </div>
+
+
+
+
+
+
+                <div class="commandBar"
+
+                >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <input type="submit" value="افزودن به عنوان تماس جدید" class="button importantButton"
+
+
+                           id="addContact"
+                    />
+
+
+                </div>
+
+                <div id="loadingMask" class="loading-mask hidden">
+                    <div class="loading-message-box">
+                        <img class="loading-image" src='/webbank/images/kartabl/ajax-loader.gif' alt='Loading...'/>
+                    </div>
+                </div>
+                <div class="closeBtn" title="بستن"></div>
+
+            </div>
+
+
+        </form>
+
+        <script type="text/javascript">
+            $(function () {
+                var combo = $('#contactName'),
+                    form = $('#contactAddForm'), name = $.trim("خديجه رحيمي پور");
+
+                form.submit(function () {
+                    var contactName = $('#contactName').val();
+                    var title = $('#contactInfoTitle').val();
+                    var note = $('#contactInfoDescription').val();
+                    var maskEl = $('#loadingMask');
+                    if ($(this).valid()) {
+                        $('.errorContainer').slideUp();
+                        if (IB.contactUtil.contactId === '') {
+                            IB.contactUtil.addContact({
+                                contactInfo: 'IR600130100000000308370594',
+                                contactName: contactName,
+                                type: 'IBAN',
+                                title: title,
+                                note: note,
+                                maskEl: maskEl,
+                                scope: this,
+                                callback: successHandler
+                            });
+                        } else {
+                            var msg = applicationResources['IB.contacts.contactInfoAdded'] + ' ' + applicationResources['IB.contacts.contactEditPage1'] + ' ' + '<a href="' + IB.ctx + '/index.action#contacts' + '" >' + applicationResources['IB.contacts.contactEditPage2'] + '</a>' + ' ' + applicationResources['IB.contacts.contactEditPage3'];
+                            IB.contactUtil.addContactInfo({
+                                contactId: IB.contactUtil.contactId,
+                                contactInfo: 'IR600130100000000308370594',
+                                contactName: contactName,
+                                successMsg: msg,
+                                type: 'IBAN',
+                                title: title,
+                                note: note,
+                                maskEl: maskEl,
+                                scope: this,
+                                callback: successHandler
+                            })
+                        }
+                    }
+                });
+
+                RegExp.escape = function (text) {
+                    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\$&");
+                };
+
+
+                var resetForm = function () {
+                    var contactAddNewLabel = 'افزودن به عنوان تماس جدید';
+                    $('#addContact').val(contactAddNewLabel);
+                    IB.contactUtil.contactId = '';
+                };
+
+                var fixPersianString = function (text) {
+                    if (text) {
+                        text = text.replace(/\u0649/g, '\u06CC'); // ی
+                        return text.replace(/\u064A/g, '\u06CC'); // ی
+                    }
+                };
+
+                var successHandler = function () {
+                    $('.contactForm #loadingMask').show();
+                    $('.contactForm .formItem, .contactForm .commandBar').hide();
+                    $('.contactForm .formSectionTitle').hide();
+                    $('.contactForm').animate({
+                        height: 27
+                    }).css('padding', '10px 40px')
+                };
+
+                var queryContact = function () {
+                    var i = 0;
+                    for (i; i < combo.contacts.length; i++) {
+                        if (fixPersianString($.trim(combo.val())) === fixPersianString($.trim(combo.contacts[i].name + ' ' + combo.contacts[i].lastName))) {
+                            return combo.contacts[i];
+                        }
+                    }
+                    return false;
+                };
+
+                var highlight = function (record, val) {
+                    if (record !== undefined) {
+                        IB.smartCombo.queryText = val;
+                        if (IB.smartCombo.queryText) {
+                            var escapeRegex, highlightSelection, searchTerm;
+                            highlightSelection = '<span class="highlight">' + fixPersianString(IB.smartCombo.queryText) + '</span>';
+                            escapeRegex = RegExp.escape;
+                            searchTerm = new RegExp(escapeRegex(IB.smartCombo.queryText), 'gi');
+                            return record.replace(searchTerm, highlightSelection);
+                        }
+                        return record;
+                    } else {
+                        return '';
+                    }
+                };
+
+                var showCleanFilterButton = function () {
+                    if (combo.val() === '') {
+                        $('#' + combo.attr('id') + 'CleanFilter.clean-combo-filter').hide();
+                        setTextFieldPadding(0);
+                    } else if (combo.val() !== '' && combo.val() !== applicationResources['IB.smartCombo.emptyText'] && combo.val() !== applicationResources['IB.smartCombo.loading']) {
+                        $('#' + combo.attr('id') + 'CleanFilter.clean-combo-filter').show();
+                        setTextFieldPadding(20);
+                    }
+                };
+
+                var setTextFieldPadding = function (padding) {
+                    if (combo.tempComputedWidth === undefined) {
+                        combo.tempComputedWidth = $(combo[0]).width();
+                    }
+
+                    if (combo.tempComputedPadding === undefined && $('body').hasClass('rtl')) {
+                        combo.tempComputedPadding = parseInt(combo.css('padding-right'), 10);
+                    } else if (combo.tempComputedPadding === undefined && $('body').hasClass('ltr')) {
+                        combo.tempComputedPadding = parseInt(combo.css('padding-left'), 10);
+                    }
+                    var width = combo.tempComputedWidth - padding;
+                    if ($('body').hasClass('rtl')) {
+                        padding = parseInt(padding, 10) + combo.tempComputedPadding;
+                        combo.attr('style', 'width: ' + width + 'px !important;padding-right: ' + padding + 'px');
+                    } else {
+                        padding = parseInt(padding, 10) + combo.tempComputedPadding;
+                        combo.attr('style', 'width: ' + width + 'px !important;padding-left: ' + padding + 'px');
+                    }
+                };
+
+                var changeInputDirection = function (combo) {
+                    var isEnglishLetter = /[a-zA-Z]/.test(combo.val());
+                    if (!maskAlphabet(combo.val()) && !isEnglishLetter) {
+                        combo.removeClass('rtl').addClass('ltr');
+                    } else if (isEnglishLetter) {
+                        combo.removeClass('rtl').addClass('ltr');
+                    } else {
+                        combo.removeClass('ltr').addClass('rtl');
+                    }
+                };
+
+                var showContactForm = function () {
+                    setTimeout(function () {
+                        $('.contactForm').fadeIn().slideDown();
+                    }, 100);
+
+                };
+
+                var createSmartCombo = function (contacts) {
+                    combo.contacts = contacts;
+                    if (contacts.length === 0) {
+                        combo.addClass('noData');
+                        $('#' + combo.attr('id') + 'Trigger.smartCombo-trigger').addClass('noData');
+                    }
+                    combo.autocomplete(contacts, {
+                        minChars: 0,
+                        matchContains: true,
+                        highlight: false,
+                        autoFill: false,
+                        max: 10000,
+                        resultsClass: 'ac_results_smartCombo ac_results contactForm-ac_results',
+                        inputClass: 'ac_input',
+                        scrollHeight: 250,
+                        formatItem: function (row, i, max) {
+                            var result = '';
+                            var comboValue = combo.val();
+                            var getAdditionalInfo = function (row) {
+                                var result = '';
+                                if (row.mobile !== undefined) {
+                                    result = result + '<div class="additionalInfo">' + highlight(row.mobile, comboValue) + '</div>';
+                                }
+                                if (row.email !== undefined) {
+                                    result = result + '<div class="additionalInfo">' + highlight(row.email, comboValue) + '</div>';
+                                }
+                                return result;
+                            };
+                            if (row.name !== undefined) {
+                                result += '<div class="autoSuggestionItems">' +
+                                    '<div class="autoSuggestionKey">' + highlight(row.name + ' ' + row.lastName, comboValue) +
+                                    getAdditionalInfo(row) +
+                                    '</div></div>';
+                            }
+                            return result;
+                        },
+                        formatMatch: function (row) {
+                            var temp = '';
+
+                            if (row.name !== undefined && row.lastName !== undefined) {
+                                temp = temp + row.name + ' ' + row.lastName
+                            }
+
+                            if (row.mobile !== undefined) {
+                                temp = temp + row.mobile
+                            }
+
+                            if (row.email !== undefined) {
+                                temp = temp + row.email
+                            }
+
+                            return temp;
+                        },
+                        formatResult: function (row) {
+                            return $.trim(row.name + ' ' + row.lastName);
+                        }
+                    }).result(
+                        function (event, item) {
+                            var contactAddLabel = 'افزودن به تماس';
+                            combo.removeClass('emptyText');
+                            changeInputDirection(combo);
+                            showCleanFilterButton();
+                            IB.contactUtil.contactId = item.contactId;
+                            $('#addContact').val(contactAddLabel + ' ' + item.name + ' ' + item.lastName);
+                        }).keyup(
+                        function () {
+                            changeInputDirection(combo);
+                            if (combo.val() === '') {
+                                $('#' + combo.attr('id') + 'CleanFilter.clean-combo-filter').hide();
+                                setTextFieldPadding(0);
+                            } else if (combo.val() !== '') {
+                                $('#' + combo.attr('id') + 'CleanFilter.clean-combo-filter').show();
+                                setTextFieldPadding(20);
+                                if (!queryContact()) {
+                                    resetForm();
+                                }
+                            }
+                        }).change(showCleanFilterButton).blur(
+                        function () {
+                            var record, contactAddLabel = 'افزودن به تماس';
+                            if (combo.val() === '') {
+                                combo.val(applicationResources['IB.smartCombo.emptyText']).addClass('emptyText');
+                            }
+                            changeInputDirection(combo);
+                        }).bind('focus keydown click mousedown',
+                        function () {
+                            if (combo.val() === applicationResources['IB.smartCombo.emptyText']) {
+                                combo.val('').removeClass('emptyText');
+                            }
+                        });
+                    showCleanFilterButton();
+                };
+
+                $('#' + combo.attr('id') + 'CleanFilter.clean-combo-filter').bind('click', function () {
+                    combo.val('');
+                    $(this).hide();
+                    setTextFieldPadding(0);
+                    $(combo).trigger('click');
+                    $(combo).trigger('click');
+                    setTimeout(function () {
+                        $(combo).trigger('click');
+                        $(combo).trigger('keydown');
+                    }, 100);
+                    $(combo).focus();
+                    changeInputDirection(combo);
+                    resetForm();
+                });
+
+                $('#' + combo.attr('id') + 'Trigger.smartCombo-trigger').bind('click', function () {
+                    $(combo).trigger('click');
+                    $(combo).trigger('click');
+                    setTimeout(function () {
+                        $(combo).trigger('click');
+                        $(combo).trigger('keydown');
+                    }, 100);
+                    $(combo).focus();
+                });
+
+                $('.contactForm .closeBtn').click(function () {
+                    $(this).parent().slideUp();
+                    $('#clientSideErrors').hide();
+                });
+
+                IB.contactUtil.enquiryContactInfo('IR600130100000000308370594', 'IRR', 'IBAN', showContactForm, this);
+
+                IB.contactUtil.suggestContacts(createSmartCombo, this);
+
+                combo.bind('focus', function () {
+                    $($(this).parent().parent().children(".smartCombotHelp")).trigger('mouseenter');
+
+                });
+
+                combo.bind('blur', function () {
+                    $($(this).parent().parent().children(".smartCombotHelp")).trigger('mouseleave');
+
+                });
+
+                $('#contactInfoTitle').bind('focus', function () {
+                    $(".inputHelp").trigger('mouseenter');
+
+                });
+
+                $('#contactInfoTitle').bind('blur', function () {
+                    $(".inputHelp").trigger('mouseleave');
+
+                });
+
+                form.data('beforeSubmit', function () {
+                    $.each($('.smartCombo input'), function (i, el) {
+                        if ($(el).val() === applicationResources['IB.smartCombo.emptyText']) {
+                            $(el).val('').removeClass('emptyText');
+                        }
+                    });
+                });
+                if (name.length > 50) {
+                    name = name.substring(0, 49);
+                }
+                combo.val(fixPersianString(name));
+            })
+        </script>
+        <div id="messages" class="notification">
+            <div class="info printInfo">
+                برای نمایش بهتر رسید چاپی، لطفاً امکان چاپ رنگ پس زمینه را در تنظیمات مرورگر خود فعال کنید.
+                <div id="printHelp" href="#" class="form-help form-help-collapsed">
+                    نحوه فعال سازی چاپ رنگ پس زمینه
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="formSection noTitleSection transferReceipt" id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    نوع انتقال وجه:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field serviceLogo" id="">
+
+        <img src="/webbank/images/achLogo.gif" alt="">
+        انتقال وجه بین بانکی پایا عادی
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    شماره پیگیری:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        ۱۴۰۲۱۰۰۹۰۵۹۲۰۴۳۵۲۰۷۳
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    شماره شبای مبدا:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        IR۸۱۰۵۹۰۰۱۶۳۸۱۳۰۵۷۵۱۵۰۱۰۰۱
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    نام صاحب حساب فرستنده:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        خانم  پريا فعله کري
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    بانک مقصد:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        بانک رفاه کارگران
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    برداشت از سپرده:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="sourceSaving" id="sourceSaving" value="163-813-5751501-1"/>
+
+
+
+        ‪۱۶۳-۸۱۳-۵۷۵۱۵۰۱-۱‬
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    واریز به شبای:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        IR۶۰۰۱۳۰۱۰۰۰۰۰۰۰۰۳۰۸۳۷۰۵۹۴ &nbsp;
+
+            (بانک رفاه کارگران)
+
+        به نام خديجه رحيمي پور
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    مبلغ:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        ۱۰,۰۰۰&nbsp;
+        ريال ايران
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    بابت:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+            توديع وثيقه
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    وضعیت تراکنش:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        از طرف بانک پذیرفته شده
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    تاریخ ثبت انتقال وجه:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+        ‪۱۴۰۲/۱۰/۰۹  -  ۱۷:۰۹‬
+
+    </span>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="formItem ">
+
+
+
+
+
+                <label for=""
+                       class="form-item-label  "
+                       id="">
+                    یادداشت:
+                </label>
+
+
+
+
+
+
+                <span class="form-item-field " id="">
+
+
+
+    </span>
+            </div>
+
+            <div class="wideFormItem">
+                درخواست انتقال وجه بين بانکي پايا با موفقيت ثبت شد.
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="commandBar"
+
+        >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="button" value="چاپ" class="button importantButton ajaxButton"
+
+
+                   id="print"
+
+            />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <form action="/webbank/transfer/transferReceipt.action" method="post" autocomplete="off"
+
+
+
+                  class="receiptForm"
+
+
+                  submission="true"
+                  target="_blank"
+            >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="transferType" id="transferType" value="normalAch"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="trackingNumber" id="trackingNumber" value="14021009059204352073"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="amount" id="amount" value="10000"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="reasonDescription" id="reasonDescription" value="توديع وثيقه"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="destinationCurrency" id="destinationCurrency" value="IRR"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="factorNumber" id="factorNumber" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="status" id="status" value="ACCEPTED"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="transactionDate" id="transactionDate" value="‪۱۴۰۲/۱۰/۰۹  -  ۱۷:۰۹‬"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="destination" id="destination" value="
+                    بانک رفاه کارگران
+
+                IR600130100000000308370594"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="destinationName" id="destinationName" value="خديجه رحيمي پور"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="sourceName" id="sourceName" value="خانم  پريا فعله کري"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="source" id="source" value="163-813-5751501-1"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="sourceIbanNumber" id="sourceIbanNumber" value="IR810590016381305751501001"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="sourceComment" id="sourceComment" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="hidden" class="" name="balanceHandler" id="balanceHandler" value="false"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="submit" value="ذخیره" class="button normalButton"
+
+
+                       id="save"
+                />
+
+
+
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="button" value="بازگشت" class="button normalButton"
+
+
+
+                   onclick="window.location = '../chooseSubMenu.action?actionParameter=transfer';"
+            />
+
+
+
+
+        </div>
+
+
+        <div id="printSection" class="twoColFormSection">
+            <div id="printHeading">
+                <div id="printBranding">
+
+
+
+                    <img src='/webbank/images/receiptPrint/logo_fa.png'/>
+
+
+                </div>
+                <div id="printTitle">
+                    درخواست انتقال وجه بین بانکی پایا عادی
+                    <img src="/webbank/images/achLogo.gif" style="display: inline-block !important;"
+                         align="absmiddle"/>
+                </div>
+                <div id="printDate">
+                    ‪۱۴۰۲/۱۰/۰۹‬
+                    <br/>
+                    ‪۱۷:۹:۱۸‬
+                </div>
+            </div>
+            <div id="printContent">
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formSection noTitleSection even" id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            شماره پیگیری:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                ۱۴۰۲۱۰۰۹۰۵۹۲۰۴۳۵۲۰۷۳
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            مبلغ:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                ۱۰,۰۰۰&nbsp;
+                ريال ايران
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            بابت:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                    توديع وثيقه
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            وضعیت تراکنش:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                از طرف بانک پذیرفته شده
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            تاریخ ثبت انتقال وجه:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                ‪۱۴۰۲/۱۰/۰۹  -  ۱۷:۰۹‬
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            یادداشت:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+    </span>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formSection odd" id="">
+                    <div class=" 0 "></div>
+                    <h6 class="formSectionTitle">
+                        مشخصات سپرده مقصد
+                    </h6>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            واریز به شبای:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                IR۶۰۰۱۳۰۱۰۰۰۰۰۰۰۰۳۰۸۳۷۰۵۹۴
+
+                    (بانک رفاه کارگران)
+
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            به نام:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                خديجه رحيمي پور
+
+    </span>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formSection even destinationAcc" id="">
+                    <div class=" 0 "></div>
+                    <h6 class="formSectionTitle">
+                        مشخصات سپرده مبداء
+                    </h6>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            شماره سپرده:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="sourceSaving" id="sourceSaving" value="163-813-5751501-1"/>
+
+
+
+                ‪۱۶۳-۸۱۳-۵۷۵۱۵۰۱-۱‬
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            شماره شبای مبدا:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                IR۸۱۰۵۹۰۰۱۶۳۸۱۳۰۵۷۵۱۵۰۱۰۰۱
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem ">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            نام صاحب حساب فرستنده:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                خانم  پريا فعله کري
+
+    </span>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="formItem currentBalance">
+
+
+
+
+
+                        <label for=""
+                               class="form-item-label  "
+                               id="">
+                            مانده:
+                        </label>
+
+
+
+
+
+
+                        <span class="form-item-field " id="">
+
+                ۰
+                &nbsp;
+                ريال ايران
+
+    </span>
+                    </div>
+
+                    <div class="receiptWarning">
+                        درخواست انتقال وجه بين بانکي پايا با موفقيت ثبت شد.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                var e = document.createElement("script");
+                e.setAttribute("type", "text/javascript");
+                e.setAttribute("src", '/webbank/scripts/utility/browserDetector.js');
+                document.body.appendChild(e);
+                $(document).bind('keydown', function (event) {
+                    if (event.ctrlKey) {
+                        if (event.which == 112 || event.which == 80) {
+                            printHandler();
+                            return false;
+                        }
+                    }
+                });
+                $('#printHelp').bind('click', function () {
+                    var printHelp = {
+                        f: 'برای فعال کردن چاپ رنگ پس زمینه، به مسیر زیر در مرورگر فایر فاکس بروید<br/> File -> Page Setup و سپس گزینه <span class="ltr">Print Backgrounds (colors & images)</span> را انتخاب کنید.',
+                        c: 'متاسفانه مرورگر گوگل کروم امکان چاپ تصاویر پس زمینه را ندارد.',
+                        i: 'برای فعال کردن چاپ رنگ پس زمینه، به مسیر زیر در اینترنت اکسپلورر بروید<br/> File -> Page Setup و سپس گزینه Print Background colors & images را انتخاب کنید',
+                        s: 'برای فعال کردن چاپ رنگ پس زمینه، به مسیر زیر در مرورگر فایر فاکس بروید<br/> File -> Page Setup و سپس گزینه <span class="ltr">Print Backgrounds(colors & images)</span> را انتخاب کنید',
+                        o: 'برای فعال کردن چاپ رنگ پس زمینه، به مسیر زیر در مرورگر اپرا بروید<br/> Menu -> Print -> Print Options و سپس گزینه Print Page Background را انتخاب کنید'
+                    };
+                    var ref = $('#printHelpContent');
+                    var printHelpHtml = $('#printHelp');
+                    if (ref.length === 0) {
+                        var printHelpContent = '<div id="printHelpContent" style="display: none;">' +
+                            printHelp[$buoop.browser.n] + '</div>';
+                        $(printHelpContent).appendTo('#printHelp').slideDown(function () {
+                            printHelpHtml.toggleClass('form-help-expanded');
+                        });
+                    } else {
+                        ref.slideToggle(function () {
+                            printHelpHtml.toggleClass('form-help-expanded');
+                        });
+                    }
+                });
+
+                var printHandler = function () {
+                    $('.currentBalance').remove();
+                    setTimeout(function () {
+                        window.print();
+                    }, 100);
+                };
+
+                $('.destinationAcc').data('balance', '<span class="currentBalance">' + $('.currentBalance').html() + '</span>');
+                $('#print').bind('click', printHandler);
+                $('#print').focus();
+            });
+        </script>
+
+        <div class="keyboardContainer" id="fullKeyboardContainer">
+            <div class="keyboardKeypad" id="keyboard">
+            </div>
+        </div>
+        <div class="keyboardContainer" id="limitedKeyboardContainer">
+            <div class="keyboardKeypad" id="limitedKeyboard">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dialog-wrap">
+    <div class="dialog-mask"></div>
+    <div class="dialog animated">
+        <div class="dialog-close">X</div>
+        <div class="dialog-header"></div>
+        <div class="dialog-body"></div>
+        <div class="dialog-footer"></div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="/webbank/locale/l10n.action?version=4.121.16-4022&locale=fa"></script>
+<script type="text/javascript" src="/webbank/scripts/mainFooters-4.121.16-4022.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.setupVKeyboard('rtl', 'fullKeys');
+        $.setupVKeyboard('rtl', 'limitedKeys');
+        $('.first').focus();
+        /*$('div.itemIcon').hover(function () {
+                $(this).closest("div#navigation").css("border-bottom", "0");
+        });*/
+    });
+</script>
+</body>
+</html>

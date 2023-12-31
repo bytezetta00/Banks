@@ -297,9 +297,9 @@ class sina extends banking{
         else if($type == 2){ // for paya transfer
             foreach($messages as $message) {
                 if((strpos($message['message'],'بانک سينا') !== false) && (strpos($message['message'],'پایا') !== false)) {
-                    preg_match_all('!\d{6}!', $message['message'], $matches);
-                    if(isset($matches[0][0])) {
-                        return $matches[0][0];
+                    preg_match('!\d{6}!', $message['message'], $matches);
+                    if(isset($matches[0])) {
+                        return $matches[0];
                     }
                 }
             }
@@ -359,11 +359,16 @@ class sina extends banking{
 
     public function payaTransfer($iban, $amount, $name, $surname, $desc = '')
     {
+        $newNormalAchUrl = "https://ib.sinabank.ir/webbank/transfer/newNormalAch.action";
+        $newNormalAchUrlResponse = $this->http->get($newNormalAchUrl, 'get', '', '', '');
+
+        $normalAchTransferToken = getInputTag($newNormalAchUrlResponse,'/<input type="hidden" name="normalAchTransferToken" value=".*/');
+
         $normalAchTransferUrl = "https://ib.sinabank.ir/webbank/transfer/normalAchTransfer.action";
         $normalAchTransferData = [
             "transferType" => "NORMAL_ACH",
             "struts.token.name" => "normalAchTransferToken",
-            "normalAchTransferToken" => "E789QL7KHY0NX0TQXLTJ9SDDNSIPAXHU",
+            "normalAchTransferToken" => $normalAchTransferToken,//"E789QL7KHY0NX0TQXLTJ9SDDNSIPAXHU",
             "sourceSaving" => $this->account,
             "sourceSavingValueType" => "sourceDeposit",
             "sourceSavingPinnedDeposit" => "",
@@ -382,9 +387,15 @@ class sina extends banking{
         ];
 
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $normalAchTransferData, '');
+        $csrfTokenPattern = '/<meta name="CSRF_TOKEN" content=.*>/';
+        $csrfToken = getMetaTag($newNormalAchUrlResponse,$csrfTokenPattern);
+        if($csrfToken === false){
+            $this->newLog("Not found this pattern: $csrfTokenPattern","notFoundThisPattern");
+            return false;
+        }
 
         $generateTicketData = [
-            "CSRF_TOKEN" => "OUd+QzsQ6qTyqILm/eSBOsy0JwngNCcc9J89FfAxqDc=",
+            "CSRF_TOKEN" => $csrfToken,//"OUd+QzsQ6qTyqILm/eSBOsy0JwngNCcc9J89FfAxqDc=",
             "ticketAmountValue" => $amount,
             "ticketModernServiceType" => "NORMAL_ACH_TRANSFER",
             "ticketParameterResourceType" => "DEPOSIT",
@@ -397,17 +408,29 @@ class sina extends banking{
 
         $generateTicketUrl = "https://ib.sinabank.ir/webbank/general/generateTicket.action?".http_build_query($generateTicketData);
         $generateTicketResponse = $this->http->get($generateTicketUrl, 'get', '', '', '');
+        $generateTicketResponseJson = json_decode($generateTicketResponse,true);
 
-        if($generateTicketResponse['resultType'] === "success"){
-            return [
+        $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
+        $normalAchTransferConfirmToken = getInputTag($newNormalAchUrlResponse,$pattern);
+
+        if($generateTicketResponseJson['resultType'] === "success"){
+            $data = [
                 'iban' => $iban,
                 'amount' => $amount,
                 'name' => $name,
                 'surname' => $surname,
                 'desc' => $desc,
+                'normalAchTransferConfirmToken' => $normalAchTransferConfirmToken,
+            ];
+            return [
+                'status' => 1,
+                'data' => $data,
             ];
         }else{
-            return false;
+            return [
+                'status' => 0,
+                'error' => var_export($generateTicketResponse,true),
+            ];
         }
     }
 
@@ -426,7 +449,7 @@ class sina extends banking{
         $normalAchTransferUrl = "https://ib.sinabank.ir/webbank/transfer/normalAchTransfer.action";
         $newNormalAchUrlData = [
             'struts.token.name' => 'normalAchTransferConfirmToken',
-            'normalAchTransferConfirmToken' => '185BP49QHRXWEUYYK9ZZOE186D9YEJ71',
+            'normalAchTransferConfirmToken' => $data["normalAchTransferConfirmToken"],//'185BP49QHRXWEUYYK9ZZOE186D9YEJ71',
             "transferType" => "NORMAL_ACH",
             "sourceSaving" => $this->account,
             "destinationIbanNumber" => $data["iban"],
@@ -446,6 +469,52 @@ class sina extends banking{
             "perform" => "%D8%AB%D8%A8%D8%AA+%D8%A7%D9%88%D9%84%D9%8A%D9%87",
         ];
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $newNormalAchUrlData, '');
+
+        $invalidOtpText = "بلیت امنیتی نامعتبر است، لطفا بلیت امنیتی جدید تولید کرده و آنرا بدرستی وارد نمایید";
+        if(strpos($newNormalAchUrlResponse,$invalidOtpText) !== false)
+        {
+            return [
+                'status' => 0,
+                'error' => $invalidOtpText,
+            ];
+        }
+
+        $limitTransactionText = 'مبلغ" بیش از مبلغ تعیین شده سقف روزانه است';
+        if(strpos($newNormalAchUrlResponse,$limitTransactionText) !== false)
+        {
+            return [
+                'status' => 0,
+                'error' => $limitTransactionText,
+            ];
+        }
+
+        $sameBankText = "شبای واردشده، متعلق به همین بانک است. برای انتقال به این مقصد از انتقال وجه های داخلی استفاده کنید.";
+        if(strpos($newNormalAchUrlResponse,$sameBankText) !== false)
+        {
+            return [
+                'status' => 0,
+                'error' => $sameBankText,
+            ];
+        }
+
+        $successfulText = 'انتقال وجه بین بانکی پایا عادی ثبت شد.';
+        if(strpos($newNormalAchUrlResponse,$successfulText) !== false)
+        {
+            $newNormalAchUrlResponse = convertPersianNumberToEnglish($data);
+            preg_match_all('/<div class="formSection noTitleSection transferReceipt" id="">(.*?)<div class="commandBar/s', $newNormalAchUrlResponse, $matches1);
+            preg_match_all('/<span class="form-item-field " id="">(.*?)<\/span>/s', $matches1[0][0], $matches2);
+            $name = $matches2[0][5];
+            preg_match_all('!\d{19,21}!', $matches2[0][0], $matches3);
+            $peygiri = $matches3[0][0];
+            preg_match_all('/به نام (.*?)<\/span>/s', $name, $matches4);
+            $dest = trim($matches4[1][0]);
+
+            return [
+                'status' => 1,
+                'peygiri' => $peygiri,
+                'dest' => $dest,
+            ];
+        }
 
         return $newNormalAchUrlResponse;
     }

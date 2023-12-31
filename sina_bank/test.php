@@ -1,12 +1,51 @@
 <?php
-
+//$textSMS = "510832
+//بليط امنيتي
+//انتقال وجه پایا عادی
+//از: ‪373-873-5006287-1‬
+//به: ‪IR170590016381309973057001‬
+//مبلغ 10,000 ريال
+//به نام: رنيا
+//زمان اعتبار رمز 14:20:29
+//*بانک سينا*";
+//
+//preg_match('!\d{6}!', $textSMS, $matches);
+//preg_match_all('! \d{7,8}!', $textSMS, $matches);
+//var_dump($matches[0]);die;
+$successfulText = 'انتقال وجه بین بانکی پایا عادی ثبت شد.';
 $doc = new DOMDocument();
-$file = fopen('responses/testsss.html', 'r');
+$file = fopen('responses/paya/successfulFinalPage.html', 'r');//paya/secondPage.html
 $data = fread($file, 5000000);
 fclose($file);
-// $account = "464-700-5026793-1";
-//$account = "272-12-5020721-1";
-var_dump(getBalance($data));die;
+
+$newNormalAchUrlResponse = convertPersianNumberToEnglish($data);
+$pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
+preg_match_all('/<div class="formSection noTitleSection transferReceipt" id="">(.*?)<div class="commandBar/s', $newNormalAchUrlResponse, $matches1);
+preg_match_all('/<span class="form-item-field " id="">(.*?)<\/span>/s', $matches1[0][0], $matches2);
+$name = $matches2[0][5];
+preg_match_all('!\d{19,21}!', $matches2[0][0], $matches3);
+$peygiri = $matches3[0][0];
+preg_match_all('/به نام (.*?)<\/span>/s', $name, $matches4);
+$dest = trim($matches4[1][0]);
+var_dump([
+    $dest,
+    $peygiri
+]);die;
+//$normalAchTransferConfirmToken = getInputTag($data,$pattern);
+var_dump($normalAchTransferConfirmToken);
+die;
+
+$pattern = '/<meta name="CSRF_TOKEN" content=.*>/';
+$input = getMetaTag($data,$pattern);
+if($input === false){
+    var_dump("Not found this pattern: $pattern");
+    return false;
+}
+var_dump($input);
+die;
+//$input = getInputTag($data,'/<input type="hidden" name="normalAchTransferToken" value=".*/');
+//$input = preg_match('/<input type="hidden" name="normalAchTransferToken" value="(.*?)\/>/s', $data, $matches);
+
 // if(strpos($data ,"موجودی") == false || strpos($data , "مبلغ مسدودی") == false){
 //     $accounts = getAccountsLinks($data);
 //     foreach($accounts as $account){
@@ -15,7 +54,7 @@ var_dump(getBalance($data));die;
 //     // "https://ib.sinabank.ir/webbank/viewAcc/viewDetails.action?accountType=PASANDAZ";
 // }
 
-function getBalance(string $html/*,$account*/)
+function getBalance(string $html,$account)
 {
     $doc = new DOMDocument();
 
@@ -31,7 +70,7 @@ function getBalance(string $html/*,$account*/)
     $result = false;
     for ($i = 2;$i < $trs->count(); $i++){
         $accountNumber = $trs->item($i)->getElementsByTagName("td")->item(0)->textContent;
-//        if(strpos(setPersianFormatForBalance($accountNumber) ,$account) != false){
+        if(strpos(setPersianFormatForBalance($accountNumber) ,$account) != false){
             $balance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(1)->textContent);
             $availableBalance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(2)->textContent);
             $status = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(3)->textContent);
@@ -49,7 +88,7 @@ function getBalance(string $html/*,$account*/)
                 $result["is_account_blocked"] = true;
             }
             return $result;
-//        }
+        }
 
     }
 
@@ -98,18 +137,38 @@ $textForSms = "لطفا بلیت امنیتی ارسال شده به تلفن ه
 $textForSms = "لطفا بfejknggnjdsه ";
 $line = strpos($data,$textForSms);
 var_dump($line);die;
-function getMetaTag(string $html, string $pattern,$doc)
+function getMetaTag(string $html, string $pattern)
 {
-        // $doc = $this->domDocument;
-        preg_match($pattern, $html, $matches);
-        $text = "<html><body>
-        $matches[0]
-        </body></html>";
-        $doc->loadHTML($text);
-        $result = null;
-        if ($doc->getElementsByTagName("meta"))
-            $result = $doc->getElementsByTagName("meta")[0]->getAttribute("content");
-        return $result;
+    $doc = new DOMDocument();
+    preg_match($pattern, $html, $matches);
+    $text = ($matches[0] == null) ? false : $matches[0];
+    if($text === false){
+        return $text;
+    }
+    $doc->loadHTML($text);
+    $result = null;
+    if ($doc->getElementsByTagName("meta"))
+        $result = $doc->getElementsByTagName("meta")[0]->getAttribute("content");
+    return $result;
+}
+
+function getInputTag(string $html, string $pattern)
+{
+    $doc = new DOMDocument();
+    preg_match($pattern, $html, $matches);
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
+    $matches[0]
+    </body></html>";
+    $internalErrors = libxml_use_internal_errors(true);
+    $doc->loadHTML($text);
+    libxml_use_internal_errors($internalErrors);
+
+
+    $result = null;
+    $input = $doc->getElementsByTagName("input");
+    if (isset($input[0]))
+        $result = $input[0]->getAttribute("value");
+    return $result;
 }
 
 function convertToString($text):?string
@@ -141,7 +200,7 @@ function getDeposits(string $html,$user_id, $banking_id)
 {
     $doc = new DOMDocument();
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 

@@ -4,7 +4,7 @@ function getDeposit(string $html, $user_id, $banking_id)
 {
     $doc = new DOMDocument();
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 
@@ -139,7 +139,7 @@ function getInputTag(string $html, string $pattern)
 {
     $doc = new DOMDocument();
     preg_match($pattern, $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 

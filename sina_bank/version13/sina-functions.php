@@ -4,7 +4,7 @@ function getDeposits(string $html,$user_id, $banking_id)
 {
     $doc = new DOMDocument();
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 
@@ -79,7 +79,7 @@ function getBalanceOld(string $html,$account)
     $doc = new DOMDocument();
 
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 
@@ -109,7 +109,7 @@ function getBalance(string $html,$account)
     $doc = new DOMDocument();
 
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 
@@ -151,7 +151,7 @@ function getAccountsLinks($html)
 {
     $doc = new DOMDocument();
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 
@@ -173,7 +173,7 @@ function getInputTag(string $html, string $pattern)
 {
     $doc = new DOMDocument();
     preg_match($pattern, $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
     $internalErrors = libxml_use_internal_errors(true);
@@ -236,4 +236,19 @@ function formatTime($time){
         return "$hours:$minutes:$seconds";
     }
     return $time;
+}
+
+function getMetaTag(string $html, string $pattern)
+{
+    $doc = new DOMDocument();
+    preg_match($pattern, $html, $matches);
+    $text = ($matches[0] == null) ? false : $matches[0];
+    if($text === false){
+        return $text;
+    }
+    $doc->loadHTML($text);
+    $result = null;
+    if ($doc->getElementsByTagName("meta"))
+        $result = $doc->getElementsByTagName("meta")[0]->getAttribute("content");
+    return $result;
 }
