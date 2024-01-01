@@ -1,4 +1,11 @@
 <?php
+
+$doc = new DOMDocument();
+$file = fopen('responses/test1.html', 'r');//paya/secondPage.html
+$data = fread($file, 5000000);
+fclose($file);
+var_dump(getBalance($data,'163-813-9973057-1'));die;
+
 //$textSMS = "510832
 //بليط امنيتي
 //انتقال وجه پایا عادی
@@ -12,13 +19,10 @@
 //preg_match('!\d{6}!', $textSMS, $matches);
 //preg_match_all('! \d{7,8}!', $textSMS, $matches);
 //var_dump($matches[0]);die;
-$successfulText = 'انتقال وجه بین بانکی پایا عادی ثبت شد.';
-$doc = new DOMDocument();
-$file = fopen('responses/paya/successfulFinalPage.html', 'r');//paya/secondPage.html
-$data = fread($file, 5000000);
-fclose($file);
+//$successfulText = 'انتقال وجه بین بانکی پایا عادی ثبت شد.';
 
-$newNormalAchUrlResponse = convertPersianNumberToEnglish($data);
+
+$newNormalAchUrlResponse = convertPersianNumberToEnglish(+$data);
 $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
 preg_match_all('/<div class="formSection noTitleSection transferReceipt" id="">(.*?)<div class="commandBar/s', $newNormalAchUrlResponse, $matches1);
 preg_match_all('/<span class="form-item-field " id="">(.*?)<\/span>/s', $matches1[0][0], $matches2);
@@ -68,13 +72,14 @@ function getBalance(string $html,$account)
     libxml_use_internal_errors($internalErrors);
     $trs = $doc->getElementsByTagName("tr");
     $result = false;
-    for ($i = 2;$i < $trs->count(); $i++){
+    for ($i = 1;$i < $trs->count(); $i++){
         $accountNumber = $trs->item($i)->getElementsByTagName("td")->item(0)->textContent;
+        var_dump(setPersianFormatForBalance($accountNumber));
         if(strpos(setPersianFormatForBalance($accountNumber) ,$account) != false){
             $balance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(1)->textContent);
             $availableBalance = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(2)->textContent);
-            $status = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(3)->textContent);
             $blocked = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(4)->textContent);
+            $status = setPersianFormatForBalance($trs->item($i)->getElementsByTagName("td")->item(3)->textContent);
 
             $balance = (int)str_replace(',', '',$balance);
             $availableBalance = (int)str_replace(',', '',$availableBalance);
@@ -87,6 +92,7 @@ function getBalance(string $html,$account)
             {
                 $result["is_account_blocked"] = true;
             }
+//            newLog(var_export($result,true)."\n\n".$status,'sina-balance-debug','sina');
             return $result;
         }
 
@@ -122,7 +128,6 @@ function getAccountsLinks($html)
 $text = ["صدرا محمدی کلاسی"];
 $text2 = null;
 
-var_dump(getDeposits($data,1, 1));die;
 $name=trim($text2);
 // $name= mysql_real_escape_string($name);
 $err = "";
@@ -309,6 +314,7 @@ $depositShowData = [
 var_dump(http_build_query($depositShowData));
 die;
 
+
 function setPersianFormatForBalance(string $text)
 {
     $persianNumber = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -316,13 +322,9 @@ function setPersianFormatForBalance(string $text)
     $encodedText = mb_convert_encoding(
         $text,
         'ISO-8859-1',
-        'UTF-8'
-    );
+        'UTF-8');
     return trim(
         str_replace(
-            $persianNumber,
-            $englishNumber,
-            $encodedText
-        )
-    );
+            $persianNumber,$englishNumber,$encodedText
+        ));
 }

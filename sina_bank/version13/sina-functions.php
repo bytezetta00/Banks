@@ -74,42 +74,44 @@ function getDeposits(string $html,$user_id, $banking_id)
     $result = array_reverse($result,true);
     return $result;
 }
-function getBalanceOld(string $html,$account)
-{
-    $doc = new DOMDocument();
-
-    preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
-    $matches[0]
-    </body></html>";
-
-    $internalErrors = libxml_use_internal_errors(true);
-    $doc->loadHTML($text);
-    libxml_use_internal_errors($internalErrors);
-    $trs = $doc->getElementsByTagName("tr");
-
-    if($trs->item(2)) {
-        $accountNumber = $trs->item(2)->getElementsByTagName("td")->item(1)->textContent;
-        $balance = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(1)->textContent);
-        $availableBalance = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(2)->textContent);
-        $blocked = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(4)->textContent);
-
-        return [
-            'balance' => str_replace(',', '', $balance),
-            //'availableBalance' => $availableBalance,
-            'blocked_balance' => str_replace(',', '', $blocked)
-        ];
-    } else {
-        return false;
-    }
-}
+//function getBalanceOld(string $html,$account)
+//{
+//    $doc = new DOMDocument();
+//
+//    preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
+//    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
+//    $matches[0]
+//    </body></html>";
+//
+////    $text = convertPersianNumberToEnglish($text);
+//
+//    $internalErrors = libxml_use_internal_errors(true);
+//    $doc->loadHTML($text);
+//    libxml_use_internal_errors($internalErrors);
+//    $trs = $doc->getElementsByTagName("tr");
+//
+//    if($trs->item(2)) {
+//        $accountNumber = $trs->item(2)->getElementsByTagName("td")->item(1)->textContent;
+//        $balance = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(1)->textContent);
+//        $availableBalance = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(2)->textContent);
+//        $blocked = setPersianFormatForBalance($trs->item(2)->getElementsByTagName("td")->item(4)->textContent);
+//
+//        return [
+//            'balance' => str_replace(',', '', $balance),
+//            //'availableBalance' => $availableBalance,
+//            'blocked_balance' => str_replace(',', '', $blocked)
+//        ];
+//    } else {
+//        return false;
+//    }
+//}
 
 function getBalance(string $html,$account)
 {
     $doc = new DOMDocument();
 
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
+    $text = "<html><body>
     $matches[0]
     </body></html>";
 
@@ -137,7 +139,7 @@ function getBalance(string $html,$account)
             {
                 $result["is_account_blocked"] = true;
             }
-            newLog(var_export($result,true)."\n\n".$status,'sina-balance-debug','sina');
+//            newLog(var_export($result,true)."\n\n".$status,'sina-balance-debug','sina');
 
             return $result;
         }

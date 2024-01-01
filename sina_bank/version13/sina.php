@@ -14,6 +14,7 @@ class sina extends banking{
     private $bankName = 'sina';
     private $cookieFile;
     private $captchaFile;
+    private $testingBankingId;
 
     public function __construct(array $data,$user_id ,$banking_id)
     {
@@ -30,6 +31,7 @@ class sina extends banking{
         $this->http->setCookieLocation($this->cookieFile);
         $this->http->setTimeout(50);
         $this->http->setVerbose(true);
+        $this->testingBankingId = 1;
     }
 
     public function setProxy($config) {
@@ -44,17 +46,14 @@ class sina extends banking{
     public function logout()
     {
         unlink($this->cookieFile);
+        resetBankingProxy('sina', $this->banking_id);
     }
 
     public function login()
     {
-        // $this->newLog(json_encode([
-        //     $this->account,
-        //     $this->username,
-        //     $this->password,
-        //     $this->user_id,
-        //     $this->banking_id
-        // ]),'data');
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(convertToString($this->isSignedIn()), 'isSignedIn');
+        }
         if($this->isSignedIn()) {
             return true;
         } else {
@@ -66,6 +65,13 @@ class sina extends banking{
 
     function isSignedIn()
     {
+//        if ($this->banking_id == $this->testingBankingId) {
+//            $this->newLog(json_encode([
+//                $this->account,
+//                $this->username,
+//                $this->password,
+//            ]), 'account');
+//        }
         $homeUrl = 'https://ib.sinabank.ir/webbank/home/homePage.action';
         $homePage = $this->http->get($homeUrl,'get','','','');
         $logoutLink = "/webbank/login/logout.action";
@@ -81,6 +87,8 @@ class sina extends banking{
     {
         $signinPage = $this->getSigninPage();
         if($signinPage == null || $signinPage == "" || $signinPage == false){
+            $this->newLog('Failed to load the signin page !!',"failedToSendSMS");
+            $this->logout();
             return false;
         }
 
@@ -97,11 +105,13 @@ class sina extends banking{
             $loginData['captcha'] = "";
         }
 
-
-
         $sendSMSResponse = $this->sendSMSCodeToUser($loginData);
-
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(json_encode($loginData), 'loginData');
+        }
         if($sendSMSResponse["status"] == false){
+            $this->newLog('Failed To Send SMS !!',"failedToSendSMS");
+            $this->logout();
             return false;
         }
 
@@ -122,6 +132,9 @@ class sina extends banking{
     public function autoSigninStep2($data,$otp)
     {
         $data["ticketCode"] = $otp;
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(json_encode($data), 'data');
+        }
         if($this->twoPhaseLogin($data)) {
             return true;
         } else {
@@ -206,7 +219,9 @@ class sina extends banking{
             }
         }
 
-
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(convertToString($balanceResponse), 'balanceResponse');
+        }
         // get balance from html
         $balance = getBalance($balanceResponse,$this->account);
         $this->newLog(json_encode($balance),'balance');
@@ -246,8 +261,8 @@ class sina extends banking{
 
         $captchaUrl = 'https://ib.sinabank.ir/webbank/login/captcha.action?isSoundCaptcha=false&r=3192574953940366';
         $captchaRawImage = $this->http->get($captchaUrl,'get','','','');
-        $captchaRawImageLength = strlen($captchaRawImage);
-        $firstStrings = substr($captchaRawImage, 0, 100);
+//        $captchaRawImageLength = strlen($captchaRawImage);
+//        $firstStrings = substr($captchaRawImage, 0, 100);
 
         $loginData['has_captcha'] = ($captchaRawImage != '') ? true : false;
         $loginData['needs_captcha'] = $loginData['has_captcha'];
