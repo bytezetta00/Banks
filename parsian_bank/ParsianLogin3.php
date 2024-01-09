@@ -9,11 +9,11 @@ class ParsianLogin
     protected array $loginData2;
     public array $englishNumber;
     public function __construct(
-        private string $userName = "6539486431",//"2741558191",//"0010517881",
+        private string $userName = "0019209053",//"6539486431",//"2741558191",//"0010517881",
         //"meysam8900",
-        private string $password = "Amir@1362m@Ss",//"D@nyal0118DGk",//"M10510568m@Kk",
+        private string $password = "Hedie@1375",//"Amir@1362m@Ss",//"D@nyal0118DGk",//"M10510568m@Kk",
         //"SH@nyal0118DG",
-        private string $account = "47001485069601",//"30101927557601",//"30101790267603",
+        private string $account = "47001499225602",//"47001485069601",//"30101927557601",//"30101790267603",
         //"47001427876609",
         private string $proxy = PROXY,
         private string $proxyUserPwd = PROXYUSERPWD,
@@ -35,6 +35,10 @@ class ParsianLogin
         $fullCurrentDate = $currentDate . "Z";
         $fullPreviousDate = $previousDate . "Z";
 
+        $loginHtmlUrl = "https://ipb.parsian-bank.ir/login.html";
+        $loginHtmlResponse = $this->curlRequest($loginHtmlUrl);
+        writeOnFile('responses/loginHtmlResponse.html', $loginHtmlResponse["body"]);
+
         $vendorsVersionUrl = "https://ipb.parsian-bank.ir/vendors/version";
         $vendorsVersionResponse = $this->curlRequest($vendorsVersionUrl);
         writeOnFile("responses/vendorsVersionResponse.html", $vendorsVersionResponse["body"]);
@@ -50,7 +54,7 @@ class ParsianLogin
 //        challengeKey=&langKey=fa&browserMode=public&otpInProgress=false&currentStep=1&pib_username=6539486431&pib_password=Amir%401362m%40Ss&passwordType=S&captcha=h88ee
         $loginResponse = $this->curlRequest($loginUrl,$this->loginData);
         writeOnFile("responses/loginResponse.html", $loginResponse["body"]);
-
+        // if loginResponse == 1002 captcha wrong
 //        POST
 //	https://ipb.parsian-bank.ir/login
 
@@ -58,6 +62,8 @@ class ParsianLogin
 
         $this->loginData2['challengeKey'] = $loginResponse["body"];
         $this->loginData2['otpPassword'] = readline('Enter the SMS:');
+
+        var_dump($this->loginData2);
 
         $login2Response = $this->curlRequest($loginUrl,$this->loginData2);
         writeOnFile("responses/login2Response.html", $login2Response["body"]);
@@ -67,19 +73,100 @@ class ParsianLogin
         $homeResponse = $this->curlRequest($homeUrl);
         writeOnFile('responses/homeResponse.html', $homeResponse["body"]);
 
-        $getOpenTermAccounts = "https://ipb.parsian-bank.ir/account/getOpenTermAccounts";
-//        {"ownerStatuses":["DEPOSIT_OWNER","OWNER_OF_DEPOSIT_AND_SIGNATURE","SIGNATURE_OWNER","BROKER"],"accountStatus":"OPEN"}
-        $getOpenTermAccountsData = [
-            "ownerStatuses" => ["DEPOSIT_OWNER","OWNER_OF_DEPOSIT_AND_SIGNATURE","SIGNATURE_OWNER","BROKER"],
-            "accountStatus" => "OPEN"
+//        https://ipb.parsian-bank.ir/version.hash-vOOci3BJIv0
+
+//        https://ipb.parsian-bank.ir/app/services/operations/DashboardOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/controllers/DashboardController.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/AutoNormalTransferReportOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/ActiveChequeBookletsOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/NormalFundTransferOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/StatementOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/TransferredOtherBankChequesStatusOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/CardToCardFundTransferOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/Utils.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/ChargeServiceOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/AchFundTransferOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/RtgsFundTransferOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/CharityOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/CardlessIssueVoucherOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/ChangeCardPasswordOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/DeactivationCardPasswordOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/BlockSingularCardOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/BillPaymentOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/services/operations/ChangeLoginPasswordOperationsService.ts-vziwmZfmIX7
+//        https://ipb.parsian-bank.ir/app/view/Dashboard.html
+//        https://ipb.parsian-bank.ir/account/options //POST
+
+
+        $getAllAccountsUrl = "https://ipb.parsian-bank.ir/account/getAllAccounts"; //POST //data json {"currency":"IRR"}
+        $getAllAccountsData = [
+            "currency" => "IRR"
         ];
-        $getOpenTermAccountsResponse = $this->curlRequest($loginUrl,json_encode($getOpenTermAccountsData),[
+        $getAllAccountsResponse = $this->curlRequest($getAllAccountsUrl,json_encode($getAllAccountsData),[
+            "Accept: */*",
             'Content-Type:application/json',
             'X-KL-ksospc-Ajax-Request:Ajax_Request'
         ]);
-        writeOnFile('responses/getOpenTermAccountsResponse.html', $getOpenTermAccountsResponse["body"]);
+        writeOnFile('responses/getAllAccountsResponse.html', $getAllAccountsResponse["body"]);
 
-        var_dump($getOpenTermAccountsResponse['body']);
+        if($getAllAccountsResponse["body"] != null && $getAllAccountsResponse["body"] != "")
+        {
+            $getAllAccountsJson = json_decode($getAllAccountsResponse["body"]);
+            if((json_last_error() === JSON_ERROR_NONE))
+            {
+                $accounts = $getAllAccountsJson->allAccountList;
+                $balance = [];
+                foreach ($accounts as $account){
+                    if($account->depositNumber == $this->account){
+                        $balance['balance'] = (int) $account->balance;
+                        $balance['blockedAmount'] = (int) $account->balance - (int) $account->availableBalance;
+                    }
+                }
+                var_dump($balance);
+            }
+            else{
+                var_dump("Invalid Json In Balance.");
+            }
+        }else{
+            var_dump("There is an empty response !");
+        }
+
+//        $getOpenTermAccounts = "https://ipb.parsian-bank.ir/account/getOpenTermAccounts";
+////        {"ownerStatuses":["DEPOSIT_OWNER","OWNER_OF_DEPOSIT_AND_SIGNATURE","SIGNATURE_OWNER","BROKER"],"accountStatus":"OPEN"}
+//        $getOpenTermAccountsData = [
+//            "ownerStatuses" => ["DEPOSIT_OWNER","OWNER_OF_DEPOSIT_AND_SIGNATURE","SIGNATURE_OWNER","BROKER"],
+//            "accountStatus" => "OPEN"
+//        ];
+//        $getOpenTermAccountsResponse = $this->curlRequest($getOpenTermAccounts,json_encode($getOpenTermAccountsData),[
+//            "Accept: */*",
+//            'Content-Type:application/json',
+//            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+//        ]);
+//        writeOnFile('responses/getOpenTermAccountsResponse.html', $getOpenTermAccountsResponse["body"]);
+
+        $statementUrl = "https://ipb.parsian-bank.ir/account/statement";
+//        $statementData = [
+//            "accountNumber" => $this->account,
+//            "orderType" => 2,
+//            "fromDate" => "1704486600565",
+//            "length" => null
+//        ];
+        $statementData = [
+            "accountNumber" => $this->account,
+            "fromDate" => "2023-12-19T20:00:00.000Z",// 1 month before
+            "toDate" => "2024-01-06T09:29:13.896Z", // current month
+        ];
+        $statementResponse = $this->curlRequest($statementUrl,json_encode($statementData),[
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ]);
+        writeOnFile('responses/statementResponse.html', $statementResponse["body"]);
+
+//        {"accountNumber":"47001499225602","orderType":2,"fromDate":1704486600565,"length":null}
+        //{"accountNumber":"47001499225602","fromDate":"2023-12-21T20:00:00.000Z","toDate":"2024-01-06T09:29:13.896Z"}
+//        {"totalRecord":0,"accountNumber":"47001499225602","rowDtoList":[]}
+
 
         //cd2a6958-b9ff-45df-af7e-1e16629
         return true;

@@ -452,13 +452,19 @@ class sina extends banking{
     public function payaTransferStep2(array|bool $data, $otp)
     {
         if((!$otp) || strlen($otp) === 0 || $otp === null){
-            newLog("There is not code",'noOTPCode');
-            return false;
+            $this->newLog("There is not code",'noOTPCode');
+            return [
+                'status' => 0,
+                'error' => 'There is not otp code',
+                ];
         }
 
         if($data === false){
-            newLog("There is Data for payaTransferStep2",'noDataForPayaTransferStep2');
-            return false;
+            $this->newLog("There is Data for payaTransferStep2",'noDataForPayaTransferStep2');
+            return [
+                'status' => 0,
+                'error' => "There is Data for payaTransferStep2",
+            ];
         }
 
         $normalAchTransferUrl = "https://ib.sinabank.ir/webbank/transfer/normalAchTransfer.action";
@@ -481,13 +487,24 @@ class sina extends banking{
             "ticketResendTimerRemaining" => "15",
             "ticket" => $otp,
             "back" => "back",
-            "perform" => "%D8%AB%D8%A8%D8%AA+%D8%A7%D9%88%D9%84%D9%8A%D9%87",
+            "perform" => "ثبت انتقال وجه",
         ];
+        $this->newLog(json_encode($newNormalAchUrlData),'newNormalAchUrlData');
+
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $newNormalAchUrlData, '');
+
+        if($newNormalAchUrlResponse == "" || $newNormalAchUrlResponse == null)
+        {
+            return [
+                'status' => 'unknown',
+                'debug' => $newNormalAchUrlResponse."\n\n".$this->http->getVerboseLog(),
+            ];
+        }
 
         $invalidOtpText = "بلیت امنیتی نامعتبر است، لطفا بلیت امنیتی جدید تولید کرده و آنرا بدرستی وارد نمایید";
         if(strpos($newNormalAchUrlResponse,$invalidOtpText) !== false)
         {
+            $this->newLog($invalidOtpText,'invalidOtpText');
             return [
                 'status' => 0,
                 'error' => $invalidOtpText,
@@ -497,6 +514,7 @@ class sina extends banking{
         $limitTransactionText = 'مبلغ" بیش از مبلغ تعیین شده سقف روزانه است';
         if(strpos($newNormalAchUrlResponse,$limitTransactionText) !== false)
         {
+            $this->newLog($limitTransactionText,'limitTransactionText');
             return [
                 'status' => 0,
                 'error' => $limitTransactionText,
@@ -506,6 +524,7 @@ class sina extends banking{
         $sameBankText = "شبای واردشده، متعلق به همین بانک است. برای انتقال به این مقصد از انتقال وجه های داخلی استفاده کنید.";
         if(strpos($newNormalAchUrlResponse,$sameBankText) !== false)
         {
+            $this->newLog($sameBankText,'sameBankText');
             return [
                 'status' => 0,
                 'error' => $sameBankText,
@@ -531,6 +550,9 @@ class sina extends banking{
             ];
         }
 
-        return $newNormalAchUrlResponse;
+        return [
+            'status' => 'unknown',
+            'debug' => $newNormalAchUrlResponse."\n\n".$this->http->getVerboseLog(),
+        ];
     }
 }

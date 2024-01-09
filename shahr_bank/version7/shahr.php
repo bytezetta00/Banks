@@ -543,8 +543,8 @@ class shahr extends banking
 
         else{
             return [
-                'status' => 0,
-                'error' => 'خطای نامشخص!!',
+                'status' => 'unknown',
+                'debug' => $newNormalAchUrlResponse."\n\n".$this->http->getVerboseLog(),
             ];
         }
     }
