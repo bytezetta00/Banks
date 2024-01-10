@@ -359,7 +359,7 @@ class sina extends banking{
 
         $newNormalAchUrlResponse = convertPersianNumberToEnglish($newNormalAchUrlResponse);
         preg_match_all('/<div class="item-field-info">(.*?)<\/div>/s', $newNormalAchUrlResponse, $matches);
-        
+
         $output = preg_replace( '/[^0-9]/', '', $matches[0]);
 
         if (isset($output[0])) {
@@ -374,10 +374,23 @@ class sina extends banking{
 
     public function payaTransfer($iban, $amount, $name, $surname, $desc = '')
     {
+        $formattedAmount = number_format($amount,0,'.','٫');
+
         $newNormalAchUrl = "https://ib.sinabank.ir/webbank/transfer/newNormalAch.action";
         $newNormalAchUrlResponse = $this->http->get($newNormalAchUrl, 'get', '', '', '');
 
+        if($newNormalAchUrlResponse == "" || $newNormalAchUrlResponse == null)
+        {
+            $this->newLog(var_export($newNormalAchUrlResponse, true),'EmptyNewNormalAchUrlResponse');
+            return [
+                'status' => 0,
+                'error' => 'Empty GenerateTicketResponse',
+            ];
+
+        }
+
         $normalAchTransferToken = getInputTag($newNormalAchUrlResponse,'/<input type="hidden" name="normalAchTransferToken" value=".*/');
+        $this->newLog(var_export($newNormalAchUrlResponse, true),'newNormalAchUrlResponse');
 
         $normalAchTransferUrl = "https://ib.sinabank.ir/webbank/transfer/normalAchTransfer.action";
         $normalAchTransferData = [
@@ -393,13 +406,14 @@ class sina extends banking{
             "destinationIbanNumberPinnedDeposit" => "",
             "destinationIbanNumberIsComboValInStore" => "false",
             "owner" => "$name $surname",
-            "amount" => $amount,
+            "amount" => $formattedAmount,
             "currency" => "",
             "currencyDefaultFractionDigits" => "",
-            "reason" => "GPPC",
+            "reason" => "DRPA",
             "factorNumber" => "",
             "remark" => ""
         ];
+        $this->newLog(var_export($normalAchTransferData, true),'normalAchTransferData');
 
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $normalAchTransferData, '');
         $csrfTokenPattern = '/<meta name="CSRF_TOKEN" content=.*>/';
@@ -420,18 +434,30 @@ class sina extends banking{
             "ticketDestinationName" => "$name $surname",
             "ticketAdditionalInfoAmount" => ""
         ];
+        $this->newLog(var_export($generateTicketData, true),'generateTicketData');
 
         $generateTicketUrl = "https://ib.sinabank.ir/webbank/general/generateTicket.action?".http_build_query($generateTicketData);
         $generateTicketResponse = $this->http->get($generateTicketUrl, 'get', '', '', '');
+
+        if($generateTicketResponse == "" || $generateTicketResponse == null)
+        {
+            $this->newLog(var_export($generateTicketResponse, true),'EmptyGenerateTicketResponse');
+            return [
+                'status' => 0,
+                'error' => 'Empty GenerateTicketResponse',
+            ];
+
+        }
         $generateTicketResponseJson = json_decode($generateTicketResponse,true);
 
         $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
         $normalAchTransferConfirmToken = getInputTag($newNormalAchUrlResponse,$pattern);
+        $this->newLog(var_export($normalAchTransferConfirmToken, true),'normalAchTransferConfirmToken');
 
         if($generateTicketResponseJson['resultType'] === "success"){
             $data = [
                 'iban' => $iban,
-                'amount' => $amount,
+                'amount' => $formattedAmount,
                 'name' => $name,
                 'surname' => $surname,
                 'desc' => $desc,
@@ -456,7 +482,7 @@ class sina extends banking{
             return [
                 'status' => 0,
                 'error' => 'There is not otp code',
-                ];
+            ];
         }
 
         if($data === false){
@@ -477,7 +503,7 @@ class sina extends banking{
             "owner" => $data['name'] . " " . $data['surname'],
             "amount" => $data['amount'],
             "currency" => "IRR",
-            "reason" => "SPAC",
+            "reason" => "DRPA",
             "factorNumber" => "",
             "remark" => "",
             "hiddenPass1" => "1",
@@ -487,7 +513,9 @@ class sina extends banking{
             "ticketResendTimerRemaining" => "15",
             "ticket" => $otp,
             "back" => "back",
-            "perform" => "ثبت انتقال وجه",
+            "perform" => "ثبت اوليه"
+            // "ثبت+اوليه"
+            //,"ثبت انتقال وجه",
         ];
         $this->newLog(json_encode($newNormalAchUrlData),'newNormalAchUrlData');
 
@@ -531,10 +559,20 @@ class sina extends banking{
             ];
         }
 
+        $technicalErrorText = "انجام این عملیات به دلیل خطای فنی ممکن نیست. می‌توانید دوباره سعی کنید یا اینکه با بخش پشتیبانی تماس بگیرید.";
+        if(strpos($newNormalAchUrlResponse,$technicalErrorText) !== false)
+        {
+            $this->newLog($technicalErrorText,'technicalErrorText');
+            return [
+                'status' => 0,
+                'error' => $technicalErrorText,
+            ];
+        }
+
         $successfulText = 'انتقال وجه بین بانکی پایا عادی ثبت شد.';
         if(strpos($newNormalAchUrlResponse,$successfulText) !== false)
         {
-            $newNormalAchUrlResponse = convertPersianNumberToEnglish($data);
+            $newNormalAchUrlResponse = convertPersianNumberToEnglish($newNormalAchUrlResponse);
             preg_match_all('/<div class="formSection noTitleSection transferReceipt" id="">(.*?)<div class="commandBar/s', $newNormalAchUrlResponse, $matches1);
             preg_match_all('/<span class="form-item-field " id="">(.*?)<\/span>/s', $matches1[0][0], $matches2);
             $name = $matches2[0][5];

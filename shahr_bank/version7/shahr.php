@@ -412,7 +412,7 @@ class shahr extends banking
             "amount" => $amount,
             "currency" => "",
             "currencyDefaultFractionDigits" => "",
-            "reason" => "CPAC",
+            "reason" => "DRPA",
             "factorNumber" => "",
             "remark" => $desc
         ];
@@ -466,12 +466,18 @@ class shahr extends banking
     {
         if((!$otp) || strlen($otp) === 0 || $otp === null){
             newLog("There is not code",'noOTPCode');
-            return false;
+            return [
+                'status' => 0,
+                'error' => 'There is not otp code',
+            ];
         }
 
         if($data === false){
             newLog("There is Data for payaTransferStep2",'noDataForPayaTransferStep2');
-            return false;
+            return [
+                'status' => 0,
+                'error' => "There is Data for payaTransferStep2",
+            ];
         }
         $normalAchTransferUrl = "https://ebank.shahr-bank.ir/ebank/transfer/normalAchTransfer.action";
 
@@ -484,7 +490,7 @@ class shahr extends banking
             "owner" => $data['name'] . " " . $data['surname'],
             "amount" => $data['amount'],
             "currency" => "IRR",
-            "reason" => "SPAC",
+            "reason" => "DRPA",
             "factorNumber" => "",
             "remark" => "",
             "hiddenPass1"=> "1",
@@ -502,8 +508,8 @@ class shahr extends banking
         if($newNormalAchUrlResponse == "" || $newNormalAchUrlResponse == null)
         {
             return [
-                'status' => 0,
-                'error' => "خطای ریسپانس خالی ",
+                'status' => 'unknown',
+                'debug' => $newNormalAchUrlResponse."\n\n".$this->http->getVerboseLog(),
             ];
         }
 
