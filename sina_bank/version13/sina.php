@@ -45,6 +45,7 @@ class sina extends banking{
 
     public function logout()
     {
+        $this->http->get('https://ib.sinabank.ir/webbank/login/logout.action','get','','','');
         unlink($this->cookieFile);
         resetBankingProxy('sina', $this->banking_id);
     }
@@ -144,6 +145,9 @@ class sina extends banking{
 
     public function logStatements($datetime='null', $amount='null')
     {
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog($this->account, 'logStatements');
+        }
         $account = $this->account;
         $depositShowUrl = "https://ib.sinabank.ir/webbank/viewAcc/defaultBillList.action?selectedDeposit=$account&accountType=JARI_ACCOUNT&currency=IRR";
         $depositShowHtml = $this->http->get($depositShowUrl,'get','','','');
@@ -191,6 +195,13 @@ class sina extends banking{
 
         $viewDetailsAccountHtmlReportUrl = 'https://ib.sinabank.ir/webbank/viewAcc/depositShow.action?'.http_build_query($depositShowData);
         $viewDetailsAccountHtmlReport = $this->http->get($viewDetailsAccountHtmlReportUrl,'post','','','');
+
+        $securityError = 'خطر امنیتی';
+        if (strpos($viewDetailsAccountHtmlReport, $securityError) !== false) {
+            $this->newLog("security Error to load Statements!!", 'securityErrorInStatement');
+            return false;
+        }
+
         if($viewDetailsAccountHtmlReport == false){
             return $viewDetailsAccountHtmlReport;
         }

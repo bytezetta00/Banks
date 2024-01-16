@@ -53,7 +53,6 @@ function getDeposits(string $html,$user_id, $banking_id)
                 $erja = (strpos($details, 'ش.پ') !== false && is_array($matches[0]) == true) ? $matches[0][1] : null;
             }
         }
-
         $stt = DB::getRow('transfer_logs', 'banking_id=? AND serial=?', [$banking_id, trim($sanad)]);
         if (str_contains($deposit, "-") || $stt != false || $cardNumber == null) {
             continue;

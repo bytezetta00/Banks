@@ -1,10 +1,10 @@
 <?php
 
 $doc = new DOMDocument();
-$file = fopen('responses/test1.html', 'r');//paya/secondPage.html
+$file = fopen('responses/testsss.html', 'r');//paya/secondPage.html
 $data = fread($file, 5000000);
 fclose($file);
-var_dump(getBalance($data,'163-813-9973057-1'));die;
+var_dump(getDeposits($data,1,1));die;
 
 //$textSMS = "510832
 //بليط امنيتي

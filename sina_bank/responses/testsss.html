@@ -1,11 +1,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
     <title>
-        فهرست سپرده های پس انداز
+        صورتحساب
+        سپرده ‪۴۶۷-۱۲-۹۹۳۸۲۱۳۰-۱‬
+
+        (ريال ايران)
+
         | اینترنت بانک سینا</title>
 
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="CSRF_TOKEN" content="y0cJeYpWdQIyWOnccqtMqEsfnqmOjja/u/QZ2SFAeSg=">
+    <meta name="CSRF_TOKEN" content="X2qZRDy8XiB+LSnqXFJLIKwwodNq2pbLaXPas0m2Ufc=">
 
 
 
@@ -54,11 +58,11 @@
         IB.periodicalReports.faxConfig = ('false' == 'true');
 
         IB.cardTransactionsMaxDay = (30);
-        IB.billStatementReportMaxDay = '';
+        IB.billStatementReportMaxDay = '365';
         IB.ibanDefaultPrefix = ('IR');
         IB.removeLeadingZerosFromDeposit = (true);
 
-        IB.userName = 'ناهيد صالحي زاده';
+        IB.userName = 'عرفان مشهدي زاده';
         IB.direction = 'rtl';
         IB.ctx = '/webbank';
         if ('10' !== '') {
@@ -72,7 +76,7 @@
         IB.defaultCurrencyCode = 'IRR';
         IB.defaultCurrencyFractionalDigits = '2';
         IB.showCountdownTimer = ('true' == 'true');
-        IB.remainingCountdownTime = '600';
+        IB.remainingCountdownTime = '599';
         IB.showAlertMaxTime = '1';
         IB.maxPasswordLength = '';
         IB.minPasswordLength = '';
@@ -87,7 +91,7 @@
 
 
 </head>
-<body class="rtl viewingAccountMain threeColFormSection depositParent wide-screen">
+<body class="rtl statement viewingAccountMain depositParent wide-screen">
 <div id="taskNotifier">
     بارگذاری...
 </div>
@@ -100,9 +104,9 @@
                 <span id="top-logout">خروج</span></a>
 
 
-            <span id="timerContainer" class="timerContainer tooltip-trigger" data-hasqtip="11">زمان باقی‌مانده: </span><span id="timer" class="timer">09:47</span>
+            <span id="timerContainer" class="timerContainer tooltip-trigger" data-hasqtip="21">زمان باقی‌مانده: </span><span id="timer" class="timer">08:03</span>
             <div id="timerContainer-tooltip" class="tooltip">در صورتی که مهلت نمایش داده شده به پایان برسد، برای استفاده از اینترنت بانک نیاز به ورود دوباره نام کاربری و رمز عبور خواهد بود.</div>
-            <span id="top-user" class="withTimer">ناهيد صالحي زاده</span>
+            <span id="top-user" class="withTimer">عرفان مشهدي زاده</span>
 
 
 
@@ -236,6 +240,19 @@
 
 
 
+                    <li class="menus " id="exchange">
+                        <div class="notifyHolder"></div>
+                        <a href="/webbank/index.action#exchange">
+                            <div class="itemIcon"></div>
+                            بورسار</a>
+                        <div class="menuArrowBlue"></div>
+
+                    </li>
+
+
+
+
+
                     <li class="menus " id="transferPayment">
                         <div class="notifyHolder"></div>
                         <a href="/webbank/chooseSubMenu.action?actionParameter=transfer">
@@ -243,7 +260,7 @@
                             انتقال وجه</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-4">
+                        <div class="popup" id="menu-5">
 
 
                             <ul>
@@ -301,16 +318,16 @@
 
 
                                 <li>
-                                    <a id="normalAchTransfer" href="/webbank/transfer/newNormalAch.action">
-                                        بین بانکی پایا عادی
+                                    <a id="cardToIBANTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                        کارت به شبا
                                     </a>
                                 </li>
 
 
 
                                 <li>
-                                    <a id="batchAchTransfer" href="/webbank/transfer/newAchBatch.action">
-                                        بین بانکی پایا دسته ای
+                                    <a id="normalAchTransfer" href="/webbank/transfer/newNormalAch.action">
+                                        بین بانکی پایا عادی
                                     </a>
                                 </li>
 
@@ -319,6 +336,14 @@
 
 
                             <ul>
+
+                                <li>
+                                    <a id="batchAchTransfer" href="/webbank/transfer/newAchBatch.action">
+                                        بین بانکی پایا دسته ای
+                                    </a>
+                                </li>
+
+
 
                                 <li>
                                     <a id="autoAchTransfer" href="/webbank/transfer/newAutoAch.action">
@@ -350,7 +375,7 @@
                             گزارش</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-5">
+                        <div class="popup" id="menu-6">
 
 
                             <ul>
@@ -462,7 +487,7 @@
                             چک</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-7">
+                        <div class="popup" id="menu-8">
 
 
                             <ul>
@@ -525,7 +550,7 @@
                             تسهیلات</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-8">
+                        <div class="popup" id="menu-9">
 
 
                             <ul>
@@ -560,7 +585,7 @@
                             کارت</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-9">
+                        <div class="popup" id="menu-10">
 
 
                             <ul>
@@ -603,7 +628,7 @@
                             پرداخت</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-10">
+                        <div class="popup" id="menu-11">
 
 
                             <ul>
@@ -666,7 +691,7 @@
                             تنظیمات</a>
                         <div class="menuArrowBlue"></div>
 
-                        <div class="popup" id="menu-11">
+                        <div class="popup" id="menu-12">
 
 
                             <ul>
@@ -754,7 +779,11 @@
     </div>
 
     <h2 id="content-title">
-        فهرست سپرده های پس انداز
+        صورتحساب
+        سپرده ‪۴۶۷-۱۲-۹۹۳۸۲۱۳۰-۱‬
+
+        (ريال ايران)
+
     </h2>
     <div id="content-body">
 
@@ -797,11 +826,241 @@
 
 
 
-        <form action="/webbank/viewAcc/viewDetails.action" method="post" autocomplete="off" submission="true">
 
 
-            <input type="hidden" name="struts.token.name" value="viewDetailsToken">
-            <input type="hidden" name="viewDetailsToken" value="35BOBKT5UAAQFB80F8TE067OHHZ1PO2X">
+
+
+        <form action="/webbank/viewAcc/depositShow.action" method="GET" autocomplete="off" clientsidevalidation="true" class="twoColFormSection" submission="true" novalidate="novalidate">
+
+
+            <input type="hidden" name="struts.token.name" value="depositShowToken" wfd-id="id0">
+            <input type="hidden" name="depositShowToken" value="KSOHWZMPJ8EW8HZPB4LYK7UA4BPTG9KI" wfd-id="id1">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="advancedSearch" id="advancedSearch" value="true" wfd-id="id2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="personalityType" id="personalityType" wfd-id="id3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="depositGroupByReq" id="depositGroupByReq" wfd-id="id4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="referenceCustomerName" id="referenceCustomerName" wfd-id="id5">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="referenceCif" id="referenceCif" wfd-id="id6">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="ownershipType" id="ownershipType" wfd-id="id7">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="accountType" id="accountType" value="JARI_ACCOUNT" wfd-id="id8">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="currencyType" id="currencyType" wfd-id="id9">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <input type="hidden" class="" name="maxLenForNote" id="maxLenForNote" value="200" wfd-id="id10">
+
+
+
+
 
 
 
@@ -816,7 +1075,7 @@
             <div class="formSection " id="">
                 <div class=" 0 "></div>
                 <h6 class="formSectionTitle">
-                    جستجوی انواع سپرده
+                    جستجوی گردش های سپرده
                 </h6>
 
 
@@ -835,50 +1094,278 @@
 
 
 
+                <div class="formItem smartComboInBillView">
 
 
 
 
 
 
-
-
-
-                <input type="hidden" class="" name="accountType" id="accountType" value="PASANDAZ">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="formItem ">
-
-
-
-
-
-
-                    <label for="personalityType" class="form-item-label  ">مالکیت:</label>
+                    <label for="sourceSaving" class="form-item-label  requiredField">سپرده:</label>
 
 
 
 
                     <span class="form-item-field " id="">
 
-            <select name="personalityType" id="personalityType" class="first">
-                <option value="" selected="selected">همه</option>
-                <option value="ACTUAL">حقیقی</option>
-                <option value="LEGAL">حقوقی</option>
-            </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="smartCombo-wrapper">
+    <div id="" class="smartCombo">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="selectedDeposit" id="selectedDeposit" value="467-12-99382130-1" spellcheck="false" dir="ltr" class="required first valid ltr ac_input" autocomplete="off" style="width: 179px !important;padding-right: 25px" wfd-id="id11">
+
+
+<script type="text/javascript">
+
+
+</script>
+        <div id="selectedDepositCleanFilter" class="clean-combo-filter" data-hasqtip="4" oldtitle="پاک کردن" title="" style="display: block;"></div>
+    </div>
+    <div id="selectedDepositTrigger" class="smartCombo-trigger" comboid="selectedDeposit"></div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="selectedDepositValueType" id="selectedDepositValueType" value="sourceDeposit" wfd-id="id12">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="selectedDepositPinnedDeposit" id="selectedDepositPinnedDeposit" wfd-id="id13">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="selectedDepositIsComboValInStore" id="selectedDepositIsComboValInStore" value="false" wfd-id="id14">
+
+
+
+<script type="text/javascript">
+
+
+
+    IB.smartCombo.selectedDeposit =
+        '467-12-99382130-1';
+
+    $(document).ready(function () {
+        var currencyChangeFireEvent = '';
+        if('true' == 'true') {
+            currencyChangeFireEvent = true;
+        } else {
+            currencyChangeFireEvent = false;
+        }
+        var combo = $('#selectedDeposit');
+        combo.id = 'selectedDeposit';
+        combo.store = {};
+        combo.type = 'DEPOSIT';
+        combo.showContacts = false;
+        combo.showDetailInfo = false;
+        combo.businessType = 'all';
+        combo.serviceName = '';
+        combo.name = 'selectedDeposit';
+        combo.prefixValue = '';
+        combo.isBatchInput = false;
+        combo.containerId = '';
+        combo.value = IB.smartCombo.selectedDeposit;
+        combo.defaultValue = '';
+        combo.defaultValueLabelKey = '';
+        combo.defaultValueType = '';
+        combo.autoCompilitified = false;
+        combo.hint = '';
+        combo.currency = '';
+        combo.changeEventHandler = '';
+        combo.comboValNotInStoreHandler = '';
+        combo.isDefaultValueSelectedName='';
+        combo.currencyChangeFireEvent = currencyChangeFireEvent;
+
+        if (combo.isBatchInput) {
+            combo.batchInputValue = '';
+        }
+        combo.addClass(IB.direction).val(applicationResources['IB.smartCombo.loading']);
+        IB.smartCombo.createAutoComplete(combo);
+
+//        show title in qtip:
+        $('#selectedDepositsmartCombotHelp').qtip({
+            content: '',
+            style: {
+                classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+            }, position: {
+                effect: false,
+                target: 'event',
+                viewport: $(window),
+                my: 'bottom middle',
+                at: 'top middle'
+            }
+        });
+    });
+
+</script>
+
+
 
     </span>
                 </div>
@@ -901,20 +1388,26 @@
 
 
 
+                    <label for="" class="form-item-label  " id="">
+                        نوع تراکنش:
+                    </label>
 
-                    <label for="ownershipType" class="form-item-label  ">حق برداشت:</label>
+
 
 
 
 
                     <span class="form-item-field " id="">
 
-            <select name="ownershipType" id="ownershipType">
-                <option value="" selected="selected">همه</option>
-                <option value="NONE">غیر قابل برداشت</option>
-                <option value="MASHRUT">مشروط</option>
-                <option value="BE_TANHAYEE">به تنهایی</option>
-            </select>
+        <select name="billType">
+            <option></option>
+            <option value="1">
+                واریز
+            </option>
+            <option value="2">
+                برداشت
+            </option>
+        </select>
 
     </span>
                 </div>
@@ -937,26 +1430,748 @@
 
 
 
+                    <label for="" class="form-item-label  requiredField" id="">
+                        از تاریخ:
+                    </label>
 
-                    <label for="currencyType" class="form-item-label  ">نوع ارز:</label>
+
 
 
 
 
                     <span class="form-item-field " id="">
 
-            <select name="currencyType" id="currencyType">
-                <option value="">همه</option>
-                <option value="FOREIGN">
-                    ارزی
-                </option>
-                <option value="LOCAL">
-                    ریالی
-                </option>
-            </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="calendarField-wrapper">
+    <div class="calendarField-input">
+        <input type="text" name="fromDateTime" id="fromDateTime" value="1402/10/24  -  19:10" dir="ltr" spellcheck="false" class="iconField first  dateRange required billStatementMaxIntervalDateReport dateTime valid" validateagainstto="toDateTime" onchange="" maxlength="20" wfd-id="id15">
+    </div>
+    <div id="fromDateTimeButton" class="calendarIcon"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Calendar.setup({
+                inputField: "fromDateTime",
+                button: "fromDateTimeButton",
+                ifFormat: "%Y/%m/%d  -  %H:%M",
+                dateType: IB.calendar,
+                weekNumbers: false,
+                showOthers: true,
+                showsTime: true,
+                singleClick: false,
+                langNumbers: false,
+                autoShowOnFocus: false
+
+                /* This is required when the date is picked from calendar and no key event is triggered to cause validation
+                 * this event let me now when the field is updated to validate it again.*/
+                /*onUpdate: function() {
+                 if($(this.inputField).valid()){
+                 $(this.inputField).qtip('destroy')
+                 };
+                 }*/
+            });
+
+            $('#_calendarFieldHint').qtip({
+                content: '',
+                style: {
+                    classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+                }, position: {
+                    effect: false,
+                    target: 'event',
+                    viewport: $(window),
+                    my: 'bottom middle',
+                    at: 'top middle'
+                }
+            });
+        });
+    </script>
+
+
+
 
     </span>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for="" class="form-item-label  requiredField" id="">
+                        تا تاریخ:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="calendarField-wrapper">
+    <div class="calendarField-input">
+        <input type="text" name="toDateTime" id="toDateTime" value="1402/10/25  -  10:08" dir="ltr" spellcheck="false" class="iconField  dateRange required billStatementMaxIntervalDateReport dateTime valid" validateagainstfrom="fromDateTime" onchange="" maxlength="20" wfd-id="id16">
+    </div>
+    <div id="toDateTimeButton" class="calendarIcon"></div>
+</div>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Calendar.setup({
+                inputField: "toDateTime",
+                button: "toDateTimeButton",
+                ifFormat: "%Y/%m/%d  -  %H:%M",
+                dateType: IB.calendar,
+                weekNumbers: false,
+                showOthers: true,
+                showsTime: true,
+                singleClick: false,
+                langNumbers: false,
+                autoShowOnFocus: false
+
+                /* This is required when the date is picked from calendar and no key event is triggered to cause validation
+                 * this event let me now when the field is updated to validate it again.*/
+                /*onUpdate: function() {
+                 if($(this.inputField).valid()){
+                 $(this.inputField).qtip('destroy')
+                 };
+                 }*/
+            });
+
+            $('#_calendarFieldHint').qtip({
+                content: '',
+                style: {
+                    classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+                }, position: {
+                    effect: false,
+                    target: 'event',
+                    viewport: $(window),
+                    my: 'bottom middle',
+                    at: 'top middle'
+                }
+            });
+        });
+    </script>
+
+
+
+
+    </span>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+
+                    <label for="minAmount" class="form-item-label  ">از مبلغ:</label>
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="minAmount" id="minAmount" value="" spellcheck="false" maxlength="20" validateagainst="maxAmount" onkeyup="validate(this);" dir="ltr" class="numberRange" wfd-id="id17">
+
+
+<script type="text/javascript">
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="currency" id="currency_selectedDeposit" value="IRR" wfd-id="id18">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <input type="hidden" class="" name="currencyDefaultFractionDigits" id="currencyDefaultFractionDigits_selectedDeposit" value="2" wfd-id="id19">
+
+
+
+
+
+
+    </span>
+                </div>
+
+
+
+
+
+                <script type="text/javascript">
+                    $(function () {
+                        var sourceCurrencyId = 'selectedDeposit';
+                        if (sourceCurrencyId) {
+                            var sourceCurrencyEl = $('#' + sourceCurrencyId);
+                            if (sourceCurrencyEl) {
+                                sourceCurrencyEl.bind('valueChanged', updateCurrency);
+                            }
+                        }
+                    });
+
+                    function updateCurrency() {
+                        var sourceCurrencyEl = this;
+                        updateCurrencyValue(sourceCurrencyEl);
+                    }
+
+                    function validate(inputEl) {
+                        var hiddenCurrencyCodeEl = $('#currency_selectedDeposit'),
+                            hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_selectedDeposit');
+                        placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
+                            '', true);
+                    }
+                </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+
+                    <label for="maxAmount" class="form-item-label  ">تا مبلغ:</label>
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="maxAmount" id="maxAmount" value="" spellcheck="false" maxlength="20" validateagainst="minAmount" onkeyup="validate(this);" dir="ltr" class="numberRange" wfd-id="id20">
+
+
+<script type="text/javascript">
+
+
+</script>
+
+
+
+    </span>
+                </div>
+
+
+
+
+
+                <script type="text/javascript">
+                    $(function () {
+                        var sourceCurrencyId = 'selectedDeposit';
+                        if (sourceCurrencyId) {
+                            var sourceCurrencyEl = $('#' + sourceCurrencyId);
+                            if (sourceCurrencyEl) {
+                                sourceCurrencyEl.bind('valueChanged', updateCurrency);
+                            }
+                        }
+                    });
+
+                    function updateCurrency() {
+                        var sourceCurrencyEl = this;
+                        updateCurrencyValue(sourceCurrencyEl);
+                    }
+
+                    function validate(inputEl) {
+                        var hiddenCurrencyCodeEl = $('#currency_selectedDeposit'),
+                            hiddenCurrencyDefaultFractionDigitsEl = $('#currencyDefaultFractionDigits_selectedDeposit');
+                        placeCurrencyValuesToValidateMoney(inputEl, hiddenCurrencyCodeEl, hiddenCurrencyDefaultFractionDigitsEl, '',
+                            '', true);
+                    }
+                </script>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for="" class="form-item-label  " id="">
+                        ترتیب:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+        <select name="order">
+            <option value="ASC">صعودی</option>
+            <option value="DESC" selected="selected">
+                نزولی</option>
+        </select>
+
+    </span>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for="" class="form-item-label  " id="">
+                        شرح / یادداشت:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="desc" id="desc" value="" spellcheck="false" maxlength="40" dir="rtl" class="wideTextField" wfd-id="id21">
+
+
+<script type="text/javascript">
+
+
+</script>
+
+    </span>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="formItem ">
+
+
+
+
+
+                    <label for="" class="form-item-label  " id="">
+                        شناسه واریز:
+                    </label>
+
+
+
+
+
+
+                    <span class="form-item-field " id="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="text" name="paymentId" id="paymentId" value="" spellcheck="false" dir="rtl" class="wideTextField" wfd-id="id22">
+
+
+<script type="text/javascript">
+
+
+</script>
+
+    </span>
+                </div>
+
 
 
             </div>
@@ -981,7 +2196,7 @@
 
 
 
-                <input type="submit" value="جستجو" class="button importantButton">
+                <input type="submit" value="صورتحساب" class="button importantButton" wfd-id="id23">
 
 
 
@@ -996,31 +2211,12 @@
 
 
 
-                <input type="button" value="بازگشت" class="button normalButton" onclick="window.location='viewAccAction.action?fromViewDetailsAcc=TRUE'; return false;">
+                <input type="button" value="بازگشت" class="button normalButton" wfd-id="id24">
 
 
 
 
             </div>
-
-
-
-
-
-
-
-            <div class="gridHeader">
-                مالکیت: حقیقی -
-                حق برداشت: به تنهایی -
-                نوع ارز: ريال ايران
-            </div>
-
-
-
-
-
-
-
 
 
 
@@ -1038,93 +2234,202 @@
 
 
             <table class="datagrid" id="rowTbl">
+                <caption class="gridHeader">
+                    گردش های سپرده
+                </caption>
                 <thead>
                 <tr>
-                    <th>سپرده</th>
+                    <th>ردیف</th>
+                    <th>شرح</th>
+                    <th>یادداشت</th>
+                    <th>تاریخ</th>
+                    <th>واریز</th>
+                    <th>برداشت</th>
                     <th>موجودی</th>
-                    <th>موجودی قابل برداشت</th>
-                    <th class="narrowColumn">وضعیت</th>
-                    <th>مبلغ مسدودی</th>
-                    <th>سپرده پشتیبان</th>
-                    <th>اعتبار سپرده</th>
-                    <th>عملیات</th></tr></thead>
-                <tfoot>
-                <tr>
-                    <td>جمع</td>
-                    <td align="right">
-
-
-
-                        ۷,۵۹۰,۴۳۶
-
-
-                    </td>
-                    <td colspan="6">&nbsp;</td>
-                </tr>
-                </tfoot>
+                    <th>شناسه واریز</th>
+                    <th>جزئیات</th></tr></thead>
                 <tbody>
-                <tr class="odd lastChild">
-                    <td><span id="accountNo464-700-4982778-1" class="tooltip-trigger" data-hasqtip="12">
-                                        <a href="defaultBillList.action?selectedDeposit=464-700-4982778-1&amp;accountType=PASANDAZ&amp;currency=IRR">‪۴۶۴-۷۰۰-۴۹۸۲۷۷۸-۱‬ </a>
-                                    </span>
-
-
-                        <div id="accountNo464-700-4982778-1-tooltip" class="tooltip">
-                            <span class="tooltip-label">نوع سپرده</span>
-
-
-
-                            پس انداز
-
-
-                            <br>
-
-                            <span class="tooltip-label">نام سپرده</span>قرض الحسنه پس انداز حقيقي خانم  ناهيد صالحي زاده
-                            <br>
-
-                            <span class="tooltip-label">شعبه</span>دهدشت
-                            <br>
-
-
-
-
-
-
-                            <span class="tooltip-label">ارتباط با شخص</span>
-                            <span class="tooltip-field">
-                                                    صاحب سپرده و امضا<br>
-                                            </span>
-
-
-                            <span class="tooltip-label">شماره شبا</span>
-                            <span class="tooltip-field">
-                                                   IR۸۵۰۵۹۰۰۴۶۴۷۰۰۰۴۹۸۲۷۷۸۰۰۱<br>
-                                            </span>
-
-
+                <tr class="odd">
+                    <td>۱</td>
+                    <td class="textBox">کارمزد انتقال از اينترنت ۰۰۰۱۹۰۰۱ سينا از ک ۶۳۹۳۴۶۱۰۵۷۷۶۵۳۳۷ ش م ۴۰۱۵۰۱۰۰۹۲۱۷ ش پ ۰۰۹۲۱۷</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
                         </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="hidden" class="" name="stmtIdnote1" id="stmtIdnote1" value="1035722_1705271189000_467_3" wfd-id="id25">
+
+
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
+                    <td>
+
+
+                        -
+
+                    </td>
+                    <td>
+
+                        ۱۰,۰۰۰
+
+
                     </td>
                     <td>
 
 
-                        ۷,۵۹۰,۴۳۶
+                        ۸۶,۵۵۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail1" class="tooltip-trigger inverse" data-hasqtip="22">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
+
+                        <div id="detail1-tooltip" class="tooltip">
+
+
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
+
+
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۱:۵۶:۲۹‬<br>
+
+
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۲۲<br>
+
+
+                            <span class="tooltip-label">شماره مرجع</span>
+
+
+                        </div></td></tr>
+                <tr class="even">
+                    <td>۲</td>
+                    <td class="textBox">انتقال از اينترنت ۰۰۰۱۹۰۰۱ سينا به ک ۶۰۳۷۷۰۱۶۲۲۹۸۵۵۲۸ ش م ۴۰۱۵۰۱۰۰۹۲۱۷ ش پ ۰۰۹۲۱۷</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="hidden" class="" name="stmtIdnote2" id="stmtIdnote2" value="1035722_1705271189000_467_1" wfd-id="id26">
+
+
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
+                    <td>
+
+
+                        -
+
+                    </td>
+                    <td>
+
+                        ۲۰,۰۰۰,۰۰۰
 
 
                     </td>
                     <td>
 
 
-                        ۷,۰۹۰,۴۳۶
+                        ۸۶,۵۶۳,۴۰۰
 
                     </td>
-                    <td><span class="blockDepositState">
-                                        مسدود برداشت
-                                    </span></td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail2" class="tooltip-trigger inverse" data-hasqtip="23">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
+
+                        <div id="detail2-tooltip" class="tooltip">
+
+
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
+
+
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۱:۵۶:۲۹‬<br>
+
+
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۲۲<br>
+
+
+                            <span class="tooltip-label">شماره مرجع</span>
+
+
+                        </div></td></tr>
+                <tr class="odd">
+                    <td>۳</td>
+                    <td class="textBox"> اصلاح سند۱۰۳۵۷۱۶تاريخ۱۴۰۲/۱۰/۲۵</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="hidden" class="" name="stmtIdnote3" id="stmtIdnote3" value="1035717_1705267220000_467_4" wfd-id="id27">
+
+
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
                     <td>
 
+                        ۱۰,۰۰۰
 
-                        ۰
 
                     </td>
                     <td>
@@ -1132,50 +2437,117 @@
 
                         -
 
+                    </td>
+                    <td>
 
 
+                        ۱۰۶,۵۶۳,۴۰۰
+
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail3" class="tooltip-trigger inverse" data-hasqtip="24">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
+
+                        <div id="detail3-tooltip" class="tooltip">
 
 
-                        <div id="supporter464-700-4982778-1-tooltip" class="tooltip">
-                            <span class="tooltip-label">موجودی</span>&nbsp;<img src="/webbank/images/lock-icon.gif" alt=""> <br>
-                            <span class="tooltip-label">كل موجودی قابل برداشت</span>&nbsp; <img src="/webbank/images/lock-icon.gif" alt=""> <br>
-                            <span class="tooltip-label">نوع ارز</span>&nbsp; <img src="/webbank/images/lock-icon.gif" alt="">
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
+
+
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۰:۵۰:۲۰‬<br>
+
+
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۱۷<br>
+
+
+                            <span class="tooltip-label">شماره مرجع</span>
+
+
+                        </div></td></tr>
+                <tr class="even">
+                    <td>۴</td>
+                    <td class="textBox"> اصلاح سند۱۰۳۵۷۱۶تاريخ۱۴۰۲/۱۰/۲۵</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
                         </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <input type="hidden" class="" name="stmtIdnote4" id="stmtIdnote4" value="1035717_1705267220000_467_2" wfd-id="id28">
+
+
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
+                    <td>
+
+                        ۷,۲۰۰
+
 
                     </td>
                     <td>
 
-                                                    <span dir="rtl" id="credit464-700-4982778-1" class="tooltip-trigger inverse" data-hasqtip="13">
-                                                        ۰
-                                                    </span>
 
+                        -
 
-
-                        <div id="credit464-700-4982778-1-tooltip" class="tooltip">
-                            <span style="font-weight:bold">شماره تسهیلات</span>:&nbsp;<span dir="ltr"></span><br>
-                            <span style="font-weight:bold">مانده تسهیلات</span>:&nbsp;۰ <br>
-                            <span style="font-weight:bold">مانده سود</span>:&nbsp;۰
-                            <br>
-                            <span style="font-weight:bold">مانده سپرده</span>:&nbsp;۰
-                            <br>
-                            <span style="font-weight:bold">مانده اعتبار</span>:&nbsp;۰<br>
-                            <span style="font-weight:bold">درصد سود تسهیلات</span>:&nbsp;۰
-                        </div></td>
+                    </td>
                     <td>
 
 
+                        ۱۰۶,۵۵۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail4" class="tooltip-trigger inverse" data-hasqtip="25">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail4-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۰:۵۰:۲۰‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۱۷<br>
 
 
+                            <span class="tooltip-label">شماره مرجع</span>
 
 
+                        </div></td></tr>
+                <tr class="odd">
+                    <td>۵</td>
+                    <td class="textBox">کارمزد انتقال از اينترنت ۰۰۰۱۹۰۰۱ سينا از ک ۶۳۹۳۴۶۱۰۵۷۷۶۵۳۳۷ ش م ۴۰۱۵۰۰۹۹۶۵۰۰ ش پ ۹۹۶۵۰۰</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
 
 
 
@@ -1195,31 +2567,60 @@
 
 
 
+                        <input type="hidden" class="" name="stmtIdnote5" id="stmtIdnote5" value="1035716_1705267183000_467_3" wfd-id="id29">
 
 
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
+                    <td>
 
 
+                        -
 
+                    </td>
+                    <td>
 
+                        ۷,۲۰۰
 
 
+                    </td>
+                    <td>
 
 
+                        ۱۰۶,۵۴۶,۲۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail5" class="tooltip-trigger inverse" data-hasqtip="26">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail5-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۰:۴۹:۴۳‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۱۶<br>
 
 
+                            <span class="tooltip-label">شماره مرجع</span>
 
-                        <a href="/webbank/viewAcc/defaultBillList.action?selectedDeposit=464-700-4982778-1&amp;accountType=PASANDAZ" class="" data-hasqtip="4" oldtitle="نمایش ریز گردش سپرده" title="">
-                            <img src="/webbank/images/listView.png" alt="نمایش ریز گردش سپرده">
-                        </a>
 
+                        </div></td></tr>
+                <tr class="even">
+                    <td>۶</td>
+                    <td class="textBox">انتقال از اينترنت ۰۰۰۱۹۰۰۱ سينا به ک ۵۸۹۲۱۰۱۵۳۸۵۹۵۱۲۱ ش م ۴۰۱۵۰۰۹۹۶۵۰۰ ش پ ۹۹۶۵۰۰</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
 
 
 
@@ -1232,7 +2633,6 @@
 
 
 
-                        &nbsp;
 
 
 
@@ -1240,28 +2640,60 @@
 
 
 
+                        <input type="hidden" class="" name="stmtIdnote6" id="stmtIdnote6" value="1035716_1705267183000_467_1" wfd-id="id30">
 
 
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
+                    <td>
 
 
+                        -
 
+                    </td>
+                    <td>
 
+                        ۱۰,۰۰۰
 
 
+                    </td>
+                    <td>
 
 
+                        ۱۰۶,۵۵۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail6" class="tooltip-trigger inverse" data-hasqtip="27">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail6-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۰:۴۹:۴۳‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۱۶<br>
 
 
+                            <span class="tooltip-label">شماره مرجع</span>
 
 
+                        </div></td></tr>
+                <tr class="odd">
+                    <td>۷</td>
+                    <td class="textBox">انتقال از اينترنت ۰۰۰۱۹۰۰۲ بانک  اقتصاد نوين از ک ۶۲۷۴۱۲۱۲۰۷۱۵۹۳۲۸ ش م ۹۹۹۹۵۷۸۴۷۹۴۲ ش پ ۸۴۷۹۴۲</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
 
 
 
@@ -1281,32 +2713,60 @@
 
 
 
+                        <input type="hidden" class="" name="stmtIdnote7" id="stmtIdnote7" value="1035709_1705264641000_467_2" wfd-id="id31">
 
 
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۵‬</td>
+                    <td>
 
+                        ۲,۰۰۰,۰۰۰
 
 
+                    </td>
+                    <td>
 
 
-                        <a href="/webbank/viewAcc/calendarViewBillList.action?selectedDeposit=464-700-4982778-1&amp;accountType=PASANDAZ" class="" data-hasqtip="5" oldtitle="نمایش ماهانه گردش سپرده" title="">
-                            <img src="/webbank/images/calendarView.png" alt="نمایش ماهانه گردش سپرده">
-                        </a>
+                        -
 
+                    </td>
+                    <td>
 
 
+                        ۱۰۶,۵۶۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail7" class="tooltip-trigger inverse" data-hasqtip="28">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail7-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۰:۷:۲۱‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۰۹<br>
 
 
-                        &nbsp;
+                            <span class="tooltip-label">شماره مرجع</span>
 
 
+                        </div></td></tr>
+                <tr class="even">
+                    <td>۸</td>
+                    <td class="textBox">انتقال از اينترنت ۰۰۰۰۰۲۰۰ ملت از ک ۶۱۰۴۳۳۸۶۳۷۱۶۰۶۴۵ ش م ۱۴۲۷۷۵۰۱۵۹۹۲ ش پ ۰۱۵۹۹۲</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
 
 
 
@@ -1326,29 +2786,60 @@
 
 
 
+                        <input type="hidden" class="" name="stmtIdnote8" id="stmtIdnote8" value="1035703_1705264037000_467_2" wfd-id="id32">
 
 
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۴‬</td>
+                    <td>
 
+                        ۲,۰۰۰,۰۰۰
 
 
+                    </td>
+                    <td>
 
 
+                        -
 
+                    </td>
+                    <td>
 
 
+                        ۱۰۴,۵۶۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail8" class="tooltip-trigger inverse" data-hasqtip="29">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail8-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۲۳:۵۷:۱۷‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۰۳<br>
 
 
-                        &nbsp;
+                            <span class="tooltip-label">شماره مرجع</span>
 
 
+                        </div></td></tr>
+                <tr class="odd">
+                    <td>۹</td>
+                    <td class="textBox">انتقال از اينترنت ۰۰۰۱۹۰۴۰ بانک سامان از ک ۶۲۱۹۸۶۱۹۰۱۹۲۷۵۱۶ ش م ۴۰۱۴۲۳۳۲۰۸۳۱ ش پ ۳۲۰۸۳۱</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
 
 
 
@@ -1368,28 +2859,60 @@
 
 
 
+                        <input type="hidden" class="" name="stmtIdnote9" id="stmtIdnote9" value="1035701_1705263929000_467_2" wfd-id="id33">
 
 
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۴‬</td>
+                    <td>
 
+                        ۱۰,۰۰۰,۰۰۰
 
 
+                    </td>
+                    <td>
 
 
+                        -
 
+                    </td>
+                    <td>
 
 
+                        ۱۰۲,۵۶۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail9" class="tooltip-trigger inverse" data-hasqtip="30">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail9-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۲۳:۵۵:۲۹‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۷۰۱<br>
 
 
+                            <span class="tooltip-label">شماره مرجع</span>
 
 
+                        </div></td></tr>
+                <tr class="even lastChild">
+                    <td>۱۰</td>
+                    <td class="textBox">انتقال از اينترنت ۱۱۵      بانک  سپه از ک ۵۸۹۲۱۰۱۲۵۵۸۰۷۴۲۸ ش م ۰۶۴۲۲۴۱۸۲۷۱۵ ش پ ۶۴۰۲۶۹</td>
+                    <td class="textBox"><div class="editableContainer centerEdit" title="">
+                        <div class="editable">
+                        </div>
+                    </div>
 
 
 
@@ -1402,9 +2925,6 @@
 
 
 
-                        <a href="/webbank/index.action?depositNumber=464-700-4982778-1#periodicalReportsSettings" class="" data-hasqtip="6" oldtitle="تنظیم برای گزارش دوره ای" title="">
-                            <img src="/webbank/images/addToPeriodicalReport.png" alt="تنظیم برای گزارش دوره ای">
-                        </a>
 
 
 
@@ -1412,28 +2932,98 @@
 
 
 
+                        <input type="hidden" class="" name="stmtIdnote10" id="stmtIdnote10" value="1035655_1705258334000_467_2" wfd-id="id34">
 
 
+                    </td>
+                    <td>‪۱۴۰۲/۱۰/۲۴‬</td>
+                    <td>
 
+                        ۵,۰۰۰,۰۰۰
 
 
-                    </td></tr></tbody></table>
+                    </td>
+                    <td>
 
 
-            <div class="gridFooter pagingFooter" style="background-color: rgb(255, 255, 255);">
+                        -
 
+                    </td>
+                    <td>
 
 
+                        ۹۲,۵۶۳,۴۰۰
 
+                    </td>
+                    <td></td>
+                    <td><span dir="rtl" id="detail10" class="tooltip-trigger inverse" data-hasqtip="31">
+               <img src="/webbank/images/detail.gif" alt="">
+            </span>
 
+                        <div id="detail10-tooltip" class="tooltip">
 
 
+                            <span class="tooltip-label">شعبه عامل</span>
+                            شعبه کارت سينا<br>
 
 
+                            <span class="tooltip-label">ساعت</span>
+                            ‪۲۲:۲۲:۱۴‬<br>
 
 
+                            <span class="tooltip-label">شماره سند</span>
+                            ۱۰۳۵۶۵۵<br>
 
 
+                            <span class="tooltip-label">شماره مرجع</span>
+
+
+                        </div></td></tr></tbody></table><span class="pagebanner">&nbsp;</span><span class="pagebanner">&nbsp; </span>
+            <div align="center" valign="middle" style="text-align:center;" class="infText"> </div>
+            <div class="gridFooter pagingFooter" style="background-color: rgb(243, 243, 243);">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div id="paging">
+
+
+                    <img id="disablePrev" src="/webbank/images/spacer.gif" alt="قبلی" data-hasqtip="15" oldtitle="قبلی" title="">&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+                    <a href="depositShow.action?selectedDeposit=467-12-99382130-1&amp;fromDateTime=1402%2F10%2F24++-++19%3A10&amp;toDateTime=1402%2F10%2F25++-++10%3A08&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;depositGroupByReq=&amp;accountType=JARI_ACCOUNT&amp;struts.token.name=depositShowToken&amp;depositShowToken=KSOHWZMPJ8EW8HZPB4LYK7UA4BPTG9KI&amp;ownershipType=&amp;currencyType=&amp;referenceCif=&amp;referenceCustomerName=&amp;page=2">
+
+
+
+                        <img id="next" src="/webbank/images/spacer.gif" data-hasqtip="16" oldtitle="بعدی " title="">
+                    </a>
+
+
+                </div>
 
                 <div id="exportFiles">
 
@@ -1441,16 +3031,16 @@
 
 
 
-                    <a href="viewDetailsAccountExcelReport.action?currency=IRR&amp;accountType=PASANDAZ&amp;ownership=BE_TANHAYEE&amp;personality=ACTUAL" class="clientTrigger" data-hasqtip="7" oldtitle="دریافت فایل excel" title="">
+                    <a href="billExcelReport.action?selectedDeposit=467-12-99382130-1&amp;fromDateTime=1402%2F10%2F24++-++19%3A10&amp;toDateTime=1402%2F10%2F25++-++10%3A08&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId=" class="clientTrigger" data-hasqtip="17" oldtitle="دریافت فایل excel" title="">
                         <img src="/webbank/images/excel.gif" alt="دریافت فایل excel">
                     </a>
-                    <a target="_blank" href="viewDetailsAccountPdfReport.action?currency=IRR&amp;accountType=PASANDAZ&amp;ownership=BE_TANHAYEE&amp;personality=ACTUAL" class="clientTrigger" data-hasqtip="8" oldtitle="دریافت فایل pdf" title="">
+                    <a target="_blank" href="billPdfReport.action?selectedDeposit=467-12-99382130-1&amp;fromDateTime=1402%2F10%2F24++-++19%3A10&amp;toDateTime=1402%2F10%2F25++-++10%3A08&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId=" class="clientTrigger" data-hasqtip="18" oldtitle="دریافت فایل pdf" title="">
                         <img src="/webbank/images/pdf.gif" alt="دریافت فایل pdf">
                     </a>
-                    <a href="viewDetailsAccountCsvReport.action?currency=IRR&amp;accountType=PASANDAZ&amp;ownership=BE_TANHAYEE&amp;personality=ACTUAL" class="clientTrigger" data-hasqtip="9" oldtitle="دریافت فایل csv" title="">
+                    <a href="billCsvReport.action?selectedDeposit=467-12-99382130-1&amp;fromDateTime=1402%2F10%2F24++-++19%3A10&amp;toDateTime=1402%2F10%2F25++-++10%3A08&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId=" class="clientTrigger" data-hasqtip="19" oldtitle="دریافت فایل csv" title="">
                         <img src="/webbank/images/csv.gif" alt="دریافت فایل csv">
                     </a>
-                    <a target="_blank" href="viewDetailsAccountHtmlReport.action?currency=IRR&amp;accountType=PASANDAZ&amp;ownership=BE_TANHAYEE&amp;personality=ACTUAL" class="clientTrigger" data-hasqtip="10" oldtitle="دریافت فایل html" title="">
+                    <a target="_blank" href="billHtmlReport.action?selectedDeposit=467-12-99382130-1&amp;fromDateTime=1402%2F10%2F24++-++19%3A10&amp;toDateTime=1402%2F10%2F25++-++10%3A08&amp;minAmount=&amp;maxAmount=&amp;desc=&amp;order=DESC&amp;billType=0&amp;paymentId=" class="clientTrigger" data-hasqtip="20" oldtitle="دریافت فایل html" title="">
                         <img src="/webbank/images/html.gif" alt="دریافت فایل html">
                     </a>
 
@@ -1470,8 +3060,301 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <a href="/webbank/config/billStatementSettingPage.action?selectedDeposit=467-12-99382130-1&amp;fromDateTime=1402/10/24  -  19:10&amp;toDateTime=1402/10/25  -  10:08&amp;desc=&amp;orderBillView=DESC&amp;billType=0&amp;accountType=JARI_ACCOUNT&amp;depositGroupByReq=&amp;referenceCustomerName=&amp;referenceCif=&amp;fromBillViewPage=TRUE" class="">
+                جهت تنظیمات نمایش اطلاعات صورتحساب کلیک کنید.
+            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </form>
 
+        <script type="text/javascript">
+            $(function () {
+                var maxLen = $('#maxLenForNote').val();
+                $('.editableContainer').each(function (index, item) {
+                    var ct = $(item).children().html();
+                    if (ct.replace(/[ ]/ig, '').length === 1) {
+                        $(item).addClass('centerEdit')
+                    }
+                    if (item.offsetHeight < item.scrollHeight || item.offsetWidth < item.scrollWidth) {
+                        $(item).append("<div class='continued'>...</div>");
+                    }
+                });
+                $('.normalButton').on('click', function () {
+                    if ($('#accountType').val() != "" || $('#ownershipType').val() != "" || $('#currencyType').val() != "" || $('#referenceCif').val() != "") {
+                        window.location = $('#depositGroupByReq').val() === "REFERENCE_CIF" ?
+                            'viewDetailsAccount.action?referenceCustomerName=&referenceCif=&summaryDepositGroupBy=&ownershipType=&accountType=JARI_ACCOUNT&currencyType=' :
+                            'viewDetails.action?accountType=JARI_ACCOUNT';
+                    } else {
+                        window.location = $('#depositGroupByReq').val() === "REFERENCE_CIF" ? 'viewOwnTypeAccAction' : 'viewAccAction.action';
+                    }
+                    return false;
+                });
+                $(document).on('click', ".editable", function () {
+                    var parent = $(this).parent().get(0);
+                    var originalText = $.trim($(this).text());
+                    $(parent).qtip('destroy');
+                    $(parent).removeAttr('oldtitle');
+                    $(parent).removeAttr('title');
+                    $(parent).animate({height: 90}).html("<div ><textarea cols='100' class='textarea' originalText='" + originalText + "' maxlength='" + maxLen + "' pdfReports='4' >" + originalText + "</textarea></div>" +
+                        "<div class='buttons'><div title='ذخیره' class='submitBtn'></div><div title='انصراف' class='cancelBtn'></div>");
+                    if(!is_touch_device()) {
+                        $('.cancelBtn, .submitBtn').qtip({
+                            style: {
+                                classes: 'qtip-rounded'
+                            },
+                            position: {
+                                effect: false,
+                                my: 'top right',
+                                at: 'bottom center',
+                                viewport: $(window)
+                            }
+                        });
+                    }
+
+                    $('.textarea').focus();
+                    checkInvalidCharacter();
+                });
+                $(document).on('click', '.cancelBtn', function () {
+                    var parent = $(this).parents('.editableContainer').get(0);
+                    var originalText = $(parent).find('.textarea').attr('originalText');
+                    $(this).qtip('destroy');
+                    $(parent).animate({height: 29}, 400,
+                        function () {
+                            if (parent.offsetHeight < parent.scrollHeight) {
+                                $(parent).append("<div class='continued'>...</div>");
+                            } else {
+                                $(parent).remove(".continued");
+                            }
+                        }).html('<div  class="editable" >' + originalText + '</div>');
+                    if (!is_touch_device()) {
+                        $(parent).qtip({
+                            content: originalText, style: {
+                                classes: 'qtip-rounded'
+                            }, position: {
+                                effect: false,
+                                target: 'event',
+                                viewport: $(window),
+                                my: 'bottom middle',
+                                at: 'top middle'
+                            }
+                        })
+                    }
+                });
+
+                $('tr').mouseover(function () {
+                    $(this).find('div.continued').addClass('over');
+                    $(this).find('div.editable').addClass('edit');
+                });
+
+                $('tr').mouseout(function () {
+                    $(this).find('div.continued').removeClass('over');
+                    $(this).find('div.editable').removeClass('edit');
+                });
+
+                $(document).on('click', '.submitBtn', function () {
+                    var parent = $(this).parents('.editableContainer').get(0);
+                    var originalText = $(parent).find('.textarea').attr('originalText');
+                    var newNote = $(parent).find('.textarea').val();
+                    if (newNote.length > maxLen) {
+                        $(parent).find('.textarea').addClass('error').qtip({
+                            content: applicationResources['IB.commons.maxLength'].replace('{0}', maxLen),
+                            show: {
+                                ready: true
+                            },
+                            style: {
+                                classes: 'qtip-rounded'
+                            },
+                            position: {
+                                effect: false,
+                                viewport: $(window),
+                                my: 'bottom middle',
+                                at: 'top middle'
+                            }
+                        });
+                        $(parent).find('.textarea').keyup(function () {
+                            if ($(this).val().length <= maxLen) {
+                                $(parent).find('.textarea').removeClass('error').qtip('destroy');
+                            } else {
+                                $(parent).find('.textarea').addClass('error').qtip({
+                                    content: applicationResources['IB.commons.maxLength'].replace('{0}', maxLen),
+                                    show: {
+                                        ready: true
+                                    },
+                                    style: {
+                                        classes: 'qtip-rounded'
+                                    },
+                                    position: {
+                                        effect: false,
+                                        viewport: $(window),
+                                        my: 'bottom middle',
+                                        at: 'top middle'
+                                    }
+                                })
+                            }
+                        })
+                    } else {
+                        submitNote(parent, newNote, originalText, this);
+                    }
+                });
+
+                var submitNote = function (parent, newNote, originalText, btn) {
+                    var statementID = $(parent).next('input').val();
+                    $(parent).animate({height: 29}, 500,
+                        function () {
+                            $(btn).qtip('destroy');
+                            showLoading(parent);
+                            saveNote('/webbank/viewAcc/saveNote.action', '467-12-99382130-1', parent, newNote, statementID, originalText);
+                        });
+
+                };
+
+                var saveNote = function (saveNoteAction, depositNumber, parent, newNote, statementID, originalText) {
+                    $.ajax({
+                        url: saveNoteAction,
+                        type: 'GET',
+                        data: {
+                            statementId: statementID,
+                            note: newNote,
+                            depositNumber: depositNumber
+                        },
+                        success: function (json) {
+                            $(parent).html('<div  class="editable" >' + newNote + '</div>');
+                            if (newNote !== '') {
+                                $(parent).removeClass('centerEdit');
+                            } else {
+                                $(parent).addClass('centerEdit')
+                            }
+                            if (newNote !== '' && !is_touch_device()) {
+                                $(parent).qtip({content: newNote, style: {
+                                        classes: 'qtip-rounded'
+                                    }, position: {
+                                        effect: false,
+                                        target: 'event',
+                                        viewport: $(window),
+                                        my: 'bottom middle',
+                                        at: 'top middle'
+                                    }});
+                            }
+                            if (parent.offsetHeight < parent.scrollHeight) {
+                                $(parent).append("<div class='continued'>...</div>");
+                            } else {
+                                $(parent).remove(".continued");
+                            }
+                        },
+                        error: function (response) {
+                            var responseObj = $.parseJSON(response.responseText);
+                            if (responseObj.logout) {
+                                $(parent).animate({height: 29}).html("<div class='noteError' >" + applicationResources['IB.commons.errorLogout'] + "</div>");
+                                setTimeout(function () {
+                                    location.href = '../login/logout.action'
+                                }, 1800);
+                            } else {
+                                $(parent).animate({height: 29}).html("<div class='noteError' >" + formatDigitsInText(responseObj.errorMessages[0], ',/IR-') + "</div>");
+                                if(!is_touch_device()) {
+                                    $(parent).qtip({content: formatDigitsInText(responseObj.errorMessages[0], ',/IR-'), style: {
+                                            classes: 'qtip-rounded noteErrorQtip'
+                                        }, position: {
+                                            effect: false,
+                                            target: 'event',
+                                            viewport: $(window),
+                                            my: 'bottom middle',
+                                            at: 'top middle'
+                                        }});
+                                }
+                                if (parent.offsetHeight < parent.scrollHeight) {
+                                    $(parent).append("<div class='continued'>...</div>");
+                                } else {
+                                    $(parent).remove(".continued");
+                                }
+                                $(parent).fadeIn();
+                                setTimeout(function () {
+                                    $('.noteErrorQtip').css("display", "none");
+                                    $('.noteError').fadeOut();
+                                    $(parent).html('<div  class="editable" >' + originalText + '</div>');
+                                    $('.editableContainer.centerEdit').css("display","block");
+                                }, 3000);
+                            }
+                        }
+                    });
+                };
+
+                var showLoading = function (parent) {
+                    $(parent).html("<div class='editable noteLoading'></div>");
+                };
+            });
+        </script>
 
         <div class="keyboardContainer" id="fullKeyboardContainer">
             <div class="keyboardKeypad" id="keyboard">
