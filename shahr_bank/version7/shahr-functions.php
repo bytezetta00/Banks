@@ -25,7 +25,7 @@ function getDeposit(string $html, $user_id, $banking_id)
         $deposit = trim($trs->item($i)->getElementsByTagName("td")->item(4)->textContent);
         $details = $trs->item($i)->getElementsByTagName("td")->item(8)->textContent;
 
-        preg_match_all('!\d{13,16}!', $descriptions, $matches);
+        preg_match_all('!\d{12,16}!', $descriptions, $matches);
         if (isset($matches[0])) {
             $cardNumber = (((strpos($descriptions, 'از کارت') !== false || strpos($descriptions,'انتقال وجه از') !== false || strpos($descriptions,"از سپرده") !== false)) && is_array($matches[0]) == true  && empty($matches[0]) == false) ? $matches[0][0] : null;
         }

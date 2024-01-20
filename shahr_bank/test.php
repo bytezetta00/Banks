@@ -8,16 +8,18 @@ Yes
 $file = fopen('response/testsssss.html','r');
 $data = fread($file , 5000000);
 fclose($file);
+
+var_dump(getDeposit($data,1,1));
 //$pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
 //$pattern = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
-$patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)\/>/s';
-$patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)\/>/s';
-$patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
+//$patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)\/>/s';
+//$patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)\/>/s';
+//$patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
 
-$loginData['hiddenPass1'] = getInputTag($data, $patternPass1) ?? 9;
-$loginData['hiddenPass2'] = getInputTag($data, $patternPass2) ?? 8;
-$loginData['hiddenPass3'] = getInputTag($data, $patternPass3) ?? 7;
-var_dump($loginData);die;
+//$loginData['hiddenPass1'] = getInputTag($data, $patternPass1) ?? 9;
+//$loginData['hiddenPass2'] = getInputTag($data, $patternPass2) ?? 8;
+//$loginData['hiddenPass3'] = getInputTag($data, $patternPass3) ?? 7;
+//var_dump($loginData);die;
 
 $message['message'] = "بانک شهر
 بليت امنيتي انتقال وجه پایا عادی
@@ -33,7 +35,7 @@ if ((strpos($message['message'], 'بانک شهر') !== false) || (strpos($messa
     }
 }die;
 
-//var_dump(getBalance($data));
+//
 //die;
 
 function convertPersianNumberToEnglish(string $text)
@@ -156,7 +158,7 @@ function getDeposit(string $html, $user_id, $banking_id)
         $deposit = trim($trs->item($i)->getElementsByTagName("td")->item(4)->textContent);
         $details = $trs->item($i)->getElementsByTagName("td")->item(8)->textContent;
 
-        preg_match_all('!\d{13,16}!', $descriptions, $matches);
+        preg_match_all('!\d{12,16}!', $descriptions, $matches);
 //        if($i == 5) {
 //            if (isset($matches[0])) {
 //                $cardNumber = ((strpos($descriptions, 'از کارت') !== false || strpos($descriptions,'انتقال وجه از') !== false) && is_array($matches[0]) == true) ? $matches[0][0] : null;
