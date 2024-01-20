@@ -86,7 +86,7 @@ class shahr extends banking
     {
         $signinPage = $this->getSigninPage();
         if ($this->banking_id == $this->testingBankingId) {
-            $this->newLog(json_encode($signinPage), 'signinPage');
+            $this->newLog(var_export($signinPage,true), 'signinPage');
         }
         if ($signinPage == null || $signinPage == "" || $signinPage == false) {
             $message = "Signin page didn't load currectly !!";
@@ -118,6 +118,7 @@ class shahr extends banking
         $sendSMSResponse = $this->sendSMSCodeToUser($loginData);
         if ($this->banking_id == $this->testingBankingId) {
             $this->newLog(convertToString($sendSMSResponse), 'sendSMSResponse');
+            $this->newLog(var_export($loginData,true), 'loginData');
         }
 //        $this->newLog(convertToString($sendSMSResponse), 'sendSMSResponse');
 
@@ -257,6 +258,14 @@ class shahr extends banking
             'hiddenPass3' => '3',
         ];
         $loginData['loginToken'] = getInputTag($signinPage, '/<input type="hidden" name="loginToken" value=".*/');
+
+        $patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)\/>/s';
+        $patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)\/>/s';
+        $patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
+
+        $loginData['hiddenPass1'] = getInputTag($signinPage, $patternPass1) ?? 1;
+        $loginData['hiddenPass2'] = getInputTag($signinPage, $patternPass2) ?? 2;
+        $loginData['hiddenPass3'] = getInputTag($signinPage, $patternPass3) ?? 3;
 
         $captchaUrl = 'https://ebank.shahr-bank.ir/ebank/login/captcha.action?isSoundCaptcha=false&r='.rand(0,999999999);
         $captchaRawImage = $this->http->get($captchaUrl, 'get', '', '', '');

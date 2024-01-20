@@ -147,3 +147,8 @@ function getFormattedPreviousMonthDate()
     return $formattedPreviousDate;
 
 }
+
+function writeOnFile($filePath, $data, $mode = 'w')
+{
+    file_put_contents($filePath,$data);
+}
