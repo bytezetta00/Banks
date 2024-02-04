@@ -1,0 +1,1876 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>خانه | اینترنت بانک ایران زمین</title>
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="CSRF_TOKEN" content=+42Qshi+NRpJQv9M2JT+PNEz8aUBbcJiCioBtNnJjjY=>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/webbank/styles/main-4.121.17-4022.css"/>
+<link rel="stylesheet" type="text/css" media="print" href="/webbank/styles/print-4.121.17-4022.css"/>
+<script type="text/javascript" src="/webbank/scripts/mainHeaders-4.121.17-4022.js"></script>
+<script type="text/javascript" src="/webbank/scripts/mainHeaders-fa-4.121.17-4022.js"></script>
+<script type="text/javascript" >
+
+    // internet bank name space
+    var IB = {};
+    IB.queryText = '';
+    // sequence of these lines is important and should be kept in this way.
+    IB.smartCombo = {};
+    IB.smartCombo.queryText = '';
+    IB.ctx = '/webbank';
+    IB.isBatchListPage = false;
+    IB.locale = 'fa';
+
+    IB.tempKeys = {
+        chequeManagemnet            : 'مدیریت چک',
+        batchTransfer               : 'دسته ای',
+        batch                       : 'batch',
+        chequeAndChequeBook         : 'چک و دسته چک',
+        transferredChequeListTitle  : 'چکهای واگذار شده به سپرده',
+        payBill                     : 'pay.bill',
+        batchBillPayment            : 'batch.Bill.Payment'
+    };
+    // end of template keys
+    IB.periodicalReports = {};
+    IB.periodicalReports.smsConfig = ('false' == 'true');
+    IB.periodicalReports.emailConfig = ('true' == 'true');
+    IB.periodicalReports.faxConfig = ('false' == 'true');
+
+    IB.cardTransactionsMaxDay = (30);
+    IB.billStatementReportMaxDay = '';
+    IB.ibanDefaultPrefix = ('IR');
+    IB.removeLeadingZerosFromDeposit = (true);
+
+    IB.userName = 'فرزاد نوري';
+    IB.direction = 'rtl';
+    IB.ctx = '/webbank';
+    if ('10' !== '') {
+        IB.pageSize = parseInt('10', 10);
+    } else {
+        IB.pageSize = '';
+    }
+    IB.kartabl_activation = ('true' == 'true');
+    IB.calendar = 'jalali';
+    IB.illegalCharacters = [38, 37, 59, 124, 36, 35, 40, 41, 39, 96, 34, 60, 62, 92];
+    IB.defaultCurrencyCode = 'IRR';
+    IB.defaultCurrencyFractionalDigits = '2';
+    IB.showCountdownTimer = ('true' == 'true');
+    IB.remainingCountdownTime = '600';
+    IB.showAlertMaxTime = '1';
+    IB.maxPasswordLength = '';
+    IB.minPasswordLength = '';
+    IB.specialCharacterReplacement = ' ';
+    IB.harimResendPasswordDuration = '60';
+    IB.timerDuration = '60';
+    IB.remainingTimeDuration = '';
+</script>
+
+    
+
+    <link rel="shortcut icon" href="/webbank/favicon.ico"/>
+
+    
+    
+
+</head>
+<body class="rtl homePage
+">
+<div id="container">
+    <div id="branding">
+        <div id="logo"></div>
+        
+            <div id="topMenu">
+                
+                <span id="timerContainer" class="tooltip-trigger">زمان باقی‌مانده: <span
+                        id="timer" class="timer"></span></span>
+                    <div id="timerContainer-tooltip" class="tooltip">در صورتی که مهلت نمایش داده شده به پایان برسد، برای استفاده از اینترنت بانک نیاز به ورود دوباره نام کاربری و رمز عبور خواهد بود.</div>
+                    <span style="color: #A3A3A3">|</span>
+                
+                
+                    <a href="/webbank/chooseSubMenu.action?actionParameter=config">
+                        تنظیمات
+                    </a>
+                    <span style="color: #A3A3A3">|</span>
+                    <a href="/webbank/contact.action" accesskey="10">
+                        تماس با ما
+                    </a>
+                    <span style="color: #A3A3A3;">|</span>
+                
+                فرزاد نوري
+                <a href="/webbank/login/logout.action" accesskey="x">
+                    <img src="/webbank/images/signOut.png"
+                         alt="خروج"
+                         title="خروج" align="absmiddle"
+                         style="cursor: pointer"/>
+                </a>
+            </div>
+            <div id="taskNotifier">
+                بارگذاری...
+            </div>
+        
+    </div>
+    <div id="content-container">
+        <div id="content-wrapper">
+            <div id="content-pad">
+                <div id="content">
+                    <h2 id="content-title">خانه</h2>
+
+                    <div id="content-body">
+                        
+
+
+
+
+                        
+
+
+
+
+                        
+
+
+    
+    
+        <div class="newFeatureNotify-ctr">
+            <div class="newFeature-title-part">
+                <div class="newFeature-title">
+                    رمز یکبار مصرف کارت خود را چگونه دریافت کنیم؟
+                </div>
+                <div class="arrow-icon"></div>
+            </div>
+            <div class="newFeature-description">
+                <ul><li>برنامک رمز ساز را روی تلفن همراه خود نصب کنید.</li><li>از منوی کارت، <a href="../otp/showActivationPage.action">فعالسازی رمز یکبار مصرف</a> را انتخاب و برنامک را فعال کنید.</li></ul>
+            </div>
+        </div>
+    
+
+
+
+<ul class="notification">
+    <li class="info">
+        
+            <span class="cif-data">
+                <span>شماره مشتری:</span>
+                ۲۱۲۸۱۱۱
+            </span>
+        
+        
+            
+                آخرین ورود شما: تاریخ <span dir="ltr">
+                            ۱۴۰۲/۱۱/۰۷</span> ساعت<span dir="ltr"> 
+                            ۱۶:۳۶
+                         </span>
+                
+            
+            
+        
+    </li>
+</ul>
+
+    
+    
+        
+
+
+
+
+
+
+
+
+
+    
+        
+        
+            
+                
+                
+                
+                    
+                        <ul id="quickLinks">
+                            
+                                
+                                    
+                                
+                                
+                                
+                                <li class="quick_link_first quickLinkItem">
+                                    <a href="/webbank/chooseSubMenu.action?actionParameter=transfer">
+                                        انتقال وجه
+                                        <div class="quickLinkItemDescription">
+                                            در این قسمت شما می توانید انواع انتقال وجه، شامل انتقال وجه عادی، مستمر، دسته ای، کارتی، بین بانکی ساتنا، بین بانکی پایا (عادی - دسته ای - مستمر) را انجام دهید.
+                                        </div>
+                                    </a>
+                                </li>
+                            
+                                
+                                
+                                    
+                                
+                                
+                                <li class="quick_link_sec quickLinkItem">
+                                    <a href="/webbank/chooseSubMenu.action?actionParameter=payments">
+                                        پرداخت قبوض
+                                        <div class="quickLinkItemDescription">
+                                            شما جهت پرداخت قبوض خود فقط نیاز به یک کارت شتابی دارید! با داشتن اطلاعات کارت شتابی خود و اطلاعات قبض، می توانید در کمترین زمان ممکن، قبوض خود را پرداخت نمایید.
+                                        </div>
+                                    </a>
+                                </li>
+                            
+                                
+                                
+                                
+                                    
+                                
+                                <li class="quick_link_third quickLinkItem">
+                                    <a href="/webbank/viewAcc/viewAccAction.action">
+                                        صورتحساب
+                                        <div class="quickLinkItemDescription">
+                                            برای دیدن صورتحساب هر یک از سپرده های مورد نظرتان، کافی است روی شماره سپرده در جدول سپرده های برگزیده کلیک کنید و یا به بخش "سپرده ها در یک نگاه" بروید.
+                                        </div>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    
+                
+            
+        
+    
+
+
+    
+
+
+    
+    
+        <div class="blankState">
+            <strong>
+                برای شروع کافی است:
+            </strong>
+            <ul>
+                <li>
+                    یکی از گزینه های منوی اصلی را که در سمت راست این صفحه است انتخاب کنید و به بخش مورد نظر خود بروید.
+                </li>
+                <li>
+                    یکی از گزینه های دسترسی سریع را که در بالای این نوشته می بینید استفاده کنید.
+                </li>
+            </ul>
+            <p>همچنین شما می توانید با تنظیم سپرده های برگزیده خود از طریق همین صفحه، به صورت مستقیم، صورتحساب سپرده مورد نظرتان را ببینید.</p>
+
+            <p>
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                                
+                            
+                            
+                            <img
+                                    src="/webbank/images/editFavAccIcon.png"
+                                    
+                                     alt="تنظیمات سپرده های برگزیده"
+                                    />
+                            
+                        
+
+                        
+                        
+                            
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                                <a
+                                        
+                                        href="/webbank/config/homeSettingsPage.action?destination=home" class="">
+                                        برای انجام تنظیمات سپرده برگزیده کلیک نمایید.
+                                </a>
+                            
+                        
+                        
+
+                    
+                
+                
+            
+        
+    
+    
+
+            </p>
+        </div>
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="diagramStretchContainer">
+    <div id="balanceDiagramBox">
+        <div id="balanceDiagramToolbar">
+            
+                
+                    
+                    
+                    
+                
+                
+            
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+<div class="smartCombo-wrapper">
+    <div id="sourceSavingContainer" class="smartCombo">
+        
+            
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="isDefaultValueSelected" id="isDefaultValueSelected" value="false"/>
+    
+    
+
+        
+        
+        
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="sensitiveToValueTypedInCombo" id="sensitiveToValueTypedInCombo" value="true"/>
+    
+    
+
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+        
+    
+    
+
+
+
+
+
+
+
+<input type="text" name="sourceSaving" id="sourceSaving" value="" spellcheck="false"
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       dir="ltr"
+       class=" required"
+       
+       
+        />
+
+
+<script type="text/javascript">
+    
+
+</script>
+        <div id="sourceSavingCleanFilter" class="clean-combo-filter" title="پاک کردن"></div>
+    </div>
+    <div id="sourceSavingTrigger" class="smartCombo-trigger" comboid="sourceSaving" ></div>
+
+    
+</div>
+
+
+    <div id="sourceSavingContainerInfo" class="smartComboInfo"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="sourceSavingValueType" id="sourceSavingValueType" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="sourceSavingPinnedDeposit" id="sourceSavingPinnedDeposit" />
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="sourceSavingIsComboValInStore" id="sourceSavingIsComboValInStore" value="false"/>
+    
+    
+
+<script type="text/javascript">
+
+    
+    
+    IB.smartCombo.sourceSaving =
+            '';
+    
+    $(document).ready(function () {
+        var currencyChangeFireEvent = '';
+        if('' == 'true') {
+            currencyChangeFireEvent = true;
+        } else {
+            currencyChangeFireEvent = false;
+        }
+        var combo = $('#sourceSaving');
+        combo.id = 'sourceSaving';
+        combo.store = {};
+        combo.type = 'DEPOSIT';
+        combo.showContacts = false;
+        combo.showDetailInfo = true;
+        combo.businessType = 'all';
+        combo.serviceName = '';
+        combo.name = 'sourceSaving';
+        combo.prefixValue = '';
+        combo.isBatchInput = false;
+        combo.containerId = 'sourceSavingContainer';
+        combo.value = IB.smartCombo.sourceSaving;
+        combo.defaultValue = 'FIRST';
+        combo.defaultValueLabelKey = '';
+        combo.defaultValueType = '';
+        combo.autoCompilitified = false;
+        combo.hint = '';
+        combo.currency = '';
+        combo.changeEventHandler = 'getChartData';
+        combo.comboValNotInStoreHandler = 'comboValNotInStoreHandler';
+        combo.isDefaultValueSelectedName='';
+        combo.currencyChangeFireEvent = currencyChangeFireEvent;
+
+        if (combo.isBatchInput) {
+            combo.batchInputValue = '';
+        }
+        combo.addClass(IB.direction).val(applicationResources['IB.smartCombo.loading']);
+        IB.smartCombo.createAutoComplete(combo);
+
+//        show title in qtip:
+        $('#sourceSavingsmartCombotHelp').qtip({
+            content: '',
+            style: {
+                classes: 'qtip-blue qtip-rounded qtip-shadow ui-tooltip-blue-summary'
+            }, position: {
+                effect: false,
+                target: 'event',
+                viewport: $(window),
+                my: 'bottom middle',
+                at: 'top middle'
+            }
+        });
+    });
+
+</script>
+
+
+            
+
+                <div id="errorImg" class="balanceDiagramError hidden"></div>
+
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            
+            
+            
+                
+                    
+                        
+
+                        
+                        
+                            
+                        
+                        
+                            <span id="balanceDiagramPinImgSpan" class="">
+                        
+                        
+                        
+
+                        
+                        
+                            
+                                <a title=""
+                                    href="javascript:void(0);" class="defaultDepositImg">
+                                    <img
+                                            
+                                            
+                                            
+                                            />
+                                </a>
+                            
+                            
+                        
+                        
+                            </span>
+                        
+
+                    
+                
+                
+            
+        
+    
+    
+
+
+            
+        </div>
+        <div id="balanceDiagram">
+            <div id="blankChart">برای نمایش نمودار موجودی سپرده در یک ماه گذشته سپرده مورد نظر خود را انتخاب نمایید .</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/webbank/scripts/jquery/jquery.highcharts.min.js"></script>
+<script language="javascript">
+    //Deposit Diagram
+    
+    var today_date = '2024/01/27';
+    var today_time = '16:38:19';
+    var todayArr = today_date.split('/').concat(today_time.split(':'));
+    var todayDate = new Date(parseInt(todayArr[0], 10), parseInt(todayArr[1], 10) - 1, parseInt(todayArr[2], 10), parseInt(todayArr[3], 10), parseInt(todayArr[4], 10), parseInt(todayArr[5], 10));
+
+    var todayArray;
+    if (IB.calendar == 'jalali') {
+        todayArray = JalaliDate.gregorianToJalali(todayDate.getFullYear(), todayDate.getMonth() + 1, todayDate.getDate() + 1);
+    } else {
+        todayArray = [todayDate.getFullYear(), todayDate.getMonth() + 1, todayDate.getDate() + 1];
+    }
+
+
+    todayDateString = todayArray[0] + "/" + todayArray[1] + "/" + todayArray[2] + "  -  23:59";
+    var lastDate = new Date(todayDate.setDate(todayDate.getDate() - 30));
+
+    var lastDateArray;
+    if (IB.calendar == 'jalali') {
+        lastDateArray = JalaliDate.gregorianToJalali(lastDate.getFullYear(), lastDate.getMonth() + 1, lastDate.getDate());
+    } else {
+        lastDateArray = [lastDate.getFullYear(), lastDate.getMonth() + 1, lastDate.getDate()];
+    }
+    lastDateString = lastDateArray[0] + "/" + lastDateArray[1] + "/" + lastDateArray[2] + "  -  00:00";
+
+    var smart_comboContainer = $('#sourceSavingContainer');
+    var sourceSavingSmartCombo = $('#sourceSaving');
+    var balanceDiagramPinImgSpan = $('#balanceDiagramPinImgSpan');
+    var defaultDepositImg = $(balanceDiagramPinImgSpan).find('.defaultDepositImg');
+
+    function disablePinImg() {
+        $(defaultDepositImg).removeClass('loadingImg');
+        $(defaultDepositImg).removeClass('unpinDepositImg');
+        $(defaultDepositImg).removeClass('pinDepositImg');
+        $(defaultDepositImg).addClass('disabledUnpinDepositImg');
+    }
+
+    function showPinnedState() {
+        $(defaultDepositImg).removeClass('disabledUnpinDepositImg');
+        $(defaultDepositImg).removeClass('loadingImg');
+        $(defaultDepositImg).removeClass('unpinDepositImg');
+        $(defaultDepositImg).addClass('pinDepositImg');
+    }
+
+    function showUnpinnedState() {
+        $(defaultDepositImg).removeClass('disabledUnpinDepositImg');
+        $(defaultDepositImg).removeClass('loadingImg');
+        $(defaultDepositImg).removeClass('pinDepositImg');
+        $(defaultDepositImg).addClass('unpinDepositImg');
+    }
+
+    function beforeSend() {
+        $(defaultDepositImg).removeClass('disabledUnpinDepositImg');
+        $(defaultDepositImg).removeClass('pinDepositImg');
+        $(defaultDepositImg).removeClass('unpinDepositImg');
+        $(defaultDepositImg).addClass('loadingImg');
+    }
+
+    function hideErrorIcon() {
+        $('#errorImg').addClass('hidden');
+        $('#balanceDiagramToolbar .smartComboInfo').removeClass('smartComboInfoOnError');
+        $(defaultDepositImg).removeClass('defaultDepositImgOnError');
+    }
+
+    function error() {
+        $('#errorImg').removeClass('hidden');
+        $('#balanceDiagramToolbar .smartComboInfo').addClass('smartComboInfoOnError');
+        $(defaultDepositImg).addClass('defaultDepositImgOnError');
+        prepareToRequest();
+    }
+
+    $(defaultDepositImg).click(function () {
+        if (defaultDepositImg.hasClass('pinDepositImg') || defaultDepositImg.hasClass('unpinDepositImg')) {
+            var url = "";
+            if (defaultDepositImg.hasClass('pinDepositImg')) {
+                url = IB.ctx + '/config/unpinDeposit.action';
+            } else {
+                url = IB.ctx + '/config/pinDeposit.action';
+            }
+            beforeSend();
+            var sourceSavingVal = "";
+            if ($(sourceSavingSmartCombo).val().length != 0) {
+                sourceSavingVal = persian2EnglishNumbers($(sourceSavingSmartCombo).val());
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    "userProfile.balanceDiagramDefaultDeposit": sourceSavingVal
+                },
+                timeout: 30000,
+                success: function (json) {
+                    hideErrorIcon();
+                    if (url == IB.ctx + '/config/pinDeposit.action') {
+                        $('#sourceSavingPinnedDeposit').val(sourceSavingVal);
+                        showPinnedState();
+                    } else {
+                        $('#sourceSavingPinnedDeposit').val('');
+                        showUnpinnedState();
+                    }
+                },
+                error: function (err) {
+                    if (err.statusText === 'timeout') {
+                        operationFail(exception.ServiceTimeoutException);
+                    } else if (err.status == '500') {
+                        if (err.responseJSON !== undefined && err.responseJSON.errorMessages !== undefined) {
+                            operationFail(err.responseJSON.errorMessages);
+                        } else {
+                            operationFail(applicationResources['IB.reports.requestError']);
+                        }
+                    }
+                }
+            });
+
+        }
+    });
+
+    $(balanceDiagramPinImgSpan).mouseover(function () {
+        if (!is_touch_device()) {
+            $('.pinDepositImg').qtip({
+                content: {
+                    text: '<div class="pinDepositHint">' + applicationResources['dashboard.chart.unpinDeposit'] + '</div>'
+                },
+                show: {
+                    ready: true,
+                    event: false
+                },
+                style: {
+                    classes: 'qtip-rounded qtip-shadow ui-tooltip-blue-summary '
+                },
+                position: {
+                    my: 'bottom middle',
+                    at: 'top,middle'
+                }
+            });
+
+            $('.unpinDepositImg').qtip({
+                content: {
+                    text: '<div class="unpinDepositHint">' + applicationResources['dashboard.chart.pinDeposit'] + '</div>'
+                },
+                show: {
+                    ready: true,
+                    event: false
+                },
+                style: {
+                    classes: 'qtip-rounded qtip-shadow ui-tooltip-blue-summary  '
+                },
+                position: {
+                    my: 'bottom middle',
+                    at: 'top,middle'
+                }
+            });
+        }
+
+    });
+    function operationFail(errorMsg) {
+        errorMsg = '<div class="errorContent">' + errorMsg + '</div>';
+        error();
+        $('#errorImg').qtip({
+            id: 'errorTip',
+            content: errorMsg,
+            position: {
+                my: 'bottom,middle',
+                at: 'top,middle'
+            },
+            style: {
+                classes: 'qtip-error qtip-rounded qtip-shadow ui-tooltip-blue-summary tip'
+            },
+            show: {event: 'mouseover', ready: true},
+            hide: {event: 'unfocus mouseout'}
+        });
+    }
+
+    function prepareToRequest() {
+        if (isDefaultDeposit($(sourceSavingSmartCombo).val())) {
+            showPinnedState();
+        } else {
+            showUnpinnedState();
+        }
+    }
+
+    function isDefaultDeposit(deposit) {
+        return ($('#sourceSavingPinnedDeposit').val() == deposit);
+    }
+
+    var comboValNotInStoreHandler = function () {
+        disablePinImg();
+        $("#balanceDiagram").html('<div id="blankChart">برای نمایش نمودار موجودی سپرده در یک ماه گذشته سپرده مورد نظر خود را انتخاب نمایید .<div>');
+    };
+
+    var getChartData = function () {
+        hideErrorIcon();
+        var dNumber = $('#sourceSaving').val();
+        if (dNumber === '') {
+            disablePinImg();
+            $("#balanceDiagram").html('<div id="blankChart">برای نمایش نمودار موجودی سپرده در یک ماه گذشته سپرده مورد نظر خود را انتخاب نمایید .<div>');
+        } else if (dNumber === applicationResources['IB.smartCombo.emptyText']) {
+            disablePinImg();
+            $("#balanceDiagram").html('<div id="chartFailure">لطفا یک سپرده انتخاب نمایید.<div>');
+        } else {
+            prepareToRequest();
+            $("#balanceDiagram").html('<div class="loadingAjaxRequest"><div>');
+            $.ajax({
+                url: '/webbank/viewAcc/getBalanceDiagramStatements.action',
+                data: {
+                    selectedDeposit: dNumber,
+                    fromDateTime: lastDateString,
+                    toDateTime: todayDateString,
+                    order: 'DESC'
+                },
+                success: function (point) {
+                    var allData = jQuery.parseJSON(point).aaData;
+                    allData.reverse();
+
+                    var yAxisType = "logarithmic";
+                    if (allData.length != 0) {
+                        var mySeries = [];
+                        for (var x in allData) {
+                            mySeries.push(allData[x].balance);
+                            if (allData[x].balance < 1) {
+                                yAxisType = "linear"
+                            }
+                        }
+
+                        var myCategory = [];
+                        var date;
+                        for (var z in allData) {
+                            date = localizeDate(allData[z].issueDate);
+                            myCategory.push(date.year + '/' + date.month + '/' + date.day);
+                        }
+
+                        var angle = 0;
+                        var alignment = 'center';
+                        var x = 0;
+                        var y = 20;
+                        var itemCount = myCategory.length;
+                        if (itemCount > 7 && itemCount < 15) {
+                            angle = -25;
+                            y = 25;
+                        } else if (itemCount > 14) {
+                            angle = 90;
+                            x = -5;
+                            y = 40;
+                        }
+
+                        var chartTemp = {
+                            chart: {
+                                renderTo: 'balanceDiagram',
+                                type: 'line',
+                                backgroundColor: '#F7F7F7',
+                                marginRight: 10
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                categories: [],
+                                labels: {
+                                    rotation: angle,
+                                    align: alignment,
+                                    x: x,
+                                    y: y,
+                                    formatter: function () {
+                                        var dates = (this.value).toString();
+                                        dates = english2PersianNumbers(dates);
+                                        return dates;
+                                    }
+                                },
+                                tickmarkPlacement: 'on'
+                            },
+                            yAxis: {
+                                type: yAxisType,
+                                labels: {
+                                    formatter: function () {
+                                        return commaSepAndFormatNumber(this.value);
+                                    }
+                                },
+                                title: {text: null}
+                            },
+                            tooltip: {
+                                useHTML: true,
+                                formatter: function () {
+                                    return '<div class="balanceDiagramTooltip"><div>موجودی:<span style="direction:ltr;display:inline-block">' + commaSepAndFormatNumber(this.y) + '</span></div><div>تاریخ:<span style="direction:ltr;display:inline-block;"> ' + english2PersianNumbers(this.x) + '</span> </div></div>';
+                                }
+                            },
+                            series: [
+                                {}
+                            ]
+                        };
+
+                        chartTemp.series = [
+                            {name: 'A', data: mySeries}
+                        ];
+                        chartTemp.xAxis.categories = myCategory;
+                        var chart = new Highcharts.Chart(chartTemp);
+                    } else {
+                        $("#balanceDiagram").html('<div id="noTransaction">این سپرده در یک ماه گذشته هیچ تراکنشی نداشته است.<div>');
+                    }
+                },
+                error: function (response) {
+                    var chartFailureMessage = formatDigitsInText($.parseJSON(response.responseText).errorMessages[0], ',/IR-');
+                    $("#balanceDiagram").html('<div id="chartFailure">' + chartFailureMessage + '<div>');
+                },
+                cache: false
+            })
+        }
+    };
+    $(function () {
+        $('#sourceSaving').bind('load', function (e, api) {
+            if (api.data.length === 1) {
+                getChartData();
+            }
+        })
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        if ($('.newsFeedItem').length <= 3) {
+            $('.newsFeedDesc').first().slideDown(500);
+            $('.descBtn').first().removeClass('showDescBtn').addClass('hideDescBtn');
+        }
+        $('.descBtn').on('click', function () {
+            if ($(this).hasClass('showDescBtn')) {
+                if ($('.hideDescBtn').length) {
+                    $('.hideDescBtn').removeClass('hideDescBtn').addClass('showDescBtn');
+                }
+                $('#newsContent').animate({scrollTop: $('#newsContent').scrollTop() + $(this).closest('.newsFeedItem').position().top - $('#newsContent').height() / 2}, 'slow');
+                $(this).removeClass('showDescBtn').addClass('hideDescBtn');
+                $('.newsFeedDesc').filter(function () {
+                    return $(this).css('display') === 'block';
+                }).slideUp(500);
+                $(this).siblings('.newsFeedDesc').slideDown(500);
+            } else {
+                $(this).removeClass('hideDescBtn').addClass('showDescBtn');
+                $(this).siblings('.newsFeedDesc').slideUp(500);
+            }
+        });
+        $('.newsFeedTitle').on('click', function () {
+            $(this).siblings('.descBtn').click();
+        });
+    });
+</script>
+
+                        <div class="keyboardContainer" id="fullKeyboardContainer">
+                            <div class="keyboardKeypad" id="keyboard">
+                            </div>
+                        </div>
+                        <div class="keyboardContainer" id="limitedKeyboardContainer">
+                            <div class="keyboardKeypad" id="limitedKeyboard">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            <div id="navigation">
+                
+
+
+
+
+
+
+
+<ul class="mainMenu">
+    
+        
+            
+                <li class="menus menuFirstItem"
+                    id="home">
+                    <a
+                        href='/webbank/home/homePage.action'>
+                    خانه</a>
+                    <ul class="navList" id="menu-1">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="viewFavoriteAccountsList" href="/webbank/home/homePage.action">
+                                    خانه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="transferPayment" href="/webbank/chooseSubMenu.action?actionParameter=transfer">
+                                    انتقال وجه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="payments" href="/webbank/chooseSubMenu.action?actionParameter=payments">
+                                    پرداخت قبوض
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="viewAcc" href="/webbank/viewAcc/viewAccAction.action">
+                                    صورتحساب
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="viewAccAction">
+                    <a href="/webbank/viewAcc/viewAccAction.action">
+                        سپرده ها در یک نگاه
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="corporateCard">
+                    <a href="/webbank/index.action#corporateCard">
+                        سیگما
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="calendarViewBillList">
+                    <a href="/webbank/viewAcc/calendarViewBillList.action">
+                        روزشمار مالی
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="openingDeposit">
+                    <a href="/webbank/openingDeposit/chooseDepositType.action">
+                        افتتاح سپرده
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="contacts">
+                    <a href="/webbank/index.action#contacts">
+                        تماس ها
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="exchange">
+                    <a href="/webbank/index.action#exchange">
+                        بورسار
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="eRequests">
+                    <a href="/webbank/chooseSubMenu.action?actionParameter=eRequests">
+                        درخواست‌ها
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="transferPayment">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=transfer'>
+                    انتقال وجه</a>
+                    <ul class="navList" id="menu-9">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="normalTransfer" href="/webbank/transfer/newNormal.action">
+                                    عادی
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="continuumTransfer" href="/webbank/transfer/newContinuum.action">
+                                    مستمر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="batchTransfer" href="/webbank/transfer/newBatch.action">
+                                    دسته ای
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardToCardTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                    کارت به کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardToDepositTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                    کارت به سپرده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardToIBANTransfer" href="/webbank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                    کارت به شبا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="normalAchTransfer" href="/webbank/transfer/newNormalAch.action">
+                                    بین بانکی پایا عادی
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="batchAchTransfer" href="/webbank/transfer/newAchBatch.action">
+                                    بین بانکی پایا دسته ای
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="autoAchTransfer" href="/webbank/transfer/newAutoAch.action">
+                                    بین بانکی پایا مستمر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardless" href="/webbank/index.action#cardlessCash">
+                                    برداشت وجه بدون کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="instantInterbankTransfer" href="/webbank/transfer/instantInterbankTransfer.action">
+                                    بین بانکی آنی
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="Reports">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=report'>
+                    گزارش</a>
+                    <ul class="navList" id="menu-10">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="transferReport" href="/webbank/transfer/report.action">
+                                    انتقال وجه مستمر
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="continnumInputTransfer" href="/webbank/transfer/continnumInputTransferPage.action">
+                                    انتقال وجه مستمر به مشتری
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="rtgsReport" href="/webbank/transfer/rtgsReport.action?step=1">
+                                    انتقال وجه بین بانکی ساتنا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="achTransferBatchReport" href="/webbank/transfer/achTransferBatchReport.action">
+                                    انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="achTransferTransactionReport" href="/webbank/transfer/achTransferTransactionReport.action">
+                                    جزییات انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardPaymentsReport" href="/webbank/index.action#reports?ref=cardPaymentsReport">
+                                    پرداخت ها
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="cardTransactionsReport" href="/webbank/card/cardTransactionsReportPage.action">
+                                    تراکنش های کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="periodicalReports" href="/webbank/index.action#periodicalReportsSettings">
+                                    تنظیمات گزارش های دوره ای
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="userActivitiesHistory" href="/webbank/index.action#userActivitiesHistory">
+                                    تاریخچه عملیات کاربر
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="kartablReport">
+                    <a href="/webbank/index.action#kartabl">
+                        کارپوشــه
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+            
+                <li
+                    
+                     id="bond">
+                    <a href="/webbank/index.action#bond">
+                        مدیریت اوراق
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="chequeParent">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=cheque'>
+                    مدیریت چک</a>
+                    <ul class="navList" id="menu-13">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="jariDepositReport" href="/webbank/cheque/jariDepositsReport.action">
+                                    چک و دسته چک
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="transferredChequesList" href="/webbank/cheque/transferredChequesListPage.action">
+                                    چکهای واگذار شده به سپرده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="registerDigitalCheque" href="/webbank/cheque/registerDigitalCheque.action">
+                                    ثبت چک صیاد
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="acceptOrRejectDigitalCheque" href="/webbank/cheque/acceptOrRejectDigitalCheque.action">
+                                    تایید یا رد چک صیاد
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="transferDigitalCheque" href="/webbank/cheque/transferDigitalCheque.action">
+                                    انتقال چک صیاد
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="loans">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=loan'>
+                    مدیریت تسهیلات</a>
+                    <ul class="navList" id="menu-14">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="viewLoans" href="/webbank/loan/initialLoan.action">
+                                    مشاهده تسهیلات
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="othersLoanPayment" href="/webbank/loan/othersLoanPaymentPage.action">
+                                    پرداخت قسط
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="loansAutoPaySetting" href="/webbank/loan/loansAutoPaySettingPage.action">
+                                    تنظیم پرداخت خودکار
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="cardParent">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=card'>
+                    مدیریت کارت</a>
+                    <ul class="navList" id="menu-15">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="cardManagement" href="/webbank/card/viewCardManagement.action">
+                                    کارت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="creditDossierStatement" href="/webbank/card/creditDossiersPage.action">
+                                    پرونده اعتباری
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="activeCardOtp" href="/webbank/otp/showActivationPage.action">
+                                    فعال‌سازی رمز یکبارمصرف کارت
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus "
+                    id="payments">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=payments'>
+                    پرداخت</a>
+                    <ul class="navList" id="menu-16">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="topUp" href="/webbank/payment/topUp.action">
+                                    شارژ مستقیم تلفن همراه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="paymentServices" href="/webbank/thirdParty/treeViewPaymentServices.action">
+                                    سرویس های پرداخت
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="paymentWithPayNo" href="/webbank/payment/payWithPayNoPage.action">
+                                    پرداخت با شناسه
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="billPayment" href="/webbank/payment/newBillPayment.action">
+                                    پرداخت قبض
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="batchBillPayment" href="/webbank/payment/viewBatchBillPayment.action">
+                                    پرداخت قبض دسته ای
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus menuLastItem"
+                    id="settings">
+                    <a
+                        href='/webbank/chooseSubMenu.action?actionParameter=config'>
+                    تنظیمات</a>
+                    <ul class="navList" id="menu-17">
+                        
+                            <li
+                                class="subFirstItem" 
+                                >
+                                <a id="changePassword" href="/webbank/config/changePassword.action">
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="changeSecondPassword" href="/webbank/config/changeSecondPassword.action">
+                                    تغییر رمز دوم
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="changeUsername" href="/webbank/config/changeUsername.action">
+                                    تغییر نام کاربری
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="homeSettingsPage" href="/webbank/config/homeSettingsPage.action">
+                                    تنظیمات سپرده های برگزیده
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="displaySettingsPage" href="/webbank/config/displaySettingsPage.action">
+                                    تنظیمات نمایش
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                >
+                                <a id="billStatementSettingPage" href="/webbank/config/billStatementSettingPage.action">
+                                    تنظیمات صورتحساب
+                                </a>
+                            </li>
+                        
+                            <li
+                                
+                                class="subLastItem">
+                                <a id="qrGenerator" href="/webbank/index.action#qrGenerator?ref=modernOTP">
+                                    فعال سازی رمز یکبارمصرف ورود
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </li>
+            
+            
+        
+    
+</ul>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/webbank/kartabl/getKartabls.action',
+                dataType: 'json',
+                type: 'POST',
+                cache: false,
+                data: {
+                    reportType: 'ACTIONABLE',
+                    pageSize: 1,
+                    offset: 0
+                },
+                success: function (response) {
+                    if (response.total !== 0 && typeof response.total !== 'undefined') {
+                        var total = IB.locale == 'fa' ? english2PersianNumbers(response.total) : response.total;
+                        $('#kartablReport').append('<div class="kartablNotification">' + total + '</div>');
+                    }
+                },
+                error: function () {
+                    $('#kartablReport').append('<div class="kartablNotification kartablNotificationError">!</div>');
+                }
+            });
+        });
+    </script>
+
+
+
+
+            </div>
+        
+        <br style="clear: both"/>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dialog-wrap">
+    <div class="dialog-mask"></div>
+    <div class="dialog animated">
+        <div class="dialog-close">X</div>
+        <div class="dialog-header"></div>
+        <div class="dialog-body"></div>
+        <div class="dialog-footer"></div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="/webbank/locale/l10n.action?version=4.121.17-4022&locale=fa"></script>
+<script type="text/javascript" src="/webbank/scripts/mainFooters-4.121.17-4022.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.setupVKeyboard('rtl', 'fullKeys');
+        $.setupVKeyboard('rtl', 'limitedKeys');
+        $('.first').focus();
+    });
+</script>
+<input type="hidden" name="showFourPartDeposit" id="showFourPartDeposit" value="false"/>
+</body>
+</html>

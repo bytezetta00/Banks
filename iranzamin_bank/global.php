@@ -32,3 +32,47 @@ function recreateNewFile($filePath)
         fclose($cookie);
     }
 }
+
+function getInputTag(string $html, string $pattern)
+{
+    $doc = new DOMDocument();
+    preg_match($pattern, $html, $matches);
+    if(!isset($matches[0]))
+      return false;
+      
+    $text = "<html><body>
+    $matches[0]
+    </body></html>";
+    $internalErrors = libxml_use_internal_errors(true);
+    $doc->loadHTML($text);
+    libxml_use_internal_errors($internalErrors);
+
+
+    $result = null;
+    $input = $doc->getElementsByTagName("input");
+    if (isset($input[0]))
+        $result = $input[0]->getAttribute("value");
+    return $result;
+}
+
+
+function setPersianFormatForBalance(string $text)
+{
+    $persianNumber = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    $englishNumber = range(0, 9);
+    $encodedText = mb_convert_encoding(
+        $text,
+        'ISO-8859-1',
+        'UTF-8');
+    return trim(
+        str_replace(
+            $persianNumber,$englishNumber,$encodedText
+        ));
+}
+
+function convertPersianNumberToEnglish(string $text)
+{
+    $persianNumber = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    $englishNumber = range(0, 9);
+    return str_replace($persianNumber, $englishNumber, $text);
+}
