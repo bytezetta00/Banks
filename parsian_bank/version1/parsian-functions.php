@@ -1,4 +1,5 @@
 <?php
+load('date');
 
 function getDeposits(string $html, $user_id, $banking_id)
 {
@@ -12,6 +13,7 @@ function getDeposits(string $html, $user_id, $banking_id)
             return false;
 
         for ($i = 0; $i < $result?->totalRecord; $i++) {
+            $peygiri = $erja = $cardNumber = null;
             $row = $result?->rowDtoList[$i];
             if ($row === null || $row === "")
                 return false;
@@ -21,6 +23,9 @@ function getDeposits(string $html, $user_id, $banking_id)
                 $date = $row?->date;
                 $description = $row?->description;
                 $serial = $row?->referenceNumber;
+                $standardizedDate = substr($date,0,10);
+                $jalaliDate = jdate("Y/m/d H:i:s",$standardizedDate);
+                $datetime = str_replace(["‪", "‬"], "", $jalaliDate);
                 if ($serial == '' || $serial == null) {
                     continue;
                 }
@@ -40,7 +45,7 @@ function getDeposits(string $html, $user_id, $banking_id)
                     $shebaNumber = $shebaMatches[0];
                     $trackingNumber = $secondTrackingNumberMatches[0];
                     $peygiri = $erja = $trackingNumber;
-                    $cardNumber = $shebaNumber;
+                    $cardNumber = $shebaNumber ?? 'pol';
                 }
                 if (str_contains($description, 'انتقال از کارت')) {
                     preg_match('!از کارت \d{16}!', $description, $firstCardNumberMatches);
@@ -63,39 +68,56 @@ function getDeposits(string $html, $user_id, $banking_id)
                     $peygiri = $erja = $secondTrackingNumberMatches[0];
                     $cardNumber = $secondCardNumberMatches[0];
                 }
-                if (str_contains($description, 'انتقالی حساب')) {
+                if (str_contains($description, 'انتقالی حساب') || str_contains($description, 'از حساب')) {
                     preg_match('!\d{12,14}!', $description, $accountMatches);
                     if (!key_exists(0, $accountMatches)) {
                         continue;
                     }
                     preg_match('!فیش \d{6,8}!', $description, $firstReceiptNumberMatches);
-                    if (!key_exists(0, $firstReceiptNumberMatches)) {
-                        continue;
+                    if(key_exists(0, $firstReceiptNumberMatches)) {
+                        preg_match('!\d{6,8}!', $firstReceiptNumberMatches[0], $secondReceiptNumberMatches);
+                        if (!key_exists(0, $secondReceiptNumberMatches)) {
+                            continue;
+                        }
                     }
-                    preg_match('!\d{6,8}!', $firstReceiptNumberMatches[0], $secondReceiptNumberMatches);
-                    if (!key_exists(0, $secondReceiptNumberMatches)) {
-                        continue;
-                    }
-                    $receiptNumber = $secondReceiptNumberMatches[0];
+                    $receiptNumber = $secondReceiptNumberMatches[0] ?? $serial;
                     $peygiri = $erja = $receiptNumber;
                     $cardNumber = $accountMatches[0];
                 }
+                if(str_contains($description, 'واریز پایا')) {
+
+                    preg_match('!IR\d{24}!', $description, $shebaMatches);
+                    if (!key_exists(0, $shebaMatches)) {
+                        continue;
+                    }
+                    preg_match('!رهگیری: \d{16,22}!', $description, $firstTrackingNumberMatches);
+                    if (key_exists(0, $firstTrackingNumberMatches)) {
+                        preg_match('!\d{16,22}!', $firstTrackingNumberMatches[0], $secondTrackingNumberMatches);
+                    }
+
+                    $shebaNumber = $shebaMatches[0];
+                    $trackingNumber = (isset($secondTrackingNumberMatches) && key_exists(0, $firstTrackingNumberMatches)) ? $secondTrackingNumberMatches[0] : $row?->serial;
+                    $peygiri = $erja = $trackingNumber;
+                    $cardNumber = $shebaNumber ?? 'paya';
+
+                }
                 $stt = DB::getRow('transfer_logs', 'banking_id=? AND serial=?', [$banking_id, trim($serial)]);
+                $finalArray = [
+                    $user_id, // user_id
+                    $banking_id, // banking_id
+                    trim(str_replace(',', '', $amount) ?? ''), // amount
+                    trim($erja ?? ''), // erja
+                    trim($peygiri ?? ''), // peygiri
+                    trim($serial ?? ''), // serial
+                    trim($cardNumber ?? ''), // card_number
+                    $datetime,  // datetime
+                    str_replace(['/', ':', ' '], '', $datetime), // bigint_datetime
+                ];
+//                newLog(var_export($finalArray,true),"parsian-statementsFinal",'parsian');
                 if (str_contains($amount, "-") || $stt != false || $cardNumber == null) {
                     continue;
                 } else {
-                    $datetime = str_replace(["‪", "‬"], "", jdate($date));
-                    $statement[] = [
-                        $user_id, // user_id
-                        $banking_id, // banking_id
-                        trim(str_replace(',', '', $amount) ?? ''), // amount
-                        trim($erja ?? ''), // erja
-                        trim($peygiri ?? ''), // peygiri
-                        trim($serial ?? ''), // serial
-                        trim($cardNumber ?? ''), // card_number
-                        $datetime,  // datetime
-                        str_replace(['/', ':', ' '], '', $datetime), // bigint_datetime
-                    ];
+                    $statement[] = $finalArray;
                 }
             }
         }
@@ -116,8 +138,9 @@ function getBalance(string $html,$accountNumber)
             $balance = [];
             foreach ($accounts as $account){
                 if($account->depositNumber == $accountNumber){
-                    $balance['balance'] = (int) $account->balance;
-                    $balance['blockedAmount'] = (int) $account->balance - (int) $account->availableBalance;
+                    $balance['balance'] = trim((int) $account->balance);
+                    $balance['blocked_balance'] = trim((int) $account->balance - (int) $account->availableBalance);
+                    $balance['is_account_blocked'] = false;
                 }
             }
             return $balance ?? false;
@@ -151,4 +174,22 @@ function getFormattedPreviousMonthDate()
 function writeOnFile($filePath, $data, $mode = 'w')
 {
     file_put_contents($filePath,$data);
+}
+
+function notNeedLogout(string $html,$notStrict = true)
+{
+    $result = json_decode($html);
+    if ((json_last_error() === JSON_ERROR_NONE)) {
+        if ($result == null || $result == "")
+            return $notStrict;
+        if (!key_exists('status', (array)$result)) {
+            if ($result?->status == 417) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }else{
+        return $notStrict;
+    }
 }

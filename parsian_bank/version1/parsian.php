@@ -23,7 +23,7 @@ class parsian extends banking{
 
     public function __construct(array $data,$user_id ,$banking_id)
     {
-        $GLOBALS['account'] = $this->account = $data['account'];
+        $GLOBALS['account'] = $this->account = str_replace(['-',' '],[''],$data['account']);
         $this->username = $data['username'];
         $this->password = $data['password'];
         $this->user_id = $user_id;
@@ -37,7 +37,7 @@ class parsian extends banking{
         $this->http->setVerbose(true);
         $this->loginData = $this->getLoginData();
         $this->loginData2 = $this->getLoginData2();
-        $this->testingBankingId = 1;
+        $this->testingBankingId = 1440;
     }
 
     public function setProxy($config) {
@@ -51,6 +51,8 @@ class parsian extends banking{
 
     public function logout()
     {
+        $logoutUrl = "https://ipb.parsian-bank.ir/logout";
+        $this->http->get($logoutUrl,'get','','','');
         unlink($this->cookieFile);
         resetBankingProxy($this->bankName, $this->banking_id);
     }
@@ -70,6 +72,7 @@ class parsian extends banking{
         $homePage = $this->http->get($homeUrl,'get','','','');
         $logoutLink = "/logout";
         $getUserLink = "/getoff/user";
+//        $this->newLog(var_export($homePage,true),"homePage-check");
         if(strpos($homePage, $logoutLink) !== false || strpos($homePage, $getUserLink) !== false) {
             return true;
         } else {
@@ -105,6 +108,8 @@ class parsian extends banking{
         }
         $loginUrl = "https://ipb.parsian-bank.ir/login";
         $loginResponse = $this->http->get($loginUrl,'post','',$this->loginData,'');
+//        $this->newLog(var_export($loginResponse,true),"loginResponse");
+
         if ($loginResponse == $this->incorrectCaptchaCode) {
             $this->newLog('Captcha is incorrect!!!',"CaptchaIsIncorrect");
             $this->logout();
@@ -133,19 +138,28 @@ class parsian extends banking{
             "fromDate" => getFormattedPreviousMonthDate(),//"2023-12-19T20:00:00.000Z",// 1 month before
             "toDate" => getFormattedCurrentDate(),//"2024-01-06T09:29:13.896Z", // current month
         ];
+//        $this->newLog(var_export($statementData,true),"statementData");
+
         $header = [
             "Accept: */*",
             'Content-Type:application/json',
             'X-KL-ksospc-Ajax-Request:Ajax_Request'
         ];
         $this->http->setHeaders($header);
-        $statementResponse = $this->http->get($statementUrl,'post','',$statementData,'');
+        $statementResponse = $this->http->get($statementUrl,'post','',json_encode($statementData),'');
         $this->http->setHeaders([]);
-
+//        $this->newLog(var_export($statementResponse,true),"statementResponse");
+        $isValid = notNeedLogout($statementResponse);
+//        $this->newLog(var_export($isValid,true),"statementValid");
+        if(!$isValid){
+            $this->newLog("statements response is invalid!!!: $isValid","statementsResponseIsInvalid");
+            $this->logout();
+            return false;
+        }
         $statements = getDeposits($statementResponse,$this->user_id,$this->banking_id);
 
         if(!$statements){
-            $this->newLog('Failed to read statement from html !!',"failedToReadStatement");
+            $this->newLog('Failed to read statement from html or there is no statement!!',"failedToReadStatement");
             return false;
         }
         return  $statements;
@@ -163,16 +177,26 @@ class parsian extends banking{
             'X-KL-ksospc-Ajax-Request:Ajax_Request'
         ];
         $this->http->setHeaders($header);
-        $getAllAccountsResponse = $this->http->get($getAllAccountsUrl,'post','',$getAllAccountsData,'');
+        $getAllAccountsResponse = $this->http->get($getAllAccountsUrl,'post','',json_encode($getAllAccountsData),'');
         $this->http->setHeaders([]);
+//        $this->newLog(var_export($getAllAccountsResponse,true),"getAllAccountsResponse");
+        $isValid = notNeedLogout($getAllAccountsResponse);
+//        $this->newLog(var_export($isValid,true),"balanceValid");
+        if(!$isValid){
+            $this->newLog("balance response is invalid!!!: $isValid","balanceResponseIsInvalid");
+            $this->logout();
+            return false;
+        }
 
         $balance = getBalance($getAllAccountsResponse,$this->account);
 
         if(!$balance){
-            $this->newLog('Failed to read balance from html !!',"failedToReadBalance");
+            $this->newLog('Failed to read balance from html or there is no account!!',"failedToReadBalance");
             return false;
         }
-        return  $balance;
+//        $this->newLog(var_export($balance,true),"balance");
+
+        return $balance;
     }
 
     public function getCodeFromSMS($messages,$type=1)
@@ -209,6 +233,7 @@ class parsian extends banking{
     {
         $loginUrl = "https://ipb.parsian-bank.ir/login";
         $loginResponse2 = $this->http->get($loginUrl,'post','',$twoPhaseData,'');
+//        $this->newLog(var_export($loginResponse2,true),"loginResponse2");
         if ($loginResponse2 == $this->incorrectSmsCode) {
             $this->newLog('SMS code is incorrect!!!',"SMSCodeIsIncorrect");
             $this->logout();
@@ -216,6 +241,7 @@ class parsian extends banking{
         }
         $homeUrl = "https://ipb.parsian-bank.ir/";
         $homeResponse = $this->http->get($homeUrl,'get','','','');
+//        $this->newLog(var_export($homeResponse,true),"homeResponse");
 
         return $homeResponse;
     }
