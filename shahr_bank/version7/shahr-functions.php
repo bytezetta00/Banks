@@ -50,11 +50,31 @@ function getDeposit(string $html, $user_id, $banking_id)
         {
             preg_match_all('!IR\d{24}!', $descriptions, $matches);
             if(isset($matches[0])) {
-                $cardNumber = (strpos($descriptions, 'شبا') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
+                $cardNumber = (strpos($descriptions,  'شبا') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : 'pol';
             }
-            preg_match_all('!\d{21}!', $descriptions, $matches);
+            else{
+                $cardNumber = 'pol';
+            }
+
+            preg_match_all('! \d{19,22} !', $descriptions, $matches);
             if(isset($matches[0])) {
-                $erja = (strpos($descriptions, 'کدپيگيري') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][1] : null;
+                $erja = (strpos($descriptions, 'کدپيگيري') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
+            }
+        }
+
+        if(strpos($descriptions, 'پايا وارده') !== false )
+        {
+            preg_match_all('!IR\d{24}!', $descriptions, $matches);
+            if(isset($matches[0])) {
+                $cardNumber = (strpos($descriptions, 'از شبا') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : 'paya';
+            }
+            else{
+                $cardNumber = 'paya';
+            }
+
+            preg_match_all('!\d{17,21}!', $descriptions, $matches);
+            if(isset($matches[0])) {
+                $erja = (strpos($descriptions, 'پيگيري') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
             }
         }
 

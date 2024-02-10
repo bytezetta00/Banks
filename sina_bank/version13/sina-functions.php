@@ -46,12 +46,29 @@ function getDeposits(string $html,$user_id, $banking_id)
         {
             preg_match_all('!IR\d{24}!', $details, $matches);
             if(isset($matches[0])) {
-                $cardNumber = (strpos($details, 'شبا') !== false && is_array($matches[0]) == true) ? $matches[0][0] : null;
+                $cardNumber = (strpos($details, 'شبا') !== false && is_array($matches[0]) == true) ? $matches[0][0] : 'pol';
+            }
+            else{
+                $cardNumber = "pol";
             }
             preg_match_all('!\d{21}!', $details, $matches);
             if(isset($matches[0])) {
                 $erja = (strpos($details, 'ش.پ') !== false && is_array($matches[0]) == true) ? $matches[0][1] : null;
             }
+        }
+        if(strpos($details, 'واريزي از پايا با رهگيري') !== false){
+            preg_match_all('!IR\d{24}!', $details, $matches);
+            if(isset($matches[0])) {
+                $cardNumber = (strpos($details, 'شبا') !== false && is_array($matches[0]) == true) ? $matches[0][0] : 'paya';
+            }
+            else{
+                $cardNumber = "paya";
+            }
+            preg_match_all('!\d{16,20}!', $details, $matches);
+            if(isset($matches[0])) {
+                $erja = (strpos($details, 'رهگيري') !== false && is_array($matches[0]) == true) ? $matches[0][0] : null;
+            }
+            newLog(var_export([$erja,$details],true),'sinaPayaStatements','sina');
         }
         $stt = DB::getRow('transfer_logs', 'banking_id=? AND serial=?', [$banking_id, trim($sanad)]);
         if (str_contains($deposit, "-") || $stt != false || $cardNumber == null) {
@@ -142,7 +159,7 @@ function getBalance(string $html,$account)
 
             return $result;
         }
-        
+
     }
 
     return $result;

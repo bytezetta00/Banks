@@ -138,8 +138,8 @@ function getBalance(string $html,$accountNumber)
             $balance = [];
             foreach ($accounts as $account){
                 if($account->depositNumber == $accountNumber){
-                    $balance['balance'] = trim((int) $account->balance);
-                    $balance['blocked_balance'] = trim((int) $account->balance - (int) $account->availableBalance);
+                    $balance['balance'] = str_replace(' ','',(int) $account->balance);
+                    $balance['blocked_balance'] = str_replace(' ','',(int) $account->balance - (int) $account->availableBalance);
                     $balance['is_account_blocked'] = false;
                 }
             }

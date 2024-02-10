@@ -160,7 +160,7 @@ class parsian extends banking{
 
         if(!$statements){
             $this->newLog('Failed to read statement from html or there is no statement!!',"failedToReadStatement");
-            return false;
+            return [];
         }
         return  $statements;
     }
@@ -194,7 +194,7 @@ class parsian extends banking{
             $this->newLog('Failed to read balance from html or there is no account!!',"failedToReadBalance");
             return false;
         }
-//        $this->newLog(var_export($balance,true),"balance");
+        $this->newLog(var_export($balance,true),"balance");
 
         return $balance;
     }
