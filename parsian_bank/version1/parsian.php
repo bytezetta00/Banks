@@ -5,6 +5,7 @@ load('date');
 class parsian extends banking{
 
     private $account;
+    private $originalAccountNumber;
     private $username;
     private $password;
     private $user_id;
@@ -24,6 +25,7 @@ class parsian extends banking{
     public function __construct(array $data,$user_id ,$banking_id)
     {
         $GLOBALS['account'] = $this->account = str_replace(['-',' '],[''],$data['account']);
+        $this->originalAccountNumber = $data['account'];
         $this->username = $data['username'];
         $this->password = $data['password'];
         $this->user_id = $user_id;
@@ -275,5 +277,31 @@ class parsian extends banking{
             //"otpPassword" => "",
             "captcha" => "bbxhc",
         ];
+    }
+
+    public function getTransferRemainingLimit()
+    {
+        $getTransferLimitationsUrl = "https://ipb.parsian-bank.ir/customer/getTransferLimitations?type=";
+        $getTransferLimitationsData = [
+            'type' => "ACH_NORMAL_TRANSFER"
+        ];
+        $header = [
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ];
+        $this->http->setHeaders($header);
+        $newNormalAchUrlResponse = $this->http->get($getTransferLimitationsUrl, 'post', '', json_encode($getTransferLimitationsData), '');
+        $this->http->setHeaders([]);
+        $getTransferLimitations = json_decode($newNormalAchUrlResponse);
+        $remainedTodayWithdraw = $getTransferLimitations?->remainedTodayWithdraw ?? null;
+        if (isset($remainedTodayWithdraw)) {
+            return [
+                'paya' => $remainedTodayWithdraw,
+                'acc' => $remainedTodayWithdraw,
+            ];
+        } else {
+            return false;
+        }
     }
 }

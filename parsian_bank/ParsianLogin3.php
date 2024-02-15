@@ -13,6 +13,7 @@ class ParsianLogin
         private string $password = "Hedie@1375",//"Amir@1362m@Ss",//"D@nyal0118DGk",//"M10510568m@Kk",
         //"SH@nyal0118DG",
         private string $account = "47001499225602",//"47001485069601",//"30101927557601",//"30101790267603",
+        private string $originalAccountNumber = "470-01499225-602",//"47001485069601",//"30101927557601",//"30101790267603",
         //"47001427876609",
         private string $proxy = PROXY,
         private string $proxyUserPwd = PROXYUSERPWD,
@@ -348,6 +349,94 @@ class ParsianLogin
             return false;
         }
         return array_reverse($statement, true);
+    }
+
+    public function limitationPayaTransfer()
+    {
+        $getTransferLimitationsUrl = "https://ipb.parsian-bank.ir/customer/getTransferLimitations?type=";
+        $getTransferLimitationsData = [
+            'type' => "ACH_NORMAL_TRANSFER"
+            ];
+        $getTransferLimitationsResponse = $this->curlRequest($getTransferLimitationsUrl,json_encode($getTransferLimitationsData),[
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ]);
+        writeOnFile('responses/getAllAccountsResponse.html', $getTransferLimitationsResponse["body"]);
+        $getTransferLimitations = json_decode($getTransferLimitationsResponse["body"]);
+        $remainedTodayWithdraw = $getTransferLimitations?->remainedTodayWithdraw ?? null;
+        if (isset($remainedTodayWithdraw)) {
+            return [
+                'paya' => $remainedTodayWithdraw,
+                'acc' => $remainedTodayWithdraw,
+            ];
+        } else {
+            return false;
+        }
+        // https://ipb.parsian-bank.ir/account/options
+        // https://ipb.parsian-bank.ir/customer/getTransferLimitations?type=
+        // https://ipb.parsian-bank.ir/general/loadGeneralParameter?
+//        Reasonforpayment
+    }
+    public function payaTransfer($iban, $amount, $name, $surname, $desc = '')
+    {
+        // POST
+        // https://ipb.parsian-bank.ir/account/getWithdrawableAccounts/
+        //{includeCurrency: "IRR", excludeCurrency: "", serviceCode: "ACH_NORMAL_TRANSFER"}
+
+        $ibanInquiryByCentralBankUrl = "https://ipb.parsian-bank.ir/account/ibanInquiryByCentralBank";
+        // {iban: "IR44-0610-0000-0400-1003-1961-33", paymentId: "", amount: "10000", captcha: ""}
+        $ibanInquiryByCentralBankData = [
+            'iban' => $iban,
+            'paymentId' => "",
+            'amount' => $amount,
+            'captcha' => ""
+        ];
+        $ibanInquiryByCentralBankResponse = $this->curlRequest($ibanInquiryByCentralBankUrl,json_encode($ibanInquiryByCentralBankData),[
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ]);
+        writeOnFile('responses/ibanInquiryByCentralBankResponse.html', $ibanInquiryByCentralBankResponse["body"]);
+
+//        https://ipb.parsian-bank.ir/customer/isLoadControlEnabled     //GET
+
+
+        $validateBalanceThresholdUrl = "https://ipb.parsian-bank.ir/account/validateBalanceThreshold/";
+        $validateBalanceThresholdData = [
+            "accountNumber" => $this->originalAccountNumber,//"470-01508868-601",
+            "amount" => $amount
+        ];
+        $validateBalanceThresholdResponse = $this->curlRequest($validateBalanceThresholdUrl,json_encode($validateBalanceThresholdData),[
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ]);
+        writeOnFile('responses/ibanInquiryByCentralBankResponse.html', $validateBalanceThresholdResponse["body"]);
+
+        $generateUniqueTrackingCodeUrl = "https://ipb.parsian-bank.ir/generateUniqueTrackingCode";
+        $generateUniqueTrackingCodeData = [
+            "transferType" => "AST",
+        ];
+
+        $achFundTransferUrl = "https://ipb.parsian-bank.ir/account/achFundTransfer";
+        $achFundTransferData = [
+            "captcha" => "",
+            "destinationIban" => "",// "IR44-0610-0000-0400-1003-1961-33"
+            "destinationIbanOwnerName" => "", //"پريا فعله كري"
+            "email" => "",
+            "noteSender" => "",//"کمک"
+            "pass" => "",
+            "passType" => "S",
+            "paymentId" => "",
+            "paymentType" => "CPAC",
+            "sourceAccountNumber" => $this->originalAccountNumber,//"470-01508868-601",
+            "transferAmount" => $amount, //"10000"
+            "transferDescription" => "",
+            "uniqueTrackingCode" => "", //"1707898571405"
+        ];
+
+
     }
 }
 

@@ -1,5 +1,5 @@
 <?php
-
+number_format("470-01508868-601",);
 $doc = new DOMDocument();
 $file = fopen('responses/statementResponse.html', 'r');//paya/secondPage.html
 //$file = fopen('responses/getOpenTermAccountsResponse.html', 'r');
@@ -214,3 +214,8 @@ die;
 // for j in (num_required - 1):
 //     for i in mat
 //
+// find intermediates 
+// add from entrances to intermediates
+// add from intermediates to intermediates
+// add from intermediates to exits
+// add from entrances to exits

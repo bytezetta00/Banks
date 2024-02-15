@@ -9,7 +9,7 @@ $file = fopen('response/testsssss.html','r');
 $data = fread($file , 5000000);
 fclose($file);
 
-var_dump(getDeposit($data,1,1));
+var_dump(getDeposit($data,1,1));die;
 //$pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
 //$pattern = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
 //$patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)\/>/s';
@@ -137,7 +137,7 @@ function getDeposit(string $html, $user_id, $banking_id)
 {
     $doc = new DOMDocument();
     preg_match('/<table class="datagrid" id="rowTbl">(.*?)<\/table>/s', $html, $matches);
-    $text = "<html><body>
+    $text = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>
     $matches[0]
     </body></html>";
 
@@ -159,16 +159,7 @@ function getDeposit(string $html, $user_id, $banking_id)
         $details = $trs->item($i)->getElementsByTagName("td")->item(8)->textContent;
 
         preg_match_all('!\d{12,16}!', $descriptions, $matches);
-//        if($i == 5) {
-//            if (isset($matches[0])) {
-//                $cardNumber = ((strpos($descriptions, 'از کارت') !== false || strpos($descriptions,'انتقال وجه از') !== false) && is_array($matches[0]) == true) ? $matches[0][0] : null;
-////                'انتقال وجه از'
-//            }
-//            var_dump($cardNumber);die;
-//        }
-//        strpos($descriptions, "انتقال وجه اينترنتي از سپرده")
         if (isset($matches[0])) {
-//            $cardNumber = (strpos($descriptions, 'از کارت') !== false && is_array($matches[0]) == true) ? $matches[0][0] : null;
             $cardNumber = (((strpos($descriptions, 'از کارت') !== false || strpos($descriptions,'انتقال وجه از') !== false || strpos($descriptions,"از سپرده") !== false)) && is_array($matches[0]) == true  && empty($matches[0]) == false) ? $matches[0][0] : null;
         }
         if (isset($matches[0])) {
@@ -179,7 +170,6 @@ function getDeposit(string $html, $user_id, $banking_id)
         }
 
         preg_match_all('!\d{11,13}!', $details, $matches);
-//        var_dump(empty($matches[0]));
         if (isset($matches[0])) {
             $erja = (strpos($details, 'مرجع') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
         }
@@ -188,19 +178,41 @@ function getDeposit(string $html, $user_id, $banking_id)
         if (isset($matches[0])) {
             $sanad = (strpos($details, 'سند') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
         }
+
         if(strpos($descriptions, 'پرداخت آني') !== false )
         {
             preg_match_all('!IR\d{24}!', $descriptions, $matches);
             if(isset($matches[0])) {
-                $cardNumber = (strpos($descriptions, 'شبا') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
+                $cardNumber = (strpos($descriptions,  'شبا') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : 'pol';
             }
-            preg_match_all('!\d{21}!', $descriptions, $matches);
+            else{
+                $cardNumber = 'pol';
+            }
+
+            preg_match_all('! \d{19,22} !', $descriptions, $matches);
             if(isset($matches[0])) {
-                $erja = (strpos($descriptions, 'کدپيگيري') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][1] : null;
+                $erja = (strpos($descriptions, 'کدپيگيري') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
             }
         }
+
+        if(strpos($descriptions, 'پايا وارده') !== false )
+        {
+            preg_match_all('!IR\d{24}!', $descriptions, $matches);
+            if(isset($matches[0])) {
+                $cardNumber = (strpos($descriptions, 'از شبا') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : 'paya';
+            }
+            else{
+                $cardNumber = 'paya';
+            }
+
+            preg_match_all('!\d{17,21}!', $descriptions, $matches);
+            if(isset($matches[0])) {
+                $erja = (strpos($descriptions, 'پيگيري') !== false && is_array($matches[0]) == true && empty($matches[0]) == false) ? $matches[0][0] : null;
+            }
+        }
+
 //        $stt = DB::getRow('transfer_logs', 'banking_id=? AND serial=?', [$banking_id, trim($sanad)]);
-//        if($banking_id == 111){
+//        if($banking_id == 204){
 //            newLog(json_encode([
 //                $user_id, //user_id
 //                $banking_id, //banking_id
@@ -213,9 +225,7 @@ function getDeposit(string $html, $user_id, $banking_id)
 //                $bigintDatetime, //bigint_datetime
 //            ]),'shahr-statements','shahr');
 //        }
-//        if (str_contains($deposit, "-") || $stt != false || $cardNumber == null) { //just deposits, not withdrawals, only first time
-        if ($cardNumber == null)
-        {
+        if (str_contains($deposit, "-") /*|| $stt != false */|| $cardNumber == null) { //just deposits, not withdrawals, only first time
             continue;
         } elseif (isset($erja, $sanad, $datetime)) {
             $result[] = [

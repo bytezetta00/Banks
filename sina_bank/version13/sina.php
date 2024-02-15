@@ -87,6 +87,9 @@ class sina extends banking{
     public function autoSigninStep1()
     {
         $signinPage = $this->getSigninPage();
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(var_export($signinPage,true),"signinPage");
+        }
         if($signinPage == null || $signinPage == "" || $signinPage == false){
             $this->newLog('Failed to load the signin page !!',"failedToSendSMS");
             $this->logout();
@@ -110,12 +113,14 @@ class sina extends banking{
         if ($this->banking_id == $this->testingBankingId) {
             $this->newLog(json_encode($loginData), 'loginData');
         }
-        if($sendSMSResponse["status"] == false){
+        if(!$sendSMSResponse["status"]){
             $this->newLog('Failed To Send SMS !!',"failedToSendSMS");
             $this->logout();
             return false;
         }
-
+        if($sendSMSResponse["status"] == true && $sendSMSResponse["message"] == "noNeedSMS"){
+            return "noNeedSMS";
+        }
         $loginData2 = [
             "struts.token.name" => "ticketLoginToken",
             "ticketResendTimerRemaining" => -1,
@@ -286,9 +291,12 @@ class sina extends banking{
     function sendSMSCodeToUser(array $data)
     {
         $textForSms = "لطفا بلیت امنیتی ارسال شده به تلفن همراه ";
+        $logoutLink = "/webbank/login/logout.action";
         $SMSUrl = "https://ib.sinabank.ir/webbank/login/login.action?ibReq=WEB&lang=fa";
         $SMSResponse = $this->http->get($SMSUrl,'post','',$data,'');
-        //newLog(var_export($SMSResponse,true),'sina-autoSigninStep1-sendSMSCodeToUser');
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(var_export($SMSResponse, true), 'sina-autoSigninStep1-sendSMSCodeToUser');
+        }
         if (!$SMSResponse) {
             return [
                 "message" => "Sending SMS failed !!(No Response)",
@@ -296,11 +304,20 @@ class sina extends banking{
             ];
         }
         if(strpos($SMSResponse,$textForSms) == false){
-            return [
+            $result = [
                 "message" => "Sending SMS failed !!",
                 "status" => false
             ];
+            if(strpos($SMSResponse, $logoutLink) !== false) {
+                $result = [
+                    "data" => $SMSResponse,
+                    "message" => "noNeedSMS",
+                    "status" => true
+                ];
+            }
+            return $result;
         }
+
         return [
             "data" => $SMSResponse,
             "message" => "Sending SMS successfully !!",

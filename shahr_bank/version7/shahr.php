@@ -142,6 +142,9 @@ class shahr extends banking
             return false;
         }
 
+        if($sendSMSResponse["status"] == true && $sendSMSResponse["message"] == "noNeedSMS"){
+            return "noNeedSMS";
+        }
 
         $loginData2 = [
             "struts.token.name" => "ticketLoginToken",
@@ -282,6 +285,7 @@ class shahr extends banking
         $SMSUrl = "https://ebank.shahr-bank.ir/ebank/login/login.action?ibReq=WEB&lang=fa";
         $SMSResponse = $this->http->get($SMSUrl, 'post', 'https://ebank.shahr-bank.ir/ebank/login/loginPage.action?ibReq=WEB', $data, '');
         $textForSms = "لطفا بلیت امنیتی ارسال شده به تلفن همراه";
+        $logoutLink = "/ebank/login/logout.action";
 
         if (!$SMSResponse) {
             return [
@@ -291,11 +295,19 @@ class shahr extends banking
             ];
         }
         if (strpos($SMSResponse, $textForSms) == false) {
-            return [
+            $result = [
                 "data" => $SMSResponse,
                 "message" => "Sending SMS failed !!",
                 "status" => false
             ];
+            if(strpos($SMSResponse, $logoutLink) !== false) {
+                $result = [
+                    "data" => $SMSResponse,
+                    "message" => "noNeedSMS",
+                    "status" => true
+                ];
+            }
+            return $result;
         }
         return [
             "data" => $SMSResponse,

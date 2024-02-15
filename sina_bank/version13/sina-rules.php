@@ -20,4 +20,11 @@ $rules = array(
         'title' => 'کلمه عبور',
         'description' => 'کلمه عبور نت بانک بانک سینا',
     ),
+    'secondPass' => array(
+        'required' => false,
+        'type' => 'text',
+        'field' => 'textbox',
+        'title' => 'رمز دوم',
+        'description' => 'رمز دوم انتقال پایا بانک سینا',
+    ),
 );
