@@ -9,17 +9,17 @@ $file = fopen('response/testsssss.html','r');
 $data = fread($file , 5000000);
 fclose($file);
 
-var_dump(getDeposit($data,1,1));die;
-//$pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
-//$pattern = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
-//$patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)\/>/s';
-//$patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)\/>/s';
-//$patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
+//var_dump(getDeposit($data,1,1));die;
+$pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
+$pattern = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)>/s';
+$patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)>/s';
+$patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)>/s';
+$patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)>/s';
 
-//$loginData['hiddenPass1'] = getInputTag($data, $patternPass1) ?? 9;
-//$loginData['hiddenPass2'] = getInputTag($data, $patternPass2) ?? 8;
-//$loginData['hiddenPass3'] = getInputTag($data, $patternPass3) ?? 7;
-//var_dump($loginData);die;
+$loginData['hiddenPass1'] = getInputTag($data, $patternPass1) ?? 9;
+$loginData['hiddenPass2'] = getInputTag($data, $patternPass2) ?? 8;
+$loginData['hiddenPass3'] = getInputTag($data, $patternPass3) ?? 7;
+var_dump($loginData);die;
 
 $message['message'] = "بانک شهر
 بليت امنيتي انتقال وجه پایا عادی

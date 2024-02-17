@@ -154,6 +154,14 @@ class shahr extends banking
             "hiddenPass3" => 3,
         ];
 
+        $patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)>/s';
+        $patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)>/s';
+        $patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)>/s';
+
+        $loginData['hiddenPass1'] = getInputTag($sendSMSResponse, $patternPass1) ?? 9;
+        $loginData['hiddenPass2'] = getInputTag($sendSMSResponse, $patternPass2) ?? 8;
+        $loginData['hiddenPass3'] = getInputTag($sendSMSResponse, $patternPass3) ?? 7;
+
         $loginData2["ticketLoginToken"] = getInputTag($sendSMSResponse["data"], '/<input type="hidden" name="ticketLoginToken" value=".*/');
         $loginData2["mobileNumber"] = getInputTag($sendSMSResponse["data"], '/<input type="hidden" class="" name="mobileNumber" id="mobileNumber" value=".*/');
 
@@ -262,9 +270,9 @@ class shahr extends banking
         ];
         $loginData['loginToken'] = getInputTag($signinPage, '/<input type="hidden" name="loginToken" value=".*/');
 
-        $patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)\/>/s';
-        $patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)\/>/s';
-        $patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)\/>/s';
+        $patternPass1 = '/<input type="password" class="" name="hiddenPass1" id="hiddenPass1"(.*?)value="(.*?)>/s';
+        $patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)>/s';
+        $patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)>/s';
 
         $loginData['hiddenPass1'] = getInputTag($signinPage, $patternPass1) ?? 1;
         $loginData['hiddenPass2'] = getInputTag($signinPage, $patternPass2) ?? 2;
