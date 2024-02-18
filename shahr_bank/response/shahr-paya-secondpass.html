@@ -1,0 +1,2368 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>بررسی و تایید انتقال وجه بین بانکی پایا عادی | اینترنت بانک بانک شهر</title>
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="CSRF_TOKEN" content="z90izQ9DwvE+twZ8CKAJB1/uojBLqJL2lBGlI6V+14Q=">
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/ebank/styles/main-4.121.17-4022.css">
+<link rel="stylesheet" type="text/css" media="print" href="/ebank/styles/print-4.121.17-4022.css">
+<script type="text/javascript" src="/ebank/scripts/mainHeaders-4.121.17-4022.js"></script>
+<script type="text/javascript" src="/ebank/scripts/mainHeaders-fa-4.121.17-4022.js"></script>
+<script type="text/javascript">
+
+    // internet bank name space
+    var IB = {};
+    IB.queryText = '';
+    // sequence of these lines is important and should be kept in this way.
+    IB.smartCombo = {};
+    IB.smartCombo.queryText = '';
+    IB.ctx = '/ebank';
+    IB.isBatchListPage = false;
+    IB.locale = 'fa';
+
+    IB.tempKeys = {
+        chequeManagemnet            : 'مدیریت چک',
+        batchTransfer               : 'دسته ای',
+        batch                       : 'batch',
+        chequeAndChequeBook         : 'چک و دسته چک',
+        transferredChequeListTitle  : 'چکهای واگذار شده به سپرده',
+        payBill                     : 'pay.bill',
+        batchBillPayment            : 'batch.Bill.Payment'
+    };
+    // end of template keys
+    IB.periodicalReports = {};
+    IB.periodicalReports.smsConfig = ('true' == 'true');
+    IB.periodicalReports.emailConfig = ('false' == 'true');
+    IB.periodicalReports.faxConfig = ('false' == 'true');
+
+    IB.cardTransactionsMaxDay = (30);
+    IB.billStatementReportMaxDay = '';
+    IB.ibanDefaultPrefix = ('IR');
+    IB.removeLeadingZerosFromDeposit = (false);
+
+    IB.userName = 'مهدي اشرف زاده افشار';
+    IB.direction = 'rtl';
+    IB.ctx = '/ebank';
+    if ('10' !== '') {
+        IB.pageSize = parseInt('10', 10);
+    } else {
+        IB.pageSize = '';
+    }
+    IB.kartabl_activation = ('true' == 'true');
+    IB.calendar = 'jalali';
+    IB.illegalCharacters = [38, 37, 59, 124, 36, 35, 40, 41, 39, 96, 34, 60, 62, 92];
+    IB.defaultCurrencyCode = 'IRR';
+    IB.defaultCurrencyFractionalDigits = '2';
+    IB.showCountdownTimer = ('true' == 'true');
+    IB.remainingCountdownTime = '600';
+    IB.showAlertMaxTime = '1';
+    IB.maxPasswordLength = '';
+    IB.minPasswordLength = '';
+    IB.specialCharacterReplacement = ' ';
+    IB.harimResendPasswordDuration = '120';
+    IB.timerDuration = '120';
+    IB.remainingTimeDuration = '';
+</script>
+
+    <link rel="shortcut icon" href="/ebank/favicon.ico">
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+        </head><body class="rtl withSideNote transferPayment normalAchTransfer confirmPage wide-screen"><input type="hidden" class="" name="ticket_Resource_Value" id="ticket_Resource_Value" value="4001003416263">
+    
+    
+
+
+<script type="text/javascript">
+    $(function () {
+        var otpTypeChanged = function (challengeAction) {
+            $('#challengeError').fadeOut();
+            if ($('#otpType').val() == 3) {
+                $('#loadingChallenges').show();
+                $.getJSON(challengeAction, {CSRF_TOKEN: getCSRFMetaTag()}, function (json) {
+                    if (json.v1.length == 0 && json.v2.length == 0) {
+                        $('.challengeNumbers').fadeOut();
+                        $('#challengeError').css({'font-weigth': 'normal'}).fadeIn();
+                        $('#otpType').val(1);
+                    } else {
+                        $('.challengeNumbers').fadeIn();
+                        $('#challengeV1').text(json.v1);
+                        $('#challengeV2').text(json.v2);
+                    }
+                    $('#loadingChallenges').hide();
+                });
+            } else {
+                if ($('#otpType').val() == 1 || $('#otpType').val() == 2) {
+                    $('.challengeNumbers').fadeOut();
+                } else {
+                    $('#otpType').focus();
+                }
+            }
+        };
+        var getTicket = function (generateTicketAction) {
+            $('#getTicket').css("display", "none");
+            $('#loadingTicket').css("visibility", "visible");
+            $.getJSON(generateTicketAction,
+                {
+                    CSRF_TOKEN: getCSRFMetaTag(),
+                    ticketAmountValue: "10000".replace(/[^\d.]/g, ''),
+                    ticketModernServiceType: "NORMAL_ACH_TRANSFER",
+                    ticketParameterResourceType: "DEPOSIT",
+                    ticketParameterResourceValue: $('#ticket_Resource_Value').val(),
+                    ticketParameterDestinationType: "IBAN",
+                    ticketParameterDestinationValue: "IR810540203320101111569601",
+                    ticketDestinationName: "ميثم صفياري",
+                    ticketAdditionalInfoAmount: ""
+                }, null).error(
+                function () {
+                    $('#loadingTicket').css("visibility", "hidden");
+                    timer = parseInt(IB.timerDuration, 10);
+                    startTimer();
+                }).success(
+                function () {
+                    $('#loadingTicket').css("visibility", "hidden");
+                    timer = parseInt(IB.timerDuration, 10);
+                    startTimer();
+                });
+        };
+
+        var timer = IB.remainingTimeDuration ? parseInt(IB.remainingTimeDuration, 10) : parseInt(IB.timerDuration, 10);
+
+        function startTimer() {
+            var timerInterval = null;
+            $('.authenticationUiDataInfo').css("display", "inline-block");
+            var display = $('#generateTicketTimer');
+            var minutes, seconds;
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            timerInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 0 ? 0 : minutes;
+                seconds = seconds < 0 ? 0 : seconds;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.text(minutes + ":" + seconds);
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    $('#loadingTicket').css("visibility", "hidden");
+                    $('.authenticationUiDataInfo').css("display", "none");
+                    $('#getTicket').css("display", "inline-block");
+                    $('#ticket').focus();
+                }
+            }, 1000);
+        };
+
+        $('#otpType').bind('change keyup', function () {
+            otpTypeChanged('/ebank/general/challenge.action')
+        });
+
+        $('#otpType:hidden').trigger('change');
+
+        $('#getTicket').click(function (e) {
+            getTicket('/ebank/general/generateTicket.action')
+        });
+        $('#back').focus();
+        $('input[name=back]').focus();
+        
+        new RandomizedVKeyboard('keyboard', true);
+        
+
+        
+
+        
+
+        
+        setupCapsLockNotifier("secondPassword");
+        $('#secondPassword').focus();
+        
+
+        
+    });
+</script>
+
+
+
+
+
+<div id="taskNotifier">
+    بارگذاری...
+</div>
+<div id="mainContainer">
+    <div id="topBar">
+        
+            <div id="topLinks">
+                
+                <span id="timerContainer" class="timerContainer tooltip-trigger" data-hasqtip="0">زمان باقی‌مانده: <span id="timer" class="timer">08:54</span></span>
+                    <div id="timerContainer-tooltip" class="tooltip">در صورتی که مهلت نمایش داده شده به پایان برسد، برای استفاده از اینترنت بانک نیاز به ورود دوباره نام کاربری و رمز عبور خواهد بود.</div>
+                
+                
+                    <a href="/ebank/index.action#contacts" class="contactsIcon">تماس ها</a>
+                    <a href="/ebank/contact.action" class="contactIcon">تماس با ما</a>
+                    <a href="/ebank/config/changePassword.action" class="changePassIcon">تغییر رمز عبور</a>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=config" class="settingIcon">تنظیمات</a>
+                
+                <a href="/ebank/login/logout.action" class="exitIcon">خروج</a>
+                <div id="userInfo">
+                    <div id="name">مهدي اشرف زاده افشار</div>
+                    
+                        <div id="date">
+                            ‪۱۴۰۲/۱۱/۲۸‬
+                        </div>
+                    
+                </div>
+            </div>
+        
+    </div>
+    
+        <div id="navigationBar">
+            <div id="navigation">
+                
+
+
+
+
+
+
+
+<div class="navigationContainer">
+<ul class="mainMenu">
+    
+        
+            
+                <li class="menus menuFirstItem" id="home">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/home/homePage.action">
+                    خانه</a>
+                    <ul class="navList" id="menu-1">
+                        
+                            <li class="subFirstItem">
+                                <a id="viewFavoriteAccountsList" href="/ebank/home/homePage.action">
+                                    خانه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="transferPayment" href="/ebank/chooseSubMenu.action?actionParameter=transfer">
+                                    انتقال وجه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="payments" href="/ebank/chooseSubMenu.action?actionParameter=payments">
+                                    پرداخت قبض و  خريد شارژ آني 
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="viewAcc" href="/ebank/viewAcc/viewAccAction.action">
+                                    صورتحساب
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-1" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewFavoriteAccountsList" href="/ebank/home/homePage.action">
+                                    خانه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="transferPayment" href="/ebank/chooseSubMenu.action?actionParameter=transfer">
+                                    انتقال وجه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="payments" href="/ebank/chooseSubMenu.action?actionParameter=payments">
+                                    پرداخت قبض و  خريد شارژ آني 
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="viewAcc" href="/ebank/viewAcc/viewAccAction.action">
+                                    صورتحساب
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="dashboard">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=dashboard">
+                    پیشخوان</a>
+                    <ul class="navList" id="menu-2">
+                        
+                            <li class="subFirstItem">
+                                <a id="monthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=30">
+                                    صورتحساب ماهانه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="threeMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=90">
+                                    صورتحساب سه ماهه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="sixMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=180">
+                                    صورتحساب شش ماهه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="monthlyCardTransferReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    گزارش تراکنش های کارت سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="monthlySurrenderCheqes" href="/ebank/cheque/transferredChequesListPage.action?period=30">
+                                    گزارش چک های واگذار شده سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="monthlyAchTransferReport" href="/ebank/index.action#reports?ref=achTransferBatchReport&amp;daysAgo=30">
+                                    گزارش انتقال وجه پایا سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="monthlyRtgsTransferReport" href="/ebank/index.action#reports?ref=rtgsReport&amp;daysAgo=30">
+                                    گزارش انتقال وجه ساتنا سی روز اخیر
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="loanPaymentReport" href="/ebank/loan/initialLoan.action">
+                                    گزارش اقساط تسهیلات
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-2" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="monthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=30">
+                                    صورتحساب ماهانه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="threeMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=90">
+                                    صورتحساب سه ماهه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="sixMonthlyTransferReport" href="/ebank/viewAcc/partialDepositShow.action?daysAgo=180">
+                                    صورتحساب شش ماهه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="monthlyCardTransferReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    گزارش تراکنش های کارت سی روز اخیر
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="monthlySurrenderCheqes" href="/ebank/cheque/transferredChequesListPage.action?period=30">
+                                    گزارش چک های واگذار شده سی روز اخیر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="monthlyAchTransferReport" href="/ebank/index.action#reports?ref=achTransferBatchReport&amp;daysAgo=30">
+                                    گزارش انتقال وجه پایا سی روز اخیر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="monthlyRtgsTransferReport" href="/ebank/index.action#reports?ref=rtgsReport&amp;daysAgo=30">
+                                    گزارش انتقال وجه ساتنا سی روز اخیر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="loanPaymentReport" href="/ebank/loan/initialLoan.action">
+                                    گزارش اقساط تسهیلات
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="depositParent">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=deposit">
+                    سپرده</a>
+                    <ul class="navList" id="menu-3">
+                        
+                            <li class="subFirstItem">
+                                <a id="viewAccAction" href="/ebank/viewAcc/viewAccAction.action">
+                                    سپرده ها در یک نگاه
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="calendarViewBillList" href="/ebank/viewAcc/calendarViewBillList.action">
+                                    روزشمار
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-3" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewAccAction" href="/ebank/viewAcc/viewAccAction.action">
+                                    سپرده ها در یک نگاه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="calendarViewBillList" href="/ebank/viewAcc/calendarViewBillList.action">
+                                    روزشمار
+                                </a>
+                            </li>
+                            
+                        
+                    </ul></div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="transferPayment">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=transfer">
+                    انتقال وجه</a>
+                    <ul class="navList" id="menu-4">
+                        
+                            <li class="subFirstItem">
+                                <a id="normalTransfer" href="/ebank/transfer/newNormal.action">
+                                    عادی
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="batchTransfer" href="/ebank/transfer/newBatch.action">
+                                    دسته ای
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="rtgsTransfer" href="/ebank/transfer/newRtgs.action">
+                                    بین بانکی ساتنا
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="cardToCardTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                    کارت به کارت
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="cardToDepositTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                    کارت به سپرده
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="cardToIBANTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                    کارت به شبا
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="normalAchTransfer" href="/ebank/transfer/newNormalAch.action">
+                                    بین بانکی پایا عادی
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="batchAchTransfer" href="/ebank/transfer/newAchBatch.action">
+                                    بین بانکی پایا دسته ای
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="autoAchTransfer" href="/ebank/transfer/newAutoAch.action">
+                                    بین بانکی پایا مستمر
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="cardless" href="/ebank/index.action#cardlessCash">
+                                    برداشت وجه بدون کارت
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="instantInterbankTransfer" href="/ebank/transfer/instantInterbankTransfer.action">
+                                    بين بانکي آني (پل)
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-4" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="normalTransfer" href="/ebank/transfer/newNormal.action">
+                                    عادی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="batchTransfer" href="/ebank/transfer/newBatch.action">
+                                    دسته ای
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="rtgsTransfer" href="/ebank/transfer/newRtgs.action">
+                                    بین بانکی ساتنا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardToCardTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=CARD">
+                                    کارت به کارت
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardToDepositTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=DEPOSIT">
+                                    کارت به سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardToIBANTransfer" href="/ebank/transfer/newCardTransfer.action?transferDestType=IBAN">
+                                    کارت به شبا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="normalAchTransfer" href="/ebank/transfer/newNormalAch.action">
+                                    بین بانکی پایا عادی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="batchAchTransfer" href="/ebank/transfer/newAchBatch.action">
+                                    بین بانکی پایا دسته ای
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="autoAchTransfer" href="/ebank/transfer/newAutoAch.action">
+                                    بین بانکی پایا مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardless" href="/ebank/index.action#cardlessCash">
+                                    برداشت وجه بدون کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="instantInterbankTransfer" href="/ebank/transfer/instantInterbankTransfer.action">
+                                    بين بانکي آني (پل)
+                                </a>
+                            </li>
+                            
+                        
+                    </ul></div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="Reports">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/index.action#reports?">
+                    گزارش</a>
+                    <ul class="navList" id="menu-5">
+                        
+                            <li class="subFirstItem">
+                                <a id="transferReport" href="/ebank/index.action#reports?ref=report">
+                                    انتقال وجه مستمر
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="continnumInputTransfer" href="/ebank/index.action#reports?ref=continnumInputTransferPage">
+                                    انتقال وجه مستمر به مشتری
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="rtgsReport" href="/ebank/index.action#reports?ref=rtgsReport">
+                                    انتقال وجه بین بانکی ساتنا
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="achTransferBatchReport" href="/ebank/index.action#reports?ref=achTransferBatchReport">
+                                    انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="cardPaymentsReport" href="/ebank/index.action#reports?ref=cardPaymentsReport">
+                                    پرداخت ها
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="cardTransactionsReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    تراکنش های کارت
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="periodicalReports" href="/ebank/index.action#periodicalReportsSettings">
+                                    تنظیمات گزارش های دوره ای
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="userActivitiesHistory" href="/ebank/index.action#userActivitiesHistory">
+                                    تاریخچه عملیات کاربر
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-5" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="transferReport" href="/ebank/index.action#reports?ref=report">
+                                    انتقال وجه مستمر
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="continnumInputTransfer" href="/ebank/index.action#reports?ref=continnumInputTransferPage">
+                                    انتقال وجه مستمر به مشتری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="rtgsReport" href="/ebank/index.action#reports?ref=rtgsReport">
+                                    انتقال وجه بین بانکی ساتنا
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="achTransferBatchReport" href="/ebank/index.action#reports?ref=achTransferBatchReport">
+                                    انتقال وجه بین بانکی پایا
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardPaymentsReport" href="/ebank/index.action#reports?ref=cardPaymentsReport">
+                                    پرداخت ها
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="cardTransactionsReport" href="/ebank/index.action#reports?ref=cardTransactionsReport">
+                                    تراکنش های کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="periodicalReports" href="/ebank/index.action#periodicalReportsSettings">
+                                    تنظیمات گزارش های دوره ای
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="userActivitiesHistory" href="/ebank/index.action#userActivitiesHistory">
+                                    تاریخچه عملیات کاربر
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+            
+                <li id="kartablReport">
+                    <a href="/ebank/index.action#kartabl">
+                        کارپوشــه
+                    </a>
+                </li>
+            
+        
+    
+        
+            
+                <li class="menus " id="chequeParent">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=cheque">
+                    چک</a>
+                    <ul class="navList" id="menu-7">
+                        
+                            <li class="subFirstItem">
+                                <a id="jariDepositReport" href="/ebank/cheque/jariDepositsReport.action">
+                                    چک و دسته چک
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="transferredChequesList" href="/ebank/cheque/transferredChequesListPage.action">
+                                    چکهای واگذار شده به سپرده
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="registerDigitalCheque" href="/ebank/cheque/registerDigitalCheque.action">
+                                    ثبت چک صیاد
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="acceptOrRejectDigitalCheque" href="/ebank/cheque/acceptOrRejectDigitalCheque.action">
+                                    تایید یا رد چک صیاد
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="transferDigitalCheque" href="/ebank/cheque/transferDigitalCheque.action">
+                                    انتقال چک صیاد
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-7" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="jariDepositReport" href="/ebank/cheque/jariDepositsReport.action">
+                                    چک و دسته چک
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="transferredChequesList" href="/ebank/cheque/transferredChequesListPage.action">
+                                    چکهای واگذار شده به سپرده
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="registerDigitalCheque" href="/ebank/cheque/registerDigitalCheque.action">
+                                    ثبت چک صیاد
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="acceptOrRejectDigitalCheque" href="/ebank/cheque/acceptOrRejectDigitalCheque.action">
+                                    تایید یا رد چک صیاد
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="transferDigitalCheque" href="/ebank/cheque/transferDigitalCheque.action">
+                                    انتقال چک صیاد
+                                </a>
+                            </li>
+                            
+                        
+                    </ul></div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="loans">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=loan">
+                    تسهیلات</a>
+                    <ul class="navList" id="menu-8">
+                        
+                            <li class="subFirstItem">
+                                <a id="viewLoans" href="/ebank/loan/initialLoan.action">
+                                    مشاهده تسهيلات و پرداخت اقساط خود
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="othersLoanPayment" href="/ebank/loan/othersLoanPaymentPage.action">
+                                    پرداخت قسط ديگران
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-8" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="viewLoans" href="/ebank/loan/initialLoan.action">
+                                    مشاهده تسهيلات و پرداخت اقساط خود
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="othersLoanPayment" href="/ebank/loan/othersLoanPaymentPage.action">
+                                    پرداخت قسط ديگران
+                                </a>
+                            </li>
+                            
+                        
+                    </ul></div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="cardParent">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=card">
+                    کارت</a>
+                    <ul class="navList" id="menu-9">
+                        
+                            <li class="subFirstItem">
+                                <a id="cardManagement" href="/ebank/card/viewCardManagement.action">
+                                    کارت
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="creditDossierStatement" href="/ebank/card/creditDossiersPage.action">
+                                    پرونده اعتباری
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="virtualDepositCard" href="/ebank/index.action#virtualDepositCard">
+                                    کارت واریز مجازی
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="activeCardOtp" href="/ebank/otp/showActivationPage.action">
+                                    فعال‌سازی رمز یکبارمصرف کارت
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-9" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="cardManagement" href="/ebank/card/viewCardManagement.action">
+                                    کارت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="creditDossierStatement" href="/ebank/card/creditDossiersPage.action">
+                                    پرونده اعتباری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="virtualDepositCard" href="/ebank/index.action#virtualDepositCard">
+                                    کارت واریز مجازی
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="activeCardOtp" href="/ebank/otp/showActivationPage.action">
+                                    فعال‌سازی رمز یکبارمصرف کارت
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                    </div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus " id="payments">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=payments">
+                    پرداخت</a>
+                    <ul class="navList" id="menu-10">
+                        
+                            <li class="subFirstItem">
+                                <a id="topUp" href="/ebank/payment/topUp.action">
+                                    شارژ مستقیم تلفن همراه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="paymentServices" href="/ebank/thirdParty/treeViewPaymentServices.action">
+                                    سرویس های پرداخت
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="paymentWithPayNo" href="/ebank/payment/payWithPayNoPage.action">
+                                    پرداخت با شناسه
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="billPayment" href="/ebank/payment/newBillPayment.action">
+                                    پرداخت قبض
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="batchBillPayment" href="/ebank/payment/viewBatchBillPayment.action">
+                                    پرداخت قبض دسته ای
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-10" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="topUp" href="/ebank/payment/topUp.action">
+                                    شارژ مستقیم تلفن همراه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="paymentServices" href="/ebank/thirdParty/treeViewPaymentServices.action">
+                                    سرویس های پرداخت
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="paymentWithPayNo" href="/ebank/payment/payWithPayNoPage.action">
+                                    پرداخت با شناسه
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="billPayment" href="/ebank/payment/newBillPayment.action">
+                                    پرداخت قبض
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="batchBillPayment" href="/ebank/payment/viewBatchBillPayment.action">
+                                    پرداخت قبض دسته ای
+                                </a>
+                            </li>
+                            
+                        
+                    </ul></div>
+                </li>
+            
+            
+        
+    
+        
+            
+                <li class="menus menuLastItem" id="settings">
+                    <div class="notifyHolder"></div>
+                    <div class="menuArrowBlue"></div>
+                    <a href="/ebank/chooseSubMenu.action?actionParameter=config">
+                    تنظیمات</a>
+                    <ul class="navList" id="menu-11">
+                        
+                            <li class="subFirstItem">
+                                <a id="changePassword" href="/ebank/config/changePassword.action">
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="changeSecondPassword" href="/ebank/config/changeSecondPassword.action">
+                                    تغییر رمز دوم
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="changeUsername" href="/ebank/config/changeUsername.action">
+                                    تغییر نام کاربری
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="homeSettingsPage" href="/ebank/config/homeSettingsPage.action">
+                                    تنظیمات سپرده های برگزیده
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a id="displaySettingsPage" href="/ebank/config/displaySettingsPage.action">
+                                    تنظیمات نمایش
+                                </a>
+                            </li>
+                        
+                            <li class="subLastItem">
+                                <a id="billStatementSettingPage" href="/ebank/config/billStatementSettingPage.action">
+                                    تنظیمات صورتحساب
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <div class="popup" id="menu-11" style="width: 1200px !important;">
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="changePassword" href="/ebank/config/changePassword.action">
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="changeSecondPassword" href="/ebank/config/changeSecondPassword.action">
+                                    تغییر رمز دوم
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="changeUsername" href="/ebank/config/changeUsername.action">
+                                    تغییر نام کاربری
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="homeSettingsPage" href="/ebank/config/homeSettingsPage.action">
+                                    تنظیمات سپرده های برگزیده
+                                </a>
+                            </li>
+                            
+                                </ul>
+                            
+                        
+                            
+                                <ul>
+                            
+                            <li>
+                                <a id="displaySettingsPage" href="/ebank/config/displaySettingsPage.action">
+                                    تنظیمات نمایش
+                                </a>
+                            </li>
+                            
+                        
+                            
+                            <li>
+                                <a id="billStatementSettingPage" href="/ebank/config/billStatementSettingPage.action">
+                                    تنظیمات صورتحساب
+                                </a>
+                            </li>
+                            
+                        
+                    </ul></div>
+                </li>
+            
+            
+        
+    
+</ul>
+</div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/ebank/kartabl/getKartabls.action',
+                dataType: 'json',
+                type: 'POST',
+                cache: false,
+                data: {
+                    reportType: 'ACTIONABLE',
+                    pageSize: 1,
+                    offset: 0
+                },
+                success: function (response) {
+                    if (response.total !== 0 && typeof response.total !== 'undefined') {
+                        var total = IB.locale == 'fa' ? english2PersianNumbers(response.total) : response.total;
+                        $('#kartablReport').append('<div class="kartablNotification">' + total + '</div>');
+                    }
+                },
+                error: function () {
+                    $('#kartablReport').append('<div class="kartablNotification kartablNotificationError">!</div>');
+                }
+            });
+        });
+    </script>
+
+
+
+            </div>
+        </div>
+    
+    <div class="contentContainer">
+        <h2 id="content-title">بررسی و تایید انتقال وجه بین بانکی پایا عادی</h2>
+
+        <div id="content-body">
+            
+
+
+
+    <dl class="errorContainer">
+        <dt id="errorTitle" class="errorTitle">
+            خطا
+        </dt>
+        <dd>
+            <ul class="errors">
+                
+                    <li class="warning">
+                        رمز دوم نامعتبر است.
+                    </li>
+                
+                
+            </ul>
+        </dd>
+    </dl>
+    
+
+
+            
+
+
+
+
+            
+
+
+
+
+
+    
+    
+        
+    
+
+<div class="formContainer">
+    <div class="confirm ">
+        
+            
+                
+                اگر اطلاعات وارد شده صحیح است، دکمه "ثبت انتقال وجه" را انتخاب نمایید.
+            
+            
+        
+        
+        
+        
+
+
+
+
+
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+
+<form action="/ebank/transfer/normalAchTransfer.action" method="post" autocomplete="off" clientsidevalidation="true" submission="true" novalidate="novalidate">
+
+    
+    <input type="hidden" name="struts.token.name" value="normalAchTransferConfirmToken">
+<input type="hidden" name="normalAchTransferConfirmToken" value="3XGDUCUKVOD1W42JKWD8ZIFWNO8G0ZRL">
+    
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="transferType" id="transferType" value="NORMAL_ACH">
+    
+    
+
+    
+
+
+
+
+
+
+
+
+
+    
+    
+        <div class="formSection noTitleSection " id="">
+    
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        برداشت از سپرده:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="sourceSaving" id="sourceSaving" value="4001003416263">
+    
+    
+
+            ‪۴۰۰۱۰۰۳۴۱۶۲۶۳‬
+        
+    </span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        واریز به شبای:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="destinationIbanNumber" id="destinationIbanNumber" value="IR810540203320101111569601">
+    
+    
+
+            IR۸۱۰۵۴۰۲۰۳۳۲۰۱۰۱۱۱۱۵۶۹۶۰۱
+        
+    </span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        نام و نام خانوادگی گیرنده:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field ownerName" id="">
+        
+            
+                
+                    
+                        میثم&nbsp;صفیاری
+                        
+                            
+                        
+                        
+                    
+                
+                
+            
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="owner" id="owner" value="میثم صفیاری">
+    
+    
+
+        
+    </span>
+</div>
+
+        
+            
+                
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        نوع مقصد:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+                    
+                    سپرده
+                
+    </span>
+</div>
+
+            
+            
+                
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        بانک مقصد:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+                    بانک  پارسیان
+                
+    </span>
+</div>
+
+            
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        مبلغ:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="amount" id="amount" value="10٫000">
+    
+    
+
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="currency" id="currency" value="IRR">
+    
+    
+
+            ۱۰,۰۰۰&nbsp;ريال ايران
+        
+    </span>
+</div>
+
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        بابت:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+                
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="reason" id="reason" value="CPAC">
+    
+    
+
+                کمک هاي خيريه
+            
+    </span>
+</div>
+
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        شناسه واریز:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="factorNumber" id="factorNumber">
+    
+    
+
+            
+        
+    </span>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem textBox">
+    
+        
+        
+            
+                
+                    <label for="" class="form-item-label  " id="">
+                        یادداشت:
+                    </label>
+
+                
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+    
+        <input type="hidden" class="" name="remark" id="remark">
+    
+    
+
+            
+        
+    </span>
+</div>
+
+        
+    
+
+
+    <div class="hidden">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="" name="hiddenPass1" id="hiddenPass1" value="1" dir="rtl">
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="" name="hiddenPass2" id="hiddenPass2" value="2" dir="rtl">
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="" name="hiddenPass3" id="hiddenPass3" value="3" dir="rtl">
+
+    </div>
+
+
+
+
+
+    <div id="secondPasswordSection">
+        
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    
+        <input type="hidden" class="" name="secondPasswordRequired" id="secondPasswordRequired" value="true">
+    
+    
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<div class="formItem ">
+    
+        
+        
+            
+                
+                
+                    <label for="secondPassword" class="form-item-label  requiredField">رمز دوم:</label>
+                
+            
+        
+    
+    <span class="form-item-field " id="">
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+<input type="password" class="first required fullKeys" name="secondPassword" id="secondPassword" maxlength="20" dir="ltr">
+
+            <span class="hint" style="display: none;">روشن است Caps Lock<span class="hint-pointer">&nbsp;</span></span>
+        
+    </span>
+</div>
+
+    </div>
+
+
+
+
+
+
+    
+</div>
+    
+
+
+
+
+<div class="commandBar">
+    
+        <!--for resolving IE problem with Enter key-->
+        <input type="hidden" name="back" value="back">
+        <!--for resolving Firefox problem with Enter key-->
+        
+        
+            
+            
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="submit" value="ثبت انتقال وجه" class="button importantButton" name="perform" id="perform">
+
+            
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="submit" value="بازگشت" class="button normalButton" name="back" id="back">
+
+    
+</div>
+
+</form></div>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+        
+            
+                
+            
+            
+        
+
+        <div class="sideNoteContainer">
+            
+
+
+            
+                
+                    <div class="sidenote">
+                        <div class="sideNoteHeader">
+                            
+                                
+                                
+                                    اطلاعات این انتقال وجه
+                                
+                            
+                            
+                        </div>
+                        
+                            <div class="itemWrapper">
+                                <div class="item-label">مانده برداشت پذیر امروز:</div>
+                                <div class="item-field-info">
+                                    
+                                        
+                                        
+                                            ۱,۰۰۰,۰۰۰,۰۰۰
+                                            ریال ایران
+                                        
+                                    
+                                </div>
+                            </div>
+                        
+                        
+                            <div class="itemWrapper">
+                                <div class="item-label">مانده برداشت پذیر این ماه:
+                                </div>
+                                <div class="item-field-info">
+                                    
+                                        
+                                        
+                                            ۳۰,۰۰۰,۰۰۰,۰۰۰
+                                            ریال ایران
+                                        
+                                    
+                                </div>
+                            </div>
+                        
+                        
+                            <div class="itemWrapper">
+                                <div class="item-label">سقف برداشت هر تراکنش:</div>
+                                <div class="item-field-info">
+                                    
+                                        
+                                        
+                                            ۱,۰۰۰,۰۰۰,۰۰۰
+                                            ریال ایران
+                                        
+                                    
+                                </div>
+                            </div>
+                        
+                        
+                            <div class="itemWrapper">
+                                <div class="item-label">کف برداشت هر تراکنش:</div>
+                                <div class="item-field-info">
+                                    ۱۰,۰۰۰
+                                    ریال ایران
+                                </div>
+                            </div>
+                        
+                    </div>
+                
+            
+        </div>
+    
+    
+
+
+
+            <div class="keyboardContainer" id="fullKeyboardContainer" style="top: 434.4px; right: 381px;">
+                <div class="keyboardKeypad" id="keyboard" style="display: block; z-index: 999; position: relative;">
+                <div style="position: relative; top: 0px; left: 0px; border: 1px solid rgb(119, 119, 119); width: 314px;"><div style="position: relative; width: 314px; cursor: default; font-family: Tahoma; background-color: rgb(255, 255, 255); height: 119px;"><div style="top: -1px; left: -1px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key0">`</div></div><div style="top: -1px; left: 18px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key1">3</div></div><div style="top: -1px; left: 37px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key2">1</div></div><div style="top: -1px; left: 56px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key3">6</div></div><div style="top: -1px; left: 75px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key4">2</div></div><div style="top: -1px; left: 94px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key5">5</div></div><div style="top: -1px; left: 113px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key6">4</div></div><div style="top: -1px; left: 132px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key7">7</div></div><div style="top: -1px; left: 151px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key8">8</div></div><div style="top: -1px; left: 170px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key9">9</div></div><div style="top: -1px; left: 189px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key10">0</div></div><div style="top: -1px; left: 208px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key11">-</div></div><div style="top: -1px; left: 227px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key12">=</div></div><div style="top: -1px; left: 246px; width: 69px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: right; line-height: 23px; font-size: 14px; font-weight: normal; padding-right: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___kbp">BackSpace</div></div><div style="top: 23px; left: -1px; width: 31px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: left; line-height: 23px; font-size: 14px; font-weight: normal; padding-left: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___tab">Tab</div></div><div style="top: 23px; left: 29px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key13">e</div></div><div style="top: 23px; left: 48px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key14">r</div></div><div style="top: 23px; left: 67px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key15">y</div></div><div style="top: 23px; left: 86px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key16">w</div></div><div style="top: 23px; left: 105px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key17">q</div></div><div style="top: 23px; left: 124px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key18">o</div></div><div style="top: 23px; left: 143px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key19">i</div></div><div style="top: 23px; left: 162px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key20">u</div></div><div style="top: 23px; left: 181px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key21">p</div></div><div style="top: 23px; left: 200px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key22">t</div></div><div style="top: 23px; left: 219px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key23">]</div></div><div style="top: 23px; left: 238px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key24">[</div></div><div style="top: 23px; left: 257px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key25">\</div></div><div style="top: 47px; left: -1px; width: 45px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: left; line-height: 23px; font-size: 14px; font-weight: normal; padding-left: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___caps">Caps</div></div><div style="top: 47px; left: 43px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key26">s</div></div><div style="top: 47px; left: 62px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key27">f</div></div><div style="top: 47px; left: 81px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key28">d</div></div><div style="top: 47px; left: 100px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key29">a</div></div><div style="top: 47px; left: 119px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key30">j</div></div><div style="top: 47px; left: 138px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key31">h</div></div><div style="top: 47px; left: 157px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key32">k</div></div><div style="top: 47px; left: 176px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key33">l</div></div><div style="top: 47px; left: 195px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key34">g</div></div><div style="top: 47px; left: 214px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key35">;</div></div><div style="top: 47px; left: 233px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key36">'</div></div><div style="top: 47px; left: 252px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(119, 119, 119); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key37">&nbsp;</div></div><div style="top: 47px; left: 271px; width: 44px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: right; line-height: 23px; font-size: 14px; font-weight: normal; padding-right: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___enter_l">Enter</div></div><div style="top: 23px; left: 276px; width: 39px; height: 23px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-weight: bold; color: rgb(0, 0, 0); border-width: 1px; border-style: solid; border-color: rgb(119, 119, 119) rgb(119, 119, 119) rgb(255, 255, 255); border-image: none; background-color: rgb(255, 255, 255);" id="keyboard___enter_top">&nbsp;</div></div><div style="top: 71px; left: -1px; width: 58px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: left; line-height: 23px; font-size: 14px; font-weight: normal; padding-left: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___shift">Shift</div></div><div style="top: 71px; left: 56px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key38">z</div></div><div style="top: 71px; left: 75px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key39">b</div></div><div style="top: 71px; left: 94px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key40">n</div></div><div style="top: 71px; left: 113px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key41">m</div></div><div style="top: 71px; left: 132px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key42">v</div></div><div style="top: 71px; left: 151px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key43">c</div></div><div style="top: 71px; left: 170px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key44">x</div></div><div style="top: 71px; left: 189px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key45">,</div></div><div style="top: 71px; left: 208px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key46">.</div></div><div style="top: 71px; left: 227px; width: 20px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___key47">/</div></div><div style="top: 71px; left: 246px; width: 69px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: right; line-height: 23px; font-size: 14px; font-weight: normal; padding-right: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___shift_r">Shift</div></div><div style="top: 95px; left: -1px; width: 28px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: left; line-height: 23px; font-size: 14px; font-weight: normal; padding-left: 4px; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255); display: none;" id="keyboard___lang">kw</div></div><div style="top: 95px; left: 26px; width: 28px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(119, 119, 119); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___res_1">&nbsp;</div></div><div style="top: 95px; left: 53px; width: 28px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(119, 119, 119); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___res_2">&nbsp;</div></div><div style="top: 95px; left: 80px; width: 152px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___space">&nbsp;</div></div><div style="top: 95px; left: 231px; width: 28px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-weight: normal; color: rgb(119, 119, 119); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255); display: none;" id="keyboard___alt_gr">AltGr</div></div><div style="top: 95px; left: 258px; width: 28px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(119, 119, 119); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___res_3">&nbsp;</div></div><div style="top: 95px; left: 285px; width: 30px; height: 25px; position: absolute; font-weight: bold;"><div style="height: 23px; position: relative; text-align: center; line-height: 23px; font-size: 14px; font-weight: bold; color: rgb(119, 119, 119); border: 1px solid rgb(119, 119, 119); background-color: rgb(255, 255, 255);" id="keyboard___res_4">&nbsp;</div></div></div></div></div>
+            </div>
+            <div class="keyboardContainer" id="limitedKeyboardContainer">
+                <div class="keyboardKeypad" id="limitedKeyboard">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dialog-wrap">
+    <div class="dialog-mask"></div>
+    <div class="dialog animated">
+        <div class="dialog-close">X</div>
+        <div class="dialog-header"></div>
+        <div class="dialog-body"></div>
+        <div class="dialog-footer"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/ebank/locale/l10n.action?version=4.121.17-4022&amp;locale=fa"></script>
+<script type="text/javascript" src="/ebank/scripts/mainFooters-4.121.17-4022.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.setupVKeyboard('rtl', 'fullKeys');
+        $.setupVKeyboard('rtl', 'limitedKeys');
+        $('.first').focus();
+    });
+</script>
+
+
+<div class="keypad-popup" style="display: none;"></div></body></html>

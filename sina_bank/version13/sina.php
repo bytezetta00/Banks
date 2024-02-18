@@ -14,6 +14,7 @@ class sina extends banking{
     private $bankName = 'sina';
     private $cookieFile;
     private $captchaFile;
+    private $pin2;
     private $testingBankingId;
 
     public function __construct(array $data,$user_id ,$banking_id)
@@ -21,6 +22,7 @@ class sina extends banking{
         $GLOBALS['account'] = $this->account = $data['account']; //'4001002408872'
         $this->username = $data['username'];
         $this->password = $data['password'];
+        $this->pin2 = @$data['secondPass'];
         //$this->holder = $data['holder'];
         $this->user_id = $user_id;
         $this->banking_id = $banking_id;

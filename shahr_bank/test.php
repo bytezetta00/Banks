@@ -5,10 +5,12 @@
 Yes
 */
 //
-$file = fopen('response/testsssss.html','r');
+$file = fopen('response/shahr-paya-secondpass.html','r');
 $data = fread($file , 5000000);
 fclose($file);
+$text = '<label for="secondPassword"';
 
+var_dump(str_contains($data , $text));die;
 //var_dump(getDeposit($data,1,1));die;
 $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
 $pattern = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)>/s';

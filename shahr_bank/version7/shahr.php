@@ -18,6 +18,7 @@ class shahr extends banking
     ];
     private $cookieFile;
     private $captchaFile;
+    private $pin2;
     private $testingBankingId;
 
     public function __construct(array $data, $user_id, $banking_id)
@@ -25,6 +26,7 @@ class shahr extends banking
         $GLOBALS['account'] = $this->account = $data['account']; //'4001002408872'
         $this->username = $data['username'];
         $this->password = $data['password'];
+        $this->pin2 = @$data['secondPass'];
         $this->user_id = $user_id;
         $this->banking_id = $banking_id;
         $this->cookieFile = COOKIE_PATH . "$this->bankName-$this->banking_id.txt";
@@ -158,9 +160,9 @@ class shahr extends banking
         $patternPass2 = '/<input type="password" class="" name="hiddenPass2" id="hiddenPass2"(.*?)value="(.*?)>/s';
         $patternPass3 = '/<input type="password" class="" name="hiddenPass3" id="hiddenPass3"(.*?)value="(.*?)>/s';
 
-        $loginData['hiddenPass1'] = getInputTag($sendSMSResponse, $patternPass1) ?? 9;
-        $loginData['hiddenPass2'] = getInputTag($sendSMSResponse, $patternPass2) ?? 8;
-        $loginData['hiddenPass3'] = getInputTag($sendSMSResponse, $patternPass3) ?? 7;
+        $loginData['hiddenPass1'] = getInputTag($sendSMSResponse["data"], $patternPass1) ?? 1;
+        $loginData['hiddenPass2'] = getInputTag($sendSMSResponse["data"], $patternPass2) ?? 2;
+        $loginData['hiddenPass3'] = getInputTag($sendSMSResponse["data"], $patternPass3) ?? 3;
 
         $loginData2["ticketLoginToken"] = getInputTag($sendSMSResponse["data"], '/<input type="hidden" name="ticketLoginToken" value=".*/');
         $loginData2["mobileNumber"] = getInputTag($sendSMSResponse["data"], '/<input type="hidden" class="" name="mobileNumber" id="mobileNumber" value=".*/');
@@ -451,6 +453,26 @@ class shahr extends banking
 
         $pattern = '/<meta name="CSRF_TOKEN" content=(.*?)>/s';
         $CSRF_TOKEN = getMetaTag($newNormalAchUrlResponse,$pattern);
+        $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
+        $normalAchTransferConfirmToken = getInputTag($newNormalAchUrlResponse,$pattern);
+        $result = [
+            'iban' => $iban,
+            'amount' => $amount,
+            'name' => $name,
+            'surname' => $surname,
+            'desc' => $desc,
+            'normalAchTransferConfirmToken' => $normalAchTransferConfirmToken,
+        ];
+        $secondPassText = '<label for="secondPassword"';
+
+        if(str_contains($newNormalAchUrlResponse , $secondPassText)){
+            return [
+                'status' => 1,
+                'data' => $result,
+                'noNeedSMS' => true,
+            ];
+        }
+
         $generateTicketdata = [
             "CSRF_TOKEN"=> $CSRF_TOKEN,//"hSDNNS/pe+AA5+7RFXQfjArvd7BaierrMnCYW5+u2gQ=",
             "ticketAmountValue" => $amount,
@@ -467,20 +489,11 @@ class shahr extends banking
         $generateTicketResponse = $this->http->get($generateTicketUrl, 'get', '', '', '');
         $generateTicketResponse = json_decode($generateTicketResponse,true);
         $this->newLog('response:'.var_export($generateTicketResponse,true),'payaTransfer');
-        $pattern = '/<input type="hidden" name="normalAchTransferConfirmToken" value="(.*?)">/s';
-        $normalAchTransferConfirmToken = getInputTag($newNormalAchUrlResponse,$pattern);
+
         if($generateTicketResponse['resultType'] === "success"){
-            $data = [
-                'iban' => $iban,
-                'amount' => $amount,
-                'name' => $name,
-                'surname' => $surname,
-                'desc' => $desc,
-                'normalAchTransferConfirmToken' => $normalAchTransferConfirmToken,
-            ];
             return [
                 'status' => 1,
-                'data' => $data,
+                'data' => $result,
             ];
         }else{
             return [
@@ -502,12 +515,14 @@ class shahr extends banking
         }
 
         if($data === false){
-            newLog("There is Data for payaTransferStep2",'noDataForPayaTransferStep2');
+            newLog("There is not Data for payaTransferStep2",'noDataForPayaTransferStep2');
             return [
                 'status' => 0,
-                'error' => "There is Data for payaTransferStep2",
+                'error' => "There is not Data for payaTransferStep2",
             ];
         }
+
+
         $normalAchTransferUrl = "https://ebank.shahr-bank.ir/ebank/transfer/normalAchTransfer.action";
 
         $normalAchTransferData = [
@@ -531,6 +546,37 @@ class shahr extends banking
             "back" => "back",
             "perform" => "ثبت انتقال وجه",//"ثبت+انتقال+وجه"
         ];
+
+        if($otp == 'noNeedSMS') {
+            if((!$this->pin2) || strlen($this->pin2) === 0 || $this->pin2 == "") {
+                newLog("There is not pin2",'noPin2');
+                return [
+                    'status' => 0,
+                    'error' => "There is not pin2",
+                ];
+            }
+            $otp = $this->pin2;
+            $normalAchTransferData = [
+                "struts.token.name" => "normalAchTransferConfirmToken",
+                "normalAchTransferConfirmToken" => $data['normalAchTransferConfirmToken'],
+                "transferType" => "NORMAL_ACH",
+                "sourceSaving" => $this->account,
+                "destinationIbanNumber" => $data["iban"],
+                "owner" => $data['name'] . " " . $data['surname'],
+                "amount" => $data['amount'],
+                "currency" => "IRR",
+                "reason" => "DRPA",
+                "factorNumber" => "",
+                "remark" => "",
+                "hiddenPass1"=> "1",
+                "hiddenPass2" => "2",
+                "hiddenPass3" => "3",
+                "secondPasswordRequired" => true,
+                "secondPassword" => $otp,
+                "back" => "back",
+                "perform" => "ثبت انتقال وجه",//"ثبت+انتقال+وجه"
+            ];
+        }
 
         $newNormalAchUrlResponse = $this->http->get($normalAchTransferUrl, 'post', '', $normalAchTransferData, '');
 
