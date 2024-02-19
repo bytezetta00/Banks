@@ -466,6 +466,7 @@ class shahr extends banking
         $secondPassText = '<label for="secondPassword"';
 
         if(str_contains($newNormalAchUrlResponse , $secondPassText)){
+            $this->newLog(var_export(str_contains($newNormalAchUrlResponse , $secondPassText),true),'noNeedSMS');
             return [
                 'status' => 1,
                 'data' => $result,
@@ -548,6 +549,7 @@ class shahr extends banking
         ];
 
         if($otp == 'noNeedSMS') {
+            $this->newLog(var_export([$otp , $this->pin2],true),'noNeedSMSStep2');
             if((!$this->pin2) || strlen($this->pin2) === 0 || $this->pin2 == "") {
                 newLog("There is not pin2",'noPin2');
                 return [
