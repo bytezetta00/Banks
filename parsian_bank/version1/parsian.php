@@ -8,6 +8,7 @@ class parsian extends banking{
     private $originalAccountNumber;
     private $username;
     private $password;
+    private $pin2;
     private $user_id;
     private $banking_id;
     private $http;
@@ -15,6 +16,7 @@ class parsian extends banking{
     private $bankName = 'parsian';
     private $cookieFile;
     private $captchaFile;
+    private $captchaFile2;
     private $loginData;
     private $loginData2;
     private $incorrectCaptchaCode = 1002;
@@ -28,10 +30,12 @@ class parsian extends banking{
         $this->originalAccountNumber = $data['account'];
         $this->username = $data['username'];
         $this->password = $data['password'];
+        $this->pin2 = @$data['secondPass'];
         $this->user_id = $user_id;
         $this->banking_id = $banking_id;
         $this->cookieFile = COOKIE_PATH . "$this->bankName-$this->banking_id.txt";
         $this->captchaFile = UPLOAD_PATH. "$this->bankName-captcha-$this->username.jpg";
+        $this->captchaFile2 = UPLOAD_PATH. "$this->bankName-captcha2-$this->username.jpg";
         $this->http = new HTTP();
         $this->http->setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/111.0');
         $this->http->setCookieLocation($this->cookieFile);
@@ -39,7 +43,7 @@ class parsian extends banking{
         $this->http->setVerbose(true);
         $this->loginData = $this->getLoginData();
         $this->loginData2 = $this->getLoginData2();
-        $this->testingBankingId = 1440;
+        $this->testingBankingId = 1561;
     }
 
     public function setProxy($config) {
@@ -74,7 +78,7 @@ class parsian extends banking{
         $homePage = $this->http->get($homeUrl,'get','','','');
         $logoutLink = "/logout";
         $getUserLink = "/getoff/user";
-//        $this->newLog(var_export($homePage,true),"homePage-check");
+        $this->newLog(var_export($homePage,true),"homePage-check");
         if(strpos($homePage, $logoutLink) !== false || strpos($homePage, $getUserLink) !== false) {
             return true;
         } else {
@@ -86,10 +90,14 @@ class parsian extends banking{
 
     public function autoSigninStep1()
     {
+        $this->newLog(var_export("autoSigninStep1",true),"autoSigninStep1");
+
         $loginHtmlUrl = "https://ipb.parsian-bank.ir/login.html";
         $signinPage = $this->http->get($loginHtmlUrl,'get','','','');
+        $this->newLog(var_export($signinPage,true),"signinPage");
+
         if($signinPage == "" || !$signinPage){
-            $this->newLog('Failed to load the sign in page !!',"failedToSendSMS");
+            $this->newLog('Failed to load the sign in page !!',"failedToLoadTheSignInPage");
             $this->logout();
             return false;
         }
@@ -110,7 +118,7 @@ class parsian extends banking{
         }
         $loginUrl = "https://ipb.parsian-bank.ir/login";
         $loginResponse = $this->http->get($loginUrl,'post','',$this->loginData,'');
-//        $this->newLog(var_export($loginResponse,true),"loginResponse");
+        $this->newLog(var_export($loginResponse,true),"loginResponse");
 
         if ($loginResponse == $this->incorrectCaptchaCode) {
             $this->newLog('Captcha is incorrect!!!',"CaptchaIsIncorrect");
@@ -150,7 +158,7 @@ class parsian extends banking{
         $this->http->setHeaders($header);
         $statementResponse = $this->http->get($statementUrl,'post','',json_encode($statementData),'');
         $this->http->setHeaders([]);
-//        $this->newLog(var_export($statementResponse,true),"statementResponse");
+        $this->newLog(var_export($statementResponse,true),"statementResponse");
         $isValid = notNeedLogout($statementResponse);
 //        $this->newLog(var_export($isValid,true),"statementValid");
         if(!$isValid){
@@ -205,7 +213,9 @@ class parsian extends banking{
     {
         if($type == 1){ // for login
             foreach($messages as $message) {
-                if((strpos($message['message'],'بانک') !== false) && (strpos($message['message'],'ورود') !== false)) {
+                $this->newLog(var_export($message['message']),"messagessssssssForLogin");
+                if((strpos($message['message'],'رمز ورود به اینترنت بانک یا همراه بانک') !== false)) {
+                    $this->newLog(var_export($message['message']),"messageForLogin");
                     preg_match('!\d{5}!', $message['message'], $matches);
                     if(isset($matches[0])) {
                         return $matches[0];
@@ -293,6 +303,7 @@ class parsian extends banking{
         $this->http->setHeaders($header);
         $newNormalAchUrlResponse = $this->http->get($getTransferLimitationsUrl, 'post', '', json_encode($getTransferLimitationsData), '');
         $this->http->setHeaders([]);
+        $this->newLog(var_export($newNormalAchUrlResponse,true),"newNormalAchUrlResponse");
         $getTransferLimitations = json_decode($newNormalAchUrlResponse);
         $remainedTodayWithdraw = $getTransferLimitations?->remainedTodayWithdraw ?? null;
         if (isset($remainedTodayWithdraw)) {
@@ -304,4 +315,258 @@ class parsian extends banking{
             return false;
         }
     }
+
+    public function payaTransfer($iban, $amount, $name, $surname, $desc = '')
+    {
+//        $amount = 10000;
+        $captcha = "";
+        if(!$iban || strlen($iban) !== 26)
+        {
+            $message = 'شبا تعریف نشده است یا شبای تعریف شده صحیح نمیباشد!';
+            $this->newLog(var_export([$message,$iban],true),"notFoundIban");
+            return [
+                'status' => 0,
+                'error' => $message,
+            ];
+        }
+        if($amount <= 0)
+        {
+            $message = 'مبلغ تعریف شده صحیح نمیباشد!';
+            $this->newLog(var_export($message,true),"notFoundAmount");
+            return [
+                'status' => 0,
+                'error' => $message,
+            ];
+        }
+        $this->newLog('Start for paya transfer',"startForPayaTransfer");
+        $formattedSheba = setPayaFormatForSheba($iban);
+        $header = [
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ];
+        $integratedAmount = (int) $amount;
+//        $echoUrl = "https://ipb.parsian-bank.ir/general/echo";
+//        $this->http->setHeaders($header);
+//        $echoResponse = $this->http->get($echoUrl, 'post', '', json_encode(''),'');
+//        $this->http->setHeaders([]);
+//        $this->newLog(var_export($echoResponse,true),"echoResponse");
+
+        $ibanInquiryByCentralBankUrl = "https://ipb.parsian-bank.ir/account/ibanInquiryByCentralBank";
+        $ibanInquiryByCentralBankData = [
+            'iban' => $formattedSheba,
+            'paymentId' => "",
+            'amount' => $integratedAmount,
+            'captcha' => $captcha
+        ];
+        $this->newLog(var_export($ibanInquiryByCentralBankData,true),"ibanInquiryByCentralBankData");
+
+
+        $this->http->setHeaders($header);
+        $ibanInquiryByCentralBankResponse = $this->http->get($ibanInquiryByCentralBankUrl, 'post', '', json_encode($ibanInquiryByCentralBankData),'');
+        $this->http->setHeaders([]);
+        $ibanInquiryByCentralBankResponseHeader = $this->http->getResponseHeaders();
+        if(array_key_exists('exceptionType',$ibanInquiryByCentralBankResponseHeader))
+        {
+            $exceptionType = urldecode($ibanInquiryByCentralBankResponseHeader["exceptionType"]) ?? null;
+            $this->newLog(var_export($exceptionType,true),"ibanInquiryByCentralHeader");
+//        "کدامنيتيواردشدهصحيحنميباشد.";
+            if($exceptionType == "کدامنيتيواردشدهصحيحنميباشد."){
+                
+            }
+        }else{
+            $this->newLog(var_export($ibanInquiryByCentralBankResponseHeader,true),"ibanInquiryByCentralHeader2");
+        }
+        $this->newLog(var_export($ibanInquiryByCentralBankResponse,true),"ibanInquiryByCentralBankResponse");
+        $ibanInquiryByCentralBank = json_decode($ibanInquiryByCentralBankResponse);
+        $ownerName = $ibanInquiryByCentralBank?->ownerName ?? $name;
+        $ownerFamily = $ibanInquiryByCentralBank?->ownerFamily ?? $surname;
+
+        $validateBalanceThresholdUrl = "https://ipb.parsian-bank.ir/account/validateBalanceThreshold/";
+        $validateBalanceThresholdData = [
+            "accountNumber" => $this->originalAccountNumber,//"470-01508868-601",
+            "amount" => $integratedAmount
+        ];
+        $this->newLog(var_export($validateBalanceThresholdData,true),"validateBalanceThresholdData");
+
+        $this->http->setHeaders($header);
+        $validateBalanceThresholdResponse = $this->http->get($validateBalanceThresholdUrl, 'post', '', json_encode($validateBalanceThresholdData),'');
+        $this->http->setHeaders([]);
+        $this->newLog(var_export($validateBalanceThresholdResponse,true),"validateBalanceThresholdResponse");
+        $validateBalanceThreshold = json_decode($validateBalanceThresholdResponse,true);
+
+        if($validateBalanceThreshold["underThreshold"] == true)
+        {
+            $message = 'مبلغ بیش از مبلغ تعیین شده سقف روزانه است یا موجودی کافی نمی باشد.';
+            $this->newLog(var_export($message,true),"notEnoughFound");
+            return [
+                'status' => 0,
+                'error' => $message,
+            ];
+        }
+
+        $generateUniqueTrackingCodeUrl = "https://ipb.parsian-bank.ir/generateUniqueTrackingCode";
+        $generateUniqueTrackingCodeData = [
+            "transferType" => "AST",
+        ];
+        $this->http->setHeaders($header);
+        $generateUniqueTrackingCodeResponse = $this->http->get($generateUniqueTrackingCodeUrl, 'post', '', json_encode($generateUniqueTrackingCodeData),'');
+        $this->http->setHeaders([]);
+        $this->newLog(var_export($generateUniqueTrackingCodeResponse,true),"generateUniqueTrackingCodeResponse");
+
+        $generateUniqueTrackingCode = json_decode($generateUniqueTrackingCodeResponse);
+        $uniqueTrackingCode = $generateUniqueTrackingCode?->uniqueTrackingCode ?? null;
+        $result = [
+            'iban' => $iban,
+            'amount' => $integratedAmount,
+            'name' => $ownerName,
+            'surname' => $ownerFamily,
+            'desc' => $desc,
+            'uniqueTrackingCode' => $uniqueTrackingCode,
+            'captcha' => $captcha,
+        ];
+        $this->newLog(var_export([
+            'status' => 1,
+            'data' => $result,
+            'noNeedSMS' => true,
+        ],true),"payaTransferResult");
+        return [
+            'status' => 1,
+            'data' => $result,
+            'noNeedSMS' => true,
+        ];
+
+
+    }
+
+    public function payaTransferStep2(array|bool $data, $otp)
+    {
+        $this->newLog('Continue for paya transfer',"continueForPayaTransfer");
+
+        $header = [
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ];
+
+        if($otp == 'noNeedSMS') {
+            $otp = $this->pin2;
+        }
+        $formattedSheba = setPayaFormatForSheba($data['iban']);
+//        $achFundTransferUrl = "https://ipb.parsian-bank.ir/account/achFundTransfer";
+//        $achFundTransferData = [
+//            "captcha" => "",
+//            "destinationIban" => $formattedSheba,// "IR44-0610-0000-0400-1003-1961-33"
+//            "destinationIbanOwnerName" => $data['name'] . " " . $data['surname'], //"پريا فعله كري"
+//            "email" => "",
+//            "noteSender" => $data['desc'],//"کمک"
+//            "pass" => $otp,
+//            "passType" => "S",
+//            "paymentId" => "",
+//            "paymentType" => "DRPA",
+//            "sourceAccountNumber" => $this->originalAccountNumber,//"470-01508868-601",
+//            "transferAmount" => $data['amount'], //"10000"
+//            "transferDescription" => "",
+//            "uniqueTrackingCode" => $data['uniqueTrackingCode'], //"1707898571405"
+//        ];
+//        $this->newLog(var_export($achFundTransferData,true),"achFundTransferData");
+//
+//        $this->http->setHeaders($header);
+//        $achFundTransferResponse = $this->http->get($achFundTransferUrl, 'post', '', json_encode($achFundTransferData),'');
+//        $this->http->setHeaders([]);
+//        $achFundTransferResponseHeader = $this->http->getResponseHeaders();
+
+//        $this->newLog(var_export($achFundTransferResponse,true),"achFundTransferResponse");
+//        $achFundTransfer = json_decode($achFundTransferResponse,true);
+        $polFundTransferUrl = "https://ipb.parsian-bank.ir/account/polFundTransfer";
+        $polFundTransferData = [
+            "paymentId" => "",
+            "sourceAccountNumber" => $this->originalAccountNumber,
+            "destinationIban" => $formattedSheba,
+            "transferAmount" =>  $data['amount'],
+            "paymentType" => "DRPA",
+            "destinationIbanOwnerName" => $data['name'] . " " . $data['surname'],
+            "captcha" => $data['captcha'],
+            "uniqueTrackingCode" => $data['uniqueTrackingCode'],
+            "passType" =>"S",
+            "pass" => $otp
+        ];
+        $this->newLog(var_export($polFundTransferData,true),"polFundTransferData");
+        $this->http->setHeaders($header);
+        $polFundTransferResponse = $this->http->get($polFundTransferUrl, 'post', '', json_encode($polFundTransferData),'');
+        $this->http->setHeaders([]);
+        $polFundTransferHeader = $this->http->getResponseHeaders();
+        $this->newLog(var_export($polFundTransferResponse,true),"polFundTransferResponse");
+        $polFundTransfer = json_decode($polFundTransferResponse,true);
+        $this->newLog(var_export($polFundTransferHeader,true),"polFundTransferHeader");
+
+        if(array_key_exists('statusCode' , $polFundTransfer)){
+            if($polFundTransfer["statusCode"] == "ACCP"){
+                $this->newLog(var_export($polFundTransfer,true),"ACCPPolTransferAtFirstCurl");
+                return [
+                    'status' => 1,
+                    'peygiri' => $polFundTransfer['trackingCode'],
+                    'dest' => 'Successful: Received bank name: '.$polFundTransfer['receiverBankName']. " Transaction id: ".$polFundTransfer['transactionId'],
+                ];
+            }
+            if($polFundTransfer["statusCode"] == "PEND"){
+                $inquiryPolTransferUrl = "https://ipb.parsian-bank.ir/report/inquiryPolTransfer";
+                $inquiryPolTransferData = [
+                    "transactionId" => $polFundTransfer['transactionId']
+                ];
+                $this->http->setHeaders($header);
+                $inquiryPolTransferResponse = $this->http->get($inquiryPolTransferUrl, 'post', '', json_encode($inquiryPolTransferData),'');
+                $this->http->setHeaders([]);
+                $this->newLog(var_export($inquiryPolTransferResponse,true),"inquiryPolTransferResponse");
+
+                $inquiryPolTransfer = json_decode($inquiryPolTransferResponse,true);
+                sleep(5);
+                while ($inquiryPolTransfer['polEntries'][0]['status'] == "PEND") {
+                    sleep(5);
+                    $this->http->setHeaders($header);
+                    $inquiryPolTransferResponse = $this->http->get($inquiryPolTransferUrl, 'post', '', json_encode($inquiryPolTransferData), '');
+                    $this->http->setHeaders([]);
+                    $this->newLog(var_export($inquiryPolTransferResponse, true), "inquiryPolTransferResponse2222");
+                    $inquiryPolTransfer = json_decode($inquiryPolTransferResponse,true);
+                    if($inquiryPolTransfer['polEntries'][0]['status'] == "ACCP"){
+                        break;
+                    }
+                }
+                if($inquiryPolTransfer['polEntries'][0]['status'] == 'ACCP'){
+                    $this->newLog(var_export($inquiryPolTransfer,true),"ACCPPolTransfer");
+                    return [
+                        'status' => 1,
+                        'peygiri' => $inquiryPolTransfer['polEntries'][0]['referenceId'],
+                        'dest' => $inquiryPolTransfer['polEntries'][0]['statusDescription'],
+                    ];
+                }else{
+                    $this->newLog(var_export($inquiryPolTransfer,true),"UnknownErrorPolTransfer");
+                    return [
+                        'status' => 'unknown',
+                        'debug' => $inquiryPolTransfer."\n\n".$this->http->getVerboseLog(),
+                    ];
+                }
+            }
+
+        }
+        else if (array_key_exists('error' , $polFundTransfer)){
+            $this->newLog(var_export($polFundTransfer,true),"ErrorInAchFundTransfer");
+
+            // get headers for error ["exceptionType" => ""]
+            $exceptionType = urldecode($polFundTransferHeader["exceptionType"]) ?? null;
+            $errorMessage = $polFundTransfer["error"] . ': ' . $polFundTransfer["message"] . "--" . $exceptionType ?? null;
+            return [
+                'status' => 0,
+                'error' => var_export($errorMessage,true),
+            ];
+        }
+        else{
+            $this->newLog(var_export($polFundTransfer,true),"unknownErrorInAchFundTransfer");
+            return [
+                'status' => 'unknown',
+                'debug' => $polFundTransfer."\n\n".$this->http->getVerboseLog(),
+            ];
+        }
+    }
+
 }

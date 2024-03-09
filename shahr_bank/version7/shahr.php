@@ -36,7 +36,7 @@ class shahr extends banking
         $this->http->setCookieLocation($this->cookieFile);
         $this->http->setTimeout(50);
         $this->http->setVerbose(true);
-        $this->testingBankingId = 1;
+        $this->testingBankingId = 1985;
     }
 
     public function setProxy($config)
@@ -127,6 +127,13 @@ class shahr extends banking
         $invalidCaptcha = 'لطفا کد امنیتی را درست وارد نمایید.';
         if (strpos($sendSMSResponse['data'], $invalidCaptcha) !== false) {
             $this->newLog("Bad captcha reported !!", 'badCaptchaReported');
+            $api->reportBad();
+            return false;
+        }
+
+        $invalidPicture = "لطفا حروف عکس را وارد نمایید.";
+        if (strpos($sendSMSResponse['data'], $invalidPicture) !== false) {
+            $this->newLog("Bad picture reported !!", 'badPictureReported');
             $api->reportBad();
             return false;
         }
@@ -258,6 +265,9 @@ class shahr extends banking
 
     function getDataFromSigninPage(string $signinPage)
     {
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog("getDataFromSigninPage", 'getDataFromSigninPage');
+        }
         $loginData = [
             'username' => $this->username,
             'password' => $this->password,
@@ -279,9 +289,14 @@ class shahr extends banking
         $loginData['hiddenPass1'] = getInputTag($signinPage, $patternPass1) ?? 1;
         $loginData['hiddenPass2'] = getInputTag($signinPage, $patternPass2) ?? 2;
         $loginData['hiddenPass3'] = getInputTag($signinPage, $patternPass3) ?? 3;
-
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(var_export($loginData,true), 'loginDataInGetDataFromSigninPage');
+        }
         $captchaUrl = 'https://ebank.shahr-bank.ir/ebank/login/captcha.action?isSoundCaptcha=false&r='.rand(0,999999999);
         $captchaRawImage = $this->http->get($captchaUrl, 'get', '', '', '');
+        if ($this->banking_id == $this->testingBankingId) {
+            $this->newLog(var_export(strlen($captchaRawImage),true), 'lenCaptchaRawImage');
+        }
         $loginData['has_captcha'] = ($captchaRawImage != '') ? true : false;
         $loginData['needs_captcha'] = $loginData['has_captcha'];
         if ($loginData['has_captcha']) {
@@ -330,7 +345,7 @@ class shahr extends banking
     {
         if ($type == 1) { // for login
             foreach ($messages as $message) {
-                if ((strpos($message['message'], 'بانک شهر') !== false) || (strpos($message['message'], 'ورود') !== false)) {
+                if ((strpos($message['message'], 'بانک شهر') !== false) && (strpos($message['message'], 'ورود') !== false)) {
                     preg_match_all('!\d{6}!', $message['message'], $matches);
                     if (isset($matches[0][0])) {
                         return $matches[0][0];
@@ -339,7 +354,7 @@ class shahr extends banking
             }
         } else if ($type == 2) { // for paya transfer
             foreach ($messages as $message) {
-                if ((strpos($message['message'], 'بانک شهر') !== false) || (strpos($message['message'], 'پایا') !== false)) {
+                if ((strpos($message['message'], 'بانک شهر') !== false) && (strpos($message['message'], 'پایا') !== false)) {
                     preg_match_all('! \d{6}! ', $message['message'], $matches);
                     if (isset($matches[0][0])) {
                         return trim($matches[0][0]);

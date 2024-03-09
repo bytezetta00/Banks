@@ -165,7 +165,7 @@ class ayandeh extends banking{
     {
         if($type == 1){ // for login
             foreach($messages as $message) {
-                if((strpos($message['message'],'بانک آینده') !== false) || (strpos($message['message'],'ورود') !== false)) {
+                if((strpos($message['message'],'بانک آینده') !== false) && (strpos($message['message'],'ورود') !== false)) {
                     preg_match_all('!\d{5}!', $message['message'], $matches);
                     if(isset($matches[0][0])) {
                         return $matches[0][0];
@@ -175,7 +175,7 @@ class ayandeh extends banking{
         }
         else if($type == 2){ // for paya transfer
             foreach($messages as $message) {
-                if((strpos($message['message'],'بانک آینده') !== false) || (strpos($message['message'],'پایا') !== false)) {
+                if((strpos($message['message'],'بانک آینده') !== false) && (strpos($message['message'],'پایا') !== false)) {
                     preg_match_all('!\d{5}!', $message['message'], $matches);
                     if(isset($matches[0][0])) {
                         return $matches[0][0];

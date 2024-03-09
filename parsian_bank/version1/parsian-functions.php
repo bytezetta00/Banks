@@ -193,3 +193,19 @@ function notNeedLogout(string $html,$notStrict = true)
         return $notStrict;
     }
 }
+
+function setPayaFormatForSheba($sheba)
+{
+    if (strlen($sheba) !== 26)
+        return false;
+
+    $shebaArray = str_split($sheba);
+    $formattedSheba = [];
+    foreach ($shebaArray as $index => $char) {
+        $formattedSheba[] = $char;
+
+        if (($index + 1) % 4 == 0 && $index > 1)
+            $formattedSheba[] = '-';
+    }
+    return implode($formattedSheba);
+}

@@ -1,5 +1,132 @@
 <?php
-number_format("470-01508868-601",);
+require_once "./global.php";
+//238327
+//238190
+//237219
+//45647
+// Define the characters to choose from
+$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+//abcdefghijklmnopqrstuvwxyz
+// Get the length of the characters string
+$length = strlen($characters);
+
+// Generate all possible combinations of three characters
+$possibilities = [];
+for ($i = 0; $i < $length; $i++) {
+    for ($j = 0; $j < $length; $j++) {
+        for ($k = 0; $k < $length; $k++) {
+            $combine = $characters[$i] . $characters[$j] . $characters[$k];
+            if(!in_array($combine,$possibilities) && !preg_match('!\d{3}!',$combine,$matches)){
+                $possibilities[] = $combine;
+            }
+            //echo $characters[$i] . $characters[$j] . $characters[$k] . PHP_EOL;
+        }
+    }
+}
+echo "count: " . count($possibilities);
+$url = "https://www.theswiftcodes.com/swift-code-checker/";
+$failedText = "These details don't look right";
+
+$branches = [];
+$counter = 0;
+foreach ($possibilities as $possibility){
+    $html = curlRequest($url,['swift' => "INJSAM22$possibility"]);
+    echo "$possibility : $counter".PHP_EOL;
+    $html = curlRequest($url,['swift' => "INJSAM22$i"]);
+    $counter ++;
+    if(!str_contains($html['body'],$failedText)){
+        $branches[] = $i;
+    }
+}
+var_dump($branches);
+die;
+for($i = 0;$i<2;$i++){
+    $i = str_pad($i, 3, '0', STR_PAD_LEFT);
+    if($i == 0){
+        $i = null;
+    }
+    $html = curlRequest($url,['swift' => "INJSAM22$i"]);
+    echo $i.PHP_EOL;
+    if(!str_contains($html['body'],$failedText)){
+        $branches[] = $i;
+    }
+}
+var_dump($branches);
+die;
+$text = "%D8%B1%D9%85%D8%B2 %D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84 %D9%88%D8%AC%D9%87 %D9%86%D8%A7%D8%AF%D8%B1%D8%B3%D8%AA %D8%A7%D8%B3%D8%AA.";
+$out = '%D8%A8%D8%B2%D8%B1%DA%AF-%D8%AA%D8%B1%DB%8C%D9%86-%D9%88%D8%B1%D8%B2%D8%B4%DA%A9%D8%A7%D8%B1%D8%A7%D9%86-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%D8%A7%D9%84%D9%85%D9%BE%DB%8C%DA%A9%D8%AA%D8%B5%D8%A7%D9%88%DB%8C%D8%B1';
+
+var_dump(utf8_encode($text));die;
+//
+//$text = '{"transactionDate":1708423937224,"trackingCode":"140212010543000000393","transactionId":"BKPA14021201134217223000000393","receiverBankName":"بانک شهر","statusDescription":"انتظار","statusCode":"PEND"}
+//';
+////$text = '{"timestamp":1708423318757,"status":417,"error":"Expectation Failed","message":"Error","path":"/account/polFundTransfer"}
+////';
+//$jsonText = json_decode($text,true);
+//if(array_key_exists('statusCode' , $jsonText)){
+//    if($jsonText["statusCode"] == "PEND"){
+//        var_dump($jsonText["statusCode"]);
+//        var_dump($jsonText["transactionId"]);
+//        var_dump($jsonText["transactionDate"]);
+//        //call next url
+//    }
+//    if($jsonText["statusCode"] == "ACCP"){
+//        var_dump($jsonText["statusCode"]);
+//        //return final result
+//    }
+//}
+//else if (array_key_exists('error' , $jsonText)){
+//    var_dump($jsonText["error"].': '.$jsonText["message"] ?? null);
+//}
+//else{
+//    var_dump('Unknown Error !!');
+//}
+//var_dump(array_key_exists('statusCode' , $jsonText));
+//die;
+$text = '{
+    "polEntries":
+		[{
+            "polEntry":
+				{
+                    "transactionStatus":"ChStatusCodesBean(description=موفق, id=1, stCode=ACCP)","count":null,"totalAmount":10000
+				},
+			"referenceId":"140212010543000000393",
+			"transactionId":"BKPA14021201134217223000000393",
+			"status":"ACCP",
+			"statusDescription":"موفق",
+			"confirmExpireDate":null,
+			"sourceDepositNumber":"47001508868601",
+			"destinationIban":"IR580610000004001003238852",
+			"purposeName":"کمک های نقدی و خیریه",
+			"registerDate":1708436537224,
+			"totalDebitAmount":10000
+		}],
+	"totalRecords":1
+	}';
+
+$jsonText = json_decode($text,true);
+var_dump($jsonText['polEntries'][0]['status']);
+die;
+$sheba = "IR440610000004001003196133";
+
+var_dump(setPayaFormatForSheba($sheba));
+//function setPayaFormatForSheba($sheba): bool|string
+//{
+//    if (strlen($sheba) !== 26)
+//        return false;
+//
+//    $shebaArray = str_split($sheba);
+//    $formattedSheba = [];
+//    foreach ($shebaArray as $index => $char) {
+//        $formattedSheba[] = $char;
+//
+//        if (($index + 1) % 4 == 0 && $index > 1)
+//            $formattedSheba[] = '-';
+//    }
+//    return implode($formattedSheba);
+//}
+
+die;
 $doc = new DOMDocument();
 $file = fopen('responses/statementResponse.html', 'r');//paya/secondPage.html
 //$file = fopen('responses/getOpenTermAccountsResponse.html', 'r');
@@ -157,65 +284,72 @@ die;
 //    var_dump("Invalid Json In Balance.");
 //}
 //var_dump(json_last_error());die; //['allAccountList']
-// solution( num_buns , num_required )
-// len of array is num_buns
-// if num_buns == num_required for 0 to num_buns difference every item len of every item is 1
-// if num_required == 1 for 0 to num_buns same every item(0) len of every item is 1
-// count of numbers that we used = num_required <= (num_buns * X)/num_required <= 10
-//if num_buns % num_required != 0
-//(all - num_required) * num_required  2 * 3
-// num_required * X >= count of numbers that we used
-//[0,1,2,3,4,5],
-//[0,1,2,3,4,5],
-//[0,1,6,7,8,9],
-//[6,7,4,5,8,9],
-//[2,3,8,9,7,6],
-//[0,1,2],
-//[3,4,5],
-//[0,1,2],
-//[3,4,5],
-//[6,7,8],
-//
-//    (3/2) -> 3 -> 2
-//    (5/3) -> 10 -> 6
-//    (5/2) -> 10 -> 4
+
+function curlRequest(string $url, $data = NULL, $headers = [], $proxy = null, $proxyuserpwd = null, $cookieFile = null, $userPass = null)
+{
+    // echo "geting data from URL:$url";
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    // curl_setopt($ch, CURLOPT_TIMEOUT, 10); //timeout in seconds
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, $cookieFile);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookieFile);
+    // curl_setopt($ch, CURLOPT_ENCODING, 'identity');
+
+    $resHeaders = [];
+    // this function is called by curl for each header received
+    curl_setopt(
+        $ch,
+        CURLOPT_HEADERFUNCTION,
+        function ($curl, $header) use (&$resHeaders) {
+            $len = strlen($header);
+            $header = explode(':', $header, 2);
+            if (count($header) < 2) // ignore invalid headers
+                return $len;
+
+            $resHeaders[strtolower(trim($header[0]))][] = trim($header[1]);
+
+            return $len;
+        }
+    );
 
 
-// counts of any number = num_buns - (num_required - 1)
-// all the numbers should be in num_required rows and not (num_required - 1)
-// 5-(3-1)
-// num_required = 3 > count
-// counts of any number = 3
-//[
-//    [0,1,2,3,4,5],
-//    [0,1,2,6,7,8],
-//    [0,3,4,6,7,9],
-//    [1,3,5,6,8,9],
-//    [2,4,5,7,8,9],
-//]
-//    [0,1,2,3,4],
-//    [0,1,4],
-//    [0,2,4],
-//    [1,3],
-//    [2,3],
+    if ($userPass) {
+        curl_setopt($ch, CURLOPT_USERPWD, $userPass);
+    }
 
+    if (!empty($data)) {
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    } else {
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 
-// 5-(2-1)
-// num_required = 2 > count
-// counts of any number = 4
-// if (counts of any number * used currently) % num_buns == 0
-// count of every row is equal first one and last number finished
-// when number finished if count of empty space % counts of any number == 0 continue otherwise add one to first one
+    }
 
+    if (!empty($headers)) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
 
-// numbers that used in the matrix are finished, you know and
-// if (1 to 5) with (1 to 5)   .... with (1 to 5)
-// if (num_required - 1) == 1 check every row alone
-// for j in (num_required - 1):
-//     for i in mat
-//
-// find intermediates 
-// add from entrances to intermediates
-// add from intermediates to intermediates
-// add from intermediates to exits
-// add from entrances to exits
+    if (!empty($proxy)) {
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+    }
+
+    if (!empty($proxyuserpwd)) {
+        curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyuserpwd);
+    }
+
+    $response = curl_exec($ch);
+    if (curl_error($ch)) {
+        trigger_error('Curl Error:' . curl_error($ch));
+    }
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return [
+        "body" => $response,
+        "headers" => $resHeaders,
+        "code" => $code
+    ];
+}

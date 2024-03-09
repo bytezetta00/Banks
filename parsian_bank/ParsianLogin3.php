@@ -383,11 +383,11 @@ class ParsianLogin
         // POST
         // https://ipb.parsian-bank.ir/account/getWithdrawableAccounts/
         //{includeCurrency: "IRR", excludeCurrency: "", serviceCode: "ACH_NORMAL_TRANSFER"}
-
+        $formattedSheba = setPayaFormatForSheba($iban);
         $ibanInquiryByCentralBankUrl = "https://ipb.parsian-bank.ir/account/ibanInquiryByCentralBank";
         // {iban: "IR44-0610-0000-0400-1003-1961-33", paymentId: "", amount: "10000", captcha: ""}
         $ibanInquiryByCentralBankData = [
-            'iban' => $iban,
+            'iban' => $formattedSheba,
             'paymentId' => "",
             'amount' => $amount,
             'captcha' => ""
@@ -412,20 +412,37 @@ class ParsianLogin
             'Content-Type:application/json',
             'X-KL-ksospc-Ajax-Request:Ajax_Request'
         ]);
-        writeOnFile('responses/ibanInquiryByCentralBankResponse.html', $validateBalanceThresholdResponse["body"]);
+        writeOnFile('responses/validateBalanceThresholdResponse.html', $validateBalanceThresholdResponse["body"]);
+        $validateBalanceThreshold = json_decode($validateBalanceThresholdResponse["body"],true);
+
+        if($validateBalanceThreshold["underThreshold"] == true)
+        {
+            return [
+                'status' => 0,
+                'error' => 'مبلغ بیش از مبلغ تعیین شده سقف روزانه است یا موجودی کافی نمی باشد.',
+            ];
+        }
 
         $generateUniqueTrackingCodeUrl = "https://ipb.parsian-bank.ir/generateUniqueTrackingCode";
         $generateUniqueTrackingCodeData = [
             "transferType" => "AST",
         ];
+        $generateUniqueTrackingCodeResponse = $this->curlRequest($generateUniqueTrackingCodeUrl,json_encode($generateUniqueTrackingCodeData),[
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ]);
+        writeOnFile('responses/generateUniqueTrackingCodeResponse.html', $generateUniqueTrackingCodeResponse["body"]);
 
+        $generateUniqueTrackingCode = json_decode($generateUniqueTrackingCodeResponse["body"]);
+        $uniqueTrackingCode = $generateUniqueTrackingCode?->uniqueTrackingCode ?? null;
         $achFundTransferUrl = "https://ipb.parsian-bank.ir/account/achFundTransfer";
         $achFundTransferData = [
             "captcha" => "",
-            "destinationIban" => "",// "IR44-0610-0000-0400-1003-1961-33"
-            "destinationIbanOwnerName" => "", //"پريا فعله كري"
+            "destinationIban" => $formattedSheba,// "IR44-0610-0000-0400-1003-1961-33"
+            "destinationIbanOwnerName" => "$name $surname", //"پريا فعله كري"
             "email" => "",
-            "noteSender" => "",//"کمک"
+            "noteSender" => $desc,//"کمک"
             "pass" => "",
             "passType" => "S",
             "paymentId" => "",
@@ -433,9 +450,61 @@ class ParsianLogin
             "sourceAccountNumber" => $this->originalAccountNumber,//"470-01508868-601",
             "transferAmount" => $amount, //"10000"
             "transferDescription" => "",
-            "uniqueTrackingCode" => "", //"1707898571405"
+            "uniqueTrackingCode" => $uniqueTrackingCode, //"1707898571405"
         ];
 
+        $achFundTransferResponse = $this->curlRequest($achFundTransferUrl,json_encode($achFundTransferData),[
+            "Accept: */*",
+            'Content-Type:application/json',
+            'X-KL-ksospc-Ajax-Request:Ajax_Request'
+        ]);
+        writeOnFile('responses/achFundTransferResponse.html', $achFundTransferResponse["body"]);
+
+        $achFundTransfer = json_decode($achFundTransferResponse["body"],true);
+        if(array_key_exists('statusCode' , $achFundTransfer)){
+            if($achFundTransfer["statusCode"] == "ACCP"){
+                return [
+                    'status' => 1,
+                    'peygiri' => $achFundTransfer['trackingCode'],
+                    'dest' => 'Successful: Received bank name: '.$achFundTransfer['receiverBankName']. " Transaction id: ".$achFundTransfer['transactionId'],
+                ];
+            }
+            if($achFundTransfer["statusCode"] == "PEND"){
+                $inquiryPolTransferUrl = "https://ipb.parsian-bank.ir/report/inquiryPolTransfer";
+                $inquiryPolTransferData = [
+                    "transactionId" => $achFundTransfer['transactionId']
+                ];
+                $inquiryPolTransferResponse = $this->curlRequest($inquiryPolTransferUrl,json_encode($inquiryPolTransferData),[
+                    "Accept: */*",
+                    'Content-Type:application/json',
+                    'X-KL-ksospc-Ajax-Request:Ajax_Request'
+                ]);
+                writeOnFile('responses/inquiryPolTransferResponse.html', $inquiryPolTransferResponse["body"]);
+                $inquiryPolTransfer = json_decode($inquiryPolTransferResponse["body"],true);
+                if($inquiryPolTransfer['polEntries'][0]['status'] == 'ACCP'){
+                    return [
+                        'status' => 1,
+                        'peygiri' => $inquiryPolTransfer['referenceId'],
+                        'dest' => $inquiryPolTransfer['statusDescription'],
+                    ];
+                }else{
+                    return [
+                        'status' => 'unknown',
+                        'debug' => $inquiryPolTransfer."\n\n".$this->http->getVerboseLog(),
+                    ];
+                }
+            }
+
+        }
+        else if (array_key_exists('error' , $achFundTransfer)){
+            // get headers for error ["exceptionType" => ""]
+            $achFundTransferHeaders = $achFundTransferResponse['headers'];
+            $exceptionType = urldecode($achFundTransferHeaders["exceptionType"]) ?? null;
+            var_dump($achFundTransfer["error"] . ': ' . $achFundTransfer["message"] . "--" . $exceptionType ?? null);
+        }
+        else{
+            var_dump('Unknown Error !!');
+        }
 
     }
 }
